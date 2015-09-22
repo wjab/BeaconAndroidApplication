@@ -1,19 +1,39 @@
 package adapter.range;
 
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.kontakt.sdk.android.ble.device.BeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
+import com.kontakt.sdk.android.http.KontaktApiClient;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import adapter.viewholder.IBeaconItemViewHolder;
+import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
-public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> {
+public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> implements Response.Listener<JSONObject>, Response.ErrorListener{
+
+
+    JSONObject myObject;
+    Map<String, String> params;
+    private static final String TAG = "BeaconConfig";
+
+    private static final String host = "http://api.kontakt.io";
 
     public IBeaconRangeAdapter(final Context context) {
         super(context);
@@ -54,7 +74,38 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> {
         viewHolder.beaconUniqueIdTextView.setText(String.format("Beacon Unique Id: %s", beacon.getUniqueId()));
         viewHolder.proximityUUIDTextView.setText(String.format("Proximity UUID: %s", beacon.getProximityUUID().toString()));
 
+        getAPIResponse(beacon.getProximityUUID().toString());
+
+
+
         return convertView;
+    }
+
+    public void getAPIResponse(String UUID){
+
+        
+      ServiceController serviceController = new ServiceController();
+
+        params = new HashMap<String, String>();
+/*
+        params.put("id","f7826da6-4fa2-4e98-8024-bc5b71e0893e");
+        params.put("actionType", "BROWSER");
+        params.put("device", null);
+        params.put("proximity","NEAR");
+        params.put("contentLength","");
+        params.put("contentType","");
+        params.put("contentType","");
+        params.put("url","");
+        params.put("file","");*/
+
+        /*Ejemplo de uso con header custom*/
+        Map<String,String>header = new HashMap<String, String>();
+
+        header.put("Accept", "application/vnd.com.kontakt+json; version=6");
+        header.put("Api-Key", "ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc");
+        serviceController.jsonObjectRequest("https://api.kontakt.io/device?deviceType=beacon", Request.Method.GET, null, header, this, this);
+
+
     }
 
     @Override
@@ -72,4 +123,22 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> {
         return view;
     }
 
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.d("Response", error.toString());
+        // vista.setText(response.toString());
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
+
+        Log.d("Response", response.toString());
+        // vista.setText(response.toString());
+
+        JSONArray jsonArray;
+        JSONObject jsonObject;
+
+
+    }
 }
