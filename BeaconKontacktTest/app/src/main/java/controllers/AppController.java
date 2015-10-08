@@ -7,7 +7,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.kontakt.sdk.android.common.KontaktSDK;
+import com.kontakt.sdk.android.common.log.LogLevel;
+import com.kontakt.sdk.android.common.log.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
+import butterknife.ButterKnife;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BuildConfig;
 import utils.LruBitmapCache;
 
 /**
@@ -27,8 +33,21 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        initializeDependencies();
     }
+    private void initializeDependencies() {
+        if(BuildConfig.DEBUG) {
+            LeakCanary.install(this);
+        }
 
+        KontaktSDK.initialize(this)
+                .setDebugLoggingEnabled(BuildConfig.DEBUG)
+                .setLogLevelEnabled(LogLevel.DEBUG, true)
+                .setCrashlyticsLoggingEnabled(true);
+
+        Logger.setDebugLoggingEnabled(false);
+        ButterKnife.setDebug(BuildConfig.DEBUG);
+    }
     public static synchronized AppController getInstance() {
         return mInstance;
     }

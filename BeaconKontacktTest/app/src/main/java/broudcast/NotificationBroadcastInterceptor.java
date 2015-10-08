@@ -9,6 +9,7 @@ import android.content.Intent;
 import com.kontakt.sdk.android.common.Proximity;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
+import com.kontakt.sdk.android.http.KontaktApiClient;
 
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BackgroundScanActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;

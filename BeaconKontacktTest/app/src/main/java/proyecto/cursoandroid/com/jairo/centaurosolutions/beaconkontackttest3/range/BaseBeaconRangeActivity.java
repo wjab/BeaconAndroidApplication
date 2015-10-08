@@ -30,6 +30,7 @@ import com.kontakt.sdk.android.ble.filter.eddystone.URLFilter;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 import com.kontakt.sdk.android.ble.rssi.RssiCalculators;
 import com.kontakt.sdk.android.ble.util.BluetoothUtils;
+import com.kontakt.sdk.android.http.KontaktApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,8 +108,10 @@ public abstract class BaseBeaconRangeActivity extends BaseActivity implements Pr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.beacon_range_activity);
         ButterKnife.inject(this);
+
        // setUpActionBar(toolbar);
         //setUpActionBarTitle(getString(R.string.range_beacons));
 

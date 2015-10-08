@@ -18,6 +18,7 @@ import com.kontakt.sdk.android.common.model.Config;
 import com.kontakt.sdk.android.common.model.Profile;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.util.IBeaconPropertyValidator;
+import com.kontakt.sdk.android.http.KontaktApiClient;
 
 import java.util.UUID;
 
@@ -98,11 +99,13 @@ public class BeaconManagementActivity extends BaseActivity implements IBeaconCon
     private ProgressDialog progressDialog;
 
     private int animationDuration;
+    public static final KontaktApiClient client= new KontaktApiClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.beacon_activity);
+
         //ButterKnife.inject(this);
        // setUpActionBar(toolbar);
 

@@ -2,16 +2,25 @@ package adapter.range;
 
 import android.bluetooth.BluetoothClass;
 import android.content.Context;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.kontakt.sdk.android.ble.device.BeaconDevice;
+import com.kontakt.sdk.android.common.model.IAction;
+import com.kontakt.sdk.android.common.model.IDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
+import com.kontakt.sdk.android.common.util.SDKOptional;
+import com.kontakt.sdk.android.http.ETag;
+import com.kontakt.sdk.android.http.HttpResult;
 import com.kontakt.sdk.android.http.KontaktApiClient;
+import com.kontakt.sdk.android.http.exception.ClientException;
+import com.kontakt.sdk.android.http.interfaces.ResultApiCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,12 +40,28 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> impleme
 
     JSONObject myObject;
     Map<String, String> params;
+    Exception x;
+    String z;
+    KontaktApiClient client;
+    HttpResult<List<IAction>> action;
+
     private static final String TAG = "BeaconConfig";
 
     private static final String host = "http://api.kontakt.io";
 
+
     public IBeaconRangeAdapter(final Context context) {
         super(context);
+
+
+        try{
+
+            client= new KontaktApiClient();
+
+        }
+        catch (Exception ex){
+            x=ex;
+        }
     }
 
     @Override
@@ -55,7 +80,7 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> impleme
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
 
         convertView = getTheSameOrInflate(convertView, parent);
         final IBeaconItemViewHolder viewHolder = (IBeaconItemViewHolder) convertView.getTag();
@@ -74,16 +99,18 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> impleme
         viewHolder.beaconUniqueIdTextView.setText(String.format("Beacon Unique Id: %s", beacon.getUniqueId()));
         viewHolder.proximityUUIDTextView.setText(String.format("Proximity UUID: %s", beacon.getProximityUUID().toString()));
 
-        getAPIResponse(beacon.getProximityUUID().toString());
-
-
-
         return convertView;
     }
 
-    public void getAPIResponse(String UUID){
+    public void enableStrictMode()
+    {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
-        
+        StrictMode.setThreadPolicy(policy);
+    }
+
+    public void getAPIResponse(UUID UUID){
+
       ServiceController serviceController = new ServiceController();
 
         params = new HashMap<String, String>();
@@ -99,11 +126,15 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> impleme
         params.put("file","");*/
 
         /*Ejemplo de uso con header custom*/
-        Map<String,String>header = new HashMap<String, String>();
+        //Map<String,String>header = new HashMap<String, String>();
+        //header.put("Accept", "application/vnd.com.kontakt+json; version=6");
+        //header.put("Api-Key", "ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc");
+        //header.put("Content-Type", "application/x-www-form-urlencoded");
 
-        header.put("Accept", "application/vnd.com.kontakt+json; version=6");
-        header.put("Api-Key", "ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc");
-        serviceController.jsonObjectRequest("https://api.kontakt.io/device?deviceType=beacon", Request.Method.GET, null, header, this, this);
+        //http://panel.kontakt.io/action/delete/377e2eb1-ae64-4d20-b55b-7f9979a5eeea
+        //serviceController.jsonObjectRequest("https://api.kontakt.io/action/002fbe29-715a-4068-acbb-3d2374933411", Request.Method.POST, null, header, this, this);
+
+
 
 
     }
@@ -132,6 +163,8 @@ public class IBeaconRangeAdapter extends BaseRangeAdapter<IBeaconDevice> impleme
     @Override
     public void onResponse(JSONObject response) {
 
+
+       // x = response.toString();
 
         Log.d("Response", response.toString());
         // vista.setText(response.toString());

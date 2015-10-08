@@ -8,6 +8,8 @@ import com.kontakt.sdk.android.common.util.SDKPreconditions;
 import com.kontakt.sdk.android.http.KontaktApiClient;
 import com.kontakt.sdk.android.http.exception.ClientException;
 
+import java.util.UUID;
+
 public class SyncService extends IntentService {
 
     public static final String EXTRA_REQUEST_CODE = "extra_request_code";
@@ -28,6 +30,7 @@ public class SyncService extends IntentService {
     public void onCreate() {
         super.onCreate();
         kontaktApiClient = new KontaktApiClient();
+
     }
 
     @Override
