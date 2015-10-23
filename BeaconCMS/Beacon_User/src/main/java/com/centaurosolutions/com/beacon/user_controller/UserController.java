@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.centaurosolutions.com.beacon.user_repository.*;
+import com.centaurosolutions.com.beacon.user_repository.UserRepository;
 import com.centaurosolutions.com.beacon.user_model.*;
 
 @RestController
@@ -22,7 +22,9 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@RequestMapping(method = RequestMethod.POST)
+	//Esta vara es una picha. Me cago en github
+	
+	/*@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> userMap){
 		
 		User user = new User(
@@ -40,28 +42,31 @@ public class UserController {
 		
 		userRepository.save(user);
 		return response;
+	}*/
+	@RequestMapping(method = RequestMethod.POST)
+	public String createUser(@RequestBody Map<String, Object> userMap)
+	{		    
+		return "jojojo";
 	}
 	
-	  @RequestMapping(method = RequestMethod.GET, value="/{userId}")
-	  public User getUserDetails(@PathVariable("userId") String userId){
+	public User getUserDetails(@PathVariable("userId") String userId){
 	    return userRepository.findOne(userId);
-	  }
+	}
 	  
-	  @RequestMapping(method = RequestMethod.GET)
-	  public Map<String, Object> getAllUserDetails(){
-		  List<User> users = userRepository.findAll();
-		  Map<String, Object> response = new LinkedHashMap<String, Object>();
-		  response.put("Total de Usuarios", users.size());
-		  response.put("Users", users);
-		  return response;
-	  }
+	public Map<String, Object> getAllUserDetails(){
+		List<User> users = userRepository. findAll();
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		response.put("Total de Usuarios", users.size());
+		response.put("Users", users);
+		return response;
+	}
 	  
 	  
-	  @RequestMapping(method = RequestMethod.PUT, value="/{UserId}")
-	  public Map<String, Object> editUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
-	  {
-	    User user = new User(
-	    		userMap.get("user").toString(), 
+	@RequestMapping(method = RequestMethod.PUT, value="/{UserId}")
+	public Map<String, Object> editUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
+	{
+		User user = new User(
+				userMap.get("user").toString(), 
 	    		userMap.get("password").toString(),
 	    		(Boolean)userMap.get("enable"),
 	    		Integer.parseInt(userMap.get("category_id").toString()),
@@ -74,15 +79,15 @@ public class UserController {
 	    response.put("message", "Usuario actualizado correctamente");
 	    response.put("User", userRepository.save(user));
 	    return response;
-	  }
+	}
 	  
 	  
-	  @RequestMapping(method = RequestMethod.DELETE, value="/{userId}")
-	  public Map<String, String> deleteUser(@PathVariable("userId") String userId){
+	@RequestMapping(method = RequestMethod.DELETE, value="/{userId}")
+	public Map<String, String> deleteUser(@PathVariable("userId") String userId){
 	    userRepository.delete(userId);
 	    Map<String, String> response = new HashMap<String, String>();
 	    response.put("message", "Usuario eliminado correctamente");
 
 	    return response;
-	  }
+	}
 }
