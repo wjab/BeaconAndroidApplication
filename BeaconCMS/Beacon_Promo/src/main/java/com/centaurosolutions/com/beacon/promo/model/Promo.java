@@ -6,7 +6,7 @@ public class Promo {
 	
 
 	@Id
-	private String Id;
+	private String id;
 	private boolean enable;
 	private String profile_id;
 	private String code;
@@ -44,11 +44,11 @@ public class Promo {
 	}
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(String id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public boolean isEnable() {
