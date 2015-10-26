@@ -36,7 +36,7 @@ public class PromoController {
 		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString());
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Promoción creada correctamente");
-	    response.put("promo", promoModel);
+	    response.put("promo", promoModel); 
 		
 	    promoRepository.save(promoModel);
 		return response;
@@ -60,8 +60,8 @@ public class PromoController {
 	  @RequestMapping(method = RequestMethod.PUT, value="/{PromoId}")
 	  public Map<String, Object> editPromo(@PathVariable("PromoId") String PromoId,
 	      @RequestBody Map<String, Object> promoMap){
-		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("StartDate").toString()), DateFormatter(promoMap.get("EndDate").toString()),promoMap.get("Type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedby").toString());
-		promoModel.setId(PromoId);
+		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString());
+        promoModel.setId(PromoId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Promoción actualizada correctamente");
 	    response.put("Promo", promoRepository.save(promoModel));
