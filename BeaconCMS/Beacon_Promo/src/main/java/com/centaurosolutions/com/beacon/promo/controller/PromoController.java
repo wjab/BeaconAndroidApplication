@@ -32,9 +32,8 @@ public class PromoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createPromo(@RequestBody Map<String, Object> promoMap){
 		
-		
-		Date updatedDATE = DateFormatter(promoMap.get("EndDate").toString());
-		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("StartDate").toString()), DateFormatter(promoMap.get("EndDate").toString()),promoMap.get("Type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedby").toString());
+
+		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString());
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Promoción creada correctamente");
 	    response.put("promo", promoModel);
@@ -83,7 +82,7 @@ public class PromoController {
 		private Date DateFormatter(String pDate){
 			
 			Date finalDate = new Date();
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss.SSS", Locale.ENGLISH);
+			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
 			try {
 				finalDate = format.parse(pDate);
 			} catch (ParseException e) {
