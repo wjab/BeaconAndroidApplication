@@ -57,33 +57,30 @@ public class DeviceController {
 	
 	  @RequestMapping(method = RequestMethod.GET, value="/{DeviceId}")
 	  public Device getDeviceDetails(@PathVariable("DeviceId") String deviceId){
-	    return deviceRepository.findOne(deviceId);
+		  return deviceRepository.findOne(deviceId);
 	  }
 	  
-	  @RequestMapping(method = RequestMethod.GET)
-	  public Map<String, Object> getAllDeviceDetails(){
-		  List<Device> deviceModelList = deviceRepository.findAll();
-		  Map<String, Object> response = new LinkedHashMap<String, Object>();
-		  response.put("Total de Dispositivos", deviceModelList.size());
-		  response.put("Dispositivo", deviceModelList);
-		  return response;
-	  }
+	@RequestMapping(method = RequestMethod.GET)
+	public Map<String, Object> getAllDeviceDetails(){
+		List<Device> deviceModelList = deviceRepository.findAll();
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		response.put("Total de Dispositivos", deviceModelList.size());
+		response.put("Dispositivo", deviceModelList);
+		return response;
+	}
 	  
 	  
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.PUT, value="/{DeviceId}")
-	  public Map<String, Object> editDevice(@PathVariable("DeviceId") String DeviceId,
+	public Map<String, Object> editDevice(@PathVariable("DeviceId") String DeviceId,
 	      @RequestBody Map<String, Object> deviceMap){
 		  
 		ArrayList<Range> ranges = new ArrayList<Range>();
 		
-		if(deviceMap.get("ranges") != null){
-			
-			ranges = (ArrayList<Range>) deviceMap.get("ranges");
-			
+		if(deviceMap.get("ranges") != null)
+		{			
+			ranges = (ArrayList<Range>) deviceMap.get("ranges");			
 		}
-		
-		ranges = (ArrayList<Range>) deviceMap.get("ranges");
 		  
 		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString());    deviceModel.setId(DeviceId);
 		deviceModel.setId(DeviceId);
@@ -91,31 +88,32 @@ public class DeviceController {
 	    response.put("message", "Dispositivo actualizado correctamente");
 	    response.put("Dispositivo", deviceRepository.save(deviceModel));
 	    return response;
-	  }
+	}
 	  
 	  
-	  @RequestMapping(method = RequestMethod.DELETE, value="/{DeviceId}")
-	  public Map<String, String> deleteDevice(@PathVariable("DeviceId") String deviceId){
+	@RequestMapping(method = RequestMethod.DELETE, value="/{DeviceId}")
+	public Map<String, String> deleteDevice(@PathVariable("DeviceId") String deviceId)
+	{
 	    deviceRepository.delete(deviceId);
 	    Map<String, String> response = new HashMap<String, String>();
 	    response.put("message", "Dispositivo eliminado correctamente");
 
 	    return response;
-	  }
+	}
 	
 	  
-		private Date DateFormatter(String pDate){
+	private Date DateFormatter(String pDate){
 			
-			Date finalDate = new Date();
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
-			try {
-				finalDate = format.parse(pDate);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return finalDate;		
+		Date finalDate = new Date();
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
+		try {
+			finalDate = format.parse(pDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+			
+		return finalDate;		
+	}
 
 }

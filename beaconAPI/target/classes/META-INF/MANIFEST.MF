@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: beaconAPI
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Eduardo
+Built-By: Administrador
 Implementation-Vendor-Id: com.centaurosolutions
 Build-Jdk: 1.8.0_60
 Created-By: Maven Integration for Eclipse
