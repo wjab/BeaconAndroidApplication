@@ -1,4 +1,4 @@
-package com.centaurosolutions.com.beacon.user_model;
+package com.centaurosolutions.com.beacon.user.model;
 
 import org.springframework.data.annotation.Id;
 

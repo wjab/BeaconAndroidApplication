@@ -1,4 +1,4 @@
-package com.centaurosolutions.com.beacon.user_controller;
+package com.centaurosolutions.com.beacon.user.controller;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.centaurosolutions.com.beacon.user_repository.UserRepository;
-import com.centaurosolutions.com.beacon.user_model.*;
+import com.centaurosolutions.com.beacon.user.model.*;
+import com.centaurosolutions.com.beacon.user.repository.UserRepository;
 
 @RestController
 @RequestMapping("/user")
@@ -22,9 +22,7 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	//Esta vara es una picha. Me cago en github
-	
-	/*@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> userMap){
 		
 		User user = new User(
@@ -42,17 +40,14 @@ public class UserController {
 		
 		userRepository.save(user);
 		return response;
-	}*/
-	@RequestMapping(method = RequestMethod.POST)
-	public String createUser(@RequestBody Map<String, Object> userMap)
-	{		    
-		return "jojojo";
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value="/{userId}")
 	public User getUserDetails(@PathVariable("userId") String userId){
 	    return userRepository.findOne(userId);
 	}
 	  
+	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> getAllUserDetails(){
 		List<User> users = userRepository. findAll();
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
