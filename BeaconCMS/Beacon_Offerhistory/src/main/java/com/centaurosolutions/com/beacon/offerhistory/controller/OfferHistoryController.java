@@ -71,8 +71,8 @@ public class OfferHistoryController {
 	}
 	  
 	  
-	@RequestMapping(method = RequestMethod.DELETE, value="/{DeviceId}")
-	public Map<String, String> deleteDevice(@PathVariable("DeviceId") String offerhistoryId)
+	@RequestMapping(method = RequestMethod.DELETE, value="/{offerId}")
+	public Map<String, String> deleteDevice(@PathVariable("offerId") String offerhistoryId)
 	{
 	    offerhistoryRepository.delete(offerhistoryId);
 	    Map<String, String> response = new HashMap<String, String>();
