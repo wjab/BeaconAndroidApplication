@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: Beacon_Visitorhistory
 Implementation-Version: 0.0.1-Visitorhistory
-Built-By: Eduardo
+Built-By: Administrador
 Implementation-Vendor-Id: com.centaurosolutions.com.beacon.visitorhist
  ory
 Build-Jdk: 1.8.0_60

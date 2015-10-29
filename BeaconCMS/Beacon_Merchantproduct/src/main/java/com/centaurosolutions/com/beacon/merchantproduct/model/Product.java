@@ -2,11 +2,8 @@ package com.centaurosolutions.com.beacon.merchantproduct.model;
 
 import java.util.ArrayList;
 
-import org.springframework.data.annotation.Id;
-
 public class Product 
 {
-	@Id
 	private String productId;
 	private String productName;
 	private float price;

@@ -31,7 +31,7 @@ public class MerchantProfileController {
 	@Autowired
 	private MerchantProfileRepository merchantProfileRepository;
 	
-
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createMerchantProfile(@RequestBody Map<String, Object> merchantProfileMap){
 		
@@ -71,7 +71,7 @@ public class MerchantProfileController {
 		  return response;
 	  }
 	  
-	  
+	  @SuppressWarnings("unchecked")
 	  @RequestMapping(method = RequestMethod.PUT, value="/{MerchantProfileId}")
 	  public Map<String, Object> editMerchantProfile(@PathVariable("MerchantProfileId") String MerchantProfileId,
 	      @RequestBody Map<String, Object> merchantProfileMap){

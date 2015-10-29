@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 public class MerchantProduct 
 {
 	@Id
+	private String id;
 	private String shopZoneId;
 	private String merchantId;
 	private ArrayList<Product> productList;
@@ -15,6 +16,7 @@ public class MerchantProduct
 	
 	/**
 	 * Constructor
+	 * @param id
 	 * @param merchantid
 	 * @param shopzoneid
 	 * @param productlist
@@ -24,6 +26,22 @@ public class MerchantProduct
 		this.merchantId = merchantid;
 		this.shopZoneId = shopzoneid;
 		this.productList = productlist;
+	}
+	
+	/**
+	 * @return id
+	 */
+	public String getId()
+	{
+		return this.id;
+	}
+	
+	/**
+	 *  @param id
+	 */
+	public void setId(String id)
+	{
+		this.id = id;
 	}
 	
 	/**

@@ -17,7 +17,7 @@ import com.centaurosolutions.com.beacon.merchantproduct.model.Product;
 import com.centaurosolutions.com.beacon.merchantproduct.repository.MerchantProductRepository;
 
 @RestController
-@RequestMapping("MerchantProduct")
+@RequestMapping("/merchantproduct")
 public class MerchantProductController 
 {
 	@Autowired
@@ -29,12 +29,12 @@ public class MerchantProductController
 		List<MerchantProduct> merchantProductModelList = merchantProductRepository.findAll();
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		response.put("Total de Productos del Negocio", merchantProductModelList.size());
-		response.put("Dispositivo", merchantProductModelList);
+		response.put("MerchantProduct", merchantProductModelList);
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "{/{MerchantProductId}")
-	public MerchantProduct GetMerchantProductsById(@PathVariable("MerchantProductId") String merchantProductId)
+	@RequestMapping(method = RequestMethod.GET, value = "{/{merchantproductid}")
+	public MerchantProduct GetMerchantProductsById(@PathVariable("merchantproductid") String merchantProductId)
 	{
 		return merchantProductRepository.findOne(merchantProductId);
 	}
@@ -45,9 +45,9 @@ public class MerchantProductController
 	{
 		ArrayList<Product> productList = new ArrayList<Product>();
 		
-		if(merchantProductMap.get("productList") != null)
+		if(merchantProductMap.get("productlist") != null)
 		{			
-			productList = (ArrayList<Product>) merchantProductMap.get("productList");			
+			productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
 		}
 
 		MerchantProduct MerchantProductModel = new MerchantProduct(
@@ -64,14 +64,14 @@ public class MerchantProductController
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.PUT, value = "/{merchantProductId}")
-	public Map<String, Object> UpdateMerchantProduct(@PathVariable ("merchantProductId")String merchantProductId ,@RequestBody Map<String, Object> merchantProductMap )
+	@RequestMapping(method = RequestMethod.PUT, value = "/{merchantproductid}")
+	public Map<String, Object> UpdateMerchantProduct(@PathVariable ("merchantproductid")String merchantProductId ,@RequestBody Map<String, Object> merchantProductMap )
 	{
 		ArrayList<Product> productList = new ArrayList<Product>();
 		
-		if(merchantProductMap.get("productList") != null)
+		if(merchantProductMap.get("productlist") != null)
 		{			
-			productList = (ArrayList<Product>) merchantProductMap.get("productList");			
+			productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
 		}
 
 		MerchantProduct MerchantProductModel = new MerchantProduct(
@@ -87,8 +87,8 @@ public class MerchantProductController
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value="/{merchantProductId}")
-	public Map<String, String> deleteMerchantProductId(@PathVariable("merchantProductId") String merchantProductId){
+	@RequestMapping(method = RequestMethod.DELETE, value="/{merchantproductid}")
+	public Map<String, String> deleteMerchantProductId(@PathVariable("merchantproductid") String merchantProductId){
 		merchantProductRepository.delete(merchantProductId);
 	    Map<String, String> response = new HashMap<String, String>();
 	    response.put("message", "MerchantProductId eliminado correctamente");
