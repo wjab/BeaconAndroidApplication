@@ -81,4 +81,13 @@
     <string name="range_all_beacons">Range all types</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_activity__principal">Activity Principal</string>
+    <string name="title_activity_tab_promociones">TabPromocionesActivity</string>
+    <string name="title_activity_elemento_lista_promo">ElementoListaPromoActivity</string>
+    <string name="promo_name">Nombre Promo</string>
+    <string name="promo_description">Descripción corta de la promoción para informar al cliente de dicha promo, bla bla bla bla</string>
+    <string name="promo_points">75</string>
+    <string name="promo_text">pts</string>
+    <string name="title_activity_promo_detail">PromoDetailActivity</string>
+
 </resources>

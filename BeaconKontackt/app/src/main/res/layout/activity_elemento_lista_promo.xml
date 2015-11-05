@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    tools:context="centaurosolutions.com.futbalon.ElementoListaPartidoActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:id="@+id/cuerpolista"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitStart"
+            android:background="@null"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/Imagen_Promo"
+            android:src="@drawable/promo"/>
+        <TextView
+            android:text="@string/promo_name"
+            android:layout_toRightOf="@+id/Imagen_Promo"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/green_title"
+            android:layout_width="fill_parent"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Titulo_Promo"/>
+        <TextView
+            android:text="@string/promo_description"
+            android:layout_toRightOf="@+id/Imagen_Promo"
+            android:layout_below="@+id/Titulo_Promo"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:lines="3"
+            android:ellipsize="end"
+            android:singleLine="false"
+            android:layout_marginRight="10dp"
+            android:textStyle="normal"
+            android:textColor="@color/grey_text"
+            android:layout_width="fill_parent"
+            android:gravity="center_vertical|left"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Descripcion_Promo"/>
+        <TextView
+            android:text="@string/promo_points"
+            android:layout_toRightOf="@+id/Imagen_Promo"
+            android:layout_below="@+id/Descripcion_Promo"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="15dp"
+            android:textStyle="normal"
+            android:layout_width="fill_parent"
+            android:textColor="@color/green_title"
+            android:gravity="center_vertical|right"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/Puntos_promo"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
+

@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#000000</color>
     <color name="grey">#A3A3A3</color>
+    <color name="green_title">#04B404</color>
+    <color name="grey_text">#424242</color>
+    <color name="unselectedTab">#1C1C1C</color>
+    <color name="selectedTab">#6E6E6E</color>
+    <color name="white">#ffffff</color>
+    <color name="Black">#000000</color>
+    <color name="LightGreen">#a3bd31</color>
+    <color name="YellowGreen">#a6cc01</color>
 </resources>
