@@ -1,8 +1,15 @@
 package com.centaurosolutions.com.beacon.user.controller;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +34,12 @@ public class UserController {
 		
 		User user = new User(
 				userMap.get("user").toString(), 
-				userMap.get("password").toString(),
+	    		setEncryptedPassword(userMap.get("password").toString()),
 				(Boolean)userMap.get("enable"),
 				Integer.parseInt(userMap.get("category_id").toString()),
 				Integer.parseInt(userMap.get("total_gift_points").toString()),
-				userMap.get("creationDate").toString(),
-				userMap.get("modifiedDate").toString());
+	    		DateFormatter(userMap.get("creationDate").toString()),
+	    		DateFormatter(userMap.get("modifiedDate").toString()));
 		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Usuario creado correctamente");
@@ -42,10 +49,18 @@ public class UserController {
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value="/{userId}")
-	public User getUserDetails(@PathVariable("userId") String userId){
+	@RequestMapping(method = RequestMethod.GET, value="/id/{userId}")
+	public User getUserById(@PathVariable("userId") String userId){
+
 	    return userRepository.findOne(userId);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value="/{username}")
+	public User getUserByNameDetails(@PathVariable("username") String username){
+
+	    return userRepository.findByUser(username);
+	}
+	  
 	  
 	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> getAllUserDetails(){
@@ -62,12 +77,12 @@ public class UserController {
 	{
 		User user = new User(
 				userMap.get("user").toString(), 
-	    		userMap.get("password").toString(),
+	    		setEncryptedPassword(userMap.get("password").toString()),
 	    		(Boolean)userMap.get("enable"),
 	    		Integer.parseInt(userMap.get("category_id").toString()),
 	    		Integer.parseInt(userMap.get("total_gift_points").toString()),
-	    		userMap.get("creationDate").toString(),
-	    		userMap.get("modifiedDate").toString());
+	    		DateFormatter(userMap.get("creationDate").toString()),
+	    		DateFormatter(userMap.get("modifiedDate").toString()));
 	    
 	    user.setId(UserId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -84,5 +99,41 @@ public class UserController {
 	    response.put("message", "Usuario eliminado correctamente");
 
 	    return response;
+	}
+	
+	private Date DateFormatter(String pDate){
+		
+		Date finalDate = new Date();
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
+		try {
+			finalDate = format.parse(pDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return finalDate;		
+	}
+
+	private String setEncryptedPassword(String password){
+
+		MessageDigest md;
+		StringBuffer sb = new StringBuffer();
+		
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes());
+			byte[] digest = md.digest();
+
+			for (byte b : digest) {
+				sb.append(String.format("%02x", b & 0xff));
+			}
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sb.toString();
+
 	}
 }
