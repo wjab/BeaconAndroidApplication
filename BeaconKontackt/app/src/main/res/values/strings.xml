@@ -89,5 +89,7 @@
     <string name="promo_points">75</string>
     <string name="promo_text">pts</string>
     <string name="title_activity_promo_detail">PromoDetailActivity</string>
+    <string name="title_activity_main_login">MainLoginActivity</string>
+    <string name="title_activity_login_activity_main">LoginActivityMain</string>
 
 </resources>

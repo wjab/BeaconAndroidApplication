@@ -13,10 +13,16 @@ import android.widget.TextView;
 
 public class Activity_Principal extends TabActivity implements TabHost.OnTabChangeListener {
     TabHost tabHost;
+    TextView totalPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__principal);
+
+        totalPoints = (TextView)findViewById(R.id.totalPoints);
+        Intent intent2 = getIntent();
+        totalPoints.setText("Puntos canjeables: "+String.valueOf(intent2.getIntExtra("totalPoints",0)));
+
         // Get TabHost Refference
         tabHost = getTabHost();
 

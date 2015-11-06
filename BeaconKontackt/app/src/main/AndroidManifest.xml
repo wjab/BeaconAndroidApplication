@@ -52,11 +52,7 @@
         <activity
             android:name=".Activity_Principal"
             android:label="@string/title_activity_activity__principal" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TabPromocionesActivity"
@@ -69,6 +65,13 @@
         <activity
             android:name=".PromoDetailActivity"
             android:label="@string/title_activity_promo_detail" >
+        </activity>
+        <activity android:name=".LoginMainActivity"  android:label="BeaconApp" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
