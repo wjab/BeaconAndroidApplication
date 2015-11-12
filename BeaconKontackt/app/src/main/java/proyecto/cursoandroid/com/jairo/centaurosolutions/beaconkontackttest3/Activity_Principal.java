@@ -11,13 +11,22 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import service.BackgroundScanService;
+
 public class Activity_Principal extends TabActivity implements TabHost.OnTabChangeListener {
     TabHost tabHost;
     TextView totalPoints;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__principal);
+
+
+        Intent intentService = new Intent(this, BackgroundScanService.class);
+        startService(intentService);
 
         totalPoints = (TextView)findViewById(R.id.totalPoints);
         Intent intent2 = getIntent();

@@ -9,6 +9,8 @@ import android.content.res.Configuration;
 import android.view.Surface;
 import android.widget.Toast;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public final class Utils {
@@ -19,6 +21,28 @@ public final class Utils {
         for (final int notificationId : notificationIdList) {
             notificationManager.cancel(notificationId);
         }
+    }
+
+    public static String setEncryptedText(String text){
+
+        MessageDigest md;
+        StringBuffer sb = new StringBuffer();
+
+        try {
+            md = MessageDigest.getInstance("MD5");
+            md.update(text.getBytes());
+            byte[] digest = md.digest();
+
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+
     }
 
     public static void setOrientationChangeEnabled(final boolean state, final Activity activity) {

@@ -48,7 +48,7 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
                 .setContentTitle(context.getString(R.string.beacon_appeared, deviceName))
                 .setSmallIcon(R.drawable.beacon)
                 .setStyle(new Notification.BigTextStyle().bigText(context.getString(R.string.appeared_beacon_info, deviceName,
-                        proximityUUID,
+                        beaconDevice.getUniqueId(),
                         major,
                         minor,
                         distance,

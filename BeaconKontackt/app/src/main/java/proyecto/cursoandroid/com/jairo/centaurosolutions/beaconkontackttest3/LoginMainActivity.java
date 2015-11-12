@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import utils.Utils;
 
 import controllers.ServiceController;
 
@@ -113,13 +115,14 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
         try
         {
 
-            String requestPassword = setEncryptedPassword(password.getText().toString());
+            String requestPassword = Utils.setEncryptedText(password.getText().toString());
 
             if(response.getString("password").equals(requestPassword) ){
 
                 if(response.getBoolean("enable")){
-                    Intent intent = new Intent(getApplicationContext(),Activity_Principal.class);
-                    intent.putExtra("totalPoints",response.getInt("total_gift_points"));
+                    Intent intent = new Intent(getApplicationContext(),BackgroundScanActivity.class);
+                    //Intent intent = new Intent(getApplicationContext(),Activity_Principal.class);
+                    //intent.putExtra("totalPoints",response.getInt("total_gift_points"));
                     startActivity(intent);
                 }
                 else{
@@ -147,27 +150,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
     }
 
 
-    private String setEncryptedPassword(String password){
 
-        MessageDigest md;
-        StringBuffer sb = new StringBuffer();
-
-        try {
-            md = MessageDigest.getInstance("MD5");
-            md.update(password.getBytes());
-            byte[] digest = md.digest();
-
-            for (byte b : digest) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return sb.toString();
-
-    }
 
 
 }
