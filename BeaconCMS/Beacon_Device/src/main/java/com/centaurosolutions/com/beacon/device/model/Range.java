@@ -3,7 +3,6 @@
  */
 package com.centaurosolutions.com.beacon.device.model;
 
-import java.util.ArrayList;
 
 /**
  * @author Eduardo
@@ -12,12 +11,10 @@ import java.util.ArrayList;
 public class Range {
 	
 
-
 	private String type;
 	private String message;
 	private String messageType;
-	private int notificationFrequency;
-	private int notificationPeriodicity;
+	private String promoID;
 
 
 	/**
@@ -27,19 +24,31 @@ public class Range {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Range(String type, String message, String messageType, int notificationFrequency,
-			int notificationPeriodicity) {
+	public Range(String type, String message, String messageType, String promoID) {
 		super();
 		this.type = type;
 		this.message = message;
 		this.messageType = messageType;
-		this.notificationFrequency = notificationFrequency;
-		this.notificationPeriodicity = notificationPeriodicity;
+		this.promoID = promoID;
 	}
 
 	
 	
 	
+	/**
+	 * @return the promoID
+	 */
+	public String getPromoID() {
+		return promoID;
+	}
+
+	/**
+	 * @param promoID the promoID to set
+	 */
+	public void setPromoID(String promoID) {
+		this.promoID = promoID;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -64,19 +73,5 @@ public class Range {
 		this.messageType = messageType;
 	}
 
-	public int getNotificationFrequency() {
-		return notificationFrequency;
-	}
 
-	public void setNotificationFrequency(int notificationFrequency) {
-		this.notificationFrequency = notificationFrequency;
-	}
-
-	public int getNotificationPeriodicity() {
-		return notificationPeriodicity;
-	}
-
-	public void setNotificationPeriodicity(int notificationPeriodicity) {
-		this.notificationPeriodicity = notificationPeriodicity;
-	}
 }

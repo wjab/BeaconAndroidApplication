@@ -14,18 +14,25 @@ public class Device {
 	private Date creationDate;
 	private Date modifiedDate;
 	private String updatedBy;
+	private String proximityUUID;
+	private String uniqueID;
+	private String MasterPassword;
+	private String DevicePassword;
 	
+
+
 	/**
-	 * @param id
 	 * @param ranges
 	 * @param enable
 	 * @param txPower
 	 * @param creationDate
 	 * @param modifiedDate
 	 * @param updatedBy
+	 * @param proximityUUID
+	 * @param uniqueID
 	 */
-	public Device( ArrayList<Range> ranges, boolean enable, int txPower, Date creationDate,
-			Date modifiedDate, String updatedBy) {
+	public Device(ArrayList<Range> ranges, boolean enable, int txPower, Date creationDate, Date modifiedDate,
+			String updatedBy, String proximityUUID, String uniqueID, String MasterPassword,String DevicePassword) {
 		super();
 		this.ranges = ranges;
 		this.enable = enable;
@@ -33,10 +40,94 @@ public class Device {
 		this.creationDate = creationDate;
 		this.modifiedDate = modifiedDate;
 		this.updatedBy = updatedBy;
+		this.proximityUUID = proximityUUID;
+		this.uniqueID = uniqueID;
+		this.DevicePassword = DevicePassword;
+		this.MasterPassword = MasterPassword;
 	}
-	
+
+
+
+
 	public Device(){
 	}
+	
+	/**
+	 * @return the masterPassword
+	 */
+	public String getMasterPassword() {
+		return MasterPassword;
+	}
+
+	/**
+	 * @param masterPassword the masterPassword to set
+	 */
+	public void setMasterPassword(String masterPassword) {
+		MasterPassword = masterPassword;
+	}
+
+	/**
+	 * @return the devicePassword
+	 */
+	public String getDevicePassword() {
+		return DevicePassword;
+	}
+
+
+	/**
+	 * @param devicePassword the devicePassword to set
+	 */
+	public void setDevicePassword(String devicePassword) {
+		DevicePassword = devicePassword;
+	}
+
+
+
+
+	/**
+	 * @return the proximityUUID
+	 */
+	public String getProximityUUID() {
+		return proximityUUID;
+	}
+
+
+
+	/**
+	 * @param proximityUUID the proximityUUID to set
+	 */
+	public void setProximityUUID(String proximityUUID) {
+		this.proximityUUID = proximityUUID;
+	}
+
+
+
+	/**
+	 * @return the uniqueID
+	 */
+	public String getUniqueID() {
+		return uniqueID;
+	}
+
+
+
+	/**
+	 * @param uniqueID the uniqueID to set
+	 */
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+
+
+
+	/**
+	 * @param creationDate the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+
 
 	/**
 	 * @return the id
@@ -69,7 +160,7 @@ public class Device {
 	/**
 	 * @return the enable
 	 */
-	public boolean isEnable() {
+	public boolean getEnable() {
 		return enable;
 	}
 

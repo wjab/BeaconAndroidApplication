@@ -46,7 +46,7 @@ public class DeviceController {
 			
 		}
 
-		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString());    
+		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString(),deviceMap.get("proximityUUID").toString(), deviceMap.get("uniqueID").toString(), deviceMap.get("masterPassword").toString(), deviceMap.get("devicePassword").toString());    
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Dispositivo creado correctamente");
 	    response.put("device", deviceModel); 
@@ -58,6 +58,11 @@ public class DeviceController {
 	  @RequestMapping(method = RequestMethod.GET, value="/{DeviceId}")
 	  public Device getDeviceDetails(@PathVariable("DeviceId") String deviceId){
 		  return deviceRepository.findOne(deviceId);
+	  }
+	  
+	  @RequestMapping(method = RequestMethod.GET, value="/UID/{DeviceId}")
+	  public Device getDeviceDetailsByUniqueId(@PathVariable("DeviceId") String deviceId){
+		  return deviceRepository.findByUniqueID(deviceId);
 	  }
 	  
 	@RequestMapping(method = RequestMethod.GET)
@@ -82,7 +87,7 @@ public class DeviceController {
 			ranges = (ArrayList<Range>) deviceMap.get("ranges");			
 		}
 		  
-		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString());    deviceModel.setId(DeviceId);
+		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString(),deviceMap.get("proximityUUID").toString(), deviceMap.get("uniqueID").toString(), deviceMap.get("masterPassword").toString(), deviceMap.get("devicePassword").toString());
 		deviceModel.setId(DeviceId);
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Dispositivo actualizado correctamente");

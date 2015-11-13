@@ -6,4 +6,5 @@ import com.centaurosolutions.com.beacon.device.model.Device;
 
 public  interface DeviceRepository extends MongoRepository<Device, String> {
 
+	Device findByUniqueID(String uniqueID);
 }
