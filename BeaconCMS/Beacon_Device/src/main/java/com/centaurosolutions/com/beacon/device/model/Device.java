@@ -46,39 +46,150 @@ public class Device {
 		this.MasterPassword = MasterPassword;
 	}
 
-
-
-
-	public Device(){
-	}
 	
-	/**
-	 * @return the masterPassword
-	 */
-	public String getMasterPassword() {
-		return MasterPassword;
-	}
-
-	/**
-	 * @param masterPassword the masterPassword to set
-	 */
-	public void setMasterPassword(String masterPassword) {
-		MasterPassword = masterPassword;
-	}
-
-	/**
-	 * @return the devicePassword
-	 */
-	public String getDevicePassword() {
-		return DevicePassword;
+	public Device(){
+	
+		
 	}
 
 
+
+
 	/**
-	 * @param devicePassword the devicePassword to set
+	 * @return the id
 	 */
-	public void setDevicePassword(String devicePassword) {
-		DevicePassword = devicePassword;
+	public String getId() {
+		return id;
+	}
+
+
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+
+
+	/**
+	 * @return the ranges
+	 */
+	public ArrayList<Range> getRanges() {
+		return ranges;
+	}
+
+
+
+
+	/**
+	 * @param ranges the ranges to set
+	 */
+	public void setRanges(ArrayList<Range> ranges) {
+		this.ranges = ranges;
+	}
+
+
+
+
+	/**
+	 * @return the enable
+	 */
+	public boolean isEnable() {
+		return enable;
+	}
+
+
+
+
+	/**
+	 * @param enable the enable to set
+	 */
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+
+
+
+	/**
+	 * @return the txPower
+	 */
+	public int getTxPower() {
+		return txPower;
+	}
+
+
+
+
+	/**
+	 * @param txPower the txPower to set
+	 */
+	public void setTxPower(int txPower) {
+		this.txPower = txPower;
+	}
+
+
+
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+
+
+
+	/**
+	 * @param creationDate the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+
+
+
+	/**
+	 * @return the modifiedDate
+	 */
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+
+
+
+	/**
+	 * @param modifiedDate the modifiedDate to set
+	 */
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+
+
+
+	/**
+	 * @return the updatedBy
+	 */
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+
+
+
+	/**
+	 * @param updatedBy the updatedBy to set
+	 */
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 
@@ -93,12 +204,14 @@ public class Device {
 
 
 
+
 	/**
 	 * @param proximityUUID the proximityUUID to set
 	 */
 	public void setProximityUUID(String proximityUUID) {
 		this.proximityUUID = proximityUUID;
 	}
+
 
 
 
@@ -111,6 +224,7 @@ public class Device {
 
 
 
+
 	/**
 	 * @param uniqueID the uniqueID to set
 	 */
@@ -120,113 +234,50 @@ public class Device {
 
 
 
+
 	/**
-	 * @param creationDate the creationDate to set
+	 * @return the masterPassword
 	 */
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public String getMasterPassword() {
+		return MasterPassword;
 	}
 
 
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
 
 	/**
-	 * @param id the id to set
+	 * @param masterPassword the masterPassword to set
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setMasterPassword(String masterPassword) {
+		MasterPassword = masterPassword;
 	}
 
-	/**
-	 * @return the ranges
-	 */
-	public ArrayList<Range> getRanges() {
-		return ranges;
-	}
+
+
 
 	/**
-	 * @param ranges the ranges to set
+	 * @return the devicePassword
 	 */
-	public void setRanges(ArrayList<Range> ranges) {
-		this.ranges = ranges;
+	public String getDevicePassword() {
+		return DevicePassword;
 	}
 
-	/**
-	 * @return the enable
-	 */
-	public boolean getEnable() {
-		return enable;
-	}
+
+
 
 	/**
-	 * @param enable the enable to set
+	 * @param devicePassword the devicePassword to set
 	 */
-	public void setEnable(boolean enable) {
-		this.enable = enable;
+	public void setDevicePassword(String devicePassword) {
+		DevicePassword = devicePassword;
 	}
 
-	/**
-	 * @return the txPower
-	 */
-	public int getTxPower() {
-		return txPower;
-	}
 
-	/**
-	 * @param txPower the txPower to set
-	 */
-	public void setTxPower(int txPower) {
-		this.txPower = txPower;
-	}
 
-	/**
-	 * @return the creatioDate
-	 */
-	public Date getCreationDate() {
-		return creationDate;
-	}
 
-	/**
-	 * @param creatioDate the creatioDate to set
-	 */
-	public void setCreatioDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
 
-	/**
-	 * @return the modifiedDate
-	 */
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
 
-	/**
-	 * @param modifiedDate the modifiedDate to set
-	 */
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
 
-	/**
-	 * @return the updatedBy
-	 */
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	/**
-	 * @param updatedBy the updatedBy to set
-	 */
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-	
 	
 	
 

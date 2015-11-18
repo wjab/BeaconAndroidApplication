@@ -93,7 +93,7 @@ public class DeviceController {
 	    response.put("message", "Dispositivo actualizado correctamente");
 	    response.put("Dispositivo", deviceRepository.save(deviceModel));
 	    return response;
-	}
+	} 
 	  
 	  
 	@RequestMapping(method = RequestMethod.DELETE, value="/{DeviceId}")

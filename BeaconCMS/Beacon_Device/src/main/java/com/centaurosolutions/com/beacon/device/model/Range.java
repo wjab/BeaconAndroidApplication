@@ -32,9 +32,6 @@ public class Range {
 		this.promoID = promoID;
 	}
 
-	
-	
-	
 	/**
 	 * @return the promoID
 	 */
