@@ -53,7 +53,9 @@ public class MerchantProductController
 		MerchantProduct MerchantProductModel = new MerchantProduct(
 				merchantProductMap.get("merchantId").toString(),
 				merchantProductMap.get("shopZoneId").toString(),
-				productList);   
+				productList,
+				merchantProductMap.get("longitude").toString(),
+				merchantProductMap.get("latitude").toString());   
 		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "MerchantProduct creado correctamente");
@@ -77,7 +79,9 @@ public class MerchantProductController
 		MerchantProduct MerchantProductModel = new MerchantProduct(
 				merchantProductMap.get("merchantId").toString(),
 				merchantProductMap.get("shopZoneId").toString(),
-				productList);   
+				productList,
+				merchantProductMap.get("longitude").toString(),
+				merchantProductMap.get("latitude").toString());   
 		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "MerchantProduct actualizado correctamente");
