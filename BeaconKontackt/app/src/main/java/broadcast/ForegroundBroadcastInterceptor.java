@@ -59,7 +59,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         requestPromo = false;
         myBeaconCache = new BeaconCache();
 
-        Intent i = new Intent(getContext(), BeaconSyncMessageService.class);
+       Intent i = new Intent(getContext(), BeaconSyncMessageService.class);
         context.startService(i);
 
 
@@ -68,6 +68,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     @Override
     protected void onBeaconAppeared(int info, IBeaconDevice beaconDevice) {
 
+        DatabaseManager.init(getContext());
         final Context context = getContext();
         final String deviceName = beaconDevice.getUniqueId();
         final String proximityUUID = beaconDevice.getProximityUUID().toString();
@@ -288,20 +289,27 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
     public void addBeaconDB(BeaconCache beaconObject){
 
-        beaconList = DatabaseManager.getInstance().getAllBeaconCache();
-        if(beaconList!=null){
-            for (BeaconCache myCache:beaconList) {
-                if(!beaconObject.getUniqueID().equals(myCache.getUniqueID()) && !beaconObject.getProximity().equals(myCache.getProximity())){
-                    DatabaseManager.getInstance().addBeaconCache(beaconObject);
-                }
-                else {
-                    DatabaseManager.getInstance().updateBeaconCache(beaconObject);
+        try{
+            beaconList = DatabaseManager.getInstance().getAllBeaconCache();
+
+            if(beaconList!=null && beaconList.size() > 0){
+                for (BeaconCache myCache:beaconList) {
+                    if(!beaconObject.getUniqueID().equals(myCache.getUniqueID()) && !beaconObject.getProximity().equals(myCache.getProximity())){
+                        DatabaseManager.getInstance().addBeaconCache(beaconObject);
+                    }
+                    else {
+                        DatabaseManager.getInstance().updateBeaconCache(beaconObject);
+                    }
                 }
             }
+            else{
+                DatabaseManager.getInstance().addBeaconCache(beaconObject);
+            }
         }
-        else{
-            DatabaseManager.getInstance().addBeaconCache(beaconObject);
+        catch (Exception ex){
+            Log.i("FBI",ex.getStackTrace().toString());
         }
+
     }
 
 }

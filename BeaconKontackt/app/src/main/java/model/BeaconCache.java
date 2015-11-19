@@ -16,11 +16,11 @@ public class BeaconCache {
     @DatabaseField
     private String message;
     @DatabaseField
-    private String expiration;
+    private Double expiration;
     @DatabaseField
     private String promoId;
 
-    public BeaconCache(String proximityUUID, String uniqueID, String message, String expiration, String promoId) {
+    public BeaconCache(String proximityUUID, String uniqueID, String message, Double expiration, String promoId) {
         this.proximity = proximityUUID;
         this.uniqueID = uniqueID;
         this.message = message;
@@ -56,11 +56,11 @@ public class BeaconCache {
         this.message = message;
     }
 
-    public String getExpiration() {
+    public Double getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(String expiration) {
+    public void setExpiration(Double expiration) {
         this.expiration = expiration;
     }
 

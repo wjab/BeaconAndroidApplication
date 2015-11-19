@@ -113,13 +113,27 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
             for(int i =0; i < promoArray.length();i++){
                 Log.i("BSMS", promoArray.getJSONObject(i).getString("promoId"));
 
+                for(int j = 0; j < beaconList.size(); j++){
+                    if(beaconList.get(j).getPromoId().equals(promoArray.getJSONObject(i).getString("promoId"))){
+                        Log.i("BSMS", beaconList.get(j).getUniqueID() + " " + promoArray.getJSONObject(i).getString("promoId"));
+                        BeaconCache myBeacon = new BeaconCache();
+                        myBeacon.setPromoId(beaconList.get(j).getPromoId());
+                        myBeacon.setUniqueID(beaconList.get(j).getUniqueID());
+                        myBeacon.setMessage(beaconList.get(j).getMessage());
+                        myBeacon.setProximity(beaconList.get(j).getProximity());
+                        myBeacon.setExpiration(promoArray.getJSONObject(i).getDouble("expiration"));
+                        DatabaseManager.getInstance().updateBeaconCache(myBeacon);
+                    }
+                }
+
 
                 values.put(promoArray.getJSONObject(i).getString("promoId"), promoArray.getJSONObject(i).getDouble("expiration"));
             }
 
-            for(BeaconCache myBeacon:beaconList){
 
-            }
+
+
+
 
 
         } catch (JSONException e) {
