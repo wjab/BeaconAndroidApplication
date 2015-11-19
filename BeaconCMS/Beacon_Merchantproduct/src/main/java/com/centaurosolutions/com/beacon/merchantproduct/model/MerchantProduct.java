@@ -10,6 +10,8 @@ public class MerchantProduct
 	private String id;
 	private String shopZoneId;
 	private String merchantId;
+	private String latitude;
+	private String longitude;
 	private ArrayList<Product> productList;
 	
 	public MerchantProduct(){}
@@ -21,13 +23,32 @@ public class MerchantProduct
 	 * @param shopzoneid
 	 * @param productlist
 	 */
-	public MerchantProduct(String merchantid, String shopzoneid, ArrayList<Product> productlist)
+	public MerchantProduct(String merchantid, String shopzoneid, ArrayList<Product> productlist,String longitude,String latitude)
 	{
 		this.merchantId = merchantid;
 		this.shopZoneId = shopzoneid;
 		this.productList = productlist;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 	
+	
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
 	/**
 	 * @return id
 	 */
