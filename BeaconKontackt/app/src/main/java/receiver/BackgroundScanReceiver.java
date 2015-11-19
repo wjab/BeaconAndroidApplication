@@ -1,9 +1,9 @@
-package reciver;
+package receiver;
 
 import android.content.Context;
 
-import broudcast.AbstractBroadcastInterceptor;
-import broudcast.NotificationBroadcastInterceptor;
+import broadcast.AbstractBroadcastInterceptor;
+import broadcast.NotificationBroadcastInterceptor;
 
 
 public final class BackgroundScanReceiver extends AbstractScanBroadcastReceiver {

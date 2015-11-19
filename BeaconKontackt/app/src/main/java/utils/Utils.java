@@ -11,7 +11,13 @@ import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
 
 public final class Utils {
 
@@ -43,6 +49,26 @@ public final class Utils {
 
         return sb.toString();
 
+    }
+
+    public static Date convertLongToDate(long time){
+        Date date = new Date(time);
+        Format format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+        return date;
+    }
+
+
+    public static double getDaysDiff(Date date1, Date date2){
+
+        NumberFormat daysFormat = new DecimalFormat("#0.00");
+
+        long diff = date1.getTime() - date2.getTime();
+
+
+        double diffDays = (double) (diff / (24 * 60 * 60 * 1000));
+        double result = Double.valueOf((String.valueOf(daysFormat.format(diffDays)).replace(',', '.').toString()));
+
+        return result;
     }
 
     public static void setOrientationChangeEnabled(final boolean state, final Activity activity) {

@@ -38,7 +38,7 @@
             android:exported="false" />
 
         <receiver
-            android:name="reciver.BackgroundScanReceiver"
+            android:name="receiver.BackgroundScanReceiver"
             android:exported="false" />
 
         <service
@@ -52,7 +52,6 @@
         <activity
             android:name=".Activity_Principal"
             android:label="@string/title_activity_activity__principal" >
-
         </activity>
         <activity
             android:name=".TabPromocionesActivity"
@@ -66,13 +65,21 @@
             android:name=".PromoDetailActivity"
             android:label="@string/title_activity_promo_detail" >
         </activity>
-        <activity android:name=".LoginMainActivity"  android:label="BeaconApp" >
+        <activity
+            android:name=".LoginMainActivity"
+            android:label="BeaconApp" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="service.BeaconSyncMessageService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

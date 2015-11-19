@@ -17,6 +17,8 @@ import com.centaurosolutions.com.beacon.promo.model.*;
 import com.centaurosolutions.com.beacon.promo.repository.PromoRepository;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ import java.util.Date;
 @RestController
 @RequestMapping("/promo")
 public class PromoController {
+	
+    private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 	
 	@Autowired
 	private PromoRepository promoRepository;
@@ -63,6 +67,53 @@ public class PromoController {
 		  return response;
 	  }
 	  
+	  @RequestMapping(method = RequestMethod.GET, value="/exp/{PromoId}")
+	  public Map<String, Object>  getPromoExpiration(@PathVariable("PromoId") String promoId){
+		  Promo myPromo = promoRepository.findOne(promoId);
+		  Date startDate = myPromo.getStartDate();
+		  Date endDate = myPromo.getEndDate();
+		  Double expiration = getDaysDiff(endDate,startDate);
+	
+		  
+
+		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  response.put("promoId", promoId );
+		  response.put("expiration", expiration);
+		  
+		  return response;
+	  }
+	  
+	  @RequestMapping(method = RequestMethod.GET, value="/exp")
+	  public Map<String, Object> getAllPromoExp(){
+		  List<Promo> promoModelList = promoRepository.findAll();
+		  ArrayList promoExpList = 	new ArrayList();
+
+
+		  Double expiration = 0.00;
+		  for(Promo myPromo:promoModelList){
+			  if(myPromo.getStartDate() != null && myPromo.getEndDate()!=null){
+				  Date startDate = myPromo.getStartDate();
+				  Date endDate = myPromo.getEndDate();
+				   expiration = getDaysDiff(endDate,startDate);
+					  Map<String, Object> dataExp = new LinkedHashMap<String, Object>();
+					  dataExp.put("promoId", myPromo.getId());
+					  dataExp.put("expiration",expiration);
+					  
+					  promoExpList.add(dataExp);
+
+
+			  }
+
+			  
+		  }
+		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  response.put("PromosExp", promoExpList);
+
+		  
+
+		  return response;
+	  }
+	  
 	  
 	  @RequestMapping(method = RequestMethod.PUT, value="/{PromoId}")
 	  public Map<String, Object> editPromo(@PathVariable("PromoId") String PromoId,
@@ -98,7 +149,7 @@ public class PromoController {
 		private Date DateFormatter(String pDate){
 			
 			Date finalDate = new Date();
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
+
 			try {
 				finalDate = format.parse(pDate);
 			} catch (ParseException e) {
@@ -108,5 +159,19 @@ public class PromoController {
 			
 			return finalDate;		
 		}
+		
+
+	    public  double getDaysDiff(Date date1, Date date2){
+
+	        NumberFormat daysFormat = new DecimalFormat("#0.00");
+
+	        long diff = date1.getTime() - date2.getTime();
+
+
+	        double diffDays = (double) (diff / (24 * 60 * 60 * 1000));
+	        double result = Double.valueOf((String.valueOf(daysFormat.format(diffDays)).replace(',', '.').toString()));
+
+	        return result;
+	    }
 
 }

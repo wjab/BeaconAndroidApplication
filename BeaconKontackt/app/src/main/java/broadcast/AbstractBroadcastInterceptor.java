@@ -1,4 +1,4 @@
-package broudcast;
+package broadcast;
 
 import android.content.Context;
 import android.content.Intent;

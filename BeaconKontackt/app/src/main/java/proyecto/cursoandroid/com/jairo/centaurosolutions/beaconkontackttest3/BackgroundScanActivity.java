@@ -17,11 +17,10 @@ import android.support.v7.widget.Toolbar;
 import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
 
-import broudcast.AbstractBroadcastInterceptor;
-import broudcast.ForegroundBroadcastInterceptor;
-import butterknife.ButterKnife;
+import broadcast.AbstractBroadcastInterceptor;
+import broadcast.ForegroundBroadcastInterceptor;
 import butterknife.InjectView;
-import reciver.AbstractScanBroadcastReceiver;
+import receiver.AbstractScanBroadcastReceiver;
 import service.BackgroundScanService;
 import utils.Utils;
 
