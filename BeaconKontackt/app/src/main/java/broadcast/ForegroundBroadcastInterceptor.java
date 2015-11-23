@@ -3,7 +3,6 @@ package broadcast;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -24,7 +23,6 @@ import java.util.Map;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.BeaconCache;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BackgroundScanActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 import utils.Utils;
 
@@ -72,30 +70,14 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         responseError = this;
         response = this;
         serviceController = new ServiceController();
-        final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
-        redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
 
 
 
         try{
+            
+            sendDeviceRequest(beaconDevice.getUniqueId());
 
-            beaconList = DatabaseManager.getInstance().getAllBeaconCache();
-
-            boolean repeat =false;
-            if(beaconList.size() != 0){
-                for(BeaconCache myCache:beaconList){
-                    if((myCache.uniqueID).equals(beaconDevice.getUniqueId())){
-                        repeat = true;
-                    }
-                }
-                if(!repeat && !requestDevice){
-                    requestDevice = true;
-                    sendDeviceRequest(beaconDevice.getUniqueId());
-                }
-            }
-            else{
-                sendDeviceRequest(beaconDevice.getUniqueId());
-            }
         }
         catch (Exception ex){
                error = ex.toString();
@@ -204,6 +186,8 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     }
 
     public void sendDeviceRequest(String uniqueId){
+
+        if(!requestDevice){
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -214,6 +198,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         map.put("Content-Type", "application/json");
         String url = "http://beacon_device_dev.cfapps.io/device/UID/" + uniqueId;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+        }
 
     }
 

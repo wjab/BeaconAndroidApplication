@@ -1,12 +1,10 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,15 +18,12 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import utils.Utils;
 
 import controllers.ServiceController;
+import service.BeaconSyncMessageService;
+import utils.Utils;
 
 public class LoginMainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -51,6 +46,8 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
         responseError = this;
         response = this;
         serviceController =  new ServiceController();
+        Intent intent = new Intent(this, BeaconSyncMessageService.class);
+        startService(intent);
 
 
        // serviceController.imageRequest("https://pbs.twimg.com/profile_images/415419569377775616/5-NAT78O_400x400.png",loginImage,0,0);
@@ -123,6 +120,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                     Intent intent = new Intent(getApplicationContext(),BackgroundScanActivity.class);
                     //Intent intent = new Intent(getApplicationContext(),Activity_Principal.class);
                     //intent.putExtra("totalPoints",response.getInt("total_gift_points"));
+
                     startActivity(intent);
                 }
                 else{
