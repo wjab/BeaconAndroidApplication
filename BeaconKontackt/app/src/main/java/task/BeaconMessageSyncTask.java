@@ -70,14 +70,14 @@ public class BeaconMessageSyncTask extends TimerTask implements Response.Listene
                 Log.i("BSMS", promoArray.getJSONObject(i).getString("promoId"));
 
                 for (int j = 0; j < beaconList.size(); j++) {
-                    if (beaconList.get(j).getPromoId().equals(promoArray.getJSONObject(i).getString("promoId"))) {
-                        Log.i("BSMS", beaconList.get(j).getUniqueID() + " " + promoArray.getJSONObject(i).getString("promoId"));
+                    if (beaconList.get(j).promoId.equals(promoArray.getJSONObject(i).getString("promoId"))) {
+                        Log.i("BSMS", beaconList.get(j).uniqueID + " " + promoArray.getJSONObject(i).getString("promoId"));
                         BeaconCache myBeacon = new BeaconCache();
-                        myBeacon.setPromoId(beaconList.get(j).getPromoId());
-                        myBeacon.setUniqueID(beaconList.get(j).getUniqueID());
-                        myBeacon.setMessage(beaconList.get(j).getMessage());
-                        myBeacon.setProximity(beaconList.get(j).getProximity());
-                        myBeacon.setExpiration(promoArray.getJSONObject(i).getDouble("expiration"));
+                        myBeacon.promoId = beaconList.get(j).promoId;
+                        myBeacon.uniqueID = beaconList.get(j).uniqueID;
+                        myBeacon.message =  beaconList.get(j).message;
+                        myBeacon.proximity = beaconList.get(j).proximity;
+                       // myBeacon.expiration = promoArray.getJSONObject(i).get("expiration").toString();
                         DatabaseManager.getInstance().updateBeaconCache(myBeacon);
                     }
                 }

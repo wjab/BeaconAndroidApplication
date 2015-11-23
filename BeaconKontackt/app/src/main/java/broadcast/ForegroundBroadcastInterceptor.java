@@ -26,7 +26,6 @@ import database.DatabaseManager;
 import model.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BackgroundScanActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
-import service.BeaconSyncMessageService;
 import utils.Utils;
 
 public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -41,6 +40,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     int inodoroForever;
     int attempts = 0;
     String error;
+    boolean isProcessing;
 
     List<BeaconCache> beaconList;
 
@@ -53,15 +53,8 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
         DatabaseManager.init(getContext());
 
-
-
         requestDevice =false;
-        requestPromo = false;
         myBeaconCache = new BeaconCache();
-
-       Intent i = new Intent(getContext(), BeaconSyncMessageService.class);
-        context.startService(i);
-
 
     }
 
@@ -85,25 +78,28 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
 
         try{
-                beaconList = DatabaseManager.getInstance().getAllBeaconCache();
-                serviceController =  new ServiceController();
-                responseError = this;
-                response = this;
-                myBeaconCache= new BeaconCache();
-                Map<String,String> nullMap =  new HashMap<String, String>();
 
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("Content-Type", "application/json");
-                String url = "http://beacon_device_dev.cfapps.io/device/UID/"+beaconDevice.getUniqueId();
-                serviceController.jsonObjectRequest(url, Request.Method.GET,null,map,response,responseError);
-                requestDevice = true;
+            beaconList = DatabaseManager.getInstance().getAllBeaconCache();
 
-
+            boolean repeat =false;
+            if(beaconList.size() != 0){
+                for(BeaconCache myCache:beaconList){
+                    if((myCache.uniqueID).equals(beaconDevice.getUniqueId())){
+                        repeat = true;
+                    }
+                }
+                if(!repeat && !requestDevice){
+                    requestDevice = true;
+                    sendDeviceRequest(beaconDevice.getUniqueId());
+                }
+            }
+            else{
+                sendDeviceRequest(beaconDevice.getUniqueId());
+            }
         }
         catch (Exception ex){
                error = ex.toString();
         }
-
 
 
 /*
@@ -138,17 +134,6 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 distance,
                 proximity.name()));*/
 
-
-/*
-        serviceController = new ServiceController();
-        String url = "http://beacon_user_devel.cfapps.io/user";
-        Map<String,String> nullMap =  new HashMap<String, String>();
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type","application/json");
-
-
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);*/
     }
 
 
@@ -164,9 +149,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     @Override
     protected void onRegionEntered(int info, IBeaconRegion region) {
         Context context = getContext();
-
-
-       Utils.showToast(context, context.getString(R.string.region_entered, region.getName()));
+        Utils.showToast(context, context.getString(R.string.region_entered, region.getName()));
     }
 
     @Override
@@ -184,12 +167,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     @Override
     public void onResponse(JSONObject response) {
 
-
-
-
         try {
-
-            if(response.getJSONArray("ranges") != null && !requestPromo){
 
                 JSONArray ranges= response.getJSONArray("ranges");
                 String range = "";
@@ -205,80 +183,37 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                     promo = currRange.getString("promoID");
 
 
-                    myBeaconCache.setMessage(message);
-                    myBeaconCache.setProximity(range);
-                    myBeaconCache.setUniqueID(response.getString("uniqueID"));
-                    myBeaconCache.setPromoId(promo);
-
+                    myBeaconCache.message = message ;
+                    myBeaconCache.proximity = range;
+                    myBeaconCache.uniqueID = response.getString("uniqueID");
+                    myBeaconCache.promoId = promo;
+                    myBeaconCache.expiration = 0.0;
 
                     addBeaconDB(myBeaconCache);
                 }
-
-            }
-            else if(requestPromo){
-
-            }
-
-            /*
-            if(requestDevice && !requestPromo){
-                JSONArray ranges= response.getJSONArray("ranges");
-                String range = "";
-                String message = "";
-                String messageType = "";
-                String promo = "";
-
-                for(int i=0; i < ranges.length(); i++ ){
-                    JSONObject currRange = ranges.getJSONObject(i);
-                    range = currRange.getString("type");
-                    message = currRange.getString("message");
-                    messageType = currRange.getString("messageType");
-                    promo = currRange.getString("promoID");
-
-
-                    myBeaconCache.setMessage(message);
-                    myBeaconCache.setProximityUUID(response.getString("proximityUUID"));
-                    myBeaconCache.setUniqueID(response.getString("uniqueID"));
-                    DatabaseManager.getInstance().addBeaconCache(myBeaconCache);
-                }
-
-
-
-                sendPromoRequest(myBeaconCache,promo);
-            }
-
-            if(requestPromo){
-
-                long startDateLong = response.getLong("startDate");
-                long endDateLong = response.getLong("endDate");
-                Date startDate = Utils.convertLongToDate(startDateLong);
-                Date endDate = Utils.convertLongToDate(endDateLong);
-                double expiration =  Utils.getDaysDiff(startDate, endDate);
-
-                requestPromo = false;
-            }
-            */
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        requestDevice = false;
+
+
+
     }
 
-
-    public void sendPromoRequest(BeaconCache beaconCache, String promo){
-        serviceController =  new ServiceController();
+    public void sendDeviceRequest(String uniqueId){
+        serviceController = new ServiceController();
         responseError = this;
         response = this;
-
-
-        Map<String,String> nullMap =  new HashMap<String, String>();
+        myBeaconCache = new BeaconCache();
+        Map<String, String> nullMap = new HashMap<String, String>();
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://beacon_promo_development.cfapps.io/promo/"+promo;
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response,responseError);
-        requestPromo = true;
+        String url = "http://beacon_device_dev.cfapps.io/device/UID/" + uniqueId;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
 
@@ -292,14 +227,17 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         try{
             beaconList = DatabaseManager.getInstance().getAllBeaconCache();
 
-            if(beaconList!=null && beaconList.size() > 0){
-                for (BeaconCache myCache:beaconList) {
-                    if(!beaconObject.getUniqueID().equals(myCache.getUniqueID()) && !beaconObject.getProximity().equals(myCache.getProximity())){
-                        DatabaseManager.getInstance().addBeaconCache(beaconObject);
+            boolean repeat =false;
+            if(beaconList.size() != 0){
+                for(BeaconCache myCache:beaconList){
+                    if(!beaconObject.uniqueID.equals(myCache.uniqueID) && !beaconObject.proximity.equals(myCache.proximity)){
+                        repeat = true;
                     }
-                    else {
-                        DatabaseManager.getInstance().updateBeaconCache(beaconObject);
-                    }
+                }
+                if(repeat ){
+                    DatabaseManager.getInstance().updateBeaconCache(beaconObject);
+                } else {
+                    DatabaseManager.getInstance().addBeaconCache(beaconObject);
                 }
             }
             else{
@@ -309,7 +247,5 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         catch (Exception ex){
             Log.i("FBI",ex.getStackTrace().toString());
         }
-
     }
-
 }
