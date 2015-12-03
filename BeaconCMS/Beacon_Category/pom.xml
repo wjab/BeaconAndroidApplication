@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.category</groupId>
 	<artifactId>BeaconCMS_Category</artifactId>
 	<version>0.0.1-Category</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Category</name>
 	<description></description>

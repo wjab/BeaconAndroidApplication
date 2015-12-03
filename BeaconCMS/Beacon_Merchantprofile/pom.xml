@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.merchantprofile</groupId>
 	<artifactId>BeaconCMS_Merchantprofile</artifactId>
 	<version>0.0.1-merchantprofile</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Merchantprofile</name>
 	<description></description>

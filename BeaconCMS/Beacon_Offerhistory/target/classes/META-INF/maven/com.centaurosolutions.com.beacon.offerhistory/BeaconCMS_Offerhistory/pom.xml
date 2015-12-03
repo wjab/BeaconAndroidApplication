@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.offerhistory</groupId>
 	<artifactId>BeaconCMS_Offerhistory</artifactId>
 	<version>0.0.1-Offerhistory</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Offerhistory</name>
 	<description></description>

@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.promo</groupId>
 	<artifactId>BeaconCMS_Promo</artifactId>
 	<version>0.0.1-Promo</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Promo</name>
 	<description></description>

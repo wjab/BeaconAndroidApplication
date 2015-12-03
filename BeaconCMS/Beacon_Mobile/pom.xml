@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.mobile</groupId>
 	<artifactId>Beacon_Mobile</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Mobile</name>
 	<description></description>

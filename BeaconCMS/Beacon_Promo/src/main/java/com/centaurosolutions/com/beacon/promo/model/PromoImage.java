@@ -14,10 +14,6 @@ public class PromoImage {
 	private String imageUrl;
 	private boolean enable;
 	
-	private PromoImage(){
-		
-	}
-	
 	/**
 	 * @param imageUrl
 	 * @param enable

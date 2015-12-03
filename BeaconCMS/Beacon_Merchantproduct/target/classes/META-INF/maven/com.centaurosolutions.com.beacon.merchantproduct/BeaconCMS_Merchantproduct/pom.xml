@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.merchantproduct</groupId>
 	<artifactId>BeaconCMS_Merchantproduct</artifactId>
 	<version>0.0.1-Merchantproduct</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Merchantproduct</name>
 	<description></description>

@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.device</groupId>
 	<artifactId>BeaconCMS_Device</artifactId>
 	<version>0.0.1-Device</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Device</name>
 	<description></description>

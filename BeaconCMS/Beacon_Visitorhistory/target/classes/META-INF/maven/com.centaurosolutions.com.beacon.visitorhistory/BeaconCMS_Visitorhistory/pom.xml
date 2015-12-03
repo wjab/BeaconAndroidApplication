@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.visitorhistory</groupId>
 	<artifactId>BeaconCMS_Visitorhistory</artifactId>
 	<version>0.0.1-Visitorhistory</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_Visitorhistory</name>
 	<description></description>

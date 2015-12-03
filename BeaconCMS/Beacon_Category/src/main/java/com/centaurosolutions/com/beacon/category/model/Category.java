@@ -1,8 +1,6 @@
 package com.centaurosolutions.com.beacon.category.model;
 import java.util.Date;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 import org.springframework.data.annotation.Id;
 
 /**
@@ -54,7 +52,7 @@ public class Category {
 	}
 	
 	public void setModifieldDate(Date modificationDate) {
-		this.modifieldDate = modifieldDate;
+		this.modifieldDate = modificationDate;
 	}
 	
 	public void setEnable(Boolean enable) {

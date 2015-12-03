@@ -3,7 +3,6 @@ package com.centaurosolutions.com.beacon.promo.controller;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,10 @@ public class PromoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createPromo(@RequestBody Map<String, Object> promoMap){
 		
-		ArrayList<PromoImage> images = null;
+		ArrayList<PromoImage> images = new ArrayList<PromoImage>();
 		
 		if(promoMap.get("images") != null){
-			images =  (ArrayList<PromoImage>) promoMap.get("images");
+			images = (ArrayList<PromoImage>) promoMap.get("images");
 		}
 		
 

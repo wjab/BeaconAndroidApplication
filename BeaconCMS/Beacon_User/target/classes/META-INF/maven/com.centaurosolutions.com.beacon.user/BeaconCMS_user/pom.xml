@@ -6,7 +6,6 @@
 	<groupId>com.centaurosolutions.com.beacon.user</groupId>
 	<artifactId>BeaconCMS_user</artifactId>
 	<version>0.0.1-beacon</version>
-	<packaging>jar</packaging>
 
 	<name>Beacon_User</name>
 	<description></description>
