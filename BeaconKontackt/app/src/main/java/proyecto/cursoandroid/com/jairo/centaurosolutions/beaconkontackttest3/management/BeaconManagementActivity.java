@@ -239,7 +239,7 @@ public class BeaconManagementActivity extends BaseActivity implements IBeaconCon
                         break;
 
                     default:
-                        throw new IllegalStateException("Unexpected connection error occured: " + errorCode);
+                        throw new IllegalStateException("Unexpected connection error: " + errorCode);
                 }
             }
         });

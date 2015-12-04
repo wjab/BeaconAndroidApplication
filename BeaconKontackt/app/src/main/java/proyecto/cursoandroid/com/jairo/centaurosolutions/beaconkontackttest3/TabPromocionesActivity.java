@@ -74,7 +74,7 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
         serviceController =  new ServiceController();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://beacon_promo_development.cfapps.io/promo";
+        String url = "http://bpromodev.cfapps.io/promo";
 
 
         serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);

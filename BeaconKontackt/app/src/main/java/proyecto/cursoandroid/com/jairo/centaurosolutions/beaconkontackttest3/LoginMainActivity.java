@@ -64,7 +64,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
                 if(!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                     serviceController = new ServiceController();
-                    String url = "http://beacon_user_devel.cfapps.io/user/"+userText;
+                    String url = "http://buserdev.cfapps.io/user/"+userText;
                     Map<String,String> nullMap =  new HashMap<String, String>();
 
                     Map<String, String> map = new HashMap<String, String>();

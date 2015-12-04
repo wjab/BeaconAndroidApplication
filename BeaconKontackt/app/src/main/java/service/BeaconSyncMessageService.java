@@ -53,7 +53,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://beacon_promo_development.cfapps.io/promo/exp";
+        String url = "http://bpromodev.cfapps.io/promo/exp";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
 

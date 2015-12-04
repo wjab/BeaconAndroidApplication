@@ -196,7 +196,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://beacon_device_dev.cfapps.io/device/UID/" + uniqueId;
+        String url = "http://bdevicedev.cfapps.io/device/UID/" + uniqueId;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
         }
 
