@@ -39,18 +39,26 @@ public class MobileController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createMobile(@RequestBody Map<String, Object> mobileMap){
 		
-		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(mobileMap.get("registered").toString()));
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
+			
+		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(getDate()));       
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Dispositivo Móvil creado correctamente");
-	    response.put("mobile", mobileModel); 
-		
-	    mobileRepository.save(mobileModel);
+	    response.put("mobile", mobileModel); 					
+						
+		mobileRepository.save(mobileModel);	
+	
+
 		return response;
 	}
 	
 	  @RequestMapping(method = RequestMethod.GET, value="/{MobileId}")
 	  public Mobile getMobileDetails(@PathVariable("MobileId") String MobileId){
 	    return mobileRepository.findOne(MobileId);
+	  }
+	  
+	  @RequestMapping(method = RequestMethod.GET, value="/user/{UserId}")
+	  public Mobile getMobileByUser(@PathVariable("UserId") String UserId){
+	    return mobileRepository.findByUserId(UserId);
 	  }
 	  
 	  @RequestMapping(method = RequestMethod.GET)
@@ -62,11 +70,15 @@ public class MobileController {
 		  return response;
 	  }
 	  
+	  
+
+	  
 	  @RequestMapping(method = RequestMethod.PUT, value="/{MobileId}")
 	  public Map<String, Object> editMobile(@PathVariable("MobileId") String MobileId,
 	      @RequestBody Map<String, Object> mobileMap){
+		  
 
-		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(mobileMap.get("registered").toString()));
+		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(getDate()));
 		mobileModel.setId(MobileId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Dispositivo Móvil actualizado correctamente");
@@ -97,7 +109,15 @@ public class MobileController {
 			return finalDate;		
 		}
 		
-}
+		private String getDate(){
+	        DateFormat df = DateFormat.getDateTimeInstance();
+	        long currentTime = new Date().getTime();
+	        String currDate = df.format(new Date(currentTime));
+	        return currDate;
+			
+		}
+		
+	}
 
 		
 		
