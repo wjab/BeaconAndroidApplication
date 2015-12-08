@@ -1,5 +1,6 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ import controllers.ServiceController;
 import service.BeaconSyncMessageService;
 import utils.Utils;
 
-public class LoginMainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class LoginMainActivity extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
 
     ServiceController serviceController;
@@ -38,6 +40,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login_main);
 
         Button login = (Button)findViewById(R.id.login);

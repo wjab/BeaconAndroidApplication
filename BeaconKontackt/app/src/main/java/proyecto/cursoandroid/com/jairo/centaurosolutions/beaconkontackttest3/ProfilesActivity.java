@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
 import android.widget.ListView;
 
 import com.kontakt.sdk.android.common.model.IProfile;
@@ -32,6 +33,7 @@ public class ProfilesActivity extends BaseActivity implements LoaderManager.Load
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.profiles_activity);
        // ButterKnife.inject(this);
 

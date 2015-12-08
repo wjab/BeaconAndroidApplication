@@ -35,7 +35,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     Runnable mRunnable;
 
 
-    public static final long SYNC_INTERVAL = 5 * 1000;
+    public static final long SYNC_INTERVAL = 10 * 1000;
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
     public BeaconSyncMessageService() {
@@ -114,7 +114,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
                         myBeacon.message =  beaconList.get(j).message;
                         myBeacon.proximity = beaconList.get(j).proximity;
                         temp = promoArray.getJSONObject(i).getDouble("expiration");
-                        myBeacon.expiration = Double.valueOf((String.valueOf(tempFormat.format(temp)).replace(',', '.')).toString());
+                        myBeacon.expiration = 10.0; //Double.valueOf((String.valueOf(tempFormat.format(temp)).replace(',', '.')).toString());
 
                         DatabaseManager.getInstance().updateBeaconCache(myBeacon);
                     }

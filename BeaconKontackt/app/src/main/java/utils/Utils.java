@@ -1,7 +1,9 @@
 package utils;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -17,6 +19,8 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
 
 public final class Utils {
@@ -119,6 +123,30 @@ public final class Utils {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         return bluetoothAdapter.isEnabled();
     }
+
+
+    /*public static void ShowInputNotification( Context context )
+    {
+        Notification notification = new Notification.Builder(context)
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setTicker(context.getString(R.string.beacon_appeared, deviceName))
+                .setContentIntent(PendingIntent.getActivity(context,
+                        0,
+                        redirectIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
+                .setContentTitle(context.getString(R.string.beacon_appeared, deviceName))
+                .setSmallIcon(R.drawable.beacon)
+                .setStyle(new Notification.BigTextStyle().bigText(context.getString(R.string.appeared_beacon_info, deviceName,
+                        beaconDevice.getUniqueId(),
+                        major,
+                        minor,
+                        distance,
+                        proximity.name())))
+                .build();
+
+        notificationManager.notify(info, notification);
+    }*/
 
 
     private Utils() {

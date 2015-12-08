@@ -12,6 +12,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
 
 
 import com.kontakt.sdk.android.common.log.Logger;
@@ -50,6 +51,7 @@ public class BackgroundScanActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.background_scan_activity);
       //  ButterKnife.inject(this);
 

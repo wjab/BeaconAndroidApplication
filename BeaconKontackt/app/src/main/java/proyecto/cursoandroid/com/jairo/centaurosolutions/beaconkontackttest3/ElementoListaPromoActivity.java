@@ -1,11 +1,13 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
-public class ElementoListaPromoActivity extends AppCompatActivity {
+public class ElementoListaPromoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -21,7 +21,10 @@ public class BeaconCache implements Serializable {
     public Double expiration;
     @DatabaseField
     public String promoId;
-
+    @DatabaseField
+    public double currentDatetime;
+    @DatabaseField
+    public boolean messageDisplayed;
 
     public BeaconCache(){
 
