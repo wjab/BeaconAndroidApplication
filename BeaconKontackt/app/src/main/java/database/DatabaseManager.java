@@ -4,8 +4,7 @@ import android.content.Context;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import model.BeaconCache;
+import model.cache.BeaconCache;
 
 /**
  * Created by dcortess on 9/5/15.
@@ -59,10 +58,18 @@ public class DatabaseManager {
         }
     }
 
-    public void deleteBeaconCache() {
-        List<BeaconCache> lista= getAllBeaconCache();
+    public void deleteAllBeaconCache() {
+        List<BeaconCache> lista = getAllBeaconCache();
         try {
             getHelper().getBeaconCachesListDao().delete(lista);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteBeaconCache(List<BeaconCache> bCacheList ) {
+        try {
+            getHelper().getBeaconCachesListDao().delete(bCacheList);
         } catch (SQLException e) {
             e.printStackTrace();
         }

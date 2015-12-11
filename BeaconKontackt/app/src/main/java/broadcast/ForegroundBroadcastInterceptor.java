@@ -1,6 +1,5 @@
 package broadcast;
 
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,15 +18,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import controllers.ServiceController;
 import database.DatabaseManager;
-import model.BeaconCache;
+import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.LoginMainActivity;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PromoDetailActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
+import utils.Constants;
+import utils.CustomNotificationManager;
 import utils.Utils;
 
 public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -63,6 +67,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     {
         DatabaseManager.init(getContext());
         final Context context = getContext();
+
         final String deviceName = beaconDevice.getUniqueId();
         final String proximityUUID = beaconDevice.getProximityUUID().toString();
         final int major = beaconDevice.getMajor();
@@ -75,44 +80,27 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         response = this;
         serviceController = new ServiceController();
 
-        try{
-            
+        try
+        {
             sendDeviceRequest(beaconDevice.getUniqueId());
-
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
                error = ex.toString();
         }
 
-        Intent redirectIntent = new Intent(context, LoginMainActivity.class);
+        Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
 
-        Notification notification = new Notification.Builder(context)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTicker(context.getString(R.string.beacon_appeared, deviceName))
-                .setContentIntent(PendingIntent.getActivity(context,
-                        0,
-                        redirectIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
-                .setContentTitle(context.getString(R.string.beacon_appeared, deviceName))
-                .setSmallIcon(R.drawable.beacon)
-                .setStyle(new Notification.BigTextStyle().bigText(context.getString(R.string.appeared_beacon_info, deviceName,
-                        beaconDevice.getUniqueId(),
-                        major,
-                        minor,
-                        distance,
-                        proximity.name())))
-                .build();
+        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+        cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
+        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
+        cNotificationManager.setnotificationMessage(context.getString(R.string.appeared_beacon_info,
+                beaconDevice.getName(), beaconDevice.getUniqueId(), beaconDevice.getMajor(),
+                beaconDevice.getMinor(), beaconDevice.getDistance(), beaconDevice.getProximity().name()));
+        cNotificationManager.setRedirectIntent(redirectIntent);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);
 
-        notificationManager.notify(info, notification);
-
-
-   /*     Utils.showToast(context, context.getString(R.string.appeared_beacon_info, deviceName,
-                proximityUUID,
-                major,
-                minor,
-                distance,
-                proximity.name()));*/
     }
 
     @Override
@@ -143,7 +131,6 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     public void onResponse(JSONObject response) {
 
         try {
-
             JSONArray ranges= response.getJSONArray("ranges");
             String range = "";
             String message = "";
@@ -161,7 +148,8 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 myBeaconCache.proximity = range;
                 myBeaconCache.uniqueID = response.getString("uniqueID");
                 myBeaconCache.promoId = promo;
-                myBeaconCache.expiration = 0.0;
+                myBeaconCache.expiration = Utils.UnixTimeStampWithDefaultExpiration();
+                myBeaconCache.currentDatetime = Utils.UnixTimeStamp();
 
                 addBeaconDB(myBeaconCache);
             }
@@ -175,19 +163,19 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
     public void sendDeviceRequest(String uniqueId){
 
-        if(!requestDevice){
-        serviceController = new ServiceController();
-        responseError = this;
-        response = this;
-        myBeaconCache = new BeaconCache();
-        Map<String, String> nullMap = new HashMap<String, String>();
+        if(!requestDevice)
+        {
+            serviceController = new ServiceController();
+            responseError = this;
+            response = this;
+            myBeaconCache = new BeaconCache();
+            Map<String, String> nullMap = new HashMap<String, String>();
 
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
-        String url = "http://bdevicedev.cfapps.io/device/UID/" + uniqueId;
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("Content-Type", "application/json");
+            String url = "http://bdevicedev.cfapps.io/device/UID/" + uniqueId;
+            serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
         }
-
     }
 
     @Override
@@ -201,40 +189,52 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         try
         {
             beaconList = DatabaseManager.getInstance().getAllBeaconCache();
-            if(beaconList.size() > 0){
 
-                for (BeaconCache cacheItem : beaconList) {
+            // Delete expired promos
+            delBeaconDB();
+
+            if(beaconList.size() > 0)
+            {
+                for (BeaconCache cacheItem : beaconList)
+                {
                     if (cacheItem.uniqueID.contains(beaconObject.uniqueID) && cacheItem.proximity.contains(beaconObject.proximity))
                     {
                         existOnlist = true;
                         break;
                     }
                 }
-                if (existOnlist)
-                {
-                    DatabaseManager.getInstance().updateBeaconCache(beaconObject);
-                }
-                else
+                if (!existOnlist)
                 {
                     DatabaseManager.getInstance().addBeaconCache(beaconObject);
                 }
+                /*else
+                {
+                    DatabaseManager.getInstance().updateBeaconCache(beaconObject);
+                }*/
             }
             else
             {
                 DatabaseManager.getInstance().addBeaconCache(beaconObject);
             }
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             Log.i("FBI",ex.getStackTrace().toString());
         }
     }
 
     public void delBeaconDB()
     {
+        List<BeaconCache> listtodelete = new ArrayList<BeaconCache>();
+
         for (BeaconCache beaconItem : beaconList)
         {
-           // if (beaconItem)
+            if (beaconItem.expiration < Utils.UnixTimeStamp())
+            {
+                listtodelete.add(beaconItem);
+            }
         }
+        DatabaseManager.getInstance().deleteBeaconCache(listtodelete);
     }
 
 }

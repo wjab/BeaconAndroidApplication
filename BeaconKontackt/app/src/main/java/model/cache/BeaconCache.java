@@ -18,11 +18,11 @@ public class BeaconCache implements Serializable {
     @DatabaseField
     public String message;
     @DatabaseField
-    public Double expiration;
+    public long expiration;
     @DatabaseField
     public String promoId;
     @DatabaseField
-    public double currentDatetime;
+    public long currentDatetime;
     @DatabaseField
     public boolean messageDisplayed;
 

@@ -12,7 +12,8 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.BeaconCache  ;
+
+import model.cache.BeaconCache;
 
 /**
  * Created by dcortess on 9/5/15.
@@ -42,7 +43,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

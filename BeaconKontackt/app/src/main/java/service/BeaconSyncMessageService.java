@@ -23,7 +23,8 @@ import java.util.Timer;
 
 import controllers.ServiceController;
 import database.DatabaseManager;
-import model.BeaconCache;
+import model.cache.BeaconCache;
+import utils.Utils;
 
 public class BeaconSyncMessageService extends Service implements Response.Listener<JSONObject>, Response.ErrorListener  {
 
@@ -33,7 +34,6 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     BeaconCache myBeaconCache;
     List<BeaconCache> beaconList;
     Runnable mRunnable;
-
 
     public static final long SYNC_INTERVAL = 10 * 1000;
     private Handler mHandler = new Handler();
@@ -48,15 +48,12 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
         responseError = this;
         response = this;
 
-
         Map<String, String> nullMap = new HashMap<String, String>();
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = "http://bpromodev.cfapps.io/promo/exp";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-
-
     }
 
 
@@ -65,7 +62,6 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
         super.onCreate();
         Log.i("BSMS", "Service onCreate");
         DatabaseManager.init(this);
-
     }
 
     @Override
@@ -75,7 +71,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                sendPromoRequest();
+                //sendPromoRequest();
                 mHandler.postDelayed(mRunnable,SYNC_INTERVAL);
             }
         };
@@ -102,10 +98,10 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         try {
             JSONArray promoArray = response.getJSONArray("PromosExp");
-            for (int i = 0; i < promoArray.length(); i++) {
-
-
-                for (int j = 0; j < beaconList.size(); j++) {
+            for (int i = 0; i < promoArray.length(); i++)
+            {
+                for (int j = 0; j < beaconList.size(); j++)
+                {
                     if (beaconList.get(j).promoId.equals(promoArray.getJSONObject(i).getString("promoId"))) {
 
                         BeaconCache myBeacon = new BeaconCache();
@@ -114,7 +110,9 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
                         myBeacon.message =  beaconList.get(j).message;
                         myBeacon.proximity = beaconList.get(j).proximity;
                         temp = promoArray.getJSONObject(i).getDouble("expiration");
-                        myBeacon.expiration = 10.0; //Double.valueOf((String.valueOf(tempFormat.format(temp)).replace(',', '.')).toString());
+                        myBeacon.expiration = Utils.UnixTimeStampWithDefaultExpiration();
+                        myBeacon.currentDatetime = Utils.UnixTimeStamp();
+                        //10.0; //Double.valueOf((String.valueOf(tempFormat.format(temp)).replace(',', '.')).toString());
 
                         DatabaseManager.getInstance().updateBeaconCache(myBeacon);
                     }

@@ -11,7 +11,10 @@ import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
 
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BackgroundScanActivity;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.LoginMainActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
+import utils.CustomNotificationManager;
+import utils.Utils;
 
 public class NotificationBroadcastInterceptor extends AbstractBroadcastInterceptor {
 
@@ -25,8 +28,6 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
     @Override
     protected void onBeaconAppeared(int info, IBeaconDevice beaconDevice) {
         final Context context = getContext();
-        final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
-        redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         final String deviceName = beaconDevice.getName();
         final String proximityUUID = beaconDevice.getProximityUUID().toString();
@@ -35,26 +36,19 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         final double distance = beaconDevice.getDistance();
         final Proximity proximity = beaconDevice.getProximity();
 
+        Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
+        redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        final Notification notification = new Notification.Builder(context)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTicker(context.getString(R.string.beacon_appeared, deviceName))
-                .setContentIntent(PendingIntent.getActivity(context,
-                        0,
-                        redirectIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
-                .setContentTitle(context.getString(R.string.beacon_appeared, deviceName))
-                .setSmallIcon(R.drawable.beacon)
-                .setStyle(new Notification.BigTextStyle().bigText(context.getString(R.string.appeared_beacon_info, deviceName,
-                        beaconDevice.getUniqueId(),
-                        major,
-                        minor,
-                        distance,
-                        proximity.name())))
-                .build();
+        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+        cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
+        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
+        cNotificationManager.setnotificationMessage(context.getString(R.string.appeared_beacon_info,
+                beaconDevice.getName(), beaconDevice.getUniqueId(), beaconDevice.getMajor(),
+                beaconDevice.getMinor(), beaconDevice.getDistance(), beaconDevice.getProximity().name()));
+        cNotificationManager.setRedirectIntent(redirectIntent);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);
 
-        notificationManager.notify(info, notification);
     }
 
     @Override
@@ -64,20 +58,13 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final String regionName = region.getName();
 
-        final Notification notification = new Notification.Builder(context)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTicker(context.getString(R.string.region_abandoned, regionName))
-                .setContentIntent(PendingIntent.getActivity(context,
-                        0,
-                        redirectIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
-                .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(context.getString(R.string.region_abandoned, regionName))
-                .setSmallIcon(R.drawable.region)
-                .build();
-
-        notificationManager.notify(info, notification);
+        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+        cNotificationManager.setContentTitle(context.getString(R.string.app_name));
+        cNotificationManager.setIcon(R.drawable.region);
+        cNotificationManager.setTicker(context.getString(R.string.region_abandoned, region.getName()));
+        cNotificationManager.setnotificationMessage(context.getString(R.string.region_abandoned, regionName));
+        cNotificationManager.setRedirectIntent(redirectIntent);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);
     }
 
     @Override
@@ -86,20 +73,13 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
         redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        final Notification notification = new Notification.Builder(context)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTicker(context.getString(R.string.region_entered, region.getName()))
-                .setContentIntent(PendingIntent.getActivity(context,
-                        0,
-                        redirectIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
-                .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(context.getString(R.string.region_entered, region.getName()))
-                .setSmallIcon(R.drawable.region)
-                .build();
-
-        notificationManager.notify(info, notification);
+        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+        cNotificationManager.setContentTitle(context.getString(R.string.app_name));
+        cNotificationManager.setIcon(R.drawable.region);
+        cNotificationManager.setTicker(context.getString(R.string.region_entered, region.getName()));
+        cNotificationManager.setnotificationMessage(context.getString(R.string.region_entered, region.getName()));
+        cNotificationManager.setRedirectIntent(redirectIntent);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);
     }
 
     @Override
@@ -107,19 +87,13 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         final Context context = getContext();
         final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
 
-        final Notification notification = new Notification.Builder(context)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTicker(context.getString(R.string.scan_started))
-                .setContentIntent(PendingIntent.getActivity(context,
-                        0,
-                        redirectIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
-                .setContentTitle(context.getString(R.string.scan_started))
-                .setSmallIcon(R.drawable.beacon)
-                .build();
+        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+        cNotificationManager.setContentTitle(context.getString(R.string.scan_started));
+        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setTicker(context.getString(R.string.scan_started));
+        cNotificationManager.setRedirectIntent(redirectIntent);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);
 
-        notificationManager.notify(info, notification);
     }
 
     @Override
@@ -128,18 +102,12 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
         redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        final Notification notification = new Notification.Builder(context)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTicker(context.getString(R.string.scan_stopped))
-                .setContentIntent(PendingIntent.getActivity(context,
-                        0,
-                        redirectIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT))
-                .setContentTitle(context.getString(R.string.scan_stopped))
-                .setSmallIcon(R.drawable.beacon)
-                .build();
+        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+        cNotificationManager.setContentTitle(context.getString(R.string.scan_stopped));
+        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setTicker(context.getString(R.string.scan_stopped));
+        cNotificationManager.setRedirectIntent(redirectIntent);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);
 
-        notificationManager.notify(info, notification);
     }
 }

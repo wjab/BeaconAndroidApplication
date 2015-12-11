@@ -16,10 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import controllers.ServiceController;
 import database.DatabaseManager;
-import model.BeaconCache;
+import model.cache.BeaconCache;
 
 /**
  * Created by Eduardo on 20/11/2015.
@@ -106,7 +105,7 @@ public class BeaconMessageSyncTask extends TimerTask implements Response.Listene
                 beaconList = DatabaseManager.getInstance().getAllBeaconCache();
                 if (beaconList != null) {
                     Log.i("BSMS", "DB not null");
-                    sendPromoRequest();
+                    //sendPromoRequest();
                 }
 
             }
