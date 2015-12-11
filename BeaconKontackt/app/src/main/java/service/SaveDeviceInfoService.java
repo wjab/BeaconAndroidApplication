@@ -98,7 +98,10 @@ public class SaveDeviceInfoService extends Service implements Response.Listener<
 
 
         String userId =   intent.getStringExtra("userId");
-        saveMobileRequest(userId);
+
+        if(userId != null){
+            saveMobileRequest(userId);
+        }
 
        /* final Handler mHandler = new Handler();
         mRunnable = new Runnable() {

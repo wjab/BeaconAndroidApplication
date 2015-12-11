@@ -2,8 +2,8 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +36,9 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     ImageView loginImage;
     TextView username;
     TextView password;
+    boolean isAuthenticated;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,29 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
         Button login = (Button)findViewById(R.id.login);
         loginImage = (ImageView)findViewById(R.id.loginImage);
+        username = (TextView) findViewById(R.id.usuario);
+        password = (TextView) findViewById(R.id.password);
 
         responseError = this;
         response = this;
         serviceController =  new ServiceController();
+
         Intent intent = new Intent(this, BeaconSyncMessageService.class);
         startService(intent);
 
+        loadLoginInfo();
+
+
+
+        if(prefs.getString("userId",null) != null){
+            login.setVisibility(View.INVISIBLE);
+            username.setVisibility(View.INVISIBLE);
+            password.setVisibility(View.INVISIBLE);
+            isAuthenticated = true;
+
+            sendUserRequest(prefs.getString("userId",null));
+
+        }
 
        // serviceController.imageRequest("https://pbs.twimg.com/profile_images/415419569377775616/5-NAT78O_400x400.png",loginImage,0,0);
 
@@ -60,21 +79,10 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
             public void onClick(View v) {
 
 
-                username = (TextView) findViewById(R.id.usuario);
-                password = (TextView) findViewById(R.id.password);
-                String userText = username.getText().toString();
-                String passText = password.getText().toString();
-
                 if(!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
-                    serviceController = new ServiceController();
-                    String url = "http://buserdev.cfapps.io/user/"+userText;
-                    Map<String,String> nullMap =  new HashMap<String, String>();
 
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("Content-Type","application/json");
+                    sendUserRequest(username.getText().toString());
 
-
-                    serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);
                 }
                 else{
 
@@ -84,6 +92,39 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
             }
 
         });
+    }
+
+    public SharedPreferences loadLoginInfo(){
+
+        String user = "";
+        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
+
+        return prefs;
+
+    }
+
+    public void saveLogin(String username,String password, boolean isAuth){
+
+        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("userId", username);
+        editor.putString("password",Utils.setEncryptedText(password));
+        editor.putBoolean("isAuthenticated", isAuth);
+        editor.commit();
+    }
+
+
+    public void sendUserRequest(String userId){
+        serviceController = new ServiceController();
+        String url = "http://buserdev.cfapps.io/user/"+userId;
+        Map<String,String> nullMap =  new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type","application/json");
+
+
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);
+
     }
 
     @Override
@@ -112,32 +153,49 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
         Log.d("Response", response.toString());
 
+
+        loadLoginInfo();
+
         try
         {
 
-            String requestPassword = Utils.setEncryptedText(password.getText().toString());
+            if(prefs.getString("userId",null)==null) {
 
-            if(response.getString("password").equals(requestPassword) ){
 
-                if(response.getBoolean("enable")){
-                    Intent intent = new Intent(getApplicationContext(),BackgroundScanActivity.class);
-                    //Intent intent = new Intent(getApplicationContext(),Activity_Principal.class);
-                    //intent.putExtra("totalPoints",response.getInt("total_gift_points"));
+                String requestPassword = Utils.setEncryptedText(password.getText().toString());
+
+                if (response.getString("password").equals(requestPassword)) {
+
+                    if (response.getBoolean("enable")) {
+
+                        isAuthenticated = true;
+                        saveLogin(response.getString("user"),response.getString("password"), isAuthenticated);
+                        Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+
+                        //Intent intent = new Intent(getApplicationContext(),Activity_Principal.class);
+                        //intent.putExtra("totalPoints",response.getInt("total_gift_points"));
+
+
+                        startActivity(intent);
+                    } else {
+
+                        Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            else{
+
+                if (response.getBoolean("enable")) {
+
+                    Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
 
                     startActivity(intent);
                 }
-                else{
-
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
             }
-            else{
-                Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
         }
         catch (Exception ex){
             Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
