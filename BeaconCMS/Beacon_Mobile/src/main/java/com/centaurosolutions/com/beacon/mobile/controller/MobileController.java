@@ -57,8 +57,13 @@ public class MobileController {
 	  }
 	  
 	  @RequestMapping(method = RequestMethod.GET, value="/user/{UserId}")
-	  public Mobile getMobileByUser(@PathVariable("UserId") String UserId){
-	    return mobileRepository.findByUserId(UserId);
+	  public Map<String, Object>  getMobileByUser(@PathVariable("UserId") String UserId){
+		  List<Mobile> mobileModelList = mobileRepository.findByUserId(UserId);
+		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  response.put("Total de dispositivos móviles", mobileModelList.size());
+		  response.put("MobileList", mobileModelList);
+		  
+		  return response;
 	  }
 	  
 	  @RequestMapping(method = RequestMethod.GET)
