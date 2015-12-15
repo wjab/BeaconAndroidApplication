@@ -63,12 +63,13 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
 
         if(prefs.getString("userId",null) != null){
+
             login.setVisibility(View.INVISIBLE);
             username.setVisibility(View.INVISIBLE);
             password.setVisibility(View.INVISIBLE);
             isAuthenticated = true;
 
-            sendUserRequest(prefs.getString("userId",null));
+            sendUserRequestById(prefs.getString("userId", null));
 
         }
 
@@ -81,7 +82,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
                 if(!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
 
-                    sendUserRequest(username.getText().toString());
+                    sendUserRequestByName(username.getText().toString());
 
                 }
                 else{
@@ -103,20 +104,35 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
     }
 
-    public void saveLogin(String username,String password, boolean isAuth){
+    public void saveLogin(String username,String password, String userId, int points, boolean isAuth){
 
         prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("userId", username);
+        editor.putString("userId", userId);
+        editor.putString("username", username);
         editor.putString("password",Utils.setEncryptedText(password));
+        editor.putInt("points",points);
         editor.putBoolean("isAuthenticated", isAuth);
         editor.commit();
     }
 
 
-    public void sendUserRequest(String userId){
+    public void sendUserRequestById(String userId){
         serviceController = new ServiceController();
-        String url = "http://buserdev.cfapps.io/user/"+userId;
+        String url = "http://buserdev.cfapps.io/user/id/"+userId;
+        Map<String,String> nullMap =  new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+
+
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+
+    }
+
+    public void sendUserRequestByName(String username){
+        serviceController = new ServiceController();
+        String url = "http://buserdev.cfapps.io/user/"+username;
         Map<String,String> nullMap =  new HashMap<String, String>();
 
         Map<String, String> map = new HashMap<String, String>();
@@ -169,14 +185,10 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
                     if (response.getBoolean("enable")) {
 
                         isAuthenticated = true;
-                        saveLogin(response.getString("user"),response.getString("password"), isAuthenticated);
+                        saveLogin(response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), isAuthenticated);
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-
-                        //Intent intent = new Intent(getApplicationContext(),Activity_Principal.class);
-                        //intent.putExtra("totalPoints",response.getInt("total_gift_points"));
-
-
                         startActivity(intent);
+
                     } else {
 
                         Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
@@ -192,6 +204,8 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
                 if (response.getBoolean("enable")) {
 
                     Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                    intent.putExtra("totalPoints",response.getInt("total_gift_points"));
+                    saveLogin(response.getString("user"),response.getString("password"), response.getString("id"),response.getInt("total_gift_points"), isAuthenticated);
 
                     startActivity(intent);
                 }
