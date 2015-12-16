@@ -91,5 +91,11 @@
     <string name="title_activity_promo_detail">PromoDetailActivity</string>
     <string name="title_activity_main_login">MainLoginActivity</string>
     <string name="title_activity_login_activity_main">LoginActivityMain</string>
+    <string name="mail">Correo Electrónico</string>
+    <string name="pass">Contraseña</string>
+    <string name="restorePass">Recuperar Contraseña</string>
+    <string name="register">Registrar</string>
+    <string name="keppLoguin">Mantener Logueado</string>
+    <string name="title_activity_welcome_screen">WelcomeScreen</string>
 
 </resources>
