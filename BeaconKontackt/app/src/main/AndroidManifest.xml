@@ -68,11 +68,7 @@
         <activity
             android:name=".LoginMainActivity"
             android:label="BeaconApp" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -83,7 +79,13 @@
 
         <activity
             android:name=".WelcomeScreen"
-            android:label="@string/title_activity_welcome_screen" >
+            android:label="Quick Shop" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -36,9 +36,9 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     ImageView loginImage;
     TextView username;
     TextView password;
-    boolean isAuthenticated;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    boolean isAuthenticated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,25 +60,11 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
         loadLoginInfo();
 
-
-
-        if(prefs.getString("userId",null) != null){
-
-            login.setVisibility(View.INVISIBLE);
-            username.setVisibility(View.INVISIBLE);
-            password.setVisibility(View.INVISIBLE);
-            isAuthenticated = true;
-
-            sendUserRequestById(prefs.getString("userId", null));
-
-        }
-
        // serviceController.imageRequest("https://pbs.twimg.com/profile_images/415419569377775616/5-NAT78O_400x400.png",loginImage,0,0);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if(!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
 
@@ -107,7 +93,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     public void saveLogin(String username,String password, String userId, int points, boolean isAuth){
 
         prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
+        editor = prefs.edit();
         editor.putString("userId", userId);
         editor.putString("username", username);
         editor.putString("password",Utils.setEncryptedText(password));
@@ -117,18 +103,6 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     }
 
 
-    public void sendUserRequestById(String userId){
-        serviceController = new ServiceController();
-        String url = "http://buserdev.cfapps.io/user/id/"+userId;
-        Map<String,String> nullMap =  new HashMap<String, String>();
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
-
-
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-
-    }
 
     public void sendUserRequestByName(String username){
         serviceController = new ServiceController();
@@ -174,10 +148,6 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
         try
         {
-
-            if(prefs.getString("userId",null)==null) {
-
-
                 String requestPassword = Utils.setEncryptedText(password.getText().toString());
 
                 if (response.getString("password").equals(requestPassword)) {
@@ -198,18 +168,6 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-            }
-            else{
-
-                if (response.getBoolean("enable")) {
-
-                    Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                    intent.putExtra("totalPoints",response.getInt("total_gift_points"));
-                    saveLogin(response.getString("user"),response.getString("password"), response.getString("id"),response.getInt("total_gift_points"), isAuthenticated);
-
-                    startActivity(intent);
-                }
-            }
         }
         catch (Exception ex){
             Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
@@ -220,10 +178,8 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
+        Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
+        toast.show();
     }
-
-
-
-
 
 }
