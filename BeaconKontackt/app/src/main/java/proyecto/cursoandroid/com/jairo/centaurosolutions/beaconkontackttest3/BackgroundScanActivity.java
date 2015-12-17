@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +20,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 
 import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
@@ -121,6 +120,22 @@ public class BackgroundScanActivity extends BaseActivity {
         mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username", "");
         setTitle(mTitle);
         bindServiceAndStartMonitoring();
+    }
+
+
+    public void logOut(){
+        
+        SharedPreferences prefs;
+        SharedPreferences.Editor editor;
+        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
+        editor = prefs.edit();
+        editor.putString("userId", null);
+        editor.putString("username", null);
+        editor.putString("password",null);
+        editor.putInt("points",0);
+        editor.putBoolean("isAuthenticated", false);
+        editor.commit();
+
     }
 
     @Override
