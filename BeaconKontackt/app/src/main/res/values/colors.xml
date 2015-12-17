@@ -13,4 +13,6 @@
     <color name="DarkGreen">#0fd60f</color>
     <color name="LigthBlue">#2B8DB7</color>
     <color name="red">#f00b31</color>
+    <color name="DarkBlue">#4290a2</color>
+    <color name="LigthBluehint">#aebec2</color>
 </resources>

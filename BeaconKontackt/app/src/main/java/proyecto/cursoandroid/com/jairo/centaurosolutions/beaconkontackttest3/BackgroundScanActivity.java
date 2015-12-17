@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -80,7 +81,7 @@ public class BackgroundScanActivity extends BaseActivity {
         mPlanetTitles = new ArrayList<ElementMenu>();
         mPlanetTitles.add(new ElementMenu(R.drawable.pass,"One"));
         mPlanetTitles.add(new ElementMenu(R.drawable.pass,"two"));
-        mPlanetTitles.add(new ElementMenu(R.drawable.pass,"tree"));
+        mPlanetTitles.add(new ElementMenu(R.drawable.log_out,"Log Out"));
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -117,7 +118,8 @@ public class BackgroundScanActivity extends BaseActivity {
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
         serviceConnection = createServiceConnection();
-
+        mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username", "");
+        setTitle(mTitle);
         bindServiceAndStartMonitoring();
     }
 
@@ -127,7 +129,25 @@ public class BackgroundScanActivity extends BaseActivity {
         Utils.cancelNotifications(this, BackgroundScanService.INFO_LIST);
         registerReceiver(scanReceiver, SCAN_INTENT_FILTER);
     }
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            moveTaskToBack(true);
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
 
+        }
+
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -221,7 +241,8 @@ public class BackgroundScanActivity extends BaseActivity {
      * Swaps fragments in the main content view
      */
     private void selectItem(int position) {
-        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+        mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username","");
+        Toast.makeText(this, mTitle, Toast.LENGTH_SHORT).show();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
@@ -231,7 +252,7 @@ public class BackgroundScanActivity extends BaseActivity {
 
     @Override
     public void setTitle(CharSequence title) {
-        mTitle = title;
+        mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username","");
         getSupportActionBar().setTitle(mTitle);
     }
 
