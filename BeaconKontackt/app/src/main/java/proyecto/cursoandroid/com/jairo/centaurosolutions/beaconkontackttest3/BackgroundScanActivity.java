@@ -131,10 +131,12 @@ public class BackgroundScanActivity extends BaseActivity {
         editor = prefs.edit();
         editor.putString("userId", null);
         editor.putString("username", null);
-        editor.putString("password",null);
-        editor.putInt("points",0);
+        editor.putString("password", null);
+        editor.putInt("points", 0);
         editor.putBoolean("isAuthenticated", false);
         editor.commit();
+        Intent intent= new Intent(getApplicationContext(),LoginMainActivity.class);
+        startActivity(intent);
 
     }
 
@@ -275,6 +277,9 @@ public class BackgroundScanActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             selectItem(position);
+            if(mPlanetTitles.get(position).getElemento().equals("Log Out")){
+                logOut();
+            }
         }
     }
 }
