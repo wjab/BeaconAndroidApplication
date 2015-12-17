@@ -36,6 +36,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     ImageView loginImage;
     TextView username;
     TextView password;
+    TextView register;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     boolean isAuthenticated;
@@ -50,6 +51,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         loginImage = (ImageView)findViewById(R.id.loginImage);
         username = (TextView) findViewById(R.id.usuario);
         password = (TextView) findViewById(R.id.password);
+        register = (TextView) findViewById(R.id.register);
 
         responseError = this;
         response = this;
@@ -79,6 +81,22 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
             }
 
         });
+
+
+
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), UserRegister.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+
     }
 
     public SharedPreferences loadLoginInfo(){
@@ -106,7 +124,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
     public void sendUserRequestByName(String username){
         serviceController = new ServiceController();
-        String url = "http://buserdev.cfapps.io/user/"+username;
+        String url = "http://beuserdev.cfapps.io/user/"+username;
         Map<String,String> nullMap =  new HashMap<String, String>();
 
         Map<String, String> map = new HashMap<String, String>();

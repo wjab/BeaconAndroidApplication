@@ -22,11 +22,22 @@ public class User {
 	
 	private Date  modifiedDate;
 	
+	private String name;
+	
+	private String lastName;
+	
+	private String email;
+	
+	private String phone;
+	
+	
+	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
+
 	/**
 	 * @param user
 	 * @param password
@@ -35,9 +46,13 @@ public class User {
 	 * @param total_gift_points
 	 * @param creationDate
 	 * @param modifiedDate
+	 * @param name
+	 * @param lastName
+	 * @param email
+	 * @param phone
 	 */
 	public User(String user, String password, Boolean enable, int category_id, int total_gift_points, Date creationDate,
-			Date modifiedDate) {
+			Date modifiedDate, String name, String lastName, String email, String phone) {
 		super();
 		this.user = user;
 		this.password = password;
@@ -46,7 +61,14 @@ public class User {
 		this.total_gift_points = total_gift_points;
 		this.creationDate = creationDate;
 		this.modifiedDate = modifiedDate;
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone = phone;
 	}
+
+
+
 
 
 	/**
@@ -160,11 +182,78 @@ public class User {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-	
-	
-	
-	
 
+
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	
 
 }

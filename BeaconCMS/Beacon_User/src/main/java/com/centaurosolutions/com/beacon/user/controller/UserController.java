@@ -35,11 +35,15 @@ public class UserController {
 		User user = new User(
 				userMap.get("user").toString(), 
 	    		setEncryptedPassword(userMap.get("password").toString()),
-				(Boolean)userMap.get("enable"),
-				Integer.parseInt(userMap.get("category_id").toString()),
-				Integer.parseInt(userMap.get("total_gift_points").toString()),
+	    		(Boolean)userMap.get("enable"),
+	    		Integer.parseInt(userMap.get("category_id").toString()),
+	    		Integer.parseInt(userMap.get("total_gift_points").toString()),
 	    		DateFormatter(userMap.get("creationDate").toString()),
-	    		DateFormatter(userMap.get("modifiedDate").toString()));
+	    		DateFormatter(userMap.get("modifiedDate").toString()), 
+	    		userMap.get("name").toString(), 
+	    		userMap.get("lastName").toString(),
+	    		userMap.get("email").toString(),
+	    		userMap.get("phone").toString());
 		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Usuario creado correctamente");
@@ -82,7 +86,11 @@ public class UserController {
 	    		Integer.parseInt(userMap.get("category_id").toString()),
 	    		Integer.parseInt(userMap.get("total_gift_points").toString()),
 	    		DateFormatter(userMap.get("creationDate").toString()),
-	    		DateFormatter(userMap.get("modifiedDate").toString()));
+	    		DateFormatter(userMap.get("modifiedDate").toString()), 
+	    		userMap.get("name").toString(), 
+	    		userMap.get("lastName").toString(),
+	    		userMap.get("email").toString(),
+	    		userMap.get("phone").toString());
 	    
 	    user.setId(UserId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();

@@ -95,6 +95,11 @@
     <string name="pass">Contraseña</string>
     <string name="restorePass">Recuperar Contraseña</string>
     <string name="register">Registrar</string>
+    <string name="name">Nombre</string>
+    <string name="lastname">Apellido</string>
+    <string name="phone">Teléfono</string>
+    <string name="email">Correo electrónico</string>
+    <string name="user">Usuario</string>
     <string name="keppLoguin">Mantener Logueado</string>
     <string name="abrir">abrir</string>
     <string name="cerrar">cerrar</string>
@@ -110,5 +115,6 @@
 
     </string-array>
     <string name="title_activity_welcome_screen">WelcomeScreen</string>
+    <string name="title_activity_user_register">UserRegister</string>
 
 </resources>
