@@ -96,6 +96,19 @@
     <string name="restorePass">Recuperar Contraseña</string>
     <string name="register">Registrar</string>
     <string name="keppLoguin">Mantener Logueado</string>
+    <string name="abrir">abrir</string>
+    <string name="cerrar">cerrar</string>
+    <string name="inicilizate">Iniciando Modulos...</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string-array name="Menu">
+        <item>Opción 1</item>
+        <item>Opción 2</item>
+        <item>Opción 3</item>
+        <item>CerrarSession</item>
+
+    </string-array>
     <string name="title_activity_welcome_screen">WelcomeScreen</string>
 
 </resources>

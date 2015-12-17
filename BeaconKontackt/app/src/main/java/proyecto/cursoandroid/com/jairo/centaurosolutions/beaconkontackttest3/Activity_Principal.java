@@ -1,30 +1,50 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import adapter.menu.MenuAdapter;
+import model.elementMenu.ElementMenu;
 import service.BackgroundScanService;
 
 public class Activity_Principal extends TabActivity implements TabHost.OnTabChangeListener {
     TabHost tabHost;
     TextView totalPoints;
-
-
-
+    DrawerLayout drawerLayout;
+    ListView drawerList;
+    ArrayList<ElementMenu> elementosMenu;
+    MenuAdapter adaptador;
+    String[] tagTitles;
+    String itemTitle;
+    ActionBarDrawerToggle drawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity__principal);
+        String[] tagTitles = getResources().getStringArray(R.array.Menu);
+
+
+
 
 
         Intent intentService = new Intent(this, BackgroundScanService.class);
@@ -86,6 +106,26 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
         // Set Tab1 as Default tab and change image
         tabHost.getTabWidget().setCurrentTab(0);
     }
+    /* La escucha del ListView en el Drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            itemTitle=elementosMenu.get(position).getElemento();
+        }
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sincronizar el estado del drawer
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Cambiar las configuraciones del drawer si hubo modificaciones
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,15 +136,12 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            // Toma los eventos de selección del toggle aquí
             return true;
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }

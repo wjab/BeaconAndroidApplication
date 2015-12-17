@@ -2,11 +2,19 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,10 +23,13 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import adapter.menu.MenuAdapter;
 import controllers.ServiceController;
+import model.elementMenu.ElementMenu;
 import utils.Utils;
 
 public class WelcomeScreen extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
@@ -29,13 +40,22 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     Response.ErrorListener responseError;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    TextView info;
+    String usuario;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        info= (TextView) findViewById(R.id.InfoLoading);
+
+        info.setText("Comprobando Usuario");
+        SystemClock.sleep(2000);
         responseError = this;
         response = this;
         serviceController =  new ServiceController();
+
 
         loadLoginInfo();
 
@@ -46,6 +66,8 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
         else{
 
+            info.setText("Redirigiendo al Loguin");
+            SystemClock.sleep(2000);
             Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
             startActivity(intent);
         }
@@ -64,15 +86,19 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         editor.putString("userId", userId);
         editor.putString("username", username);
         editor.putString("password", Utils.setEncryptedText(password));
-        editor.putInt("points",points);
+        editor.putInt("points", points);
         editor.putBoolean("isAuthenticated", isAuth);
         editor.commit();
+        usuario=username;
     }
 
 
     public void sendUserRequestById(String userId){
+
+        info.setText("Conectando ccon los servidores");
+        SystemClock.sleep(2000);
         serviceController = new ServiceController();
-        String url = "http://buserdev.cfapps.io/user/id/"+userId;
+        String url = "http://beuserdev.cfapps.io/user/id/"+userId;
         Map<String,String> nullMap =  new HashMap<String, String>();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
@@ -93,6 +119,8 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         {
             if (response.getBoolean("enable") && prefs.getBoolean("isAuthenticated", false)) {
 
+                info.setText("Bienvenido "+ response.getString("user"));
+                SystemClock.sleep(2000);
                 Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 intent.putExtra("totalPoints",response.getInt("total_gift_points"));
                 saveLogin(response.getString("user"),response.getString("password"), response.getString("id"),response.getInt("total_gift_points"), true);
@@ -101,6 +129,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
             }
 
             else{
+
                 Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
                 startActivity(intent);
             }
@@ -117,25 +146,5 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_welcome_screen, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
