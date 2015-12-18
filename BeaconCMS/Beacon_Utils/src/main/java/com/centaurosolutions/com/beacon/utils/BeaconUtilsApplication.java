@@ -1,4 +1,4 @@
-package com.beaconutils;
+package com.centaurosolutions.com.beacon.utils;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
