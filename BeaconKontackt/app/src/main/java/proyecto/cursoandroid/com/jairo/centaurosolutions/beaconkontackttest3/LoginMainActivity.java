@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
-import service.BeaconSyncMessageService;
 import utils.Utils;
 
 public class LoginMainActivity extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
@@ -56,9 +55,6 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         responseError = this;
         response = this;
         serviceController =  new ServiceController();
-
-        Intent intent = new Intent(this, BeaconSyncMessageService.class);
-        startService(intent);
 
         loadLoginInfo();
 
@@ -199,5 +195,4 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
         toast.show();
     }
-
 }

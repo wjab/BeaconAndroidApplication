@@ -25,6 +25,18 @@ public class BeaconCache implements Serializable {
     public long currentDatetime;
     @DatabaseField
     public boolean messageDisplayed;
+    @DatabaseField
+    public String picturePath;
+    @DatabaseField
+    public int giftPoints;
+    @DatabaseField
+    public String title;
+    @DatabaseField
+    public String descrition;
+    @DatabaseField
+    public int attempt;
+    @DatabaseField
+    public boolean isautomatic;
 
 
     public BeaconCache(){

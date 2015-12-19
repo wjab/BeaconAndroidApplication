@@ -1,9 +1,8 @@
 package utils;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +10,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.view.Surface;
 import android.widget.Toast;
-
-import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,11 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import model.cache.BeaconCache;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
+import service.BeaconSyncMessageService;
 
-
-public final class Utils {
+public final class Utils extends Activity {
 
     public static void cancelNotifications(final Context context, final List<Integer> notificationIdList) {
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -137,5 +132,4 @@ public final class Utils {
     {
         return System.currentTimeMillis() / Constants.THOUSAND + Constants.DefaultExpirationSeg;
     }
-
 }

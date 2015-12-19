@@ -1,8 +1,7 @@
 package broadcast;
 
-import android.app.Notification;
+import android.app.Activity;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -18,7 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +25,11 @@ import java.util.Map;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.LoginMainActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PromoDetailActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
-import utils.Constants;
+import service.BeaconSyncMessageService;
 import utils.CustomNotificationManager;
+import utils.NonStaticUtils;
 import utils.Utils;
 
 public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -48,6 +46,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     String error;
     boolean isProcessing;
     String beaconUniqueId = "";
+    NonStaticUtils utilClass = new NonStaticUtils();
 
     List<BeaconCache> beaconList;
 
@@ -131,11 +130,17 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     public void onResponse(JSONObject response) {
 
         try {
-            JSONArray ranges= response.getJSONArray("ranges");
+            JSONArray ranges = response.getJSONArray("ranges");
             String range = "";
             String message = "";
             String messageType = "";
             String promo = "";
+            String promoPicture = "";
+            String description = "";
+            int givepoints = 0;
+            JSONArray arrayImages;
+            JSONObject imageObject;
+            boolean isAutomatic;
 
             for(int i=0; i < ranges.length(); i++ ){
                 JSONObject currRange = ranges.getJSONObject(i);
@@ -144,12 +149,31 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 messageType = currRange.getString("messageType");
                 promo = currRange.getString("promoID");
 
+                /*description = currRange.getString("description");
+                isAutomatic = currRange.getBoolean("isAutomatic");
+                givepoints = currRange.getInt("gift_points");
+
+                arrayImages = currRange.getJSONArray("images");
+                if (arrayImages.length() > 0)
+                {
+                    imageObject = arrayImages.getJSONObject(0);
+                    promoPicture = imageObject.getString("imageUrl");
+                }
+                else
+                {
+                    promoPicture = "";
+                }*/
+
                 myBeaconCache.message = message ;
                 myBeaconCache.proximity = range;
                 myBeaconCache.uniqueID = response.getString("uniqueID");
                 myBeaconCache.promoId = promo;
                 myBeaconCache.expiration = Utils.UnixTimeStampWithDefaultExpiration();
                 myBeaconCache.currentDatetime = Utils.UnixTimeStamp();
+                /*myBeaconCache.descrition = description;
+                myBeaconCache.isautomatic = isAutomatic;
+                myBeaconCache.picturePath = promoPicture;
+                myBeaconCache.giftPoints = givepoints;*/
 
                 addBeaconDB(myBeaconCache);
             }
@@ -206,6 +230,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 if (!existOnlist)
                 {
                     DatabaseManager.getInstance().addBeaconCache(beaconObject);
+                    utilClass.StartPromoService(getContext(), beaconObject);
                 }
                 /*else
                 {
@@ -215,6 +240,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
             else
             {
                 DatabaseManager.getInstance().addBeaconCache(beaconObject);
+                utilClass.StartPromoService(getContext(), beaconObject);
             }
         }
         catch (Exception ex)
@@ -226,6 +252,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     public void delBeaconDB()
     {
         List<BeaconCache> listtodelete = new ArrayList<BeaconCache>();
+        int rowNumber = 0, count = 0;
 
         for (BeaconCache beaconItem : beaconList)
         {
@@ -235,6 +262,22 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
             }
         }
         DatabaseManager.getInstance().deleteBeaconCache(listtodelete);
+
+        rowNumber = beaconList.size() - listtodelete.size();
+        if(rowNumber > 100)
+        {
+            listtodelete = new ArrayList<BeaconCache>();
+            for (BeaconCache beaconItem : beaconList)
+            {
+                listtodelete.add(beaconItem);
+                count++;
+                if(count == 3)
+                {
+                    break;
+                }
+            }
+            DatabaseManager.getInstance().deleteBeaconCache(listtodelete);
+        }
     }
 
 }

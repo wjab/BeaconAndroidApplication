@@ -34,6 +34,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     BeaconCache myBeaconCache;
     List<BeaconCache> beaconList;
     Runnable mRunnable;
+    BeaconCache beaconCacheRef = new BeaconCache();
 
     public static final long SYNC_INTERVAL = 10 * 1000;
     private Handler mHandler = new Handler();
@@ -52,7 +53,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://bpromodev.cfapps.io/promo/exp";
+        String url = "http://bpromodev.cfapps.io/promo/" + beaconCacheRef.promoId;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
     }
 
@@ -68,6 +69,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     public int onStartCommand(Intent intent, int flags, int startId) {
 
        final Handler mHandler = new Handler();
+
         mRunnable = new Runnable() {
             @Override
             public void run() {
@@ -75,7 +77,11 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
                 mHandler.postDelayed(mRunnable,SYNC_INTERVAL);
             }
         };
-       mHandler.postDelayed(mRunnable, SYNC_INTERVAL);
+        mHandler.postDelayed(mRunnable, SYNC_INTERVAL);
+
+        beaconCacheRef = (BeaconCache)intent.getSerializableExtra("beaconCacheRef");
+        sendPromoRequest();
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -91,44 +97,20 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     public void onResponse(JSONObject response) {
         Log.i("BSMS", "Request received");
 
-        beaconList = DatabaseManager.getInstance().getAllBeaconCache();
-        NumberFormat tempFormat = new DecimalFormat("#0.00");
-        double temp = 0.0;
+        try
+        {
+            beaconCacheRef.giftPoints = response.getInt("gift_points");
+            beaconCacheRef.descrition = response.getString("description");
+            beaconCacheRef.title = response.getString("title");
+            beaconCacheRef.attempt = response.getInt("attempt");
+            beaconCacheRef.isautomatic = response.getBoolean("isAutomatic");
+            beaconCacheRef.picturePath = response.getString("images");
 
+            // Se hace la actualizacion de los datos de cache con la informacion recibida por el web service de promociones
+            DatabaseManager.getInstance().updateBeaconCache(beaconCacheRef);
 
-        try {
-            JSONArray promoArray = response.getJSONArray("PromosExp");
-            for (int i = 0; i < promoArray.length(); i++)
-            {
-                for (int j = 0; j < beaconList.size(); j++)
-                {
-                    if (beaconList.get(j).promoId.equals(promoArray.getJSONObject(i).getString("promoId"))) {
-
-                        BeaconCache myBeacon = new BeaconCache();
-                        myBeacon.promoId = beaconList.get(j).promoId;
-                        myBeacon.uniqueID = beaconList.get(j).uniqueID;
-                        myBeacon.message =  beaconList.get(j).message;
-                        myBeacon.proximity = beaconList.get(j).proximity;
-                        temp = promoArray.getJSONObject(i).getDouble("expiration");
-                        myBeacon.expiration = Utils.UnixTimeStampWithDefaultExpiration();
-                        myBeacon.currentDatetime = Utils.UnixTimeStamp();
-                        //10.0; //Double.valueOf((String.valueOf(tempFormat.format(temp)).replace(',', '.')).toString());
-
-                        DatabaseManager.getInstance().updateBeaconCache(myBeacon);
-                    }
-                }
-            }
-
-            beaconList = DatabaseManager.getInstance().getAllBeaconCache();
-
-            for (BeaconCache myBeacon:beaconList
-                 ) {
-
-                Log.i("BSMS", myBeacon.uniqueID +" "+ myBeacon.expiration);
-
-            }
-
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
     }
