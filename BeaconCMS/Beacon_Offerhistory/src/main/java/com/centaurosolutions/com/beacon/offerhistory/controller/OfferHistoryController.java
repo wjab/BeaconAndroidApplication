@@ -24,6 +24,8 @@ import java.util.Date;
 @RequestMapping("/offerhistory")
 public class OfferHistoryController {
 	
+    private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+	
 	@Autowired
 	private OfferHistoryRepository offerhistoryRepository;
 	
@@ -32,7 +34,7 @@ public class OfferHistoryController {
 	public Map<String, Object> createDevice(@RequestBody Map<String, Object> offerhistoryMap){
 		
 
-		OfferHistory offerhistoryModel = new OfferHistory( offerhistoryMap.get("user_id").toString(),offerhistoryMap.get("promo_id").toString(), offerhistoryMap.get("merchant_id").toString(),offerhistoryMap.get("shopZone_id").toString(),DateFormatter(offerhistoryMap.get("scanDate").toString()), DateFormatter(offerhistoryMap.get("creationDate").toString()),DateFormatter(offerhistoryMap.get("modifiedDate").toString()));    
+		OfferHistory offerhistoryModel = new OfferHistory( offerhistoryMap.get("user_id").toString(),offerhistoryMap.get("promo_id").toString(), offerhistoryMap.get("merchant_id").toString(),offerhistoryMap.get("shopZone_id").toString(),DateFormatter(getDate()), DateFormatter(getDate()),DateFormatter(getDate()));    
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Historial de oferta creado correctamente");
 	    response.put("offerhistory", offerhistoryModel); 
@@ -44,6 +46,27 @@ public class OfferHistoryController {
 	  @RequestMapping(method = RequestMethod.GET, value="/{offerId}")
 	  public OfferHistory getDeviceDetails(@PathVariable("offerId") String offerHistoryId){
 		  return offerhistoryRepository.findOne(offerHistoryId);
+	  }
+	  
+	  
+	  @RequestMapping(method = RequestMethod.GET, value="/getAttempts/user/{userId}/promo/{promoId}")
+	  public Map<String, Object> getPromoUserAttempts (@PathVariable("userId") String userId, @PathVariable("promoId") String promoId){
+			
+		  List<OfferHistory> offerhistoryModelList = offerhistoryRepository.findAll();
+
+			int attempts = 0;
+			for(OfferHistory offerHistory : offerhistoryModelList){
+				if(offerHistory.getPromo_id().equals(promoId) && offerHistory.getUser_id().equals(userId));{
+					attempts++;
+				}				
+			}
+						
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			response.put("promoId", promoId);
+			response.put("userId", userId);
+			response.put("attempts", offerhistoryModelList.size());
+			return response;
+
 	  }
 	  
 	@RequestMapping(method = RequestMethod.GET)
@@ -81,19 +104,26 @@ public class OfferHistoryController {
 	    return response;
 	}
 	
-	  
 	private Date DateFormatter(String pDate){
-			
+		
 		Date finalDate = new Date();
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
+
 		try {
 			finalDate = format.parse(pDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
+		
 		return finalDate;		
+	}
+	
+	private String getDate(){
+        DateFormat df = DateFormat.getDateTimeInstance();
+        long currentTime = new Date().getTime();
+        String currDate = df.format(new Date(currentTime));
+        return currDate;
+		
 	}
 
 }

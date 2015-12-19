@@ -36,14 +36,9 @@ public class PromoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createPromo(@RequestBody Map<String, Object> promoMap){
 		
-		ArrayList<PromoImage> images = new ArrayList<PromoImage>();
-		
-		if(promoMap.get("images") != null){
-			images = (ArrayList<PromoImage>) promoMap.get("images");
-		}
-		
 
-		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString(),promoMap.get("promoTitle").toString(),promoMap.get("promoDescription").toString(),(Boolean)promoMap.get("isAutomatic"),images);
+
+		Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString(),promoMap.get("promoTitle").toString(),promoMap.get("promoDescription").toString(),(Boolean)promoMap.get("isAutomatic"),promoMap.get("image").toString());
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Promoción creada correctamente");
 	    response.put("promo", promoModel); 
@@ -119,16 +114,7 @@ public class PromoController {
 	      @RequestBody Map<String, Object> promoMap){
 		  
 		  
-
-			ArrayList<PromoImage> images = null;
-			
-			if(promoMap.get("images") != null){
-				images =  (ArrayList<PromoImage>) promoMap.get("images");
-			}
-			
-
-
-	    Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString(),promoMap.get("promoTitle").toString(),promoMap.get("promoDescription").toString(),(Boolean)promoMap.get("isAutomatic"),images);
+	    Promo promoModel = new Promo((Boolean)promoMap.get("enable"), promoMap.get("profile_id").toString(), promoMap.get("code").toString() ,Integer.parseInt(promoMap.get("gift_points").toString()),Integer.parseInt(promoMap.get("attempt").toString()),DateFormatter(promoMap.get("startDate").toString()), DateFormatter(promoMap.get("endDate").toString()),promoMap.get("type").toString(),Integer.parseInt(promoMap.get("availability").toString()), DateFormatter(promoMap.get("creationDate").toString()), DateFormatter(promoMap.get("modifiedDate").toString()),promoMap.get("updatedBy").toString(),promoMap.get("promoTitle").toString(),promoMap.get("promoDescription").toString(),(Boolean)promoMap.get("isAutomatic"),promoMap.get("image").toString());
 		promoModel.setId(PromoId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Promoción actualizada correctamente");

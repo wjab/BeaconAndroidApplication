@@ -1,13 +1,23 @@
-package com.centaurosolutions.com.beacon.promo.model;
-import org.springframework.data.annotation.Id;
+/**
+ * 
+ */
+package com.centaurosolutions.com.beacon.utils.model;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+/**
+ * @author Eduardo
+ *
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Promo {
 	
 
-	@Id
+
 	private String id;
 	private boolean enable;
 	private String profile_id;
