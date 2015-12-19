@@ -6,7 +6,7 @@ package model.elementMenu;
 public class ElementMenu {
     public String elemento;
     public int Imagen;
-    public ElementMenu(int Imagen, String elemento) {
+    public ElementMenu( String elemento,int Imagen) {
 
         this.Imagen = Imagen;
         this.elemento = elemento;

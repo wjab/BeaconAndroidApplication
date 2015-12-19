@@ -1,0 +1,61 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:background="@color/fondo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+
+            android:gravity="center"
+            android:layout_weight="0.24">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="170dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/Imagen_Promo_Detail"
+                android:src="@drawable/promo"
+                />
+            <TextView
+                android:text="Titulo"
+                android:textSize="30dp"
+                android:paddingBottom="5dp"
+               android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:textColor="@color/Black"
+                android:layout_width="fill_parent"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/Titulo_Promo"
+                android:layout_alignBottom="@+id/Imagen_Promo_Detail" />
+            <TextView
+                android:text="smkhmlfjmfkh kdf hgkfxhf lfknhlf glh lf h fjgj fghgfssghdfhdfg hh dfgh gf ghdgf h dfg fd hgf dhgfh gfhfdghfh gfh df ff hg dfh hgdfhdfhdfghdfhgfhgf h fgddh gf hdfh"
+                android:textSize="15dp"
+
+                android:maxLines="10"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:textColor="@color/Black"
+                android:layout_width="fill_parent"
+                android:gravity="center_vertical|left"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/DescriptionPromoDetai"
+
+                android:layout_alignBottom="@+id/Titulo_Promo" />
+         </LinearLayout> <!-- The navigation drawer -->
+    </LinearLayout> <!-- The navigation drawer -->

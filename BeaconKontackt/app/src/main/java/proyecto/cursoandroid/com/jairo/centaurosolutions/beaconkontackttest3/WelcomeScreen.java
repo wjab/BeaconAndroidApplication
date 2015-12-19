@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,9 +48,9 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_welcome_screen);
         info= (TextView) findViewById(R.id.InfoLoading);
-
         info.setText("Comprobando Usuario");
         SystemClock.sleep(2000);
         responseError = this;
@@ -95,7 +96,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
     public void sendUserRequestById(String userId){
 
-        info.setText("Conectando ccon los servidores");
+        info.setText("Cargando Aplicación");
         SystemClock.sleep(2000);
         serviceController = new ServiceController();
         String url = "http://beuserdev.cfapps.io/user/id/"+userId;

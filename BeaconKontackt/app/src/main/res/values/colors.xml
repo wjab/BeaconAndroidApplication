@@ -15,4 +15,9 @@
     <color name="red">#f00b31</color>
     <color name="DarkBlue">#4290a2</color>
     <color name="LigthBluehint">#aebec2</color>
+    <color name="DarkBlueBar">#2a8296</color>
+    <color name="fondo">#3741b5</color>
+    <color name="fondoPerfilBoton">#00ac55</color>
+    <color name="letrasmenucolor">#006b35</color>
+    <color name="barraAccion">#f58700</color>
 </resources>

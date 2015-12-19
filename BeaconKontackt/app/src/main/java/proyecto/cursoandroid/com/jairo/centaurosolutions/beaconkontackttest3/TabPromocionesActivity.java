@@ -164,7 +164,7 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
 
             }
 
-            adapter=new Adaptador_Promo(this, promociones);
+           /// adapter=new Adaptador_Promo(this, promociones);
         }
         catch(Exception ex){
 

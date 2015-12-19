@@ -41,7 +41,7 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity__principal);
-        String[] tagTitles = getResources().getStringArray(R.array.Menu);
+
 
 
 

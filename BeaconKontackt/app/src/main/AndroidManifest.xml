@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3">
+    package="proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,16 +10,16 @@
     <application
         android:name="controllers.AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="kontakt.io.API_KEY"
             android:value="ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc" />
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity android:name=".range.IBeaconRangeActivity" />
         <activity android:name=".management.BeaconManagementActivity" />
         <activity android:name=".BackgroundScanActivity" />
@@ -46,31 +46,31 @@
 
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"></activity>
+            android:label="@string/title_activity_main2" />
         <activity
             android:name=".Activity_Principal"
-            android:label="@string/title_activity_activity__principal"></activity>
+            android:label="@string/title_activity_activity__principal" />
         <activity
             android:name=".TabPromocionesActivity"
-            android:label="@string/title_activity_tab_promociones"></activity>
+            android:label="@string/title_activity_tab_promociones" />
         <activity
             android:name=".ElementoListaPromoActivity"
-            android:label="@string/title_activity_elemento_lista_promo"></activity>
+            android:label="@string/title_activity_elemento_lista_promo" />
         <activity
             android:name=".PromoDetailActivity"
-            android:label="@string/title_activity_promo_detail"></activity>
+            android:label="@string/title_activity_promo_detail" />
         <activity
             android:name=".LoginMainActivity"
-            android:label="BeaconApp"></activity>
+            android:label="BeaconApp" />
 
         <service
             android:name="service.BeaconSyncMessageService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".WelcomeScreen"
-            android:label="Quick Shop">
+            android:label="Quick Shop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,7 +79,11 @@
         </activity>
         <activity
             android:name=".UserRegister"
-            android:label="@string/title_activity_user_register"></activity>
+            android:label="@string/title_activity_user_register" />
+        <activity
+            android:name=".Detail_Promo"
+            android:label="@string/title_activity_detail__promo" >
+        </activity>
     </application>
 
 </manifest>
