@@ -68,8 +68,6 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
             }
         });
 
-
-
         responseError = this;
         response = this;
         serviceController =  new ServiceController();
@@ -77,36 +75,7 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
         map.put("Content-Type", "application/json");
         String url = "http://bpromodev.cfapps.io/promo";
 
-
         serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);
-
-
-/*
-        promo.setTitulo("ZARA");
-        promo.setDescripcion("10% en líneas seleccionadas");
-        promo.setPuntos(100);
-        promo.setId(57545);
-        promo.setUrlImagen("http://globedia.com/imagenes/noticias/2011/1/26/planea-zara-abrir-tiendas-especializadas-calzado_1_567829.jpg");
-        promociones.add(promo);
-
-        promo= new Promociones();
-        promo.setTitulo("Siman");
-        promo.setDescripcion("15% de descuento en ropa para hombre");
-        promo.setPuntos(150);
-        promo.setId(53145);
-        promo.setUrlImagen("http://i996.photobucket.com/albums/af81/para_elforo/tradiciones/si-1.jpg");
-        promociones.add(promo);
-
-
-        promo= new Promociones();
-        promo.setTitulo("Universal");
-        promo.setDescripcion("15% de descuento en juguetes Mattel y LEGO  ");
-        promo.setPuntos(999);
-        promo.setId(54897);
-        promo.setUrlImagen("https://www.larepublica.net/app/cms/www/images/201211170030500.m3.jpg");
-        promociones.add(promo);
-        adapter=new Adaptador_Promo(this, promociones);
-        listviewPromo.setAdapter(adapter);*/
     }
 
     @Override
@@ -150,28 +119,20 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
                 promo.setDescripcion(row.getString("description"));
                 promo.setPuntos(row.getInt("gift_points"));
                 promo.setId(row.getInt("profile_id"));
-                if(row.get("images") != null){
-
-                    url = row.getJSONArray("images").getJSONObject(0).getString("imageUrl");
+                if(row.get("images") != null)
+                {
+                    url = row.getString("images");
                     promo.setUrlImagen(url);
-                    // url = row.get("images").toString();
                 }
 
-
-
                 promociones.add(promo);
-
-
             }
 
-           /// adapter=new Adaptador_Promo(this, promociones);
+            adapter = new Adaptador_Promo(this, promociones);
         }
         catch(Exception ex){
 
         }
-
-
-
 
         listviewPromo.setAdapter(adapter);
 

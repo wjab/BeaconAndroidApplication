@@ -89,6 +89,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
         }
 
         Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
+        //redirectIntent.putExtra("");
 
         CustomNotificationManager cNotificationManager = new CustomNotificationManager();
         cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, beaconDevice.getName()));

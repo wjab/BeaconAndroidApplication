@@ -34,13 +34,13 @@ public class Adaptador_Promo extends ArrayAdapter<Promociones> {
 
     // private final Integer[] imgid;
 /// constructor que recive el contexto y la lista de los elementos
-    public Adaptador_Promo(Activity contexto, ArrayList<Promociones> listaPartidos) {
-        super(contexto, R.layout.activity_elemento_lista_promo, listaPartidos);
+    public Adaptador_Promo(Activity contexto, ArrayList<Promociones> lista) {
+        super(contexto, R.layout.activity_elemento_lista_promo, lista);
         // TODO Auto-generated constructor stub
 
         this.contexto = contexto;
-        this.listaPromociones = listaPartidos;
-        this.mStringFilterList = listaPartidos;
+        this.listaPromociones = lista;
+        this.mStringFilterList = lista;
 
     }
 
