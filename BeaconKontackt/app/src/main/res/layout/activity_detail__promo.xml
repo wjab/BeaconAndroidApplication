@@ -4,58 +4,95 @@
         android:background="@color/fondo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
-        android:weightSum="1">
 
-        <LinearLayout
+        android:weightSum="1">
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_height="fill_parent"
+            >
+        <RadioGroup
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/space_rounded"
             android:orientation="vertical"
+            android:layout_marginTop="18dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
 
-            android:gravity="center"
-            android:layout_weight="0.24">
+          >
             <ImageView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:background="@drawable/space_rounded"
                 android:id="@+id/Imagen_Promo_Detail"
                 android:src="@drawable/promo"
                 />
             <TextView
                 android:text="Titulo"
-                android:textSize="30dp"
-                android:paddingBottom="5dp"
+                android:layout_below="@+id/Imagen_Promo_Detail"
+                android:textSize="33dp"
+                android:paddingBottom="10dp"
                android:layout_marginTop="5dp"
                 android:ellipsize="end"
-                android:textColor="@color/Black"
+                android:textColor="@color/TituloPromo"
+                android:textStyle="bold"
                 android:layout_width="fill_parent"
                 android:gravity="center_horizontal"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/Titulo_Promo"
-                android:layout_alignBottom="@+id/Imagen_Promo_Detail" />
+                />
             <TextView
-                android:text="smkhmlfjmfkh kdf hgkfxhf lfknhlf glh lf h fjgj fghgfssghdfhdfg hh dfgh gf ghdgf h dfg fd hgf dhgfh gfhfdghfh gfh df ff hg dfh hgdfhdfhdfghdfhgfhgf h fgddh gf hdfh"
+                android:text="sdghfh gfh df ff hg dfh hgdfhdfhdfghdfhgfhgf h fgddh gfhdfh"
                 android:textSize="15dp"
-
-                android:maxLines="10"
-                android:paddingBottom="5dp"
+                android:layout_below="@+id/Titulo_Promo"
+                               android:paddingBottom="30dp"
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
-                android:textColor="@color/Black"
-                android:layout_width="fill_parent"
+                android:textColor="@color/DescripciónPromo"
+                android:layout_width="match_parent"
                 android:gravity="center_vertical|left"
                 android:layout_marginLeft="15dp"
+                android:maxLines = "13"
+                android:scrollbars = "vertical"
                 android:layout_marginRight="15dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/DescriptionPromoDetai"
-
-                android:layout_alignBottom="@+id/Titulo_Promo" />
-         </LinearLayout> <!-- The navigation drawer -->
+              />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:id="@+id/etiquetaPuntos"
+                android:src="@drawable/circulo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignTop="@+id/Imagen_Promo_Detail"
+                android:layout_alignEnd="@+id/Imagen_Promo_Detail"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:text="10000 pts"
+                android:layout_marginRight="15dp"
+                android:textSize="15dp"
+                android:rotation="-15"
+                android:layout_width="fill_parent"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|center"
+                android:layout_height="wrap_content"
+                android:id="@+id/Puntos_promo_Detail"
+                android:textIsSelectable="false"
+                android:layout_marginLeft="15dp"
+                android:layout_alignTop="@+id/etiquetaPuntos"
+                android:layout_alignStart="@+id/etiquetaPuntos"
+                android:layout_alignBottom="@+id/etiquetaPuntos"
+                android:layout_alignEnd="@+id/etiquetaPuntos"/>
+         </RelativeLayout> <!-- The navigation drawer -->
+        </RadioGroup>
+        </ScrollView>
     </LinearLayout> <!-- The navigation drawer -->

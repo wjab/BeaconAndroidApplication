@@ -40,8 +40,8 @@
             android:id="@+id/Titulo_Promo"
             android:layout_alignBottom="@+id/Imagen_Promo" />
     <ImageView
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
         android:id="@+id/etiquetaPuntos"
         android:src="@drawable/circulo"
@@ -51,7 +51,7 @@
         android:layout_alignEnd="@+id/Imagen_Promo"
         android:layout_marginTop="15dp" />
         <TextView
-            android:text="70"
+            android:text="10000 pts"
             android:layout_marginRight="15dp"
             android:textSize="15dp"
             android:rotation="-15"

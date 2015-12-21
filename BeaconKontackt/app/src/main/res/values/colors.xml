@@ -20,4 +20,6 @@
     <color name="fondoPerfilBoton">#00ac55</color>
     <color name="letrasmenucolor">#006b35</color>
     <color name="barraAccion">#f58700</color>
+    <color name="TituloPromo">#3741b5</color>
+    <color name="DescripciónPromo">#383838</color>
 </resources>

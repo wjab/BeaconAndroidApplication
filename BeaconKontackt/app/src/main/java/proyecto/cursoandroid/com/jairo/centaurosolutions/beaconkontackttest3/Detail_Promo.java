@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,18 +21,39 @@ public class Detail_Promo extends AppCompatActivity {
 
     TextView TituloPromo ;
     TextView DescripcionPromo;
+    TextView Points;
     ImageView ImagenPromo;
+    String mpoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_detail__promo);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.action_bar_promodetail,
+                null);
+        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
+        ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+            });
+        TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        pointsAction.setText(mpoints + " pts");
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
+        Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         Intent intent= getIntent();
         Promociones promo=(Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
+        Points.setText(promo.getPuntos()+" pts");
         TituloPromo.setText(promo.getTitulo());
         DescripcionPromo.setText(promo.getDescripcion());
         imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0,0);

@@ -66,7 +66,7 @@ public class Adaptador_Promo extends ArrayAdapter<Promociones> {
 
 
         TituloPromo.setText(listaPromociones.get(position).getTitulo() + "");
-        PuntosPromo.setText(listaPromociones.get(position).getPuntos() + "");
+        PuntosPromo.setText(listaPromociones.get(position).getPuntos() + " pts");
 
         return rowView;
 
