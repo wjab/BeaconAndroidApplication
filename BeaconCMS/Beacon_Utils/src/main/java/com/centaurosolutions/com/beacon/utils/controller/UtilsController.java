@@ -57,6 +57,7 @@ public class UtilsController {
 		}
 		catch(Exception ex){
 			response.put("userId", null);
+			response.put("Error", ex.getMessage());
 		}
 		
 
