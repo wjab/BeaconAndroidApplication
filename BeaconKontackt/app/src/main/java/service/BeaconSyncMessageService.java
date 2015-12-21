@@ -38,11 +38,14 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     BeaconCache beaconCacheRef = new BeaconCache();
     NonStaticUtils nonStaticUtils;
 
+
     public static final long SYNC_INTERVAL = 10 * 1000;
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
 
-    public BeaconSyncMessageService() {
+    public BeaconSyncMessageService()
+    {
+        DatabaseManager.init(this);
         nonStaticUtils = new NonStaticUtils();
     }
 
@@ -69,6 +72,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        DatabaseManager.init(this);
        /*final Handler mHandler = new Handler();
 
         mRunnable = new Runnable() {
@@ -100,6 +104,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         try
         {
+            DatabaseManager.init(this);
             beaconCacheRef.giftPoints = response.getInt("gift_points");
             beaconCacheRef.descrition = response.getString("description");
             beaconCacheRef.title = response.getString("title");
@@ -110,7 +115,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
             // Se hace la actualizacion de los datos de cache con la informacion recibida por el web service de promociones
             DatabaseManager.getInstance().updateBeaconCache(beaconCacheRef);
 
-            nonStaticUtils.StartGiftpointService(getApplicationContext(), beaconCacheRef.promoId );
+            nonStaticUtils.StartGiftpointService(getApplicationContext(), beaconCacheRef.promoId);
 
         }
         catch (JSONException e) {

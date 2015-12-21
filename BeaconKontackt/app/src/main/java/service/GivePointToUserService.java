@@ -39,6 +39,7 @@ public class GivePointToUserService extends Service implements Response.Listener
         BeaconCache myBeaconCache;
         Context context;
         String promoId;
+        NonStaticUtils nonStaticUtils;
 
         //Runnable mRunnable;
 
@@ -46,7 +47,10 @@ public class GivePointToUserService extends Service implements Response.Listener
 
         // Constructor
         public GivePointToUserService()
-        { }
+        {
+            DatabaseManager.init(this);
+            nonStaticUtils = new NonStaticUtils();
+        }
 
         @Override
         public void onCreate()
@@ -88,13 +92,16 @@ public class GivePointToUserService extends Service implements Response.Listener
             responseError = this;
             response = this;
 
+            SharedPreferences sharedPreferences = nonStaticUtils.loadLoginInfo(context);
+            String userId = sharedPreferences.getString("userId", "827ccb0eea8a706c4c34a16891f84e7b");
+
             Map<String, String> mapHeaders = new HashMap<String, String>();
             mapHeaders.put("Content-Type", "application/json");
             String url = "http://beutilsdev.cfapps.io/utils/saveData";
 
             Map<String, String> mapParams = new HashMap<String, String>();
             mapParams.put("promoId", promoId);
-            mapParams.put("userId", getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("useriId", null));
+            mapParams.put("userId", userId );
 
             serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, mapHeaders, response, responseError);
         }
@@ -103,7 +110,6 @@ public class GivePointToUserService extends Service implements Response.Listener
     public void onResponse(JSONObject response)
     {
         Log.i("GivePointsToUserService", "Request received");
-        NonStaticUtils nonStaticUtils = new NonStaticUtils();
 
         myBeaconCache = new BeaconCache();
         JSONObject userObject = new JSONObject();
@@ -142,21 +148,26 @@ public class GivePointToUserService extends Service implements Response.Listener
     public void onErrorResponse(VolleyError error)
     {
         Log.d("Request Error on GPTUS", error.toString());
+        ShowPromoNotification(context);
     }
 
     public void ShowPromoNotification(Context context)
     {
         myBeaconCache = Utils.GetCacheByPromoId(promoId);
 
-        Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
-        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
-        cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, myBeaconCache.title));
-        cNotificationManager.setIcon(R.drawable.logo);
-        cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, myBeaconCache.title));
-        cNotificationManager.setnotificationMessage(myBeaconCache.descrition);
-        cNotificationManager.setRedirectIntent(redirectIntent);
-        cNotificationManager.ShowInputNotification(context, 0, notificationManager);
+        if(myBeaconCache.id != 0) {
 
-        redirectIntent.putExtra("promoDetail", myBeaconCache);
+            Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
+            CustomNotificationManager cNotificationManager = new CustomNotificationManager();
+            cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, myBeaconCache.title));
+            cNotificationManager.setIcon(R.drawable.logo);
+            cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, myBeaconCache.title));
+            cNotificationManager.setnotificationMessage(myBeaconCache.descrition);
+            redirectIntent.putExtra("promoDetail", myBeaconCache);
+            cNotificationManager.setRedirectIntent(redirectIntent);
+            cNotificationManager.ShowInputNotification(context, 0, notificationManager);
+
+
+        }
     }
 }

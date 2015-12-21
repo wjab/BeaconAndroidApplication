@@ -29,7 +29,7 @@ public class PromoDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_detail__promo);
+        setContentView(R.layout.activity_promo_detail);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_notification_layout,
                 null);
@@ -54,8 +54,8 @@ public class PromoDetailActivity extends AppCompatActivity {
         Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
-        Intent intent= getIntent();
-        BeaconCache promo=(BeaconCache)intent.getSerializableExtra("BeaconCache");
+        Intent intent1= getIntent();
+        BeaconCache promo=(BeaconCache)intent1.getSerializableExtra("promoDetail");
         ServiceController imageRequest =  new ServiceController();
         Points.setText(promo.giftPoints+" pts");
         TituloPromo.setText(promo.title);

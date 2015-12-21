@@ -210,6 +210,8 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     public void addBeaconDB(BeaconCache beaconObject)
     {
         boolean existOnlist = false;
+        String promoId = "";
+
         try
         {
             beaconList = DatabaseManager.getInstance().getAllBeaconCache();
@@ -224,6 +226,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                     if (cacheItem.uniqueID.contains(beaconObject.uniqueID) && cacheItem.proximity.contains(beaconObject.proximity))
                     {
                         existOnlist = true;
+                        promoId = cacheItem.promoId;
                         break;
                     }
                 }
@@ -232,10 +235,14 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                     DatabaseManager.getInstance().addBeaconCache(beaconObject);
                     utilClass.StartPromoService(getContext(), beaconObject);
                 }
-                /*else
+                else
                 {
-                    DatabaseManager.getInstance().updateBeaconCache(beaconObject);
-                }*/
+                    if(!promoId.isEmpty() && promoId != null)
+                    {
+                        utilClass.StartGiftpointService(getContext(), promoId);
+                    }
+                    //DatabaseManager.getInstance().updateBeaconCache(beaconObject);
+                }
             }
             else
             {

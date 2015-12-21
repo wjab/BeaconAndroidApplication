@@ -144,7 +144,7 @@ public final class Utils extends Activity {
         listbeaconCache = DatabaseManager.getInstance().getAllBeaconCache();
         for (BeaconCache beaconItem : listbeaconCache)
         {
-            if (beaconItem.promoId == promoId)
+            if (beaconItem.promoId.equals(promoId) && beaconItem.descrition != null && beaconItem.title != null)
             {
                 beaconCache = beaconItem;
                 break;
