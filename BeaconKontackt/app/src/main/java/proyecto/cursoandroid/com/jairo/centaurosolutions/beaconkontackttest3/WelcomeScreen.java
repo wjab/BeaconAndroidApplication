@@ -2,19 +2,10 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,14 +15,11 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import adapter.menu.MenuAdapter;
 import controllers.ServiceController;
-import model.elementMenu.ElementMenu;
-import utils.Utils;
+import utils.NonStaticUtils;
 
 public class WelcomeScreen extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -43,6 +31,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     SharedPreferences.Editor editor;
     TextView info;
     String usuario;
+    NonStaticUtils nonStaticUtils;
 
 
     @Override
@@ -56,9 +45,10 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         responseError = this;
         response = this;
         serviceController =  new ServiceController();
+        nonStaticUtils = new NonStaticUtils();
 
+        prefs = nonStaticUtils.loadLoginInfo(this);
 
-        loadLoginInfo();
 
         if(prefs.getString("userId",null) != null){
 
@@ -67,30 +57,11 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
         else{
 
-            info.setText("Redirigiendo al Loguin");
+            info.setText("Redirigiendo al Login");
             SystemClock.sleep(2000);
             Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
             startActivity(intent);
         }
-    }
-
-    public SharedPreferences loadLoginInfo(){
-
-        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
-        return prefs;
-    }
-
-    public void saveLogin(String username,String password, String userId, int points, boolean isAuth){
-
-        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
-        editor = prefs.edit();
-        editor.putString("userId", userId);
-        editor.putString("username", username);
-        editor.putString("password", Utils.setEncryptedText(password));
-        editor.putInt("points", points);
-        editor.putBoolean("isAuthenticated", isAuth);
-        editor.commit();
-        usuario=username;
     }
 
 
@@ -114,7 +85,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
         Log.d("Response", response.toString());
 
-        loadLoginInfo();
+        prefs = nonStaticUtils.loadLoginInfo(this);
 
         try
         {
@@ -124,7 +95,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                 SystemClock.sleep(2000);
                 Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 intent.putExtra("totalPoints",response.getInt("total_gift_points"));
-                saveLogin(response.getString("user"),response.getString("password"), response.getString("id"),response.getInt("total_gift_points"), true);
+                nonStaticUtils.saveLogin(this,response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), true);
 
                 startActivity(intent);
             }

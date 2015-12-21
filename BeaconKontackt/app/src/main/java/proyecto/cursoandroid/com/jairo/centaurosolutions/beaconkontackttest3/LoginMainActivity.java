@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
+import utils.NonStaticUtils;
 import utils.Utils;
 
 public class LoginMainActivity extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
@@ -40,6 +41,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     boolean isAuthenticated;
+    NonStaticUtils nonStaticUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login_main);
 
+        nonStaticUtils =  new NonStaticUtils();
         Button login = (Button)findViewById(R.id.login);
         loginImage = (ImageView)findViewById(R.id.loginImage);
         username = (TextView) findViewById(R.id.usuario);
@@ -57,7 +60,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         response = this;
         serviceController =  new ServiceController();
 
-        loadLoginInfo();
+        prefs= nonStaticUtils.loadLoginInfo(this);
 
        // serviceController.imageRequest("https://pbs.twimg.com/profile_images/415419569377775616/5-NAT78O_400x400.png",loginImage,0,0);
 
@@ -114,27 +117,6 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         }
 
     }
-    public SharedPreferences loadLoginInfo(){
-
-        String user = "";
-        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
-
-        return prefs;
-
-    }
-
-    public void saveLogin(String username,String password, String userId, int points, boolean isAuth){
-
-        prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
-        editor = prefs.edit();
-        editor.putString("userId", userId);
-        editor.putString("username", username);
-        editor.putString("password",Utils.setEncryptedText(password));
-        editor.putInt("points",points);
-        editor.putBoolean("isAuthenticated", isAuth);
-        editor.commit();
-    }
-
 
 
     public void sendUserRequestByName(String username){
@@ -177,7 +159,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         Log.d("Response", response.toString());
 
 
-        loadLoginInfo();
+        prefs = nonStaticUtils.loadLoginInfo(this);
 
         try
         {
@@ -188,7 +170,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
                     if (response.getBoolean("enable")) {
 
                         isAuthenticated = true;
-                        saveLogin(response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), isAuthenticated);
+                        nonStaticUtils.saveLogin(this,response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), isAuthenticated);
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                         startActivity(intent);
 

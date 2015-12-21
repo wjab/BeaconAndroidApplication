@@ -46,22 +46,22 @@ public class UtilsController {
 						}
 					}
 					else{
-						response.put("userId", null);
+						response.put("user", null);
 					}
 				}			
 				else{
-					response.put("userId", null);
+					response.put("user", null);
 					response.put("El usuario ha superado el limite de promociones escaneadas", null);	
 				}
 			}
 			else{
-				response.put("userId", null);
+				response.put("user", null);
 				response.put("cause", "Objetos vacíos");
 			}
 		}
 		catch(Exception ex){
-			response.put("userId", null);
-			response.put("Error", ex.getMessage());
+			response.put("user", null);
+			response.put("error", ex.getMessage());
 		}
 		
 
