@@ -39,7 +39,10 @@ public class UtilsController {
 					String url = "http://beuserdev.cfapps.io/user/"+customMap.get("userId").toString();
 					User userObject = restTemplate.getForObject("http://beuserdev.cfapps.io/user/id/"+customMap.get("userId").toString(), User.class);
 					if(userObject != null){
-						userObject.setTotal_gift_points(userObject.getTotal_gift_points() + promoObject.getGift_points());
+						
+						int points = userObject.getTotal_gift_points() + promoObject.getGift_points();
+						userObject.setTotal_gift_points(points);
+						
 
 						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
 						    response.put("user", userObject);	
