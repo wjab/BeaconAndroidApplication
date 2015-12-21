@@ -10,7 +10,7 @@ import com.android.volley.toolbox.Volley;
 import com.kontakt.sdk.android.common.KontaktSDK;
 import com.kontakt.sdk.android.common.log.LogLevel;
 import com.kontakt.sdk.android.common.log.Logger;
-import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.LeakCanary;
 
 import butterknife.ButterKnife;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BuildConfig;
@@ -37,7 +37,7 @@ public class AppController extends Application {
     }
     private void initializeDependencies() {
         if(BuildConfig.DEBUG) {
-            LeakCanary.install(this);
+            //LeakCanary.install(this);
         }
 
         KontaktSDK.initialize(this)

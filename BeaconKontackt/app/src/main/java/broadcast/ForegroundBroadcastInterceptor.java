@@ -100,7 +100,6 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 beaconDevice.getMinor(), beaconDevice.getDistance(), beaconDevice.getProximity().name()));
         cNotificationManager.setRedirectIntent(redirectIntent);
         cNotificationManager.ShowInputNotification(context, info, notificationManager);*/
-
     }
 
     @Override

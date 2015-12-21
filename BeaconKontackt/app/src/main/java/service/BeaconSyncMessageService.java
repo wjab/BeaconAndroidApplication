@@ -24,6 +24,7 @@ import java.util.Timer;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
+import utils.NonStaticUtils;
 import utils.Utils;
 
 public class BeaconSyncMessageService extends Service implements Response.Listener<JSONObject>, Response.ErrorListener  {
@@ -35,12 +36,14 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     List<BeaconCache> beaconList;
     Runnable mRunnable;
     BeaconCache beaconCacheRef = new BeaconCache();
+    NonStaticUtils nonStaticUtils;
 
     public static final long SYNC_INTERVAL = 10 * 1000;
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
-    public BeaconSyncMessageService() {
 
+    public BeaconSyncMessageService() {
+        nonStaticUtils = new NonStaticUtils();
     }
 
     public void sendPromoRequest() {
@@ -106,6 +109,8 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
             // Se hace la actualizacion de los datos de cache con la informacion recibida por el web service de promociones
             DatabaseManager.getInstance().updateBeaconCache(beaconCacheRef);
+
+            nonStaticUtils.StartGiftpointService(this, beaconCacheRef.promoId );
 
         }
         catch (JSONException e) {
