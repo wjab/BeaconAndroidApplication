@@ -110,7 +110,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
             // Se hace la actualizacion de los datos de cache con la informacion recibida por el web service de promociones
             DatabaseManager.getInstance().updateBeaconCache(beaconCacheRef);
 
-            nonStaticUtils.StartGiftpointService(this, beaconCacheRef.promoId );
+            nonStaticUtils.StartGiftpointService(getApplicationContext(), beaconCacheRef.promoId );
 
         }
         catch (JSONException e) {

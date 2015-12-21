@@ -88,13 +88,15 @@ public class GivePointToUserService extends Service implements Response.Listener
             responseError = this;
             response = this;
 
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("promoId", promoId);
-            map.put("userId", getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("useriId", null));
-            map.put("Content-Type", "application/json");
+            Map<String, String> mapHeaders = new HashMap<String, String>();
+            mapHeaders.put("Content-Type", "application/json");
             String url = "http://beutilsdev.cfapps.io/utils/saveData";
 
-            serviceController.jsonObjectRequest(url, Request.Method.POST, null, map, response, responseError);
+            Map<String, String> mapParams = new HashMap<String, String>();
+            mapParams.put("promoId", promoId);
+            mapParams.put("userId", getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("useriId", null));
+
+            serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, mapHeaders, response, responseError);
         }
 
     @Override
