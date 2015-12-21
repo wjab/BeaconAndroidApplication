@@ -41,7 +41,7 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
 
         CustomNotificationManager cNotificationManager = new CustomNotificationManager();
         cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
-        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setIcon(R.drawable.logo);
         cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
         cNotificationManager.setnotificationMessage(context.getString(R.string.appeared_beacon_info,
                 beaconDevice.getName(), beaconDevice.getUniqueId(), beaconDevice.getMajor(),
@@ -89,7 +89,7 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
 
         CustomNotificationManager cNotificationManager = new CustomNotificationManager();
         cNotificationManager.setContentTitle(context.getString(R.string.scan_started));
-        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setIcon(R.drawable.logo);
         cNotificationManager.setTicker(context.getString(R.string.scan_started));
         cNotificationManager.setRedirectIntent(redirectIntent);
         cNotificationManager.ShowInputNotification(context, info, notificationManager);
@@ -104,7 +104,7 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
 
         CustomNotificationManager cNotificationManager = new CustomNotificationManager();
         cNotificationManager.setContentTitle(context.getString(R.string.scan_stopped));
-        cNotificationManager.setIcon(R.drawable.beacon);
+        cNotificationManager.setIcon(R.drawable.logo);
         cNotificationManager.setTicker(context.getString(R.string.scan_stopped));
         cNotificationManager.setRedirectIntent(redirectIntent);
         cNotificationManager.ShowInputNotification(context, info, notificationManager);

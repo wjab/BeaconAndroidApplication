@@ -38,19 +38,17 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
     BeaconCache myBeaconCache;
-    boolean requestPromo;
     boolean requestDevice;
     private final NotificationManager notificationManager;
     int inodoroForever;
-    int attempts = 0;
     String error;
-    boolean isProcessing;
     String beaconUniqueId = "";
     NonStaticUtils utilClass = new NonStaticUtils();
 
     List<BeaconCache> beaconList;
 
-    public ForegroundBroadcastInterceptor(Context context) {
+    public ForegroundBroadcastInterceptor(Context context)
+    {
         super(context);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         inodoroForever = 0;
@@ -65,14 +63,16 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     protected void onBeaconAppeared(int info, IBeaconDevice beaconDevice)
     {
         DatabaseManager.init(getContext());
-        final Context context = getContext();
+
+        /*final Context context = getContext();
 
         final String deviceName = beaconDevice.getUniqueId();
         final String proximityUUID = beaconDevice.getProximityUUID().toString();
         final int major = beaconDevice.getMajor();
         final int minor = beaconDevice.getMinor();
         final double distance = beaconDevice.getDistance();
-        final Proximity proximity = beaconDevice.getProximity();
+        final Proximity proximity = beaconDevice.getProximity();*/
+
         beaconUniqueId = beaconDevice.getUniqueId();
 
         responseError = this;
@@ -88,8 +88,8 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                error = ex.toString();
         }
 
-        Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
-        //redirectIntent.putExtra("");
+        /*Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
+        redirectIntent.putExtra("promoDetail", );
 
         CustomNotificationManager cNotificationManager = new CustomNotificationManager();
         cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, beaconDevice.getName()));
@@ -99,7 +99,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 beaconDevice.getName(), beaconDevice.getUniqueId(), beaconDevice.getMajor(),
                 beaconDevice.getMinor(), beaconDevice.getDistance(), beaconDevice.getProximity().name()));
         cNotificationManager.setRedirectIntent(redirectIntent);
-        cNotificationManager.ShowInputNotification(context, info, notificationManager);
+        cNotificationManager.ShowInputNotification(context, info, notificationManager);*/
 
     }
 

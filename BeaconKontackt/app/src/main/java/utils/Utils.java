@@ -17,9 +17,12 @@ import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import database.DatabaseManager;
+import model.cache.BeaconCache;
 import service.BeaconSyncMessageService;
 
 public final class Utils extends Activity {
@@ -131,5 +134,23 @@ public final class Utils extends Activity {
     public static long UnixTimeStampWithDefaultExpiration()
     {
         return System.currentTimeMillis() / Constants.THOUSAND + Constants.DefaultExpirationSeg;
+    }
+
+    public static BeaconCache GetCacheByPromoId(String promoId)
+    {
+        List<BeaconCache> listbeaconCache = new ArrayList<BeaconCache>();
+        BeaconCache beaconCache = new BeaconCache();
+
+        listbeaconCache = DatabaseManager.getInstance().getAllBeaconCache();
+        for (BeaconCache beaconItem : listbeaconCache)
+        {
+            if (beaconItem.promoId == promoId)
+            {
+                beaconCache = beaconItem;
+                break;
+            }
+        }
+
+        return beaconCache;
     }
 }

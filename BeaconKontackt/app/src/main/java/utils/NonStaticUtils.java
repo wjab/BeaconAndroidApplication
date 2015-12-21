@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import model.cache.BeaconCache;
 import service.BeaconSyncMessageService;
+import service.GivePointToUserService;
 
 /**
  * Created by Administrador on 12/18/2015.
@@ -62,7 +63,24 @@ public class NonStaticUtils extends Activity {
         editor.commit();
     }
 
+    public void StartGiftpointService(Context context, String promoId)
+    {
+        try
+        {
+            Intent intent = new Intent(context, GivePointToUserService.class);
+            if(!promoId.isEmpty() && promoId != null)
+            {
+                intent.putExtra("promoId", promoId);
+                context.startService(intent);
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            ex.getMessage();
+        }
 
+    }
 
 
 

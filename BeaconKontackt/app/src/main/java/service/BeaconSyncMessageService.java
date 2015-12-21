@@ -49,8 +49,6 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
         responseError = this;
         response = this;
 
-        Map<String, String> nullMap = new HashMap<String, String>();
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = "http://bpromodev.cfapps.io/promo/" + beaconCacheRef.promoId;
@@ -66,9 +64,9 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-       final Handler mHandler = new Handler();
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+       /*final Handler mHandler = new Handler();
 
         mRunnable = new Runnable() {
             @Override
@@ -77,7 +75,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
                 mHandler.postDelayed(mRunnable,SYNC_INTERVAL);
             }
         };
-        mHandler.postDelayed(mRunnable, SYNC_INTERVAL);
+        mHandler.postDelayed(mRunnable, SYNC_INTERVAL);*/
 
         beaconCacheRef = (BeaconCache)intent.getSerializableExtra("beaconCacheRef");
         sendPromoRequest();
