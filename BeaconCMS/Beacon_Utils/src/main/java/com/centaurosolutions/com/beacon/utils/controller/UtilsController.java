@@ -25,30 +25,41 @@ public class UtilsController {
 	
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
+		
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		
-		RestTemplate restTemplate = new RestTemplate();
-		OfferHistoryAttempt offerHistoryAttempt = restTemplate.getForObject("http://bofferhistory.cfapps.io/offerhistory/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
-		Promo promoObject = restTemplate.getForObject("http://bpromodev.cfapps.io/promo/"+customMap.get("promoId").toString(),Promo.class);
-		
-		if(promoObject != null && offerHistoryAttempt != null){
-			if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
-				String url = "http://beuserdev.cfapps.io/user/"+customMap.get("userId").toString();
-				User userObject = restTemplate.getForObject("http://beuserdev.cfapps.io/user/id/"+customMap.get("userId").toString(), User.class);
-				if(userObject != null){
-					userObject.setTotal_gift_points(userObject.getTotal_gift_points() + promoObject.getGift_points());
+				
+		try{
 
-					if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
-					    response.put("user", userObject);	
-					}
-				}
-			}
+			RestTemplate restTemplate = new RestTemplate();
+			OfferHistoryAttempt offerHistoryAttempt = restTemplate.getForObject("http://bofferhistory.cfapps.io/offerhistory/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
+			Promo promoObject = restTemplate.getForObject("http://bpromodev.cfapps.io/promo/"+customMap.get("promoId").toString(),Promo.class);
 			
-			else{
-				response.put("userId", null);
-				response.put("El usuario ha superado el limite de promociones escaneadas", null);	
-			}
-		}		
+			if(promoObject != null && offerHistoryAttempt != null){
+				if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
+					String url = "http://beuserdev.cfapps.io/user/"+customMap.get("userId").toString();
+					User userObject = restTemplate.getForObject("http://beuserdev.cfapps.io/user/id/"+customMap.get("userId").toString(), User.class);
+					if(userObject != null){
+						userObject.setTotal_gift_points(userObject.getTotal_gift_points() + promoObject.getGift_points());
+
+						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
+						    response.put("user", userObject);	
+						}
+					}
+					else{
+						response.put("userId", null);
+					}
+				}			
+				else{
+					response.put("userId", null);
+					response.put("El usuario ha superado el limite de promociones escaneadas", null);	
+				}
+			}		
+		}
+		catch(Exception ex){
+			response.put("userId", null);
+		}
+		
+
 		return response;
 	}
 	
@@ -87,11 +98,7 @@ public class UtilsController {
 			return false;
 		}	
 		
-	}
-	
-	
-	
-	
+	}	
 }
 
 
