@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import controllers.ServiceController;
+import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 
 public class PromoDetailActivity extends AppCompatActivity {
@@ -43,7 +44,7 @@ public class PromoDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent= new Intent(getApplicationContext(),BackgroundScanActivity.class);
                 startActivity(intent);
-                
+
 
             }
         });
@@ -54,12 +55,12 @@ public class PromoDetailActivity extends AppCompatActivity {
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         Intent intent= getIntent();
-        Promociones promo=(Promociones)intent.getSerializableExtra("Detail");
+        BeaconCache promo=(BeaconCache)intent.getSerializableExtra("BeaconCache");
         ServiceController imageRequest =  new ServiceController();
-        Points.setText(promo.getPuntos()+" pts");
-        TituloPromo.setText(promo.getTitulo());
-        DescripcionPromo.setText(promo.getDescripcion());
-        imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0,0);
+        Points.setText(promo.giftPoints+" pts");
+        TituloPromo.setText(promo.title);
+        DescripcionPromo.setText(promo.descrition);
+        imageRequest.imageRequest(promo.picturePath, ImagenPromo, 0,0);
     }
 
     @Override
