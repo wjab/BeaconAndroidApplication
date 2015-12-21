@@ -53,7 +53,11 @@ public class UtilsController {
 					response.put("userId", null);
 					response.put("El usuario ha superado el limite de promociones escaneadas", null);	
 				}
-			}		
+			}
+			else{
+				response.put("userId", null);
+				response.put("cause", "Objetos vacíos");
+			}
 		}
 		catch(Exception ex){
 			response.put("userId", null);
