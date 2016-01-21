@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BackgroundScanActivity;
 
@@ -62,10 +63,14 @@ public class BackgroundScanService extends Service implements ProximityManager.P
 
     private ProximityManager beaconManger;
 
+    //private ScanPeriod scanPeriod = new ScanPeriod(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10));
+    //private ActivityCheckConfiguration activityCheckConfiguration =  new ActivityCheckConfiguration(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10));
+    private  ForceScanConfiguration forceScanConfiguration = new ForceScanConfiguration(TimeUnit.SECONDS.toMillis(2), TimeUnit.SECONDS.toMillis(30));
+
     private final ScanContext scanContext = new ScanContext.Builder()
             .setScanMode(ProximityManager.SCAN_MODE_BALANCED)
             .setActivityCheckConfiguration(ActivityCheckConfiguration.DEFAULT)
-            .setForceScanConfiguration(ForceScanConfiguration.DEFAULT)
+            .setForceScanConfiguration(forceScanConfiguration)
             .setIBeaconScanContext(new IBeaconScanContext.Builder()
                     .setEventTypes(EnumSet.of(
                             EventType.SPACE_ENTERED,
@@ -89,6 +94,8 @@ public class BackgroundScanService extends Service implements ProximityManager.P
         super.onCreate();
 
         beaconManger = new ProximityManager(this);
+
+
     }
 
     @Override
