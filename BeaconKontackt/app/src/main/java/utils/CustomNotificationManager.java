@@ -2,13 +2,10 @@ package utils;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
-
-import com.kontakt.sdk.android.common.profile.IBeaconDevice;
-
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
+import android.support.v7.app.NotificationCompat;
 
 /**
  * Created by Administrador on 12/8/2015.
@@ -17,6 +14,7 @@ public class CustomNotificationManager
 {
     private String ticker;
     private String contentTitle;
+    private String contentText;
     private String notificationMessage;
     private int icon;
     private Intent redirectIntent;
@@ -27,6 +25,8 @@ public class CustomNotificationManager
         contentTitle = "";
         icon = 0;
         redirectIntent = new Intent();
+        contentText = "";
+
     }
 
     //public String getTicker(){return ticker;}
@@ -34,6 +34,9 @@ public class CustomNotificationManager
 
     //public String getContentTitle(){return contentTitle;}
     public void setContentTitle(String contentTitle){this.contentTitle = contentTitle;}
+
+    //public String getContentText(){return contentText;}
+    public void setContentText(String contentText){this.contentText = contentText;}
 
     //public int getIcon(){return icon;}
     public void setIcon(int icon){this.icon = icon;}
@@ -62,5 +65,42 @@ public class CustomNotificationManager
                 .build();
 
         notificationManager.notify(info, notification);
+    }
+
+
+    public void ShowInputNotification(Context context, NotificationManager mNotificationManager, Intent resultIntent, String message, TaskStackBuilder stackBuilder, int numMessages) {
+
+
+   /* Invoking the default notification service */
+        NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(context);
+
+        mBuilder.setContentTitle(contentTitle);
+        mBuilder.setContentText(contentText);
+        mBuilder.setTicker(ticker);
+        mBuilder.setSmallIcon(icon);
+
+   /* Increase notification number every time a new notification arrives */
+        mBuilder.setNumber(numMessages);
+
+   /* Add Big View Specific Configuration */
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+        // Sets a title for the Inbox style big view
+        inboxStyle.setBigContentTitle(contentTitle);
+
+        // Moves events into the big view
+
+        inboxStyle.addLine(message);
+        mBuilder.setStyle(inboxStyle);
+
+   /* Adds the Intent that starts the Activity to the top of the stack */
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mBuilder.setContentIntent(resultPendingIntent);
+
+   /* notificationID allows you to update the notification later on. */
+        mNotificationManager.notify(0, mBuilder.build());
+
     }
 }
