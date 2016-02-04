@@ -4,7 +4,7 @@ Implementation-Version: 0.0.1-Visitorhistory
 Built-By: Administrador
 Implementation-Vendor-Id: com.centaurosolutions.com.beacon.visitorhist
  ory
-Build-Jdk: 1.8.0_60
+Build-Jdk: 1.8.0_66
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

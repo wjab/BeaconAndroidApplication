@@ -3,7 +3,7 @@ Implementation-Title: Beacon_Promo
 Implementation-Version: 0.0.1-Promo
 Built-By: Administrador
 Implementation-Vendor-Id: com.centaurosolutions.com.beacon.promo
-Build-Jdk: 1.8.0_60
+Build-Jdk: 1.8.0_66
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 
