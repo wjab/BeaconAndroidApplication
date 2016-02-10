@@ -97,7 +97,7 @@ public class GivePointToUserService extends Service implements Response.Listener
 
             Map<String, String> mapHeaders = new HashMap<String, String>();
             mapHeaders.put("Content-Type", "application/json");
-            String url = "http://beutilsdev.cfapps.io/utils/savePoints";
+            String url = getString(R.string.WebService_Utils)+"utils/savePoints";
 
             Map<String, String> mapParams = new HashMap<String, String>();
             mapParams.put("promoId", promoId);

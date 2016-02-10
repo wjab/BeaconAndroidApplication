@@ -70,7 +70,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         info.setText("Cargando Aplicación");
         SystemClock.sleep(2000);
         serviceController = new ServiceController();
-        String url = "http://beuserdev.cfapps.io/user/id/"+userId;
+        String url = getString(R.string.WebService_User)+"user/id/"+userId;
         Map<String,String> nullMap =  new HashMap<String, String>();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");

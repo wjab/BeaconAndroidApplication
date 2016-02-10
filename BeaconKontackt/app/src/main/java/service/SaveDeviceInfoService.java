@@ -21,6 +21,7 @@ import java.util.Timer;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.mobile.Mobile;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
 public class SaveDeviceInfoService extends Service implements Response.Listener<JSONObject>, Response.ErrorListener  {
 
@@ -71,7 +72,7 @@ public class SaveDeviceInfoService extends Service implements Response.Listener<
         parameters.put("userId", mobile.getUserId());
 
 
-        url = "http://beaconmobiledev.cfapps.io/mobile";
+        url =getString(R.string.WebService_Mobile)+"mobile";
 
 
         if (deviceId != null) {

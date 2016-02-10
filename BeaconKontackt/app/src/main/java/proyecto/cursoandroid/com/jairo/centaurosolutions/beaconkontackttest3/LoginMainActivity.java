@@ -121,7 +121,8 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
     public void sendUserRequestByName(String username){
         serviceController = new ServiceController();
-        String url = "http://beuserdev.cfapps.io/user/"+username;
+        String url = getString(R.string.WebService_User)+"user/"+username;
+       
         Map<String,String> nullMap =  new HashMap<String, String>();
 
         Map<String, String> map = new HashMap<String, String>();

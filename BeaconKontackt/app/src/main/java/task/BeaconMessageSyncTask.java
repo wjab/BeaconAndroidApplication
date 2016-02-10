@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
 /**
  * Created by Eduardo on 20/11/2015.
@@ -50,7 +51,7 @@ public class BeaconMessageSyncTask extends TimerTask implements Response.Listene
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://bpromodev.cfapps.io/promo/exp";
+        String url = "http://bpromodevel.cfapps.io/promo/exp";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
 

@@ -408,7 +408,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
             Map<String, String> map = new HashMap<String, String>();
             map.put("Content-Type", "application/json");
-            String url = "http://bpromodev.cfapps.io/promo/";
+            String url = getString(R.string.WebService_Promo)+"promo/";
             serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }

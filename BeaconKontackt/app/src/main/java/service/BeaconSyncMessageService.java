@@ -24,6 +24,7 @@ import java.util.Timer;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 import utils.NonStaticUtils;
 import utils.Utils;
 
@@ -57,7 +58,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = "http://bpromodev.cfapps.io/promo/" + beaconCacheRef.promoId;
+        String url = getString(R.string.WebService_Promo)+"promo/" + beaconCacheRef.promoId;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
     }
 
