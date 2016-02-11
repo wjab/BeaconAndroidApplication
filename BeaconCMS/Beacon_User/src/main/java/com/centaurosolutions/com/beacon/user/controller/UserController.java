@@ -79,21 +79,41 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.PUT, value="/{UserId}")
 	public Map<String, Object> editUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
 	{
-		User user = new User();
+		User user = userRepository.findById(UserId);
+	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 		
-		user.setUser(userMap.get("user").toString());
-		user.setEnable((Boolean)userMap.get("enable"));
-		user.setCategory_id(Integer.parseInt(userMap.get("category_id").toString()));
-		user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
-		user.setCreationDate(DateFormatter(userMap.get("creationDate").toString()));
-		user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
-		user.setName(userMap.get("name").toString()); 
-		user.setLastName(userMap.get("lastName").toString());
-		user.setEmail(userMap.get("email").toString());
-		user.setPhone(userMap.get("phone").toString());
+		if(user != null){
+			user.setUser(userMap.get("user").toString());
+			user.setEnable((Boolean)userMap.get("enable"));
+			user.setCategory_id(Integer.parseInt(userMap.get("category_id").toString()));
+			user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+			user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
+			user.setName(userMap.get("name").toString()); 
+			user.setLastName(userMap.get("lastName").toString());
+			user.setEmail(userMap.get("email").toString());
+			user.setPhone(userMap.get("phone").toString());
+		    user.setId(UserId);
 
-	    
-	    user.setId(UserId);
+		    response.put("message", "Usuario actualizado correctamente");
+		    response.put("User", userRepository.save(user));
+		}	    
+		else			
+		{
+			response.put("message", "El usuario no existe");
+		}
+	    return response;
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/setPoints/{UserId}")
+	public Map<String, Object> setPointsUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
+	{
+		User user = userRepository.findById(UserId);
+		
+		if(user != null){
+			user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+		    user.setId(UserId);
+		}
+
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Usuario actualizado correctamente");
 	    response.put("User", userRepository.save(user));

@@ -1,22 +1,19 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import controllers.ServiceController;
 import model.cache.BeaconCache;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 
 public class PromoDetailActivity extends AppCompatActivity {
 
@@ -25,6 +22,7 @@ public class PromoDetailActivity extends AppCompatActivity {
     TextView Points;
     ImageView ImagenPromo;
     String mpoints;
+    ArrayList<BeaconCache> myBeaconCacheList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +40,7 @@ public class PromoDetailActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getApplicationContext(),BackgroundScanActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 startActivity(intent);
 
 
@@ -55,12 +53,13 @@ public class PromoDetailActivity extends AppCompatActivity {
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         Intent intent1= getIntent();
-        BeaconCache promo=(BeaconCache)intent1.getSerializableExtra("promoDetail");
-        ServiceController imageRequest =  new ServiceController();
-        Points.setText(promo.giftPoints+" pts");
+        myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
+       // BeaconCache promo=(BeaconCache)intent1.getSerializableExtra("promoDetail");
+       ServiceController imageRequest =  new ServiceController();
+       /* Points.setText(promo.giftPoints+" pts");
         TituloPromo.setText(promo.title);
         DescripcionPromo.setText(promo.descrition);
-        imageRequest.imageRequest(promo.picturePath, ImagenPromo, 0,0);
+        imageRequest.imageRequest(promo.picturePath, ImagenPromo, 0,0)*/
     }
 
     @Override
