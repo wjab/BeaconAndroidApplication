@@ -79,23 +79,44 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.PUT, value="/{UserId}")
 	public Map<String, Object> editUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
 	{
-		User user = new User(
-				userMap.get("user").toString(), 
-	    		setEncryptedPassword(userMap.get("password").toString()),
-	    		(Boolean)userMap.get("enable"),
-	    		Integer.parseInt(userMap.get("category_id").toString()),
-	    		Integer.parseInt(userMap.get("total_gift_points").toString()),
-	    		DateFormatter(userMap.get("creationDate").toString()),
-	    		DateFormatter(userMap.get("modifiedDate").toString()), 
-	    		userMap.get("name").toString(), 
-	    		userMap.get("lastName").toString(),
-	    		userMap.get("email").toString(),
-	    		userMap.get("phone").toString());
+		User user = new User();
+		
+		user.setUser(userMap.get("user").toString());
+		user.setEnable((Boolean)userMap.get("enable"));
+		user.setCategory_id(Integer.parseInt(userMap.get("category_id").toString()));
+		user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+		user.setCreationDate(DateFormatter(userMap.get("creationDate").toString()));
+		user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
+		user.setName(userMap.get("name").toString()); 
+		user.setLastName(userMap.get("lastName").toString());
+		user.setEmail(userMap.get("email").toString());
+		user.setPhone(userMap.get("phone").toString());
+
 	    
 	    user.setId(UserId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Usuario actualizado correctamente");
 	    response.put("User", userRepository.save(user));
+	    return response;
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/changePassword/{UserId}")
+	public Map<String, Object> editUserPassword(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
+	{
+	    Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User user = userRepository.findById(UserId);
+		
+		if(user != null){
+			
+			user.setPassword(setEncryptedPassword(userMap.get("password").toString()));
+		    response.put("message", "Password de usuario actualizado correctamente");
+		    response.put("User", userRepository.save(user));
+		    
+		}
+		else{
+			response.put("message", "Usuario no encontrado");
+		}
+
 	    return response;
 	}
 	  

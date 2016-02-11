@@ -6,5 +6,6 @@ import com.centaurosolutions.com.beacon.user.model.*;
 
 public interface UserRepository extends MongoRepository<User, String> {
 	User findByUser(String user);
+	User findById(String id);
 
 }

@@ -31,19 +31,18 @@ public class UtilsController {
 		try{
 
 			RestTemplate restTemplate = new RestTemplate();
-			OfferHistoryAttempt offerHistoryAttempt = restTemplate.getForObject("http://bofferhistory.cfapps.io/offerhistory/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
-			Promo promoObject = restTemplate.getForObject("http://bpromodev.cfapps.io/promo/"+customMap.get("promoId").toString(),Promo.class);
+			OfferHistoryAttempt offerHistoryAttempt = restTemplate.getForObject("http://bofferhistorydevel.cfapps.io/offerhistory/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
+			Promo promoObject = restTemplate.getForObject("http://bpromodevel.cfapps.io/promo/"+customMap.get("promoId").toString(),Promo.class);
 			
 			if(promoObject != null && offerHistoryAttempt != null){
 				if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
-					String url = "http://beuserdev.cfapps.io/user/"+customMap.get("userId").toString();
-					User userObject = restTemplate.getForObject("http://beuserdev.cfapps.io/user/id/"+customMap.get("userId").toString(), User.class);
+					String url = "http://buserdevel.cfapps.io/user/"+customMap.get("userId").toString();
+					User userObject = restTemplate.getForObject("http://buserdevel.cfapps.io/user/id/"+customMap.get("userId").toString(), User.class);
 					if(userObject != null){
 						
 						int points = userObject.getTotal_gift_points() + promoObject.getGift_points();
 						userObject.setTotal_gift_points(points);
 						
-
 						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
 						    response.put("user", userObject);	
 						}
