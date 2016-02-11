@@ -201,7 +201,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
 
 
-            String url = this.getContext().getString(R.string.WebService_Device)+"UID/" + uniqueId;
+            String url = this.getContext().getString(R.string.WebService_Device)+"/device/UID/" + uniqueId;
             serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
         }
     }
