@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -197,7 +198,10 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
 
             Map<String, String> map = new HashMap<String, String>();
             map.put("Content-Type", "application/json");
-            String url = (R.string.WebService_Device)+"UID/" + uniqueId;
+
+
+
+            String url = this.getContext().getString(R.string.WebService_Device)+"UID/" + uniqueId;
             serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
         }
     }
