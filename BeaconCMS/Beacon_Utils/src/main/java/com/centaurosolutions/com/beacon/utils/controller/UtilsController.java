@@ -46,7 +46,7 @@ public class UtilsController {
 						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
 						    response.put("user", userObject);	
 						}
-					}
+					} 
 					else{
 						response.put("user", null);
 					}
@@ -77,7 +77,7 @@ public class UtilsController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity entity = new HttpEntity(userObject , headers);
-			ResponseEntity<User> out = restTemplate.exchange("http://beuserdev.cfapps.io/user/"+userObject.getId(), HttpMethod.PUT, entity , User.class);
+			ResponseEntity<User> out = restTemplate.exchange("http://buserdevel.cfapps.io/user/"+userObject.getId(), HttpMethod.PUT, entity , User.class);
 			return true;
 		}
 		catch(Exception ex){
@@ -97,7 +97,7 @@ public class UtilsController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity entity = new HttpEntity(historyOffer , headers);
-			ResponseEntity<OfferHistory> out = restTemplate.exchange("http://bofferhistory.cfapps.io/offerhistory/", HttpMethod.POST, entity , OfferHistory.class);
+			ResponseEntity<OfferHistory> out = restTemplate.exchange("http://bofferhistorydevel.cfapps.io/offerhistory/", HttpMethod.POST, entity , OfferHistory.class);
 			
 			return true;
 		}
