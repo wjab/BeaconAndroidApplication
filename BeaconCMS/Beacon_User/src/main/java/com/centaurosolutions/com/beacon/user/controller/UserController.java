@@ -109,6 +109,7 @@ public class UserController {
 		if(user != null){
 			
 			user.setPassword(setEncryptedPassword(userMap.get("password").toString()));
+			user.setUser(UserId);
 		    response.put("message", "Password de usuario actualizado correctamente");
 		    response.put("User", userRepository.save(user));
 		    
