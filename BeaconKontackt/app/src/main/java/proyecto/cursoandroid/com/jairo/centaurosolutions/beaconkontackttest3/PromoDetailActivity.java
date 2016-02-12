@@ -53,6 +53,7 @@ public class PromoDetailActivity extends AppCompatActivity {
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         Intent intent1= getIntent();
+
         myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
        // BeaconCache promo=(BeaconCache)intent1.getSerializableExtra("promoDetail");
        ServiceController imageRequest =  new ServiceController();

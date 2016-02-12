@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,7 @@ public class GivePointToUserService extends Service implements Response.Listener
         Context context;
         String promoId;
         NonStaticUtils nonStaticUtils;
+        ArrayList<BeaconCache> beaconCaches = new ArrayList<BeaconCache>();
 
         //Runnable mRunnable;
 
@@ -120,7 +122,7 @@ public class GivePointToUserService extends Service implements Response.Listener
         {
             userObject = response.getJSONObject("user");
 
-            if(userObject != null)
+            if( userObject != null )
             {
                 sharedPreferences = nonStaticUtils.loadLoginInfo(context);
                 giftPoints = userObject.getInt("total_gift_points");
@@ -155,7 +157,18 @@ public class GivePointToUserService extends Service implements Response.Listener
     {
         myBeaconCache = Utils.GetCacheByPromoId(promoId);
 
-        if(myBeaconCache.id != 0) {
+        boolean isRepeated = false;
+
+        if(beaconCaches != null){
+            for (BeaconCache object : beaconCaches){
+                if( object.id == myBeaconCache.id ){
+                    isRepeated = true;
+                    break;
+                }
+            }
+        }
+
+        if(myBeaconCache.id != 0 && !isRepeated) {
 
             Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
             CustomNotificationManager cNotificationManager = new CustomNotificationManager();
@@ -163,11 +176,14 @@ public class GivePointToUserService extends Service implements Response.Listener
             cNotificationManager.setIcon(R.drawable.logo);
             cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, myBeaconCache.title));
             cNotificationManager.setnotificationMessage(myBeaconCache.descrition);
-            redirectIntent.putExtra("promoDetail", myBeaconCache);
+            redirectIntent.putExtra("promoDetail", beaconCaches);
             cNotificationManager.setRedirectIntent(redirectIntent);
             cNotificationManager.ShowInputNotification(context, 0, notificationManager);
+            beaconCaches.add(myBeaconCache);
 
 
         }
     }
+
+
 }
