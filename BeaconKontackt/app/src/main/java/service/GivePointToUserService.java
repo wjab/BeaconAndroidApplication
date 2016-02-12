@@ -23,6 +23,7 @@ import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PromoDetailActivity;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PullNotificationsActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 import utils.CustomNotificationManager;
 import utils.NonStaticUtils;
@@ -170,7 +171,7 @@ public class GivePointToUserService extends Service implements Response.Listener
 
         if(myBeaconCache.id != 0 && !isRepeated) {
 
-            Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
+            Intent redirectIntent = new Intent(context, PullNotificationsActivity.class);
             CustomNotificationManager cNotificationManager = new CustomNotificationManager();
             cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, myBeaconCache.title));
             cNotificationManager.setIcon(R.drawable.logo);

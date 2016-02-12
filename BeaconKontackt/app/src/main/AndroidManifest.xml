@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3" >
+    package="proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="kontakt.io.API_KEY"
             android:value="ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc" />
@@ -29,7 +29,8 @@
         <service
             android:name="service.BackgroundScanService"
             android:exported="false" />
-        <service android:name="service.GivePointToUserService"
+        <service
+            android:name="service.GivePointToUserService"
             android:exported="false" />
         <service
             android:name="service.SyncService"
@@ -72,7 +73,7 @@
 
         <activity
             android:name=".WelcomeScreen"
-            android:label="Quick Shop" >
+            android:label="Quick Shop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,8 +85,11 @@
             android:label="@string/title_activity_user_register" />
         <activity
             android:name=".Detail_Promo"
-            android:label="@string/title_activity_detail__promo" >
-        </activity>
+            android:label="@string/title_activity_detail__promo"></activity>
+        <activity
+            android:name=".PullNotificationsActivity"
+            android:label="@string/title_activity_pull_notifications"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
