@@ -1,5 +1,8 @@
 package com.centaurosolutions.com.beacon.utils.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,6 +25,8 @@ import com.centaurosolutions.com.beacon.utils.model.*;
 @RestController
 @RequestMapping("/utils")
 public class UtilsController {
+	
+    private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 	
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
@@ -67,6 +72,57 @@ public class UtilsController {
 		}
 		
 
+		return response;
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value="/getDateDiff")
+	public Map<String, Object> getAccurateDateDifference(@RequestBody Map<String, Object> customMap){
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		
+		Date d1 = null;
+		Date d2 = null;
+		long diff = 0;
+		long diffSeconds = 0;
+		long diffMinutes = 0;
+		long diffHours = 0;
+		long diffDays = 0;
+
+		try {
+			
+			if(customMap.get("initialDate") != null && customMap.get("finalDate") != null ){
+				
+				d1 = format.parse(customMap.get("initialDate").toString());
+				d2 = format.parse(customMap.get("finalDate").toString());
+	
+				//in milliseconds
+				diff = d2.getTime() - d1.getTime();
+				
+				if( diff > 0 ){
+					
+					diffSeconds = diff / 1000 % 60;
+					diffMinutes = diff / (60 * 1000) % 60;
+					diffHours = diff / (60 * 60 * 1000) % 24;
+					diffDays = diff / (24 * 60 * 60 * 1000);
+					
+					response.put("days", diffDays);
+					response.put("hours", diffHours);
+					response.put("minutes", diffMinutes);
+					response.put("seconds", diffSeconds);
+				}
+				
+				else{
+					response.put("error", "La fecha inicial es mayor a la fecha final");
+				}			
+			}		
+			else{
+				response.put("error", "Parámetros nulos");
+			}
+
+		} catch (Exception e) {
+			response.put("error", e.getStackTrace());
+		}
+				
 		return response;
 	}
 	

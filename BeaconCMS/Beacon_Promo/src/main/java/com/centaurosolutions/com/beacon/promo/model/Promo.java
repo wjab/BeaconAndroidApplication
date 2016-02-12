@@ -17,6 +17,7 @@ public class Promo {
 	private Date startDate;
 	private Date endDate;
 	private String type;
+	private int interval;
 	private int availability;
 	private Date creationDate;
 	private Date modifiedDate;
@@ -25,6 +26,7 @@ public class Promo {
 	private Boolean isAutomatic;
 	private String image;
 	private String title;
+
 	
 	
 	
@@ -50,10 +52,11 @@ public class Promo {
 	 * @param description
 	 * @param isAutomatic
 	 * @param images
+	 * @param interval
 	 */
 	public Promo(boolean enable, String profile_id, String code, int gift_points, int attempt, Date startDate,
 			Date endDate, String type, int availability, Date creationDate, Date modifiedDate, String updatedby, String title,
-			String description, Boolean isAutomatic, String image) {
+			String description, Boolean isAutomatic, String image, int interval) {
 		super();
 		this.enable = enable;
 		this.profile_id = profile_id;
@@ -71,8 +74,8 @@ public class Promo {
 		this.description = description;
 		this.isAutomatic = isAutomatic;
 		this.image = image;
+		this.interval = interval;
 	}
-
 
 
 	/**
@@ -377,6 +380,26 @@ public class Promo {
 	public void setImages(String image) {
 		this.image = image;
 	}
+
+
+
+	/**
+	 * @return the interval
+	 */
+	public int getInterval() {
+		return interval;
+	}
+
+
+
+	/**
+	 * @param interval the interval to set
+	 */
+	public void setInterval(int interval) {
+		this.interval = interval;
+	}
+	
+	
 	
 	
 	
