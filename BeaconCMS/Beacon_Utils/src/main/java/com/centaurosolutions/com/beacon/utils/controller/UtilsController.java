@@ -68,10 +68,7 @@ public class UtilsController {
 				}
 				else{
 					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
-						
-						if()
-						
-						
+											
 						userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
 						if(userObject != null){
 							

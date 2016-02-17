@@ -9,9 +9,7 @@ package com.centaurosolutions.com.beacon.utils.model;
  */
 public class DateDiffValues {
 	
-	
 
-    
 	/**
 	 * @param days
 	 * @param hours
