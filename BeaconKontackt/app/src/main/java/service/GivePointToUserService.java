@@ -173,12 +173,9 @@ public class GivePointToUserService extends Service implements Response.Listener
 
         if(myBeaconCache.id != 0 && !isRepeated) {
 
-<<<<<<< Updated upstream
-            Intent redirectIntent = new Intent(context, PullNotificationsActivity.class);
-=======
-            Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
 
->>>>>>> Stashed changes
+            Intent redirectIntent = new Intent(context, PullNotificationsActivity.class);
+
             CustomNotificationManager cNotificationManager = new CustomNotificationManager();
             cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, myBeaconCache.title));
             cNotificationManager.setIcon(R.drawable.logo);

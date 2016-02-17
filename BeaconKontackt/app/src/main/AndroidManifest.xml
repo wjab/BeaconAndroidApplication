@@ -88,8 +88,7 @@
             android:label="@string/title_activity_detail__promo"></activity>
         <activity
             android:name=".PullNotificationsActivity"
-            android:label="@string/title_activity_pull_notifications"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_pull_notifications"></activity>
     </application>
 
 </manifest>

@@ -1,54 +1,53 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
-import android.app.Activity;
+
+
 import android.content.Intent;
+
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import controllers.ServiceController;
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 
-public class PullNotificationsActivity extends Activity {
+
+public class PullNotificationsActivity extends AppCompatActivity {
 
     Adaptador_Promo adapter;
     ListView listviewPromo;
-    EditText search;
-    ServiceController serviceController;
 
-    Response.ErrorListener responseError;
+
     ArrayList<Promociones> promociones;
     ArrayList<BeaconCache> myBeaconCacheList;
-
+    private CharSequence mpoints;
+    private CharSequence mTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_promociones);
-        listviewPromo = (ListView) findViewById(R.id.listPromo);
+        setContentView(R.layout.activity_pull_notifications);
+
+        listviewPromo = (ListView) findViewById(R.id.listNotifications);
+        // Inflate your custom layout
+
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.action_bar_notification_layout,
+                null);
+        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
+
+        TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        pointsAction.setText(mpoints + " pts");
+
         listviewPromo.setAdapter(adapter);
 
         listviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,37 +70,13 @@ public class PullNotificationsActivity extends Activity {
                 startActivity(intentSuccess);
             }
         });
-        search = (EditText) findViewById(R.id.search);
-
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
 
         Intent intent1= getIntent();
         myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
         llenarNotificaciones(myBeaconCacheList);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tab_promociones, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
