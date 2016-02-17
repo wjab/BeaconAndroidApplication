@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import com.centaurosolutions.com.beacon.utils.model.OfferHistoryAttempt;
 import org.springframework.http.ResponseEntity;
 
 import com.centaurosolutions.com.beacon.utils.model.*;
@@ -27,38 +26,71 @@ import com.centaurosolutions.com.beacon.utils.model.*;
 public class UtilsController {
 	
     private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+	private String urlUser = "http://buserdevel.cfapps.io/user/";
+	private String urlPromo = "http://bpromodevel.cfapps.io/promo/";
+	private String urlOfferHistory = "http://bofferhistorydevel.cfapps.io/offerhistory/";
 	
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
+
+		// Attributes
 		
-		Map<String, Object> response = new LinkedHashMap<String, Object>();
-				
+		Map<String, Object> response = new LinkedHashMap<String, Object>();	
+		DateDiffValues dateDiffInfo = null;
+		Date dateInit = new Date();
+		Date dateEnd = new Date();
+		int points = 0;
+		User userObject = null;
+		OfferHistoryAttempt offerHistoryAttempt = null;
+		Promo promoObject  = null;
+		RestTemplate restTemplate = new RestTemplate();
+		
+
 		try{
 
-			RestTemplate restTemplate = new RestTemplate();
-			OfferHistoryAttempt offerHistoryAttempt = restTemplate.getForObject("http://bofferhistorydevel.cfapps.io/offerhistory/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
-			Promo promoObject = restTemplate.getForObject("http://bpromodevel.cfapps.io/promo/"+customMap.get("promoId").toString(),Promo.class);
+
+			offerHistoryAttempt = restTemplate.getForObject(urlOfferHistory +"/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
+			promoObject = restTemplate.getForObject(urlPromo + "" +customMap.get("promoId").toString(),Promo.class);
 			
 			if(promoObject != null && offerHistoryAttempt != null){
-				if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
-					String url = "http://buserdevel.cfapps.io/user/"+customMap.get("userId").toString();
-					User userObject = restTemplate.getForObject("http://buserdevel.cfapps.io/user/id/"+customMap.get("userId").toString(), User.class);
-					if(userObject != null){
+
+				dateInit = new Date(promoObject.getStartDate().getTime());
+				dateEnd = new Date(promoObject.getEndDate().getTime());							
+				dateDiffInfo =  getDateDiffCall(format.format(dateInit).toString(), format.format(dateEnd).toString());
+				
+				/***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
+				if(offerHistoryAttempt.getAttempts() == 0){	
+					 userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
+					 
+					if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
+					    response.put("user", userObject);	
+					}
+				}
+				else{
+					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
 						
-						int points = userObject.getTotal_gift_points() + promoObject.getGift_points();
-						userObject.setTotal_gift_points(points);
+						if()
 						
-						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
-						    response.put("user", userObject);	
+						
+						userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
+						if(userObject != null){
+							
+							points = userObject.getTotal_gift_points() + promoObject.getGift_points();
+							
+							userObject.setTotal_gift_points(points);
+							
+							if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
+							    response.put("user", userObject);	
+							}
+						} 
+						else{
+							response.put("user", null);
 						}
-					} 
+					}			
 					else{
 						response.put("user", null);
+						response.put("El usuario ha superado el limite de promociones escaneadas", null);	
 					}
-				}			
-				else{
-					response.put("user", null);
-					response.put("El usuario ha superado el limite de promociones escaneadas", null);	
 				}
 			}
 			else{
@@ -132,7 +164,7 @@ public class UtilsController {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity entity = new HttpEntity(userObject , headers);
+			HttpEntity<User> entity = new HttpEntity<User>(userObject , headers);
 			ResponseEntity<User> out = restTemplate.exchange("http://buserdevel.cfapps.io/user/"+userObject.getId(), HttpMethod.PUT, entity , User.class);
 			return true;
 		}
@@ -144,15 +176,19 @@ public class UtilsController {
 	public boolean setUserPromoOffer(String userId, String promoId){
 		
 		try{
+			
 			OfferHistory historyOffer = new OfferHistory();
+			String strDate =  format.format(new Date().getTime());
+            Date scanDate =  format.parse(strDate);
 			historyOffer.setPromo_id(promoId);
 			historyOffer.setUser_id(userId);
 			historyOffer.setMerchant_id("");
 			historyOffer.setShopZone_id("");
+			historyOffer.setScanDate(scanDate);
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity entity = new HttpEntity(historyOffer , headers);
+			HttpEntity<OfferHistory> entity = new HttpEntity<OfferHistory>(historyOffer , headers);
 			ResponseEntity<OfferHistory> out = restTemplate.exchange("http://bofferhistorydevel.cfapps.io/offerhistory/", HttpMethod.POST, entity , OfferHistory.class);
 			
 			return true;
@@ -162,6 +198,36 @@ public class UtilsController {
 		}	
 		
 	}	
+	
+
+	public DateDiffValues getDateDiffCall (String initialDate, String finalDate){
+		   
+		   Map<String, Object> parameters = new LinkedHashMap<String, Object>();
+		   Map<String, Object> responseObject = new LinkedHashMap<String, Object>();
+		   DateDiffValues diffValues = new DateDiffValues();
+		   
+		   try{
+			   if((!initialDate.isEmpty() || initialDate != null)  && (!initialDate.isEmpty() || initialDate != null)){
+				   
+				   parameters.put("initialDate", initialDate);
+				   parameters.put("finalDate", finalDate);
+				   RestTemplate restTemplate = new RestTemplate();
+				   HttpHeaders headers = new HttpHeaders();
+				   headers.setContentType(MediaType.APPLICATION_JSON);
+				   HttpEntity<DateDiffValues> entity = new HttpEntity(parameters , headers);
+				   ResponseEntity<DateDiffValues> out =  restTemplate.exchange("http://butilsdevel.cfapps.io/utils/getDateDiff", HttpMethod.POST, entity , DateDiffValues.class);
+				   diffValues = out.getBody();
+			   }
+		   }
+		   catch(Exception ex){
+			   diffValues = null;
+		   }
+	
+		   
+		   	
+		return diffValues;
+		   
+	   }
 }
 
 
