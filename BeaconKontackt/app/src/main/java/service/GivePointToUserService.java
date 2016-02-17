@@ -2,6 +2,7 @@ package service;
 
 import android.app.NotificationManager;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,6 +44,7 @@ public class GivePointToUserService extends Service implements Response.Listener
         String promoId;
         NonStaticUtils nonStaticUtils;
         ArrayList<BeaconCache> beaconCaches = new ArrayList<BeaconCache>();
+        int numMessages = 0;
 
         //Runnable mRunnable;
 
@@ -171,16 +173,26 @@ public class GivePointToUserService extends Service implements Response.Listener
 
         if(myBeaconCache.id != 0 && !isRepeated) {
 
+<<<<<<< Updated upstream
             Intent redirectIntent = new Intent(context, PullNotificationsActivity.class);
+=======
+            Intent redirectIntent = new Intent(context, PromoDetailActivity.class);
+
+>>>>>>> Stashed changes
             CustomNotificationManager cNotificationManager = new CustomNotificationManager();
             cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, myBeaconCache.title));
             cNotificationManager.setIcon(R.drawable.logo);
-            cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, myBeaconCache.title));
+            cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, "Nuevas promociones recibidas"));
             cNotificationManager.setnotificationMessage(myBeaconCache.descrition);
             redirectIntent.putExtra("promoDetail", beaconCaches);
             cNotificationManager.setRedirectIntent(redirectIntent);
-            cNotificationManager.ShowInputNotification(context, 0, notificationManager);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            stackBuilder.addParentStack(PromoDetailActivity.class);
+            stackBuilder.addNextIntent(redirectIntent);
             beaconCaches.add(myBeaconCache);
+
+            cNotificationManager.ShowInputNotification(context,notificationManager,redirectIntent, "Promos", stackBuilder, numMessages++);
+
 
 
         }
