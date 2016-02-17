@@ -53,17 +53,29 @@ public class OfferHistoryController {
 	  public Map<String, Object> getPromoUserAttempts (@PathVariable("userId") String userId, @PathVariable("promoId") String promoId){
 			
 		  List<OfferHistory> offerhistoryModelList = offerhistoryRepository.findAll();
+		  Date date = new Date();
 
 			int attempts = 0;
+	
 			for(OfferHistory offerHistory : offerhistoryModelList){
+				
 				if(offerHistory.getPromo_id().equals(promoId) && offerHistory.getUser_id().equals(userId));{
+					if(attempts==0){
+						date=offerHistory.getScanDate();
+					}else{
+						if(date.getTime()<offerHistory.getScanDate().getTime()){
+							date=offerHistory.getScanDate();
+						}
+					}
 					attempts++;
+					
 				}				
 			}
 						
 			Map<String, Object> response = new LinkedHashMap<String, Object>();
 			response.put("promoId", promoId);
 			response.put("userId", userId);
+			response.put("lastScan", date);
 			response.put("attempts", offerhistoryModelList.size());
 			return response;
 
