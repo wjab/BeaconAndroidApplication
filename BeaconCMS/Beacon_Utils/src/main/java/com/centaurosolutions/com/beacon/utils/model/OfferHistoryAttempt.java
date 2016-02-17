@@ -9,6 +9,7 @@ public class OfferHistoryAttempt {
 	private String userId;
 	private String promoId;
 	private int attempts;
+	private Date lastScan;
 
 	
 	
@@ -81,6 +82,22 @@ public class OfferHistoryAttempt {
 	 */
 	public void setAttempts(int attempts) {
 		this.attempts = attempts;
+	}
+
+
+	/**
+	 * @return the lastScan
+	 */
+	public Date getLastScan() {
+		return lastScan;
+	}
+
+
+	/**
+	 * @param lastScan the lastScan to set
+	 */
+	public void setLastScan(Date lastScan) {
+		this.lastScan = lastScan;
 	}
 	
 	
