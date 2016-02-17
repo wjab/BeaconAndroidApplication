@@ -76,8 +76,8 @@ public class OfferHistoryController {
 			response.put("promoId", promoId);
 			response.put("userId", userId);
 			response.put("lastScan", date);
-			response.put("attempts", offerhistoryModelList.size());
-			return response;
+			response.put("attempts", attempts);
+			return response; 
 
 	  }
 	  
