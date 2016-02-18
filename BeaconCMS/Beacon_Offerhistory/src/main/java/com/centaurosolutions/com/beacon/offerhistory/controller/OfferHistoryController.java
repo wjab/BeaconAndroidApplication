@@ -59,7 +59,8 @@ public class OfferHistoryController {
 	
 			for(OfferHistory offerHistory : offerhistoryModelList){
 				
-				if(offerHistory.getPromo_id().equals(promoId) && offerHistory.getUser_id().equals(userId));{
+				if(offerHistory.getPromo_id().equals(promoId) && offerHistory.getUser_id().equals(userId))
+				{
 					if(attempts==0){
 						date=offerHistory.getScanDate();
 					}else{
