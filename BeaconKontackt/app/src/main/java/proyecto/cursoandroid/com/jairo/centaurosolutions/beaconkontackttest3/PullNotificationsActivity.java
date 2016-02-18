@@ -2,16 +2,23 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.CharacterPickerDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
@@ -35,7 +42,8 @@ public class PullNotificationsActivity extends AppCompatActivity {
 
         listviewPromo = (ListView) findViewById(R.id.listNotifications);
         // Inflate your custom layout
-
+        NotificationManager notifManager= (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notifManager.cancelAll();
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_notification_layout,
                 null);
@@ -46,6 +54,18 @@ public class PullNotificationsActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(actionBarLayout);
 
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        ImageButton imageButton= (ImageButton) actionBarLayout.findViewById(R.id.back_action);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent redirectIntent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                myBeaconCacheList = new ArrayList<BeaconCache>();
+                redirectIntent.putExtra("promoDetail", myBeaconCacheList);
+                startActivity(redirectIntent);
+                finish();
+            }
+        });
         pointsAction.setText(mpoints + " pts");
 
         listviewPromo.setAdapter(adapter);
@@ -75,8 +95,29 @@ public class PullNotificationsActivity extends AppCompatActivity {
         myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
         llenarNotificaciones(myBeaconCacheList);
     }
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            Intent redirectIntent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+            myBeaconCacheList= new ArrayList<BeaconCache>();
+            redirectIntent.putExtra("promoDetail", myBeaconCacheList);
+            startActivity(redirectIntent);
+            this.finish();
+        } else {
+            Toast.makeText(this, "Press Back again to go to Main page.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
 
+        }
 
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
