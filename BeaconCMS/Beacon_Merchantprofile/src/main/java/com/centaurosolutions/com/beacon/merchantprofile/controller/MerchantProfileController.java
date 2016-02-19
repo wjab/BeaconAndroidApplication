@@ -48,7 +48,7 @@ public class MerchantProfileController {
 		}
 		
 		
-		MerchantProfile merchantProfileModel =new MerchantProfile(merchantProfileMap.get("country").toString(), merchantProfileMap.get("city").toString(), contacts ,merchantProfileMap.get("timeZone").toString(),merchantProfileMap.get("merchantName").toString(),merchantProfileMap.get("address").toString(),merchantProfileMap.get("image").toString(),merchantProfileMap.get("businessType").toString(),users, (Boolean)merchantProfileMap.get("enable"),Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()), DateFormatter(merchantProfileMap.get("creationDate").toString()) , DateFormatter(merchantProfileMap.get("modifiedDate").toString()),merchantProfileMap.get("updatedBy").toString());
+		MerchantProfile merchantProfileModel =new MerchantProfile(merchantProfileMap.get("country").toString(), merchantProfileMap.get("city").toString(), contacts ,merchantProfileMap.get("timeZone").toString(),merchantProfileMap.get("merchantName").toString(),merchantProfileMap.get("address").toString(),merchantProfileMap.get("image").toString(),merchantProfileMap.get("businessType").toString(),users, (Boolean)merchantProfileMap.get("enable"),Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()), DateFormatter(merchantProfileMap.get("creationDate").toString()) , DateFormatter(merchantProfileMap.get("modifiedDate").toString()),merchantProfileMap.get("updatedBy").toString(),merchantProfileMap.get("latitude").toString(),merchantProfileMap.get("longitude").toString());
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Perfil de Tiendas creado correctamente");
 	    response.put("promo", merchantProfileModel); 
@@ -90,7 +90,7 @@ public class MerchantProfileController {
 		}
 		
 		  
-		MerchantProfile merchantProfileModel = new MerchantProfile(merchantProfileMap.get("country").toString(), merchantProfileMap.get("city").toString(), contacts ,merchantProfileMap.get("timeZone").toString(),merchantProfileMap.get("merchantName").toString(),merchantProfileMap.get("address").toString(),merchantProfileMap.get("image").toString(),merchantProfileMap.get("businessType").toString(),users, (Boolean)merchantProfileMap.get("enable"),Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()), DateFormatter(merchantProfileMap.get("creationDate").toString()) , DateFormatter(merchantProfileMap.get("modifiedDate").toString()),merchantProfileMap.get("updatedBy").toString());
+		MerchantProfile merchantProfileModel = new MerchantProfile(merchantProfileMap.get("country").toString(), merchantProfileMap.get("city").toString(), contacts ,merchantProfileMap.get("timeZone").toString(),merchantProfileMap.get("merchantName").toString(),merchantProfileMap.get("address").toString(),merchantProfileMap.get("image").toString(),merchantProfileMap.get("businessType").toString(),users, (Boolean)merchantProfileMap.get("enable"),Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()), DateFormatter(merchantProfileMap.get("creationDate").toString()) , DateFormatter(merchantProfileMap.get("modifiedDate").toString()),merchantProfileMap.get("updatedBy").toString(),merchantProfileMap.get("latitude").toString(),merchantProfileMap.get("longitude").toString());
 			   		  
         merchantProfileModel.setId(MerchantProfileId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();

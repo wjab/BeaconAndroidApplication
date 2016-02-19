@@ -22,6 +22,8 @@ public class MerchantProfile {
 	public Date creationDate;
 	public Date modifiedDate;
 	public String updatedBy;
+	public String latitude ;
+	public String longitude;
 	
 
 
@@ -48,11 +50,14 @@ public class MerchantProfile {
 	 * @param creationDate
 	 * @param modifiedDate
 	 * @param updatedBy
+	 * @param latitude
+	 * @param longitude
 	 */
 	public MerchantProfile(String country, String city, ArrayList<MerchantContactData> contactNumbers, String timeZone,
 			String merchantName, String address, String image, String businessType,
 			ArrayList<MerchantUser> users, boolean enable, int pointsToGive,
-			Date creationDate, Date modifiedDate, String updatedBy) {
+			Date creationDate, Date modifiedDate, String updatedBy,
+			String latitude,String longitude) {
 		super();
 		this.country = country;
 		this.city = city;
@@ -68,7 +73,10 @@ public class MerchantProfile {
 		this.creationDate = creationDate;
 		this.modifiedDate = modifiedDate;
 		this.updatedBy = updatedBy;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
+
 
 
 
@@ -282,6 +290,42 @@ public class MerchantProfile {
 	 */
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	/**
+	 * @return the latitude
+	 */
+	public String getLatitude() {
+		return latitude;
+	}
+
+
+
+
+	/**
+	 * @param longitude the longitude to set
+	 */
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+
+
+
+	/**
+	 * @return the longitude
+	 */
+	public String getLongitude() {
+		return longitude;
+	}
+
+
+
+
+	/**
+	 * @param longitude the longitude to set
+	 */
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 }
 	
