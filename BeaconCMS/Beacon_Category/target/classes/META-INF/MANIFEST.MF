@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Beacon_Category
 Implementation-Version: 0.0.1-Category
-Built-By: Jairo
+Built-By: Administrador
 Implementation-Vendor-Id: com.centaurosolutions.com.beacon.category
-Build-Jdk: 1.8.0_72
+Build-Jdk: 1.8.0_66
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

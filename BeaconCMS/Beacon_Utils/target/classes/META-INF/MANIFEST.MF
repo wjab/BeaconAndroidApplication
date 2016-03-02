@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Beacon_Utils
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Jairo
+Built-By: Administrador
 Implementation-Vendor-Id: com.centaurosolutions.com.beacon.utils
-Build-Jdk: 1.8.0_72
+Build-Jdk: 1.8.0_66
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 
