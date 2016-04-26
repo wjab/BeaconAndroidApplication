@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -34,11 +35,12 @@ public class UtilsController {
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
 
 		// Attributes
-		
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Map<String, Object> response = new LinkedHashMap<String, Object>();	
 		DateDiffValues dateDiffInfo = null;
 		Date dateInit = new Date();
 		Date dateEnd = new Date();
+		Date dateNow = new Date();
 		int points = 0;
 		User userObject = null;
 		OfferHistoryAttempt offerHistoryAttempt = null;
@@ -53,10 +55,11 @@ public class UtilsController {
 			promoObject = restTemplate.getForObject(urlPromo + "" +customMap.get("promoId").toString(),Promo.class);
 			
 			if(promoObject != null && offerHistoryAttempt != null){
-
+				
 				dateInit = new Date(promoObject.getStartDate().getTime());
 				dateEnd = new Date(promoObject.getEndDate().getTime());							
-				dateDiffInfo =  getDateDiffCall(format.format(dateInit).toString(), format.format(dateEnd).toString());
+				dateDiffInfo =  getDateDiffCall(format.format(offerHistoryAttempt.getLastScan()).toString(),format.format(dateNow).toString()) ;
+
 				
 				/***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
 				if(offerHistoryAttempt.getAttempts() == 0){	
@@ -67,8 +70,9 @@ public class UtilsController {
 					}
 				}
 				else{
-					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() ){		
-											
+					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && promoObject.getEndDate().after(dateNow) && dateDiffInfo < promoObject.getInterval()){		
+								
+				
 						userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
 						if(userObject != null){
 							
@@ -86,7 +90,7 @@ public class UtilsController {
 					}			
 					else{
 						response.put("user", null);
-						response.put("El usuario ha superado el limite de promociones escaneadas", null);	
+						response.put("El usuario ha superado el limite de promociones escaneadas y/o la promoción ya ha expirado", null);	
 					}
 				}
 			}
@@ -116,6 +120,7 @@ public class UtilsController {
 		long diffMinutes = 0;
 		long diffHours = 0;
 		long diffDays = 0;
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		try {
 			
@@ -131,13 +136,16 @@ public class UtilsController {
 					
 					diffSeconds = diff / 1000 % 60;
 					diffMinutes = diff / (60 * 1000) % 60;
-					diffHours = diff / (60 * 60 * 1000) % 24;
+					diffHours = (diff / (60 * 60) % 24) + (diff / (24 * 60 * 60)) * 24;;
 					diffDays = diff / (24 * 60 * 60 * 1000);
+					
 					
 					response.put("days", diffDays);
 					response.put("hours", diffHours);
 					response.put("minutes", diffMinutes);
 					response.put("seconds", diffSeconds);
+					
+
 				}
 				
 				else{
@@ -173,7 +181,7 @@ public class UtilsController {
 	public boolean setUserPromoOffer(String userId, String promoId){
 		
 		try{
-			
+			format.setTimeZone(TimeZone.getTimeZone("UTC"));
 			OfferHistory historyOffer = new OfferHistory();
 			String strDate =  format.format(new Date().getTime());
             Date scanDate =  format.parse(strDate);
