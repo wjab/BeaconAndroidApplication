@@ -70,7 +70,7 @@ public class UtilsController {
 					}
 				}
 				else{
-					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && promoObject.getEndDate().after(dateNow) && dateDiffInfo < promoObject.getInterval()){		
+					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate())&& promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() < promoObject.getInterval()){		
 								
 				
 						userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
