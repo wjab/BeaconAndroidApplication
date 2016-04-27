@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -154,16 +155,17 @@ public class UserController {
 	private Date DateFormatter(String pDate){
 		
 		Date finalDate = new Date();
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", Locale.ENGLISH);
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		try {
 			finalDate = format.parse(pDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+			
 		return finalDate;		
-	}
+	}		
 
 	private String setEncryptedPassword(String password){
 

@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class OfferHistoryController {
 	public Map<String, Object> createDevice(@RequestBody Map<String, Object> offerhistoryMap){
 		
 
-		OfferHistory offerhistoryModel = new OfferHistory( offerhistoryMap.get("user_id").toString(),offerhistoryMap.get("promo_id").toString(), offerhistoryMap.get("merchant_id").toString(),offerhistoryMap.get("shopZone_id").toString(),DateFormatter(getDate()), DateFormatter(getDate()),DateFormatter(getDate()));    
+		OfferHistory offerhistoryModel = new OfferHistory( offerhistoryMap.get("user_id").toString(),offerhistoryMap.get("promo_id").toString(), offerhistoryMap.get("merchant_id").toString(),offerhistoryMap.get("shopZone_id").toString(), DateFormatter(new Date().toString()), DateFormatter(new Date().toString()),DateFormatter(new Date().toString()));    
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Historial de oferta creado correctamente");
 	    response.put("offerhistory", offerhistoryModel); 
@@ -120,16 +121,17 @@ public class OfferHistoryController {
 	private Date DateFormatter(String pDate){
 		
 		Date finalDate = new Date();
-
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		try {
 			finalDate = format.parse(pDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+			
 		return finalDate;		
-	}
+	}	
 	
 	private String getDate(){
         DateFormat df = DateFormat.getDateTimeInstance();

@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +42,7 @@ public class MobileController {
 	public Map<String, Object> createMobile(@RequestBody Map<String, Object> mobileMap){
 		
 			
-		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(getDate()));       
+		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(new Date().toString()));       
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Dispositivo Móvil creado correctamente");
 	    response.put("mobile", mobileModel); 					
@@ -75,15 +77,13 @@ public class MobileController {
 		  return response;
 	  }
 	  
-	  
-
-	  
+	   
 	  @RequestMapping(method = RequestMethod.PUT, value="/{MobileId}")
 	  public Map<String, Object> editMobile(@PathVariable("MobileId") String MobileId,
 	      @RequestBody Map<String, Object> mobileMap){
 		  
 
-		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(getDate()));
+		Mobile mobileModel = new Mobile(mobileMap.get("deviceName").toString(),mobileMap.get("deviceModel").toString(),mobileMap.get("osName").toString(), mobileMap.get("osVersion").toString(),mobileMap.get("userId").toString(), DateFormatter(new Date().toString()));
 		mobileModel.setId(MobileId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Dispositivo Móvil actualizado correctamente");
@@ -103,25 +103,17 @@ public class MobileController {
 		private Date DateFormatter(String pDate){
 			
 			Date finalDate = new Date();
-
+			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+			format.setTimeZone(TimeZone.getTimeZone("UTC"));
 			try {
 				finalDate = format.parse(pDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+				
 			return finalDate;		
-		}
-		
-		private String getDate(){
-	        DateFormat df = DateFormat.getDateTimeInstance();
-	        long currentTime = new Date().getTime();
-	        String currDate = df.format(new Date(currentTime));
-	        return currDate;
-			
-		}
-		
+		}		
 	}
 
 		
