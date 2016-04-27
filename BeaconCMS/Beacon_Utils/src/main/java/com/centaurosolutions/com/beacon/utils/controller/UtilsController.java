@@ -129,8 +129,8 @@ public class UtilsController {
 				d1 = format.parse(customMap.get("initialDate").toString());
 				d2 = format.parse(customMap.get("finalDate").toString());
 	
-				//in milliseconds
-				diff = d2.getTime() - d1.getTime();
+				//in seconds
+				diff = (d2.getTime() / 1000) - (d1.getTime() / 1000) ;
 				
 				if( diff > 0 ){
 					
