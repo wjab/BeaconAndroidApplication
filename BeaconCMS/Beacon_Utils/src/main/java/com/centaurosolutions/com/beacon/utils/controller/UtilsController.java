@@ -51,6 +51,7 @@ public class UtilsController {
 		try{
 
 
+			String z =  urlOfferHistory +"/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString();
 			offerHistoryAttempt = restTemplate.getForObject(urlOfferHistory +"/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
 			promoObject = restTemplate.getForObject(urlPromo + "" +customMap.get("promoId").toString(),Promo.class);
 			
@@ -70,7 +71,7 @@ public class UtilsController {
 					}
 				}
 				else{
-					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate())&& promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() >= promoObject.getInterval()){		
+					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate())&& promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() > promoObject.getInterval()){		
 								
 				
 						userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
