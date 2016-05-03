@@ -65,10 +65,15 @@ public class UtilsController {
 				/***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
 				if(offerHistoryAttempt.getAttempts() == 0){	
 					 userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
-					 
-					if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
-					    response.put("user", userObject);	
+					if(userObject != null){
+						points = userObject.getTotal_gift_points() + promoObject.getGift_points();
+						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
+							response.put("user", userObject);
+						}
 					}
+                    else{
+                        response.put("user", null);
+                    }
 				}
 				else{
 					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate())&& promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() > promoObject.getInterval()){		
