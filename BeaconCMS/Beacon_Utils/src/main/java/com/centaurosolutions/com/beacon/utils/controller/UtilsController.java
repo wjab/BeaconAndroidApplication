@@ -30,6 +30,8 @@ public class UtilsController {
 	private String urlUser = "http://buserdevel.cfapps.io/user/";
 	private String urlPromo = "http://bpromodevel.cfapps.io/promo/";
 	private String urlOfferHistory = "http://bofferhistorydevel.cfapps.io/offerhistory/";
+    private String offerHistoryAttemptResource = "/getAttempts/user/%s/promo/%s";
+
 	
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
@@ -38,8 +40,6 @@ public class UtilsController {
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Map<String, Object> response = new LinkedHashMap<String, Object>();	
 		DateDiffValues dateDiffInfo = null;
-		Date dateInit = new Date();
-		Date dateEnd = new Date();
 		Date dateNow = new Date();
 		int points = 0;
 		User userObject = null;
@@ -50,56 +50,29 @@ public class UtilsController {
 
 		try{
 
-
-			String z =  urlOfferHistory +"/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString();
-			offerHistoryAttempt = restTemplate.getForObject(urlOfferHistory +"/getAttempts/user/"+customMap.get("userId").toString()+"/promo/"+customMap.get("promoId").toString(),OfferHistoryAttempt.class);		
+			offerHistoryAttempt = restTemplate.getForObject(urlOfferHistory + String.format(offerHistoryAttemptResource,customMap.get("userId").toString(),customMap.get("promoId")),OfferHistoryAttempt.class);
 			promoObject = restTemplate.getForObject(urlPromo + "" +customMap.get("promoId").toString(),Promo.class);
 			
-			if(promoObject != null && offerHistoryAttempt != null){
-				
-				dateInit = new Date(promoObject.getStartDate().getTime());
-				dateEnd = new Date(promoObject.getEndDate().getTime());							
-				dateDiffInfo =  getDateDiffCall(format.format(offerHistoryAttempt.getLastScan()).toString(),format.format(dateNow).toString()) ;
+			if(promoObject != null && offerHistoryAttempt != null) {
 
-				
-				/***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
-				if(offerHistoryAttempt.getAttempts() == 0){	
-					 userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
-					if(userObject != null){
-						points = userObject.getTotal_gift_points() + promoObject.getGift_points();
-						if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
-							response.put("user", userObject);
-						}
-					}
-                    else{
+                dateDiffInfo = getDateDiffCall(format.format(offerHistoryAttempt.getLastScan()).toString(), format.format(dateNow).toString());
+
+                /***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
+                if (offerHistoryAttempt.getAttempts() == 0 || (offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() > promoObject.getInterval())) {
+                    userObject = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), User.class);
+                    if (userObject != null) {
+                        points = userObject.getTotal_gift_points() + promoObject.getGift_points();
+                        userObject.setTotal_gift_points(points);
+                        if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())) {
+                            response.put("user", userObject);
+                        }
+                    } else {
                         response.put("user", null);
                     }
-				}
-				else{
-					if(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate())&& promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() > promoObject.getInterval()){		
-								
-				
-						userObject = restTemplate.getForObject(urlUser+ "id/"+customMap.get("userId").toString(), User.class);
-						if(userObject != null){
-							
-							points = userObject.getTotal_gift_points() + promoObject.getGift_points();
-							
-							userObject.setTotal_gift_points(points);
-							
-							if(setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())){
-							    response.put("user", userObject);	
-							}
-						} 
-						else{
-							response.put("user", null);
-						}
-					}			
-					else{
-						response.put("user", null);
-						response.put("El usuario ha superado el limite de promociones escaneadas y/o la promoción ya ha expirado", null);	
-					}
-				}
-			}
+                } else {
+                    response.put("user", null);
+                }
+            }
 			else{
 				response.put("user", null);
 				response.put("cause", "Objetos vacíos");
