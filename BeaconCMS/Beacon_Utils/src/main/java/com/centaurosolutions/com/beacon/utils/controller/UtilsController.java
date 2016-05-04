@@ -38,7 +38,8 @@ public class UtilsController {
 
 		// Attributes
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Map<String, Object> response = new LinkedHashMap<String, Object>();	
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		DateDiffValues dateDiffInfo = null;
 		Date dateNow = new Date();
 		int points = 0;
@@ -55,7 +56,7 @@ public class UtilsController {
 			
 			if(promoObject != null && offerHistoryAttempt != null) {
 
-                dateDiffInfo = getDateDiffCall(format.format(offerHistoryAttempt.getLastScan()).toString(), format.format(dateNow).toString());
+                dateDiffInfo = getDateDiffCall(format.format(offerHistoryAttempt.getLastScan()).toString(), format.format(dateNow));
 
                 /***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
                 if (offerHistoryAttempt.getAttempts() == 0 || (offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && (dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) && dateDiffInfo.getHours() > promoObject.getInterval())) {
@@ -192,8 +193,9 @@ public class UtilsController {
 		   
 		   try{
 			   if((!initialDate.isEmpty() || initialDate != null)  && (!initialDate.isEmpty() || initialDate != null)){
-				   
-				   parameters.put("initialDate", initialDate);
+
+
+				   parameters.put("initialDate",initialDate);
 				   parameters.put("finalDate", finalDate);
 				   RestTemplate restTemplate = new RestTemplate();
 				   HttpHeaders headers = new HttpHeaders();
