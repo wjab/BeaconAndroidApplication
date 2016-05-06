@@ -14,7 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import controllers.ServiceController;
+import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 
 public class Detail_Promo extends AppCompatActivity {
@@ -24,6 +27,7 @@ public class Detail_Promo extends AppCompatActivity {
     TextView Points;
     ImageView ImagenPromo;
     String mpoints;
+    ArrayList<BeaconCache> myBeaconCacheList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,14 @@ public class Detail_Promo extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if(myBeaconCacheList!=null) {
+                    Intent redirectIntent = new Intent(getApplicationContext(), PullNotificationsActivity.class);
+                    redirectIntent.putExtra("promoDetail", myBeaconCacheList);
+                    startActivity(redirectIntent);
+                }else{
+                    finish();
+                }
+                //
             }
             });
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
@@ -56,13 +67,35 @@ public class Detail_Promo extends AppCompatActivity {
         Points.setText(promo.getPuntos()+" pts");
         TituloPromo.setText(promo.getTitulo());
         DescripcionPromo.setText(promo.getDescripcion());
-        imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0,0);
+        imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0, 0);
+
+        myBeaconCacheList = (ArrayList<BeaconCache>)intent.getSerializableExtra("promoDetail");
+        if(myBeaconCacheList!=null){
+        int indextoDelete=-1;
+        for (int i=0; i < myBeaconCacheList.size(); i++ ) {
+            if(myBeaconCacheList.get(i).promoId.equals(promo.getId()))
+            {
+                indextoDelete=i;
+            }
+        }
+        if( indextoDelete!=-1)
+        {
+            myBeaconCacheList.remove(indextoDelete);
+        }}
+
+
+
     }
 
     @Override
     public void onBackPressed() {
-            finish();
-
+        if(myBeaconCacheList!=null){
+        Intent redirectIntent = new Intent(getApplicationContext(), PullNotificationsActivity.class);
+        redirectIntent.putExtra("promoDetail", myBeaconCacheList);
+        startActivity(redirectIntent);}else{
+            this.finish();
+        }
+      //
     }
 
 

@@ -10,7 +10,7 @@ public class Promociones implements Serializable {
     private String Descripcion;
     private String UrlImagen;
     private String Titulo;
-    private int id;
+    private String id;
     private int Puntos;
 
     public String getDescripcion() {
@@ -29,11 +29,11 @@ public class Promociones implements Serializable {
         UrlImagen = urlImagen;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -78,7 +78,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
                 promo.setTitulo(listitem.title);
                 promo.setDescripcion(listitem.descrition);
                 promo.setPuntos(listitem.giftPoints);
-                promo.setId(listitem.id);
+                promo.setId(listitem.promoId);
                 if(listitem.picturePath != null)
                 {
                     String url = listitem.picturePath;
@@ -87,6 +87,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
 
                 Intent intentSuccess = new Intent(getApplicationContext(), Detail_Promo.class);
                 intentSuccess.putExtra("Detail", promo);
+                intentSuccess.putExtra("promoDetail", myBeaconCacheList);
                 startActivity(intentSuccess);
             }
         });
@@ -151,7 +152,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
                 promo.setTitulo(myBeaconCacheList.get(i).title);
                 promo.setDescripcion(myBeaconCacheList.get(i).descrition);
                 promo.setPuntos(myBeaconCacheList.get(i).giftPoints);
-                promo.setId(myBeaconCacheList.get(i).id);
+                promo.setId(myBeaconCacheList.get(i).promoId);
                 if(myBeaconCacheList.get(i).picturePath != null)
                 {
                     url = myBeaconCacheList.get(i).picturePath;

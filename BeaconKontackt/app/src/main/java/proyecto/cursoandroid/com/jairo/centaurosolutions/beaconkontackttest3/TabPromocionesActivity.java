@@ -118,7 +118,7 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
                 promo.setTitulo(row.getString("title"));
                 promo.setDescripcion(row.getString("description"));
                 promo.setPuntos(row.getInt("gift_points"));
-                promo.setId(row.getInt("profile_id"));
+                promo.setId(row.getString("id"));
                 if(row.get("images") != null)
                 {
                     url = row.getString("images");
