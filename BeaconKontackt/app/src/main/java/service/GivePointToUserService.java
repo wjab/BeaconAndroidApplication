@@ -98,7 +98,7 @@ public class GivePointToUserService extends Service implements Response.Listener
             response = this;
 
             SharedPreferences sharedPreferences = nonStaticUtils.loadLoginInfo(context);
-            String userId = sharedPreferences.getString("userId", "827ccb0eea8a706c4c34a16891f84e7b");
+            String userId = sharedPreferences.getString("userId", null);
 
             Map<String, String> mapHeaders = new HashMap<String, String>();
             mapHeaders.put("Content-Type", "application/json");
@@ -158,7 +158,9 @@ public class GivePointToUserService extends Service implements Response.Listener
 
     public void ShowPromoNotification(Context context)
     {
+
         myBeaconCache = Utils.GetCacheByPromoId(promoId);
+
 
         boolean isRepeated = false;
 
@@ -169,27 +171,28 @@ public class GivePointToUserService extends Service implements Response.Listener
                     break;
                 }
             }
-        }
+         }
 
-        if(myBeaconCache.id != 0 && !isRepeated) {
+
+         if(myBeaconCache.id != 0 && !isRepeated) {
 
 
             Intent redirectIntent = new Intent(context, PullNotificationsActivity.class);
-
+             beaconCaches.add(myBeaconCache);
             CustomNotificationManager cNotificationManager = new CustomNotificationManager();
-            cNotificationManager.setContentTitle(context.getString(R.string.beacon_appeared, myBeaconCache.title));
-            cNotificationManager.setIcon(R.drawable.logo);
-            cNotificationManager.setTicker(context.getString(R.string.beacon_appeared, "Nuevas promociones recibidas"));
+            cNotificationManager.setContentTitle("QuickShop");
+            cNotificationManager.setContentText(myBeaconCache.descrition);
+             cNotificationManager.setIcon(R.drawable.logo);
+            cNotificationManager.setTicker("Tienes nuevas notificaciones");
             cNotificationManager.setnotificationMessage(myBeaconCache.descrition);
             redirectIntent.putExtra("promoDetail", beaconCaches);
             cNotificationManager.setRedirectIntent(redirectIntent);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
             stackBuilder.addParentStack(PromoDetailActivity.class);
             stackBuilder.addNextIntent(redirectIntent);
-            beaconCaches.add(myBeaconCache);
 
-            cNotificationManager.ShowInputNotification(context,notificationManager,redirectIntent, "Promos", stackBuilder, numMessages++);
 
+            cNotificationManager.ShowInputNotification(context,notificationManager,redirectIntent, "Promos", stackBuilder, beaconCaches.size());
 
 
         }
