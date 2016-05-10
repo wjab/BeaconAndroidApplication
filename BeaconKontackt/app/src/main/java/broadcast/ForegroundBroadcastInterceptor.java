@@ -1,16 +1,12 @@
 package broadcast;
 
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.kontakt.sdk.android.common.Proximity;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
 
@@ -26,10 +22,7 @@ import java.util.Map;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PromoDetailActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
-import service.BeaconSyncMessageService;
-import utils.CustomNotificationManager;
 import utils.NonStaticUtils;
 import utils.Utils;
 
@@ -171,7 +164,7 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                 myBeaconCache.promoId = promo;
                 myBeaconCache.expiration = Utils.UnixTimeStampWithDefaultExpiration();
                 myBeaconCache.currentDatetime = Utils.UnixTimeStamp();
-                /*myBeaconCache.descrition = description;
+               /*myBeaconCache.descrition = description;
                 myBeaconCache.isautomatic = isAutomatic;
                 myBeaconCache.picturePath = promoPicture;
                 myBeaconCache.giftPoints = givepoints;*/

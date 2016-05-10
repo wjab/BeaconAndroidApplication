@@ -5,11 +5,9 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.CharacterPickerDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
@@ -139,30 +138,37 @@ public class PullNotificationsActivity extends AppCompatActivity {
 
         try{
 
-            promociones = new ArrayList<Promociones>();
+            if(myBeaconCacheList.size() != 0 && myBeaconCacheList != null){
+                promociones = new ArrayList<Promociones>();
 
-            for (int i=0; i < myBeaconCacheList.size(); i++ ) {
+                for (int i=0; i < myBeaconCacheList.size(); i++ ) {
 
 
-                ArrayList<String> images = new ArrayList<String>();
-                String url = "";
+                    ArrayList<String> images = new ArrayList<String>();
+                    String url = "";
 
-                Promociones promo;
-                promo= new Promociones();
-                promo.setTitulo(myBeaconCacheList.get(i).title);
-                promo.setDescripcion(myBeaconCacheList.get(i).descrition);
-                promo.setPuntos(myBeaconCacheList.get(i).giftPoints);
-                promo.setId(myBeaconCacheList.get(i).promoId);
-                if(myBeaconCacheList.get(i).picturePath != null)
-                {
-                    url = myBeaconCacheList.get(i).picturePath;
-                    promo.setUrlImagen(url);
+                    Promociones promo;
+                    promo= new Promociones();
+                    promo.setTitulo(myBeaconCacheList.get(i).title);
+                    promo.setDescripcion(myBeaconCacheList.get(i).descrition);
+                    promo.setPuntos(myBeaconCacheList.get(i).giftPoints);
+                    promo.setId(myBeaconCacheList.get(i).promoId);
+                    if(myBeaconCacheList.get(i).picturePath != null)
+                    {
+                        url = myBeaconCacheList.get(i).picturePath;
+                        promo.setUrlImagen(url);
+                    }
+
+                    promociones.add(promo);
                 }
 
-                promociones.add(promo);
+                adapter = new Adaptador_Promo(this, promociones);
+            }
+            else {
+                Intent i = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                startActivity(i);
             }
 
-            adapter = new Adaptador_Promo(this, promociones);
         }
         catch(Exception ex){
 

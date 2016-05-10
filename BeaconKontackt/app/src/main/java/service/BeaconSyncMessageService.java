@@ -4,18 +4,17 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import database.DatabaseManager;
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 import utils.NonStaticUtils;
-import utils.Utils;
 
 public class BeaconSyncMessageService extends Service implements Response.Listener<JSONObject>, Response.ErrorListener  {
 
@@ -105,9 +103,11 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         try
         {
+            byte[] data = response.getString("description") != null ?response.getString("description").getBytes("UTF-8"): null;
+            String encodedDesc = Base64.encodeToString(data, Base64.DEFAULT);
             DatabaseManager.init(this);
             beaconCacheRef.giftPoints = response.getInt("gift_points");
-            beaconCacheRef.descrition = response.getString("description");
+            beaconCacheRef.descrition = encodedDesc;
             beaconCacheRef.title = response.getString("title");
             beaconCacheRef.attempt = response.getInt("attempt");
             beaconCacheRef.isautomatic = response.getBoolean("isAutomatic");
@@ -120,6 +120,9 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         }
         catch (JSONException e) {
+            e.printStackTrace();
+        }
+         catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
