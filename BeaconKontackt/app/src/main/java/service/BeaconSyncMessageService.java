@@ -103,7 +103,7 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         try
         {
-            byte[] data = response.getString("description") != null ?response.getString("description").getBytes("UTF-8"): null;
+            byte[] data = response.getString("description") != null ? response.getString("description").getBytes("UTF-8"): null;
             String encodedDesc = Base64.encodeToString(data, Base64.DEFAULT);
             DatabaseManager.init(this);
             beaconCacheRef.giftPoints = response.getInt("gift_points");

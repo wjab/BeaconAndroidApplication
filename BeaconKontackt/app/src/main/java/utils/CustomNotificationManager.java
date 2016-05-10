@@ -146,9 +146,11 @@ public class CustomNotificationManager
         try {
             if(messages != null){
                 for(BeaconCache myCache: messages){
-                    byte[] data = Base64.decode(myCache.descrition, Base64.DEFAULT);
-                    String descriptionDecoded = new String(data, "UTF-8");
-                    inboxStyle.addLine(descriptionDecoded);
+                    if(myCache.descrition != null) {
+                        byte[] data = Base64.decode(myCache.descrition.getBytes(), Base64.DEFAULT);
+                        String descriptionDecoded = new String(data, "UTF-8");
+                        inboxStyle.addLine(descriptionDecoded);
+                    }
                 }
             }
         }
