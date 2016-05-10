@@ -65,7 +65,7 @@ public class BackgroundScanService extends Service implements ProximityManager.P
 
     //private ScanPeriod scanPeriod = new ScanPeriod(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10));
     //private ActivityCheckConfiguration activityCheckConfiguration =  new ActivityCheckConfiguration(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10));
-    private  ForceScanConfiguration forceScanConfiguration = new ForceScanConfiguration(TimeUnit.SECONDS.toMillis(1), TimeUnit.SECONDS.toMillis(1));
+    private  ForceScanConfiguration forceScanConfiguration = new ForceScanConfiguration(TimeUnit.SECONDS.toMillis(2), TimeUnit.SECONDS.toMillis(5));
 
     private final ScanContext scanContext = new ScanContext.Builder()
             .setScanMode(ProximityManager.SCAN_MODE_BALANCED)

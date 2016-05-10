@@ -8,9 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
-import android.util.Base64;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import model.cache.BeaconCache;
@@ -143,19 +141,13 @@ public class CustomNotificationManager
         inboxStyle.setSummaryText(summaryText);
 
 
-        try {
-            if(messages != null){
-                for(BeaconCache myCache: messages){
-                    if(myCache.descrition != null) {
-                        byte[] data = Base64.decode(myCache.descrition.getBytes(), Base64.DEFAULT);
-                        String descriptionDecoded = new String(data, "UTF-8");
-                        inboxStyle.addLine(descriptionDecoded);
-                    }
+
+        if(messages != null){
+            for(BeaconCache myCache: messages){
+                if(myCache.descrition != null) {
+                    inboxStyle.addLine(Utils.StringDecode64(myCache.descrition));
                 }
             }
-        }
-        catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
 
         mBuilder.setNumber(numMessages);

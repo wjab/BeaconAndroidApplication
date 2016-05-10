@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
+import utils.Utils;
 
 
 public class PullNotificationsActivity extends AppCompatActivity {
@@ -75,7 +76,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
                 Promociones promo = new Promociones();
                 BeaconCache listitem = myBeaconCacheList.get(position);
                 promo.setTitulo(listitem.title);
-                promo.setDescripcion(listitem.descrition);
+                promo.setDescripcion(Utils.StringDecode64(listitem.descrition));
                 promo.setPuntos(listitem.giftPoints);
                 promo.setId(listitem.promoId);
                 if(listitem.picturePath != null)
@@ -139,23 +140,24 @@ public class PullNotificationsActivity extends AppCompatActivity {
         try{
 
             if(myBeaconCacheList.size() != 0 && myBeaconCacheList != null){
+
+
                 promociones = new ArrayList<Promociones>();
 
-                for (int i=0; i < myBeaconCacheList.size(); i++ ) {
-
+                for(BeaconCache myCache : myBeaconCacheList){
 
                     ArrayList<String> images = new ArrayList<String>();
                     String url = "";
 
                     Promociones promo;
                     promo= new Promociones();
-                    promo.setTitulo(myBeaconCacheList.get(i).title);
-                    promo.setDescripcion(myBeaconCacheList.get(i).descrition);
-                    promo.setPuntos(myBeaconCacheList.get(i).giftPoints);
-                    promo.setId(myBeaconCacheList.get(i).promoId);
-                    if(myBeaconCacheList.get(i).picturePath != null)
+                    promo.setTitulo(myCache.title);
+                    promo.setDescripcion(Utils.StringDecode64(myCache.descrition));
+                    promo.setPuntos(myCache.giftPoints);
+                    promo.setId(myCache.promoId);
+                    if(myCache.picturePath != null)
                     {
-                        url = myBeaconCacheList.get(i).picturePath;
+                        url = myCache.picturePath;
                         promo.setUrlImagen(url);
                     }
 

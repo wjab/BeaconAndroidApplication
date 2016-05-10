@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.util.Base64;
 import android.view.Surface;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -152,5 +154,32 @@ public final class Utils extends Activity {
         }
 
         return beaconCache;
+    }
+
+    public static String StringEncode64(String dataString){
+
+        byte[] data;
+        String encodedString = "";
+        try {
+            data = dataString != null ? dataString.getBytes("UTF-8"): null;
+            encodedString = Base64.encodeToString(data, Base64.DEFAULT);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return encodedString;
+
+    }
+
+    public static String StringDecode64(String dataString){
+        byte[] data ;
+        String decodedString = "";
+        try {
+            data = Base64.decode(dataString.getBytes(), Base64.DEFAULT);
+            decodedString = new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return  decodedString;
     }
 }
