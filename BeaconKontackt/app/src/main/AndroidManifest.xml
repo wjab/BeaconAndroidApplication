@@ -49,7 +49,8 @@
 
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2" />
+            android:label="@string/title_activity_main2"
+           />
         <activity
             android:name=".Activity_Principal"
             android:label="@string/title_activity_activity__principal" />
@@ -64,6 +65,7 @@
             android:label="@string/title_activity_promo_detail" />
         <activity
             android:name=".LoginMainActivity"
+            android:theme="@style/AppThemelogin"
             android:label="BeaconApp" />
 
         <service

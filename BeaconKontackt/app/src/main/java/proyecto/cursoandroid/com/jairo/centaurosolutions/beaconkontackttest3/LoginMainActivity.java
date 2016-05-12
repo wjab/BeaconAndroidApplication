@@ -6,17 +6,21 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,15 +45,17 @@ import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
+import model.cache.BeaconCache;
 import utils.NonStaticUtils;
 import utils.Utils;
 
-public class LoginMainActivity extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class LoginMainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     public static CallbackManager callbackmanager;
     //ImageButton facebookLogin;
@@ -62,8 +68,9 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     Response.ErrorListener responseError;
     ImageView loginImage;
     TextView username;
+    LinearLayout register;
     TextView password;
-    TextView register;
+    //TextView register;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     boolean isAuthenticated;
@@ -74,9 +81,27 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     protected void onCreate(Bundle savedInstanceState) {
         //FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+       // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login_main);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.action_bar_login_layout,
+                null);
+        actionBarLayout.setBackgroundColor(Color.TRANSPARENT);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
 
+        TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        ImageButton imageButton= (ImageButton) actionBarLayout.findViewById(R.id.back_action);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        getSupportActionBar().setElevation(0);
         /* se agrega el callback y el boton que hace el login con facebook */
         callbackmanager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
@@ -91,7 +116,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         loginImage = (ImageView)findViewById(R.id.loginImage);
         username = (TextView) findViewById(R.id.usuario);
         password = (TextView) findViewById(R.id.password);
-        register = (TextView) findViewById(R.id.register);
+        register = (LinearLayout) findViewById(R.id.layout_register);
 
         responseError = this;
         response = this;
