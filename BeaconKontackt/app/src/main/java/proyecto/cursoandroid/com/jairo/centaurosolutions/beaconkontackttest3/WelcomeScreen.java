@@ -85,7 +85,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
         Log.d("Response", response.toString());
 
-        prefs = nonStaticUtils.loadLoginInfo(this);
+        //prefs = nonStaticUtils.loadLoginInfo(this);
 
         try
         {

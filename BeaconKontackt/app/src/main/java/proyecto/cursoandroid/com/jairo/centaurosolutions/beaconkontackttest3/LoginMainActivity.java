@@ -55,6 +55,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
     ImageButton facebookLogin;
     AccessToken accessToken;
     AccessTokenTracker accessTokenTracker;
+    LoginButton loginButtonFace;
 
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
@@ -81,6 +82,9 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         AppEventsLogger.activateApp(this);
         facebookLogin = (ImageButton) findViewById(R.id.facebook_icon);
 
+        loginButtonFace = (LoginButton) findViewById(R.id.login_button_facebook);
+        loginButtonFace.setReadPermissions("user_friends");
+
 
         nonStaticUtils =  new NonStaticUtils();
         login = (Button)findViewById(R.id.login);
@@ -93,7 +97,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         response = this;
         serviceController =  new ServiceController();
 
-        prefs= nonStaticUtils.loadLoginInfo(this);
+        prefs = nonStaticUtils.loadLoginInfo(this);
 
         /* Gets aplication hash*/
         try {
@@ -142,6 +146,13 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
             }
         });
 
+        loginButtonFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFblogin();
+            }
+        });
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +178,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         accessToken = AccessToken.getCurrentAccessToken();
 
     }
+
     private Boolean exit = false;
     @Override
     public void onBackPressed() {
@@ -332,6 +344,19 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         });
 
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackmanager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
     }
 
 }
