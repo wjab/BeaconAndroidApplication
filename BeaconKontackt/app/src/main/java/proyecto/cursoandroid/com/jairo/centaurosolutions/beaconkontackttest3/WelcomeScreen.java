@@ -59,7 +59,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
             info.setText("Redirigiendo al Login");
             SystemClock.sleep(2000);
-            Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Login_Options.class);
             startActivity(intent);
         }
     }
@@ -102,7 +102,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
             else{
 
-                Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Login_Options.class);
                 startActivity(intent);
             }
         }

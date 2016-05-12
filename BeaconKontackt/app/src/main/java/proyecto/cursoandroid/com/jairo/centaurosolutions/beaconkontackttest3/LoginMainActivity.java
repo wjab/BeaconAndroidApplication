@@ -52,10 +52,10 @@ import utils.Utils;
 public class LoginMainActivity extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     public static CallbackManager callbackmanager;
-    ImageButton facebookLogin;
+    //ImageButton facebookLogin;
     AccessToken accessToken;
     AccessTokenTracker accessTokenTracker;
-    LoginButton loginButtonFace;
+   // LoginButton loginButtonFace;
 
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
@@ -72,7 +72,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login_main);
@@ -80,10 +80,10 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
         /* se agrega el callback y el boton que hace el login con facebook */
         callbackmanager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
-        facebookLogin = (ImageButton) findViewById(R.id.facebook_icon);
+        //facebookLogin = (ImageButton) findViewById(R.id.facebook_icon);
 
-        loginButtonFace = (LoginButton) findViewById(R.id.login_button_facebook);
-        loginButtonFace.setReadPermissions("user_friends");
+       // loginButtonFace = (LoginButton) findViewById(R.id.login_button_facebook);
+       // loginButtonFace.setReadPermissions("user_friends");
 
 
         nonStaticUtils =  new NonStaticUtils();
@@ -139,19 +139,19 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
 
 
-        facebookLogin.setOnClickListener(new View.OnClickListener() {
+      /*  facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onFblogin();
             }
-        });
+        });*/
 
-        loginButtonFace.setOnClickListener(new View.OnClickListener() {
+       /* loginButtonFace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onFblogin();
             }
-        });
+        });*/
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -179,25 +179,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
     }
 
-    private Boolean exit = false;
-    @Override
-    public void onBackPressed() {
-        if (exit) {
-            moveTaskToBack(true);
-        } else {
-            Toast.makeText(this, "Press Back again to Exit.",
-                    Toast.LENGTH_SHORT).show();
-            exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 3 * 1000);
 
-        }
-
-    }
 
 
     public void sendUserRequestByName(String username){

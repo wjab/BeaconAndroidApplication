@@ -144,8 +144,7 @@
     <string name="WebService_Utils">http://butilsdevel.cfapps.io/</string>
     <string name="WebService_VisitorHistory">http://bvisitorhistorydevel.cfapps.io/</string>
     <string name="title_activity_pull_notifications">PullNotificationsActivity</string>
-
-
+    <string name="title_activity_login__options">Login_Options</string>
 
 
 </resources>

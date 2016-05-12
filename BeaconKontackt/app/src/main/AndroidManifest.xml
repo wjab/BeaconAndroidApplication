@@ -85,26 +85,32 @@
             android:label="@string/title_activity_user_register" />
         <activity
             android:name=".Detail_Promo"
-            android:label="@string/title_activity_detail__promo"></activity>
+            android:label="@string/title_activity_detail__promo" />
         <activity
             android:name=".PullNotificationsActivity"
-            android:label="@string/title_activity_pull_notifications"></activity>
-
+            android:label="@string/title_activity_pull_notifications" />
 
         <!-- inicio de configuracion de facebook -->
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider"
             android:exported="true" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <!-- fin de configuracion de facebook -->
 
-
+        <activity
+            android:name=".Login_Options"
+            android:label="@string/title_activity_login__options"
+           ></activity>
     </application>
 
 </manifest>
