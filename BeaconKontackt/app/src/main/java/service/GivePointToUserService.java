@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -44,7 +45,8 @@ public class GivePointToUserService extends Service implements Response.Listener
         NonStaticUtils nonStaticUtils;
         ArrayList<BeaconCache> beaconCaches = new ArrayList<BeaconCache>();
         int numMessages = 0;
-
+        static NotificationCompat.Builder mBuilder = null;
+        CustomNotificationManager cNotificationManager = null;
         //Runnable mRunnable;
 
         //public static final long SYNC_INTERVAL = 10 * 1000;
@@ -65,6 +67,8 @@ public class GivePointToUserService extends Service implements Response.Listener
             context = getApplicationContext();
             notificationManager = NotificationManagerCompat.from(context);
             beaconCaches = (ArrayList<BeaconCache>) DatabaseManager.getInstance().getAllBeaconCache();
+            mBuilder = mBuilder == null ? new NotificationCompat.Builder(this) : mBuilder;
+            cNotificationManager = cNotificationManager == null ? new CustomNotificationManager() : cNotificationManager;
         }
 
         @Override
@@ -166,7 +170,6 @@ public class GivePointToUserService extends Service implements Response.Listener
         if(beaconCaches !=null){
             Intent redirectIntent = new Intent(context, PullNotificationsActivity.class);
             numMessages = beaconCaches.size();
-            CustomNotificationManager cNotificationManager = new CustomNotificationManager();
             cNotificationManager.setContentTitle("QuickShop");
             cNotificationManager.setBigContentTitle("QuickShop");
             cNotificationManager.setContentText("Tienes nuevas notificaciones de QuickShop");
@@ -179,7 +182,7 @@ public class GivePointToUserService extends Service implements Response.Listener
             stackBuilder.addNextIntent(redirectIntent);
 
 
-            cNotificationManager.showNotification(context, notificationManager, redirectIntent, beaconCaches, stackBuilder, beaconCaches.size(), true, "promos", 0) ;
+            cNotificationManager.showNotification(context, notificationManager, redirectIntent, beaconCaches, stackBuilder, mBuilder, beaconCaches.size(), true, "promos", 0) ;
 
 
         }

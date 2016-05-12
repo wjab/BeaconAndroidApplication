@@ -124,12 +124,10 @@ public class CustomNotificationManager
 
     }
 
-    public void showNotification(Context context, NotificationManagerCompat notificationManager, Intent resultIntent, ArrayList<BeaconCache> messages, TaskStackBuilder stackBuilder, int numMessages, boolean groupSummary, String groupName, int notificationId) {
+    public void showNotification(Context context, NotificationManagerCompat notificationManager, Intent resultIntent, ArrayList<BeaconCache> messages, TaskStackBuilder stackBuilder, NotificationCompat.Builder mBuilder, int numMessages, boolean groupSummary, String groupName, int notificationId) {
 
 
            /* Invoking the default notification service */
-        NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(context);
-
         mBuilder.setContentTitle(contentTitle);
         mBuilder.setContentText(contentText);
         mBuilder.setTicker(ticker);
