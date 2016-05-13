@@ -32,6 +32,11 @@ public class User {
 	
 	private String phone;
 	
+	private String socialNetworkId;
+	
+	private String socialNetworkType;
+	
+	private String socialNetworkJson;
 	
 	
 	public User() {
@@ -52,9 +57,14 @@ public class User {
 	 * @param lastName
 	 * @param email
 	 * @param phone
+	 * @param socialNetworkId
+	 * @param socialNetworkType
+	 * @param socialNetworkJson
 	 */
-	public User(String user, String password, Boolean enable, int category_id, int total_gift_points, Date creationDate,
-			Date modifiedDate, String name, String lastName, String email, String phone) {
+	public User(String user, String password, Boolean enable, int category_id, 
+			int total_gift_points, Date creationDate, Date modifiedDate, String name, 
+			String lastName, String email, String phone, String socialNetworkId,
+			String socialNetworkType, String socialNetworkJson) {
 		super();
 		this.user = user;
 		this.password = password;
@@ -67,6 +77,9 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
+		this.socialNetworkId = socialNetworkId;
+		this.socialNetworkType = socialNetworkType;
+		this.socialNetworkJson = socialNetworkJson;
 	}
 
 
@@ -257,6 +270,48 @@ public class User {
 		this.phone = phone;
 	}
 	
+	
+	/**
+	 * @return the socialNetworkId
+	 */
+	public String getSocialNetworkId() {
+		return socialNetworkId;
+	}
+
+	/**
+	 * @param socialNetworkId  to set
+	 */
+	public void setSocialNetworkId(String socialNetworkId) {
+		this.socialNetworkId = socialNetworkId;
+	}
+	
+	/**
+	 * @return the socialNetworkType
+	 */
+	public String getSocialNetworkType() {
+		return socialNetworkType;
+	}
+
+	/**
+	 * @param socialNetworkType to set
+	 */
+	public void setSocialNetworkType(String socialNetworkType) {
+		this.socialNetworkType = socialNetworkType;
+	}
+	
+	/**
+	 * @return the socialNetworkJson
+	 */
+	public String getSocialNetworkJson() {
+		return socialNetworkJson;
+	}
+
+	/**
+	 * @param socialNetworkJson to set
+	 */
+	public void setSocialNetworkJson(String socialNetworkJson) {
+		this.socialNetworkJson = socialNetworkJson;
+	}
 
 }
 
