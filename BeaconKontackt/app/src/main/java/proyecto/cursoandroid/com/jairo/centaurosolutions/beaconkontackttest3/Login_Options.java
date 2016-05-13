@@ -39,19 +39,27 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
+import com.google.gson.internal.Streams;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import controllers.ServiceController;
 import utils.NonStaticUtils;
 import utils.Utils;
+
 
 public class Login_Options extends Activity {
 
@@ -65,6 +73,11 @@ public class Login_Options extends Activity {
     ImageButton userButton;
     SharedPreferences prefs;
     NonStaticUtils nonStaticUtils;
+    Collection<String> arraysPreferences = new ArrayList<String>(Arrays.asList("email", "user_photos", "public_profile", "user_friends"));
+
+    Map<String, String> hashMap = new HashMap<String, String>();
+    Type type = new TypeToken<Map<String, String>>(){}.getType();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +92,7 @@ public class Login_Options extends Activity {
         facebookLogin = (ImageButton) findViewById(R.id.facebook_icon);
 
         loginButtonFace = (LoginButton) findViewById(R.id.login_button_facebook);
-        loginButtonFace.setReadPermissions("user_friends");
+        loginButtonFace.setReadPermissions((ArrayList<String>)arraysPreferences); //"user_friends"
 
 
         nonStaticUtils =  new NonStaticUtils();
@@ -208,7 +221,7 @@ public class Login_Options extends Activity {
         //callbackmanager = CallbackManager.Factory.create();
 
         // Set permissions
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_photos", "public_profile", "user_friends"));
+        LoginManager.getInstance().logInWithReadPermissions(this, arraysPreferences);
 
         LoginManager.getInstance().registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
             @Override
@@ -229,6 +242,14 @@ public class Login_Options extends Activity {
                                         String jsonresult = String.valueOf(json);
                                         System.out.println("JSON Result" + jsonresult);
 
+
+
+                                        Gson gson = new Gson();
+                                        Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
+                                        Map<String,String> map = gson.fromJson(jsonresult, stringStringMap);
+
+
+
                                         if (json.getString("name") != null) {
                                             //str_name = json.getString("name");
                                             Toast toast = Toast.makeText(getApplicationContext(), "User " + json.getString("name"), Toast.LENGTH_SHORT);
@@ -240,6 +261,8 @@ public class Login_Options extends Activity {
                                             Toast toast = Toast.makeText(getApplicationContext(), "Id-Facebook = " + json.getString("id"), Toast.LENGTH_SHORT);
                                             toast.show();
                                         }
+
+                                        String a = map.get("email");
 
                                     /*if(json.getString("email") != null) { str_email = json.getString("email"); }
                                     if(json.getString("first_name") != null) { str_firstname = json.getString("first_name"); }
