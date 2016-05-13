@@ -8,23 +8,15 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.facebook.AccessToken;
@@ -40,28 +32,22 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
-import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-
 import controllers.ServiceController;
 import utils.NonStaticUtils;
 import utils.Utils;
 
 
-public class Login_Options extends Activity {
+public class Login_Options extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     public static CallbackManager callbackmanager;
     ImageButton facebookLogin;
@@ -75,8 +61,13 @@ public class Login_Options extends Activity {
     NonStaticUtils nonStaticUtils;
     Collection<String> arraysPreferences = new ArrayList<String>(Arrays.asList("email", "user_photos", "public_profile", "user_friends"));
 
-    Map<String, String> hashMap = new HashMap<String, String>();
-    Type type = new TypeToken<Map<String, String>>(){}.getType();
+    Gson gson = new Gson();
+    Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
+    Map<String,String> map;
+
+
+    Response.Listener<JSONObject> response;
+    Response.ErrorListener responseError;
 
 
     @Override
@@ -242,31 +233,24 @@ public class Login_Options extends Activity {
                                         String jsonresult = String.valueOf(json);
                                         System.out.println("JSON Result" + jsonresult);
 
+                                        map = gson.fromJson(jsonresult, stringStringMap);
 
-
-                                        Gson gson = new Gson();
-                                        Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
-                                        Map<String,String> map = gson.fromJson(jsonresult, stringStringMap);
-
-
-
-                                        if (json.getString("name") != null) {
-                                            //str_name = json.getString("name");
+                                        if (map.get("name") != null) {
                                             Toast toast = Toast.makeText(getApplicationContext(), "User " + json.getString("name"), Toast.LENGTH_SHORT);
                                             toast.show();
                                         }
 
-                                        if (json.getString("id") != null) {
-                                            //str_id = json.getString("id");
+                                        if (map.get("id") != null) {
                                             Toast toast = Toast.makeText(getApplicationContext(), "Id-Facebook = " + json.getString("id"), Toast.LENGTH_SHORT);
                                             toast.show();
                                         }
 
-                                        String a = map.get("email");
 
-                                    /*if(json.getString("email") != null) { str_email = json.getString("email"); }
-                                    if(json.getString("first_name") != null) { str_firstname = json.getString("first_name"); }
-                                    if(json.getString("last_name") != null) { str_lastname = json.getString("last_name"); }*/
+
+                                    /*if(map.get("email") != null) { str_email = map.get("email"); }
+                                    if(map.get("first_name") != null) { str_firstname = map.get("first_name"); }
+                                    if(map.get("last_name") != null) { str_lastname = map.get("last_name"); }*/
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -301,6 +285,50 @@ public class Login_Options extends Activity {
     public void onDestroy() {
         super.onDestroy();
         accessTokenTracker.stopTracking();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
+        Log.d("Response", response.toString());
+
+
+        prefs = nonStaticUtils.loadLoginInfo(this);
+
+        try
+        {
+            /*String requestPassword = Utils.setEncryptedText(password.getText().toString());
+
+            if (response.getString("password").equals(requestPassword)) {
+
+                if (response.getBoolean("enable")) {
+
+                    isAuthenticated = true;
+                    nonStaticUtils.saveLogin(this,response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), isAuthenticated);
+                    Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                    startActivity(intent);
+
+                } else {
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
+                toast.show();
+            }*/
+        }
+        catch (Exception ex){
+            /*Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
+            toast.show();*/
+        }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.d("Login Error", error.toString());
+        Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 }
