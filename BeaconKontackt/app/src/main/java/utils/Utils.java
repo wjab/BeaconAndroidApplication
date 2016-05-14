@@ -59,10 +59,11 @@ public final class Utils extends Activity {
 
     }
 
-    public static Date convertLongToDate(long time){
+    public static String convertLongToDate(long time){
         Date date = new Date(time);
         Format format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-        return date;
+        String result = format.format(date);
+        return result;
     }
 
 
