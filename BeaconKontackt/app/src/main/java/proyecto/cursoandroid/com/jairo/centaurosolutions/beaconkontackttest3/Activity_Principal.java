@@ -2,7 +2,9 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.NotificationManager;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -14,8 +16,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import adapter.menu.MenuAdapter;
+import model.cache.BeaconCache;
 import model.elementMenu.ElementMenu;
 import service.BackgroundScanService;
 
@@ -41,8 +46,6 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity__principal);
-
-
 
 
 

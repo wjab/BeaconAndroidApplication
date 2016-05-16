@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -44,7 +43,10 @@ public class UserController {
 	    		userMap.get("name").toString(), 
 	    		userMap.get("lastName").toString(),
 	    		userMap.get("email").toString(),
-	    		userMap.get("phone").toString());
+	    		userMap.get("phone").toString(),
+				userMap.get("socialNetworkId").toString(),
+				userMap.get("socialNetworkType").toString(),
+				userMap.get("socialNetworkJson").toString());
 		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Usuario creado correctamente");

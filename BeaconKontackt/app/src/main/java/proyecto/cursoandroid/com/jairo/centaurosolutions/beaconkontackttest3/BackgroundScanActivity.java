@@ -217,7 +217,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         editor.putInt("points", 0);
         editor.putBoolean("isAuthenticated", false);
         editor.commit();
-        Intent intent= new Intent(getApplicationContext(),LoginMainActivity.class);
+        Intent intent= new Intent(getApplicationContext(),Login_Options.class);
         startActivity(intent);
 
     }

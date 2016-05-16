@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:background="@android:color/transparent"
+    >
+
+    <ImageButton
+        android:id="@+id/back_action"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/flecha_izq"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="@android:color/transparent"
+        />
+        <TextView
+        android:id="@+id/userPointsAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:gravity="center"
+        android:layout_marginLeft="10dp"
+            android:text="Volver"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#fff"
+        />
+
+</LinearLayout>
+

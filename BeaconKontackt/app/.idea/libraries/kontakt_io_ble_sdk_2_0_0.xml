@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="kontakt.io-ble-sdk-2.0.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.kontakt.sdk.android/kontakt.io-ble-sdk/2.0.0/res" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.kontakt.sdk.android/kontakt.io-ble-sdk/2.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kontakt.sdk.android/kontakt.io-ble-sdk/2.0.0/1ffec9ef27ee524b297882043e3d3fd69904d21a/kontakt.io-ble-sdk-2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
