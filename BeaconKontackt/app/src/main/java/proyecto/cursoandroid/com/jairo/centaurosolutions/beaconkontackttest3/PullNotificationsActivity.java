@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,9 @@ public class PullNotificationsActivity extends AppCompatActivity {
         });
         pointsAction.setText(mpoints + " pts");
 
-        listviewPromo.setAdapter(adapter);
+        Intent intent1= getIntent();
+        myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
+        llenarNotificaciones(myBeaconCacheList);
 
         listviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,9 +95,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent1= getIntent();
-        myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
-        llenarNotificaciones(myBeaconCacheList);
+
     }
     private Boolean exit = false;
     @Override
@@ -138,8 +139,9 @@ public class PullNotificationsActivity extends AppCompatActivity {
     public void llenarNotificaciones(ArrayList<BeaconCache> myBeaconCacheList) {
 
         try{
+            Log.d("PromoList", "Size:" + myBeaconCacheList.size());
 
-            if(myBeaconCacheList.size() != 0 && myBeaconCacheList != null){
+            if(myBeaconCacheList.size() > 0){
 
 
                 promociones = new ArrayList<Promociones>();
