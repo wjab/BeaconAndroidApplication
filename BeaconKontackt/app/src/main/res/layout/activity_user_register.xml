@@ -139,7 +139,7 @@
             <Button
                 android:id="@+id/register"
                 android:gravity="center"
-                android:text="Ingresar"
+                android:text="Registrar"
                 android:textSize="17dp"
                 android:textColor="@color/white"
                 android:background="@drawable/button_rounded"

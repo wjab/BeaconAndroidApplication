@@ -21,7 +21,7 @@ public class ServiceController {
 
     String url;
     int method;
-    Map<String, String> params;
+    Map<String, Object> params;
     Map<String, String> header;
 
     public String getUrl() {
@@ -40,15 +40,15 @@ public class ServiceController {
         this.method = method;
     }
 
-    public Map<String, String> getParams() {
+    public Map<String, Object> getParams() {
         return params;
     }
 
-    public void setParams(Map<String, String> params) {
+    public void setParams(Map<String, Object> params) {
         this.params = params;
     }
 
-    public void jsonObjectRequest(String url, int method, Map<String, String> params, Map<String,String> headers, Response.Listener<JSONObject> response, Response.ErrorListener error) {
+    public void jsonObjectRequest(String url, int method, Map<String, Object> params, Map<String,String> headers, Response.Listener<JSONObject> response, Response.ErrorListener error) {
         this.url = url;
         this.method = method;
         this.params = params;
@@ -82,7 +82,7 @@ public class ServiceController {
 
     }
 
-    public void jsonArrayRequest(String url, int method, Map<String, String> params,Map<String,String> headers, Response.Listener<JSONArray> response, Response.ErrorListener error) {
+    public void jsonArrayRequest(String url, int method, Map<String, Object> params,Map<String,String> headers, Response.Listener<JSONArray> response, Response.ErrorListener error) {
         this.url = url;
         this.method = method;
         this.params = params;
@@ -112,7 +112,7 @@ public class ServiceController {
         AppController.getInstance().addToRequestQueue(arrayRequest, tag_json_arry);
     }
 
-    public void stringRequest(String url, int method, Map<String, String> params, Map<String, String> headers, Response.Listener<String> response, Response.ErrorListener error) {
+    public void stringRequest(String url, int method, Map<String, Object> params, Map<String, String> headers, Response.Listener<String> response, Response.ErrorListener error) {
         this.url = url;
         this.method = method;
         this.params = params;
