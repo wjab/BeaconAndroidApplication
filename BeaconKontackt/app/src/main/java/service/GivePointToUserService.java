@@ -109,7 +109,7 @@ public class GivePointToUserService extends Service implements Response.Listener
                 mapHeaders.put("Content-Type", "application/json");
                 String url = getString(R.string.WebService_Utils)+"utils/savePoints";
 
-                Map<String, String> mapParams = new HashMap<String, String>();
+                Map<String, Object> mapParams = new HashMap<String, Object>();
                 mapParams.put("promoId", promoId);
                 mapParams.put("userId", userId );
 

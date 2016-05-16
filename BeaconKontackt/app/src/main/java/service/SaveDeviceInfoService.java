@@ -64,7 +64,7 @@ public class SaveDeviceInfoService extends Service implements Response.Listener<
         Map<String, String> header = new HashMap<String, String>();
         header.put("Content-Type", "application/json");
 
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("deviceName",mobile.getDeviceName());
         parameters.put("deviceModel",mobile.getDeviceModel());
         parameters.put("osName", mobile.getOsName());

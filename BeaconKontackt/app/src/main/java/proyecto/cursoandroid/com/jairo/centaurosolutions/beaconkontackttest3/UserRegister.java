@@ -106,7 +106,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User)+"user";
 
-        Map<String, String> mapParams = new HashMap<String, String>();
+        Map<String, Object> mapParams = new HashMap<String, Object>();
         mapParams.put("user", username.getText().toString());
         mapParams.put("password", password.getText().toString());
         mapParams.put("enable", "true");
