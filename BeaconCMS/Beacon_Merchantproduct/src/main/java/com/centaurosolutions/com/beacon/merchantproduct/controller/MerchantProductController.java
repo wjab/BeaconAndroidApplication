@@ -26,78 +26,139 @@ public class MerchantProductController
 	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> GetAllMerchantProducts()
 	{
-		List<MerchantProduct> merchantProductModelList = merchantProductRepository.findAll();
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		response.put("Total de Productos del Negocio", merchantProductModelList.size());
-		response.put("MerchantProduct", merchantProductModelList);
+		try
+		{
+			List<MerchantProduct> merchantProductModelList = merchantProductRepository.findAll();
+			response.put("Total de Productos del Negocio", merchantProductModelList.size());
+			response.put("MerchantProduct", merchantProductModelList);
+			response.put("Status", "200");
+		}
+		catch(Exception ex)
+		{
+			response.put("Message", ex.getMessage());
+			response.put("MerchantProduct", null);
+			response.put("Status", "400");
+		}
 		return response;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "{/{merchantproductid}")
-	public MerchantProduct GetMerchantProductsById(@PathVariable("merchantproductid") String merchantProductId)
+	public Map<String, Object> GetMerchantProductsById(@PathVariable("merchantproductid") String merchantProductId)
 	{
-		return merchantProductRepository.findOne(merchantProductId);
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		try
+		{		
+			MerchantProduct merchant_Finded= merchantProductRepository.findOne(merchantProductId);
+			if(merchant_Finded!=null){
+				response.put("Message", "MerchantProduct encontrado");
+				response.put("MerchantProduct", null);
+				response.put("Status", "200");
+			}
+			else
+			{
+				response.put("Message", "MerchantProduct no encontrado");
+				response.put("MerchantProduct", null);
+				response.put("Status", "401");
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("Message", ex.getMessage());
+			response.put("MerchantProduct", null);
+			response.put("Status", "400");
+		}
+		return response;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> CreateMerchantProduct(@RequestBody Map<String, Object> merchantProductMap )
 	{
-		ArrayList<Product> productList = new ArrayList<Product>();
-		
-		if(merchantProductMap.get("productlist") != null)
-		{			
-			productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
-		}
-
-		MerchantProduct MerchantProductModel = new MerchantProduct(
-				merchantProductMap.get("merchantId").toString(),
-				merchantProductMap.get("shopZoneId").toString(),
-				productList,
-				merchantProductMap.get("longitude").toString(),
-				merchantProductMap.get("latitude").toString());   
-		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "MerchantProduct creado correctamente");
-	    response.put("MerchantProduct", MerchantProductModel); 
-		
-	    merchantProductRepository.save(MerchantProductModel);
-		return response;
+		try{
+			ArrayList<Product> productList = new ArrayList<Product>();
+			if(merchantProductMap.get("productlist") != null)
+			{			
+				productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
+			}
+			MerchantProduct MerchantProductModel = new MerchantProduct(
+														merchantProductMap.get("merchantId").toString(),
+														merchantProductMap.get("shopZoneId").toString(),
+														productList,
+														merchantProductMap.get("longitude").toString(),
+														merchantProductMap.get("latitude").toString());   
+		    merchantProductRepository.save(MerchantProductModel);
+			response.put("message", "MerchantProduct creado correctamente");
+			response.put("MerchantProduct", MerchantProductModel); 
+			response.put("Status", "200");
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("MerchantProduct", null); 
+			response.put("Status", "400");			
+		}
+	    return response;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.PUT, value = "/{merchantproductid}")
 	public Map<String, Object> UpdateMerchantProduct(@PathVariable ("merchantproductid")String merchantProductId ,@RequestBody Map<String, Object> merchantProductMap )
 	{
-		ArrayList<Product> productList = new ArrayList<Product>();
-		
-		if(merchantProductMap.get("productlist") != null)
-		{			
-			productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		try
+		{
+			MerchantProduct merchant_Finded= merchantProductRepository.findOne(merchantProductId);
+			if(merchant_Finded!=null)
+			{
+				ArrayList<Product> productList = new ArrayList<Product>();
+				if(merchantProductMap.get("productlist") != null)
+				{			
+					productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
+				}
+				MerchantProduct MerchantProductModel = new MerchantProduct(merchantProductMap.get("merchantId").toString(),
+																		   merchantProductMap.get("shopZoneId").toString(),
+																		   productList,
+																		   merchantProductMap.get("longitude").toString(),
+																		   merchantProductMap.get("latitude").toString());   
+				merchantProductRepository.save(MerchantProductModel);
+				response.put("message", "MerchantProduct actualizado correctamente");
+				response.put("MerchantProduct", MerchantProductModel); 
+				response.put("Status", "200");		
+			}
+			else
+			{
+				response.put("message", "MerchantProduct no encontrado");
+				response.put("MerchantProduct", null); 
+				response.put("Status", "401");
+			}
 		}
-
-		MerchantProduct MerchantProductModel = new MerchantProduct(
-				merchantProductMap.get("merchantId").toString(),
-				merchantProductMap.get("shopZoneId").toString(),
-				productList,
-				merchantProductMap.get("longitude").toString(),
-				merchantProductMap.get("latitude").toString());   
-		
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "MerchantProduct actualizado correctamente");
-	    response.put("MerchantProduct", MerchantProductModel); 
-		
-	    merchantProductRepository.save(MerchantProductModel);
-		return response;
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("MerchantProduct", null); 
+			response.put("Status", "400");			
+		}
+	    return response;
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value="/{merchantproductid}")
 	public Map<String, String> deleteMerchantProductId(@PathVariable("merchantproductid") String merchantProductId){
-		merchantProductRepository.delete(merchantProductId);
-	    Map<String, String> response = new HashMap<String, String>();
-	    response.put("message", "MerchantProductId eliminado correctamente");
-
-	    return response;
+		Map<String, String> response = new HashMap<String, String>();
+		try
+		{
+			merchantProductRepository.delete(merchantProductId);		
+			response.put("message", "MerchantProductId eliminado correctamente");
+			response.put("Status", "200");
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("MerchantProduct", null); 
+			response.put("Status", "400");			
+		}
+    return response;
 	}
 
 }
