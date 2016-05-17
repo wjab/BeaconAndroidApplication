@@ -37,41 +37,116 @@ public class DeviceController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createDevice(@RequestBody Map<String, Object> deviceMap){
-		
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		try
+		{
+			Device device_Finded=deviceRepository.findByUniqueID(deviceMap.get("uniqueID").toString());
+			if(device_Finded == null)
+			{
+				ArrayList<Range> ranges = new ArrayList<Range>();
+				if(deviceMap.get("ranges") != null)
+				{
+					ranges = (ArrayList<Range>) deviceMap.get("ranges");
+				}
+				Device deviceModel = new Device( ranges,
+												(Boolean)deviceMap.get("enable"),
+												Integer.parseInt(deviceMap.get("txPower").toString()),
+												DateFormatter(deviceMap.get("creationDate").toString()),
+												DateFormatter(deviceMap.get("modifiedDate").toString()),
+												deviceMap.get("updatedBy").toString(),
+												deviceMap.get("proximityUUID").toString(),
+												deviceMap.get("uniqueID").toString(),
+												deviceMap.get("masterPassword").toString(),
+												deviceMap.get("devicePassword").toString());    
 
-		ArrayList<Range> ranges = new ArrayList<Range>();
-		
-		if(deviceMap.get("ranges") != null){
-			
-			ranges = (ArrayList<Range>) deviceMap.get("ranges");
-			
+				deviceRepository.save(deviceModel);
+				response.put("message", "Dispositivo creado correctamente");
+				response.put("device", deviceModel);
+				response.put("status", "200");
+				}
+				else{
+					response.put("message", "Dispositivo con el Id "+deviceMap.get("uniqueID").toString()+"ya existe");
+					response.put("device", null);
+					response.put("status", "200");
+				}
 		}
-
-		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString(),deviceMap.get("proximityUUID").toString(), deviceMap.get("uniqueID").toString(), deviceMap.get("masterPassword").toString(), deviceMap.get("devicePassword").toString());    
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "Dispositivo creado correctamente");
-	    response.put("device", deviceModel); 
-		
-	    deviceRepository.save(deviceModel);
-		return response;
+		catch(Exception ex){
+			response.put("message", ex.getMessage());
+			response.put("device", null);
+			response.put("status", "400");
+		}
+	    return response;
 	}
 	
-	  @RequestMapping(method = RequestMethod.GET, value="/{DeviceId}")
-	  public Device getDeviceDetails(@PathVariable("DeviceId") String deviceId){
-		  return deviceRepository.findOne(deviceId);
-	  }
+	@RequestMapping(method = RequestMethod.GET, value="/{DeviceId}")
+	public Map<String, Object> getDeviceDetails(@PathVariable("DeviceId") String deviceId){
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		try
+		{
+			Device device_Finded=deviceRepository.findOne(deviceId);
+			if(device_Finded != null)
+			{
+				response.put("message", "Dispositivo encontrado");
+				response.put("device", device_Finded);
+				response.put("status", "200");
+			}
+			else
+			{
+				response.put("message", "Dispositivo no encontrado");
+				response.put("device", null);
+				response.put("status", "401");
+			}
+		}
+		catch(Exception ex){
+			response.put("message", ex.getMessage());
+			response.put("device", null);
+			response.put("status", "400");
+		}
+	    return response;
+	}
 	  
 	  @RequestMapping(method = RequestMethod.GET, value="/UID/{DeviceId}")
-	  public Device getDeviceDetailsByUniqueId(@PathVariable("DeviceId") String deviceId){
-		  return deviceRepository.findByUniqueID(deviceId);
+	  public Map<String, Object> getDeviceDetailsByUniqueId(@PathVariable("DeviceId") String deviceId){
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			try
+			{
+				Device device_Finded=deviceRepository.findByUniqueID(deviceId);
+				if(device_Finded != null)
+				{
+					response.put("message", "Dispositivo encontrado");
+					response.put("device", device_Finded);
+					response.put("status", "200");
+				}
+				else
+				{
+					response.put("message", "Dispositivo no encontrado");
+					response.put("device", null);
+					response.put("status", "401");
+				}
+			}
+			catch(Exception ex){
+				response.put("message", ex.getMessage());
+				response.put("device", null);
+				response.put("status", "400");
+			}
+		    return response;
 	  }
 	  
 	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> getAllDeviceDetails(){
-		List<Device> deviceModelList = deviceRepository.findAll();
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		response.put("Total de Dispositivos", deviceModelList.size());
-		response.put("Dispositivo", deviceModelList);
+		try
+		{
+			List<Device> deviceModelList = deviceRepository.findAll();
+			response.put("Total de Dispositivos", deviceModelList.size());
+			response.put("Dispositivo", deviceModelList);
+			response.put("status", "200");
+		}
+		catch(Exception ex){
+			response.put("message", ex.getMessage());
+			response.put("device", null);
+			response.put("status", "400");
+		}
 		return response;
 	}
 	  
@@ -81,30 +156,64 @@ public class DeviceController {
 	public Map<String, Object> editDevice(@PathVariable("DeviceId") String DeviceId,
 	      @RequestBody Map<String, Object> deviceMap){
 		  
-		ArrayList<Range> ranges = new ArrayList<Range>();
-		
-		if(deviceMap.get("ranges") != null)
-		{			
-			ranges = (ArrayList<Range>) deviceMap.get("ranges");			
-		}
-		  
-		Device deviceModel = new Device( ranges,(Boolean)deviceMap.get("enable"),Integer.parseInt(deviceMap.get("txPower").toString()),DateFormatter(deviceMap.get("creationDate").toString()), DateFormatter(deviceMap.get("modifiedDate").toString()),deviceMap.get("updatedBy").toString(),deviceMap.get("proximityUUID").toString(), deviceMap.get("uniqueID").toString(), deviceMap.get("masterPassword").toString(), deviceMap.get("devicePassword").toString());
-		deviceModel.setId(DeviceId);
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "Dispositivo actualizado correctamente");
-	    response.put("Dispositivo", deviceRepository.save(deviceModel));
-	    return response;
+		try
+		{
+			Device device_Finded=deviceRepository.findOne(DeviceId);
+			if(device_Finded != null)
+			{
+				ArrayList<Range> ranges = new ArrayList<Range>();
+				if(deviceMap.get("ranges") != null)
+				{			
+					ranges = (ArrayList<Range>) deviceMap.get("ranges");			
+				}
+				Device deviceModel = new Device( ranges,
+												(Boolean)deviceMap.get("enable"),
+												Integer.parseInt(deviceMap.get("txPower").toString()),
+												DateFormatter(deviceMap.get("creationDate").toString()),
+												DateFormatter(deviceMap.get("modifiedDate").toString()),
+												deviceMap.get("updatedBy").toString(),
+												deviceMap.get("proximityUUID").toString(),
+												deviceMap.get("uniqueID").toString(),
+												deviceMap.get("masterPassword").toString(),
+												deviceMap.get("devicePassword").toString());
+				deviceModel.setId(DeviceId);
+				response.put("message", "Dispositivo actualizado correctamente");
+				response.put("Dispositivo", deviceRepository.save(deviceModel));
+				response.put("status", "200");
+			}
+			else
+			{
+				response.put("message", "Dispositivo no existe");
+				response.put("Dispositivo", null);
+				response.put("status", "200");
+			}
+		}
+		catch(Exception ex){
+			response.put("message", ex.getMessage());
+			response.put("device", null);
+			response.put("status", "400");
+		}
+		return response;
 	} 
 	  
 	  
 	@RequestMapping(method = RequestMethod.DELETE, value="/{DeviceId}")
 	public Map<String, String> deleteDevice(@PathVariable("DeviceId") String deviceId)
 	{
+		Map<String, String> response = new HashMap<String, String>();
+		try
+		{
 	    deviceRepository.delete(deviceId);
-	    Map<String, String> response = new HashMap<String, String>();
 	    response.put("message", "Dispositivo eliminado correctamente");
-
-	    return response;
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("device", null);
+			response.put("status", "400");
+		}
+		return response;
 	}
 	
 	  
