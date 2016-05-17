@@ -100,7 +100,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
             }
         });
 
-
         serviceController =  new ServiceController();
 
         prefs = nonStaticUtils.loadLoginInfo(this);
@@ -121,12 +120,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         catch (NoSuchAlgorithmException e) {
         }
 
-
-
-
-
-
-
         facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,9 +134,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
             }
         });
 
-
-
-
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(
@@ -157,9 +147,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         accessToken = AccessToken.getCurrentAccessToken();
 
     }
-
-
-
 
     private Boolean exit = false;
     @Override
@@ -202,9 +189,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
     // Private method to handle Facebook login and callback
     private void onFblogin()
@@ -274,7 +258,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -329,6 +312,11 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         Log.d("Login Error", error.toString());
         Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void createUser()
+    {
+
     }
 
 }

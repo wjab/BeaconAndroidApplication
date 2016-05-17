@@ -28,166 +28,321 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	private String LOCAL_USER = "localuser";
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> createUser(@RequestBody Map<String, Object> userMap){
+	public Map<String, Object> createUser(@RequestBody Map<String, Object> userMap) {
 		
-		User user = new User(
-				userMap.get("user").toString(), 
-	    		setEncryptedPassword(userMap.get("password").toString()),
-	    		(Boolean)userMap.get("enable"),
-	    		Integer.parseInt(userMap.get("category_id").toString()),
-	    		Integer.parseInt(userMap.get("total_gift_points").toString()),
-	    		DateFormatter(userMap.get("creationDate").toString()),
-	    		DateFormatter(userMap.get("modifiedDate").toString()), 
-	    		userMap.get("name").toString(), 
-	    		userMap.get("lastName").toString(),
-	    		userMap.get("email").toString(),
-	    		userMap.get("phone").toString(),
-				userMap.get("socialNetworkId").toString(),
-				userMap.get("socialNetworkType").toString(),
-				userMap.get("socialNetworkJson").toString());
-		
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "Usuario creado correctamente");
-	    response.put("user", user);
-		
-		userRepository.save(user);
-		return response;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="/id/{userId}")
-	public User getUserById(@PathVariable("userId") String userId){
-
-	    return userRepository.findOne(userId);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value="/{username}")
-	public User getUserByNameDetails(@PathVariable("username") String username){
-
-	    return userRepository.findByUser(username);
-	}
-	  
-	  
-	@RequestMapping(method = RequestMethod.GET)
-	public Map<String, Object> getAllUserDetails(){
-		List<User> users = userRepository. findAll();
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		response.put("Total de Usuarios", users.size());
-		response.put("Users", users);
+		User userExist;
+		
+		try
+		{		
+			User user = new User(
+					userMap.get("user").toString(), 
+					setEncryptedPassword(userMap.get("password").toString()),
+					Boolean.valueOf(userMap.get("enable").toString()),
+					Integer.parseInt(userMap.get("category_id").toString()),
+					Integer.parseInt(userMap.get("total_gift_points").toString()),
+					DateFormatter(userMap.get("creationDate").toString()),
+					DateFormatter(userMap.get("modifiedDate").toString()), 
+					userMap.get("name").toString(),
+					userMap.get("lastName").toString(), 
+					userMap.get("email").toString(), 
+					userMap.get("phone").toString(),
+					userMap.get("socialNetworkId").toString(), 
+					userMap.get("socialNetworkType").toString(),
+					userMap.get("socialNetworkJson").toString());
+			
+			if(LOCAL_USER != user.getSocialNetworkType())
+			{
+				/* Se aplican las validaciones para ver que el usuario no
+				 * exista caso: Usuario con mismo telefono o Correo */
+				
+				userExist = userRepository.findByPhone(user.getPhone());
+				if(userExist != null)
+				{
+					if(userExist.getEmail().equals(user.getEmail()))
+					{
+						response.put("status", 400);
+						response.put("message", "User exist");
+						response.put("user", null);
+					}
+					else
+					{
+						userRepository.save(user);
+						response.put("status", 200);
+						response.put("message", "User created");
+						response.put("user", user);							
+					}
+				}
+			}
+			else
+			{
+				/* Verifica que el usuario de red social este registrado:
+				 * haciendo una verificacion por idRedSocial y el type */
+				
+				userExist = userRepository.findBySocialNetworkType(user.getSocialNetworkType());
+				if(userExist != null)
+				{
+					if(userExist.getSocialNetworkId().equals(user.getSocialNetworkId()))
+					{
+						response.put("status", 200);
+						response.put("message", "User registered");
+						response.put("user", user);
+					}
+					else
+					{
+						userRepository.save(user);
+						response.put("status", 200);
+						response.put("message", "User created");
+						response.put("user", user);							
+					}
+				}
+			}			
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error createUser");
+			response.put("user", null);
+		}
+		
 		return response;
 	}
-	  
-	  
-	@RequestMapping(method = RequestMethod.PUT, value="/{UserId}")
-	public Map<String, Object> editUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
-	{
-		User user = userRepository.findById(UserId);
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-		
-		if(user != null){
-			user.setUser(userMap.get("user").toString());
-			user.setEnable((Boolean)userMap.get("enable"));
-			user.setCategory_id(Integer.parseInt(userMap.get("category_id").toString()));
-			user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
-			user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
-			user.setName(userMap.get("name").toString()); 
-			user.setLastName(userMap.get("lastName").toString());
-			user.setEmail(userMap.get("email").toString());
-			user.setPhone(userMap.get("phone").toString());
-		    user.setId(UserId);
 
-		    response.put("message", "Usuario actualizado correctamente");
-		    response.put("User", userRepository.save(user));
-		}	    
-		else			
+	@RequestMapping(method = RequestMethod.GET, value = "/id/{userId}")
+	public User getUserById(@PathVariable("userId") String userId) 
+	{
+		User user = null;
+		
+		try
 		{
-			response.put("message", "El usuario no existe");
+			user = userRepository.findOne(userId);
 		}
-	    return response;
-	}
-	
-	@RequestMapping(method = RequestMethod.PUT, value="/setPoints/{UserId}")
-	public Map<String, Object> setPointsUser(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
-	{
-		User user = userRepository.findById(UserId);
+		catch(Exception ex)
+		{ }
 		
-		if(user != null){
-			user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
-		    user.setId(UserId);
-		}
+		return user;
+	}
 
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "Usuario actualizado correctamente");
-	    response.put("User", userRepository.save(user));
-	    return response;
-	}
-	
-	@RequestMapping(method = RequestMethod.PUT, value="/changePassword/{UserId}")
-	public Map<String, Object> editUserPassword(@PathVariable("UserId") String UserId, @RequestBody Map<String, Object> userMap)
+	@RequestMapping(method = RequestMethod.GET, value = "/{username}")
+	public User getUserByNameDetails(@PathVariable("username") String username) 
 	{
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-		User user = userRepository.findById(UserId);
+		User user = null;
 		
-		if(user != null){
+		try
+		{
+			user = userRepository.findByUser(username);
+		}
+		catch(Exception ex)
+		{ }
+		
+		return user;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public Map<String, Object> getAllUserDetails() 
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		List<User> users;
+		
+		try
+		{
+			users = userRepository.findAll();	
+			response.put("status", 200);
+			response.put("message", "AllUserDetails got");
+			response.put("userCount", users.size());
+			response.put("users", users);
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 200);
+			response.put("message", "Error getAllUserDetails");
+			response.put("userCount", 0);
+			response.put("Users", null);
+		}
+		
+		return response;
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/{UserId}")
+	public Map<String, Object> editUser(@PathVariable("UserId") String UserId,
+			@RequestBody Map<String, Object> userMap) 
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		
+		try
+		{
+			User user = userRepository.findById(UserId);
+	
+			if (user != null) 
+			{
+				user.setUser(userMap.get("user").toString());
+				user.setEnable(Boolean.valueOf(userMap.get("enable").toString()));
+				user.setCategory_id(Integer.parseInt(userMap.get("category_id").toString()));
+				user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+				user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
+				user.setName(userMap.get("name").toString());
+				user.setLastName(userMap.get("lastName").toString());
+				user.setEmail(userMap.get("email").toString());
+				user.setPhone(userMap.get("phone").toString());
+				user.setId(UserId);
+	
+				response.put("status", 200);
+				response.put("message", "User updated");
+				response.put("User", userRepository.save(user));
+			} 
+			else 
+			{
+				response.put("status", 404);
+				response.put("message", "User not found");
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error editUser");
+			response.put("User", null);
+		}
+		
+		return response;
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/setPoints/{UserId}")
+	public Map<String, Object> setPointsUser(
+			@PathVariable("UserId") String UserId,
+			@RequestBody Map<String, Object> userMap) 
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		
+		User user = null;
+		
+		try
+		{
+			user = userRepository.findById(UserId);
 			
-			user.setPassword(setEncryptedPassword(userMap.get("password").toString()));
-			user.setId(UserId);
-		    response.put("message", "Password de usuario actualizado correctamente");
-		    response.put("User", userRepository.save(user));
-		    
+			if (user != null) 
+			{
+				user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+				user.setId(UserId);
+				response.put("message", "User updated");
+				response.put("User", userRepository.save(user));
+			}
+			else
+			{
+				response.put("status", 404);
+				response.put("message", "User doesn't exist, points not given");
+				response.put("User", null);
+			}			
 		}
-		else{
-			response.put("message", "Usuario no encontrado");
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error setPointsUser");
 		}
-
-	    return response;
-	}
-	  
-	  
-	@RequestMapping(method = RequestMethod.DELETE, value="/{userId}")
-	public Map<String, String> deleteUser(@PathVariable("userId") String userId){
-	    userRepository.delete(userId);
-	    Map<String, String> response = new HashMap<String, String>();
-	    response.put("message", "Usuario eliminado correctamente");
-
-	    return response;
-	}
-	
-	private Date DateFormatter(String pDate){
 		
+		return response;
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/changePassword/{UserId}")
+	public Map<String, Object> editUserPassword(
+			@PathVariable("UserId") String UserId,
+			@RequestBody Map<String, Object> userMap) 
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User user;
+		
+		try
+		{
+			user = userRepository.findById(UserId);
+	
+			if (user != null) 
+			{
+				user.setPassword(setEncryptedPassword(userMap.get("password").toString()));
+				user.setId(UserId);
+				response.put("message", "Password updated");
+				response.put("User", userRepository.save(user));	
+			} 
+			else 
+			{
+				response.put("status", 404);
+				response.put("message", "User not found, password not changed");
+				response.put("User", null);
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error editUserPassword");
+			response.put("User", null);
+		}
+
+		return response;
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{userId}")
+	public Map<String, Object> deleteUser(@PathVariable("userId") String userId) 
+	{
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		try
+		{
+			userRepository.delete(userId);
+			response.put("status", 200);
+			response.put("message", "User deleted");
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error deleteUser");
+		}
+
+		return response;
+	}
+
+	private Date DateFormatter(String pDate) 
+	{
 		Date finalDate = new Date();
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		try {
+		try 
+		{
 			finalDate = format.parse(pDate);
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-		return finalDate;		
-	}		
 
-	private String setEncryptedPassword(String password){
+		return finalDate;
+	}
 
+	private String setEncryptedPassword(String password) 
+	{
 		MessageDigest md;
 		StringBuffer sb = new StringBuffer();
-		
-		try {
+
+		try 
+		{
 			md = MessageDigest.getInstance("MD5");
 			md.update(password.getBytes());
 			byte[] digest = md.digest();
 
-			for (byte b : digest) {
+			for (byte b : digest) 
+			{
 				sb.append(String.format("%02x", b & 0xff));
 			}
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (NoSuchAlgorithmException e) 
+		{
 			e.printStackTrace();
 		}
-		
+
 		return sb.toString();
 
 	}
+
 }

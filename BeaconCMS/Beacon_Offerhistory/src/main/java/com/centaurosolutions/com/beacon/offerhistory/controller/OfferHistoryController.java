@@ -35,7 +35,15 @@ public class OfferHistoryController {
 	public Map<String, Object> createDevice(@RequestBody Map<String, Object> offerhistoryMap){
 		
 
-		OfferHistory offerhistoryModel = new OfferHistory( offerhistoryMap.get("user_id").toString(),offerhistoryMap.get("promo_id").toString(), offerhistoryMap.get("merchant_id").toString(),offerhistoryMap.get("shopZone_id").toString(), DateFormatter(new Date().toString()), DateFormatter(new Date().toString()),DateFormatter(new Date().toString()));    
+		OfferHistory offerhistoryModel = new OfferHistory( 
+				offerhistoryMap.get("user_id").toString(),
+				offerhistoryMap.get("promo_id").toString(), 
+				offerhistoryMap.get("merchant_id").toString(),
+				offerhistoryMap.get("shopZone_id").toString(), 
+				DateFormatter(new Date().toString()), 
+				DateFormatter(new Date().toString()),
+				DateFormatter(new Date().toString()));    
+		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Historial de oferta creado correctamente");
 	    response.put("offerhistory", offerhistoryModel); 
@@ -99,7 +107,15 @@ public class OfferHistoryController {
 		  
 
 		  
-		OfferHistory offerhistoryModel = new OfferHistory( offerhistoryMap.get("user_id").toString(),offerhistoryMap.get("promo_id").toString(), offerhistoryMap.get("merchant_id").toString(),offerhistoryMap.get("shopZone_id").toString(),DateFormatter(offerhistoryMap.get("scanDate").toString()), DateFormatter(offerhistoryMap.get("creationDate").toString()),DateFormatter(offerhistoryMap.get("modifiedDate").toString()));  
+		OfferHistory offerhistoryModel = new OfferHistory( 
+				offerhistoryMap.get("user_id").toString(),
+				offerhistoryMap.get("promo_id").toString(), 
+				offerhistoryMap.get("merchant_id").toString(),
+				offerhistoryMap.get("shopZone_id").toString(),
+				DateFormatter(offerhistoryMap.get("scanDate").toString()), 
+				DateFormatter(offerhistoryMap.get("creationDate").toString()),
+				DateFormatter(offerhistoryMap.get("modifiedDate").toString()));  
+		
 		offerhistoryModel.setId(offerHistoryId);
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Historial de oferta actualizado correctamente");

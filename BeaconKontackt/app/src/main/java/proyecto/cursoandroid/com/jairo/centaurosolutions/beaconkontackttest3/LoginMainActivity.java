@@ -105,11 +105,6 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
         /* se agrega el callback y el boton que hace el login con facebook */
         callbackmanager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
-        //facebookLogin = (ImageButton) findViewById(R.id.facebook_icon);
-
-       // loginButtonFace = (LoginButton) findViewById(R.id.login_button_facebook);
-       // loginButtonFace.setReadPermissions("user_friends");
-
 
         nonStaticUtils =  new NonStaticUtils();
         login = (Button)findViewById(R.id.login);
@@ -162,23 +157,6 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
         });
 
-
-
-      /*  facebookLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFblogin();
-            }
-        });*/
-
-       /* loginButtonFace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFblogin();
-            }
-        });*/
-
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,7 +196,6 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
 
         serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);
-
     }
 
     @Override

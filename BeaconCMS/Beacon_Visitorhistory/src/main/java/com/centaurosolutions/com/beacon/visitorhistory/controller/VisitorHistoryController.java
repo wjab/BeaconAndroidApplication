@@ -34,7 +34,12 @@ public class VisitorHistoryController {
 	public Map<String, Object> createVisitorHistory(@RequestBody Map<String, Object> visitorHistoryMap){
 		
 
-		VisitorHistory visitorhistoryModel = new VisitorHistory(visitorHistoryMap.get("user_id").toString(), visitorHistoryMap.get("merchant_id").toString(), visitorHistoryMap.get("shopzone_id").toString() ,DateFormatter(visitorHistoryMap.get("rowDate").toString()));
+		VisitorHistory visitorhistoryModel = new VisitorHistory(
+				visitorHistoryMap.get("user_id").toString(), 
+				visitorHistoryMap.get("merchant_id").toString(), 
+				visitorHistoryMap.get("shopzone_id").toString(),
+				DateFormatter(visitorHistoryMap.get("rowDate").toString()));
+		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("message", "Historial de visitas creado correctamente");
 	    response.put("promo", visitorhistoryModel); 
@@ -63,7 +68,11 @@ public class VisitorHistoryController {
 	      @RequestBody Map<String, Object> visitorHistoryMap){
 		  
 		  
-	    VisitorHistory visitorhistoryModel = new VisitorHistory(visitorHistoryMap.get("user_id").toString(), visitorHistoryMap.get("merchant_id").toString(), visitorHistoryMap.get("shopzone_id").toString() ,DateFormatter(visitorHistoryMap.get("rowDate").toString()));
+	    VisitorHistory visitorhistoryModel = new VisitorHistory(
+	    		visitorHistoryMap.get("user_id").toString(), 
+	    		visitorHistoryMap.get("merchant_id").toString(), 
+	    		visitorHistoryMap.get("shopzone_id").toString() ,
+	    		DateFormatter(visitorHistoryMap.get("rowDate").toString()));
 			  
         visitorhistoryModel.setId(VisitorHistoryId);
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
