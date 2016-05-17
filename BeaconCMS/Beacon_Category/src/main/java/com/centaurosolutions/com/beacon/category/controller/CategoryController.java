@@ -28,48 +28,53 @@ public class CategoryController {
 	
 	
 	
-	private Date DateFormatter(String pDate){
-		   
-		   Date finalDate = new Date();
-		   DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-		   format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		   try {
-		    finalDate = format.parse(pDate);
-		   } catch (ParseException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		   }
-		   
-		   return finalDate;  
-		  }
+	private Date DateFormatter(String pDate)
+	{
+		Date finalDate = new Date();
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		try 
+		{
+			finalDate = format.parse(pDate);
+		} 
+		catch (ParseException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	   
+		return finalDate;  
+	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createCategory(@RequestBody Map<String, Object> categoryMap){
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		try{
-		   Category category=new Category();
-		   Category category_Find=categoryRepository.findByCategoryName(categoryMap.get("categoryName").toString());
-		   if (category_Find==null)
-		   {
+		try
+		{
+			Category category=new Category();
+			Category category_Find=categoryRepository.findByCategoryName(categoryMap.get("categoryName").toString());
+			if (category_Find == null)
+			{
 		       category = new Category(Integer.parseInt(categoryMap.get("startRange").toString()),
-				 								  Integer.parseInt(categoryMap.get("endRange").toString()),
-				 								  Integer.parseInt(categoryMap.get("giftPoints").toString()),
-				 								  DateFormatter(categoryMap.get("creationDate").toString()),
-				 								  DateFormatter(categoryMap.get("modifieldDate").toString()),
-				 								  categoryMap.get("categoryName").toString(),
-				 								  (Boolean)categoryMap.get("enable"));
+		    		   Integer.parseInt(categoryMap.get("endRange").toString()),
+					   Integer.parseInt(categoryMap.get("giftPoints").toString()),
+					   DateFormatter(categoryMap.get("creationDate").toString()),
+					   DateFormatter(categoryMap.get("modifieldDate").toString()),
+					   categoryMap.get("categoryName").toString(),
+					   Boolean.valueOf(categoryMap.get("enable").toString()));
+		       
 		       categoryRepository.save(category);
 		       response.put("message", "Categoría creada correctamente");
 		       response.put("category", category);
 		       response.put("status", "200");
 		      
-		  }
-		  else
-		  {
+			}
+			else
+			{
 		       response.put("message", "Categoría ya existe");
 		       response.put("category", null);
 		       response.put("status", "400"); 
-		  }
+			}
 		}
 		catch(Exception ex)
 		{
@@ -81,8 +86,10 @@ public class CategoryController {
 	}
 	
 	 @RequestMapping(method = RequestMethod.GET, value="/{categoryId}")
-	  public Map<String, Object> getCategoryDetails(@PathVariable("categoryId") String categoryId){
+	 public Map<String, Object> getCategoryDetails(@PathVariable("categoryId") String categoryId)
+	 {
 		 Map<String, Object> response = new LinkedHashMap<String, Object>();
+		 
 		 try
 		 {
 			  Category category_Find;
@@ -110,8 +117,10 @@ public class CategoryController {
 	  }
 	 
 	  @RequestMapping(method = RequestMethod.GET)
-	  public Map<String, Object> getAllCategoriesDetails(){
+	  public Map<String, Object> getAllCategoriesDetails()
+	  {
 		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  
 		  try
 		  {
 		      List<Category> categories = categoryRepository.findAll();		 
@@ -131,8 +140,10 @@ public class CategoryController {
 	  
 	  @RequestMapping(method = RequestMethod.PUT, value="/{CategoryId}")
 	  public Map<String, Object> editCategory(@PathVariable("CategoryId") String CategoryId,
-	      @RequestBody Map<String, Object> categoryMap){
+	      @RequestBody Map<String, Object> categoryMap)
+	  {
 		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  
 		  try 
 		  {
 	         Category category=new Category();
@@ -153,7 +164,8 @@ public class CategoryController {
 	  
 	  
 	  @RequestMapping(method = RequestMethod.DELETE, value="/{CategoryId}")
-	  public Map<String, String> deleteCategory(@PathVariable("CategoryId") String CategoryId){
+	  public Map<String, String> deleteCategory(@PathVariable("CategoryId") String CategoryId)
+	  {
 	      Map<String, String> response = new HashMap<String, String>();
 		  try 
 		  {

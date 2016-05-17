@@ -83,11 +83,12 @@ public class MerchantProductController
 				productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
 			}
 			MerchantProduct MerchantProductModel = new MerchantProduct(
-														merchantProductMap.get("merchantId").toString(),
-														merchantProductMap.get("shopZoneId").toString(),
-														productList,
-														merchantProductMap.get("longitude").toString(),
-														merchantProductMap.get("latitude").toString());   
+					merchantProductMap.get("merchantId").toString(),
+					merchantProductMap.get("shopZoneId").toString(),
+					productList,
+					merchantProductMap.get("longitude").toString(),
+					merchantProductMap.get("latitude").toString());   
+			
 		    merchantProductRepository.save(MerchantProductModel);
 			response.put("message", "MerchantProduct creado correctamente");
 			response.put("MerchantProduct", MerchantProductModel); 
@@ -113,15 +114,19 @@ public class MerchantProductController
 			if(merchant_Finded!=null)
 			{
 				ArrayList<Product> productList = new ArrayList<Product>();
+				
 				if(merchantProductMap.get("productlist") != null)
 				{			
 					productList = (ArrayList<Product>) merchantProductMap.get("productlist");			
 				}
-				MerchantProduct MerchantProductModel = new MerchantProduct(merchantProductMap.get("merchantId").toString(),
-																		   merchantProductMap.get("shopZoneId").toString(),
-																		   productList,
-																		   merchantProductMap.get("longitude").toString(),
-																		   merchantProductMap.get("latitude").toString());   
+				
+				MerchantProduct MerchantProductModel = new MerchantProduct(
+						merchantProductMap.get("merchantId").toString(),
+					    merchantProductMap.get("shopZoneId").toString(),
+					    productList,
+					    merchantProductMap.get("longitude").toString(),
+					    merchantProductMap.get("latitude").toString());  
+				
 				merchantProductRepository.save(MerchantProductModel);
 				response.put("message", "MerchantProduct actualizado correctamente");
 				response.put("MerchantProduct", MerchantProductModel); 

@@ -34,44 +34,48 @@ public class MerchantProfileController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> createMerchantProfile(@RequestBody Map<String, Object> merchantProfileMap){
+	public Map<String, Object> createMerchantProfile(@RequestBody Map<String, Object> merchantProfileMap)
+	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		
 		try
 		{
-		ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
-		ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
-		
-		if(merchantProfileMap.get("contacts") != null)
-		{
-			contacts = (ArrayList<MerchantContactData>) merchantProfileMap.get("contacts");
-		}
-		
-		if(merchantProfileMap.get("users") != null)
-		{
-			users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
-		}
-		
-		
-		MerchantProfile merchantProfileModel =new MerchantProfile(merchantProfileMap.get("country").toString(),
-																  merchantProfileMap.get("city").toString(), 
-																  contacts,
-																  merchantProfileMap.get("timeZone").toString(),
-																  merchantProfileMap.get("merchantName").toString(),
-																  merchantProfileMap.get("address").toString(),
-																  merchantProfileMap.get("image").toString(),
-																  merchantProfileMap.get("businessType").toString(),
-																  users,
-																  (Boolean)merchantProfileMap.get("enable"),
-																  Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
-																  DateFormatter(merchantProfileMap.get("creationDate").toString()),
-																  DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
-																  merchantProfileMap.get("updatedBy").toString(),
-																  merchantProfileMap.get("latitude").toString(),
-																  merchantProfileMap.get("longitude").toString());
-		merchantProfileRepository.save(merchantProfileModel);
-		response.put("message", "Perfil de Tiendas creado correctamente");
-	    response.put("merchantProfile", merchantProfileModel);
-	    response.put("status", "200");
+			ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
+			ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
+			
+			if(merchantProfileMap.get("contacts") != null)
+			{
+				contacts = (ArrayList<MerchantContactData>) merchantProfileMap.get("contacts");
+			}
+			
+			if(merchantProfileMap.get("users") != null)
+			{
+				users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
+			}
+			
+			
+			MerchantProfile merchantProfileModel =new MerchantProfile(
+					merchantProfileMap.get("country").toString(),
+				    merchantProfileMap.get("city").toString(), 
+				    contacts,
+				    merchantProfileMap.get("timeZone").toString(),
+				    merchantProfileMap.get("merchantName").toString(),
+				    merchantProfileMap.get("address").toString(),
+				    merchantProfileMap.get("image").toString(),
+				    merchantProfileMap.get("businessType").toString(),
+				    users,
+				    Boolean.valueOf(merchantProfileMap.get("enable").toString()),
+				    Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
+				    DateFormatter(merchantProfileMap.get("creationDate").toString()),
+				    DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
+				    merchantProfileMap.get("updatedBy").toString(),
+				    merchantProfileMap.get("latitude").toString(),
+				    merchantProfileMap.get("longitude").toString());
+			
+			merchantProfileRepository.save(merchantProfileModel);
+			response.put("message", "Perfil de Tiendas creado correctamente");
+		    response.put("merchantProfile", merchantProfileModel);
+		    response.put("status", "200");
 		}
 		catch(Exception ex)
 		{
@@ -83,11 +87,14 @@ public class MerchantProfileController {
 	}
 	
 	  @RequestMapping(method = RequestMethod.GET, value="/{MerchantProfileId}")
-	  public Map<String, Object> getMerchantProfileDetails(@PathVariable("MerchantProfileId") String merchantProfileId){
-		  Map<String, Object> response = new LinkedHashMap<String, Object>();			
-		  try{
-			  MerchantProfile merchant=merchantProfileRepository.findOne(merchantProfileId);
-		      if(merchant!=null)
+	  public Map<String, Object> getMerchantProfileDetails(@PathVariable("MerchantProfileId") String merchantProfileId)
+	  {
+		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  
+		  try
+		  {
+			  MerchantProfile merchant = merchantProfileRepository.findOne(merchantProfileId);
+		      if(merchant != null)
 		      {
 		    	  response.put("message", "Perfil de tiendaa encontrado");
 				  response.put("merchantProfile", merchant);
@@ -106,12 +113,15 @@ public class MerchantProfileController {
 			  response.put("merchantProfile", null);
 			  response.put("status", "400");
 		  }
+		  
 		  return response;
 	  }
 	  
 	  @RequestMapping(method = RequestMethod.GET)
-	  public Map<String, Object> getAllMerchantProfileDetails(){
+	  public Map<String, Object> getAllMerchantProfileDetails()
+	  {
 		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+		  
 		  try
 		  {
 		      List<MerchantProfile> merchantProfileModelList = merchantProfileRepository.findAll();
@@ -131,13 +141,15 @@ public class MerchantProfileController {
 	  @SuppressWarnings("unchecked")
 	  @RequestMapping(method = RequestMethod.PUT, value="/{MerchantProfileId}")
 	  public Map<String, Object> editMerchantProfile(@PathVariable("MerchantProfileId") String MerchantProfileId,
-	      @RequestBody Map<String, Object> merchantProfileMap){
+	      @RequestBody Map<String, Object> merchantProfileMap)
+	  {
 
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		
 		try
 		{  
-			MerchantProfile merchant=merchantProfileRepository.findOne(MerchantProfileId);
-		    if(merchant!=null)
+			MerchantProfile merchant = merchantProfileRepository.findOne(MerchantProfileId);
+		    if(merchant != null)
 		    {
 		    	ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
 		    	ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
@@ -149,22 +161,24 @@ public class MerchantProfileController {
 		    	{
 		    		users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
 		    	}
-		    	MerchantProfile merchantProfileModel = new MerchantProfile(merchantProfileMap.get("country").toString(),
-		    															   merchantProfileMap.get("city").toString(),
-		    															   contacts,
-		    															   merchantProfileMap.get("timeZone").toString(),
-		    															   merchantProfileMap.get("merchantName").toString(),
-		    															   merchantProfileMap.get("address").toString(),
-		    															   merchantProfileMap.get("image").toString(),
-		    															   merchantProfileMap.get("businessType").toString(),
-		    															   users,
-		    															   (Boolean)merchantProfileMap.get("enable"),
-		    															   Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
-		    															   DateFormatter(merchantProfileMap.get("creationDate").toString()),
-		    															   DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
-		    															   merchantProfileMap.get("updatedBy").toString(),
-		    															   merchantProfileMap.get("latitude").toString(),
-		    															   merchantProfileMap.get("longitude").toString());
+		    	MerchantProfile merchantProfileModel = new MerchantProfile(
+		    			merchantProfileMap.get("country").toString(),
+					    merchantProfileMap.get("city").toString(),
+					    contacts,
+					    merchantProfileMap.get("timeZone").toString(),
+					    merchantProfileMap.get("merchantName").toString(),
+					    merchantProfileMap.get("address").toString(),
+					    merchantProfileMap.get("image").toString(),
+					    merchantProfileMap.get("businessType").toString(),
+					    users,
+					    Boolean.valueOf(merchantProfileMap.get("enable").toString()),
+					    Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
+					    DateFormatter(merchantProfileMap.get("creationDate").toString()),
+					    DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
+					    merchantProfileMap.get("updatedBy").toString(),
+					    merchantProfileMap.get("latitude").toString(),
+					    merchantProfileMap.get("longitude").toString());
+		    	
 		    	merchantProfileModel.setId(MerchantProfileId);
 		    	response.put("message", "Perfil de Tiendas actualizado correctamente");
 		    	response.put("MerchantProfile", merchantProfileRepository.save(merchantProfileModel));
@@ -187,8 +201,10 @@ public class MerchantProfileController {
 	  
 	  
 	  @RequestMapping(method = RequestMethod.DELETE, value="/{MerchantProfileId}")
-	  public Map<String, String> deleteMerchantProfile(@PathVariable("MerchantProfileId") String merchantProfileId){
+	  public Map<String, String> deleteMerchantProfile(@PathVariable("MerchantProfileId") String merchantProfileId)
+	  {
 		  Map<String, String> response = new HashMap<String, String>();
+		  		  
 		  try
 		  {
 			  merchantProfileRepository.delete(merchantProfileId);
@@ -205,14 +221,18 @@ public class MerchantProfileController {
 	  }
 	
 	  
-		private Date DateFormatter(String pDate){
-			
+		private Date DateFormatter(String pDate)
+		{			
 			Date finalDate = new Date();
 			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 			format.setTimeZone(TimeZone.getTimeZone("UTC"));
-			try {
+			
+			try 
+			{
 				finalDate = format.parse(pDate);
-			} catch (ParseException e) {
+			} 
+			catch (ParseException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
