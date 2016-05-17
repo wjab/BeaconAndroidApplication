@@ -2,11 +2,10 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -43,8 +42,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
 
         listviewPromo = (ListView) findViewById(R.id.listNotifications);
         // Inflate your custom layout
-        NotificationManager notifManager= (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        notifManager.cancelAll();
+
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_notification_layout,
                 null);
@@ -95,6 +93,8 @@ public class PullNotificationsActivity extends AppCompatActivity {
             }
         });
 
+        NotificationManagerCompat notifManager= NotificationManagerCompat.from(this);
+        notifManager.cancelAll();
 
     }
     private Boolean exit = false;
@@ -150,39 +150,40 @@ public class PullNotificationsActivity extends AppCompatActivity {
 
                     ArrayList<String> images = new ArrayList<String>();
                     String url = "";
+                    if(myCache.descrition != null && myCache.title != null){
+                        Promociones promo;
+                        promo= new Promociones();
+                        promo.setTitulo(myCache.title);
+                        promo.setDescripcion(Utils.StringDecode64(myCache.descrition));
+                        promo.setPuntos(myCache.giftPoints);
+                        promo.setId(myCache.promoId);
+                        if(myCache.picturePath != null)
+                        {
+                            url = myCache.picturePath;
+                            promo.setUrlImagen(url);
+                        }
 
-                    Promociones promo;
-                    promo= new Promociones();
-                    promo.setTitulo(myCache.title);
-                    promo.setDescripcion(Utils.StringDecode64(myCache.descrition));
-                    promo.setPuntos(myCache.giftPoints);
-                    promo.setId(myCache.promoId);
-                    if(myCache.picturePath != null)
-                    {
-                        url = myCache.picturePath;
-                        promo.setUrlImagen(url);
+                        promociones.add(promo);
                     }
-
-                    promociones.add(promo);
                 }
 
-                adapter = new Adaptador_Promo(this, promociones);
+                if(promociones.size() > 0){
+
+                    adapter = new Adaptador_Promo(this, promociones);
+                    listviewPromo.setAdapter(adapter);
+                }
+                else{
+                    Intent i = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                    startActivity(i);
+                }
             }
             else {
                 Intent i = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 startActivity(i);
             }
-
         }
         catch(Exception ex){
-
+            Log.d("PromoList", ex.getMessage());
         }
-
-        listviewPromo.setAdapter(adapter);
-
-
     }
-
-
-
 }

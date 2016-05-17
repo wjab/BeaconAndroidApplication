@@ -3,7 +3,7 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -87,11 +88,11 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
             error++;
         }
         if(!validator.isValidWord(name.getText().toString())) {
-            phone.setError("El campo debe estar compuesto por letras");
+            name.setError("El campo debe estar compuesto por letras");
             error++;
         }
         if(!validator.isValidWord(lastName.getText().toString())) {
-            phone.setError("El campo debe estar compuesto por letras");
+            lastName.setError("El campo debe estar compuesto por letras");
             error++;
         }
         if(!validator.isValidEmail(email.getText().toString())){
@@ -106,7 +107,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User)+"user";
 
-        Map<String, Object> mapParams = new HashMap<String, Object>();
+        Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("user", username.getText().toString());
         mapParams.put("password", password.getText().toString());
         mapParams.put("enable", "true");
@@ -118,6 +119,9 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("creationDate", Utils.convertLongToDate(new Date().getTime()));
         mapParams.put("modifiedDate", Utils.convertLongToDate(new Date().getTime()));
         mapParams.put("email", email.getText().toString());
+        mapParams.put("socialNetworkId","");
+        mapParams.put("socialNetworkType","");
+        mapParams.put("socialNetworkJson","");
 
 
         Map<String, String> map = new HashMap<String, String>();
