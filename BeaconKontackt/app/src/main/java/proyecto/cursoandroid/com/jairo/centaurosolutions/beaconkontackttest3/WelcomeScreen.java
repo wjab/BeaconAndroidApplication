@@ -95,7 +95,15 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                 SystemClock.sleep(2000);
                 Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 intent.putExtra("totalPoints",response.getInt("total_gift_points"));
-                nonStaticUtils.saveLogin(this,response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), true);
+
+                nonStaticUtils.saveLogin(this,
+                        response.getString("user"),
+                        response.getString("password"),
+                        response.getString("id"),
+                        response.getInt("total_gift_points"),
+                        true,
+                        response.getString("socialNetworkType"),
+                        response.getString("socialNetworkId"));
 
                 startActivity(intent);
             }

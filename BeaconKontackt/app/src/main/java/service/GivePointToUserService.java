@@ -144,7 +144,9 @@ public class GivePointToUserService extends Service implements Response.Listener
                         sharedPreferences.getString("password", null),
                         sharedPreferences.getString("userId", null),
                         giftPoints,
-                        sharedPreferences.getBoolean("isAuthenticated", false));
+                        sharedPreferences.getBoolean("isAuthenticated", false),
+                        sharedPreferences.getString("socialNetworkType", null),
+                        sharedPreferences.getString("socialNetworkId", null));
 
                 ShowPromoNotification(context);
             }

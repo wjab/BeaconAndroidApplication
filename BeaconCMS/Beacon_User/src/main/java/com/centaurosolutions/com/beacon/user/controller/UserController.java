@@ -55,7 +55,7 @@ public class UserController {
 					userMap.get("socialNetworkType").toString(),
 					userMap.get("socialNetworkJson").toString());
 			
-			if(LOCAL_USER != user.getSocialNetworkType())
+			if(LOCAL_USER == user.getSocialNetworkType())
 			{
 				/* Se aplican las validaciones para ver que el usuario no
 				 * exista caso: Usuario con mismo telefono o Correo */
@@ -76,6 +76,13 @@ public class UserController {
 						response.put("message", "User created");
 						response.put("user", user);							
 					}
+				}
+				else
+				{
+					userRepository.save(user);
+					response.put("status", 200);
+					response.put("message", "User created");
+					response.put("user", user);	
 				}
 			}
 			else
@@ -99,6 +106,13 @@ public class UserController {
 						response.put("message", "User created");
 						response.put("user", user);							
 					}
+				}
+				else
+				{
+					userRepository.save(user);
+					response.put("status", 200);
+					response.put("message", "User created");
+					response.put("user", user);	
 				}
 			}			
 		}

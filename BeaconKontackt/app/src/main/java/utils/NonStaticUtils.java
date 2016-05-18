@@ -48,7 +48,14 @@ public class NonStaticUtils extends Activity {
 
     }
 
-    public void saveLogin(Context context,String username,String password, String userId, int points, boolean isAuth/*, String loginType*/){
+    public void saveLogin(Context context,
+                          String username,
+                          String password,
+                          String userId,
+                          int points,
+                          boolean isAuth,
+                          String loginType,
+                          String socialNetworkId){
 
         SharedPreferences prefs = null;
         SharedPreferences.Editor editor = null;
@@ -60,7 +67,8 @@ public class NonStaticUtils extends Activity {
         editor.putString("password",Utils.setEncryptedText(password));
         editor.putInt("points",points);
         editor.putBoolean("isAuthenticated", isAuth);
-        //editor.putString("loginType", loginType);
+        editor.putString("loginType", loginType);
+        editor.putString("loginType", socialNetworkId);
         editor.commit();
     }
 

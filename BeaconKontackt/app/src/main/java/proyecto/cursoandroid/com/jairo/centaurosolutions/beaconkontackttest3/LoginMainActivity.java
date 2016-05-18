@@ -182,20 +182,15 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
     }
 
-
-
-
-    public void sendUserRequestByName(String username){
+    public void sendUserRequestByName(String username)
+    {
         serviceController = new ServiceController();
-        String url = getString(R.string.WebService_User)+"user/"+username;
-       
+        String url = getString(R.string.WebService_User) + "user/" + username;
         Map<String,String> nullMap =  new HashMap<String, String>();
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");
 
-
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
     }
 
     @Override
@@ -219,38 +214,46 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onResponse(JSONObject response) {
 
         Log.d("Response", response.toString());
 
-
-        prefs = nonStaticUtils.loadLoginInfo(this);
-
         try
         {
-                String requestPassword = Utils.setEncryptedText(password.getText().toString());
+            String requestPassword = Utils.setEncryptedText(password.getText().toString());
 
-                if (response.getString("password").equals(requestPassword)) {
+            if (response.getString("password").equals(requestPassword)) {
 
-                    if (response.getBoolean("enable")) {
-
-                        isAuthenticated = true;
-                        nonStaticUtils.saveLogin(this,response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), isAuthenticated);
-                        Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                        startActivity(intent);
-
-                    } else {
-
-                        Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
+                if (response.getBoolean("enable"))
+                {
+                    isAuthenticated = true;
+                    nonStaticUtils.saveLogin(this,
+                            response.getString("user"),
+                            response.getString("password"),
+                            response.getString("id"),
+                            response.getInt("total_gift_points"),
+                            isAuthenticated,
+                            response.getString("socialNetworkType"),
+                            response.getString("socialNetworkId"));
+                    Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
             toast.show();
         }
@@ -262,8 +265,6 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
         Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
         toast.show();
     }
-
-
 
     // Private method to handle Facebook login and callback
     private void onFblogin()
@@ -329,7 +330,6 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,7 +121,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("modifiedDate", Utils.convertLongToDate(new Date().getTime()));
         mapParams.put("email", email.getText().toString());
         mapParams.put("socialNetworkId","");
-        mapParams.put("socialNetworkType","");
+        mapParams.put("socialNetworkType","localuser");
         mapParams.put("socialNetworkJson","");
 
 
@@ -132,27 +133,30 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
     }
 
     @Override
-    public void onResponse(JSONObject response) {
-
-        try {
-            if(response.getJSONObject("user")!=null){
+    public void onResponse(JSONObject response)
+    {
+        try
+        {
+            if(response.getJSONObject("user") != null)
+            {
                 Toast toast = Toast.makeText(getApplicationContext(), "Usuario creado correctamente",Toast.LENGTH_LONG);
                 toast.show();
 
-                Intent intent =new Intent(getApplicationContext(),LoginMainActivity.class );
+                Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class );
                 startActivity(intent);
-
-
             }
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_LONG);
             toast.show();
-            Intent intent =new Intent(getApplicationContext(),UserRegister.class );
+            Intent intent = new Intent(getApplicationContext(), UserRegister.class );
             startActivity(intent);
         }
     }
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onErrorResponse(VolleyError error)
+    {
         Log.d("Login Error", error.toString());
         Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
         toast.show();
@@ -160,7 +164,8 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_welcome_screen, menu);
         return true;
