@@ -64,8 +64,8 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
     SharedPreferences prefs;
     NonStaticUtils nonStaticUtils;
     Collection<String> arraysPreferences = new ArrayList<String>(Arrays.asList("email",
-            "user_photos", "public_profile", "user_friends",
-            "user_birthday", "user_tagged_places", "user_tagged_places"));
+            "user_photos", "public_profile", "user_friends"));
+    /*,"user_birthday", "user_tagged_places", "user_tagged_places"*/
 
     Gson gson = new Gson();
     Type stringStringMap = new TypeToken<Map<String, Object>>(){}.getType();
