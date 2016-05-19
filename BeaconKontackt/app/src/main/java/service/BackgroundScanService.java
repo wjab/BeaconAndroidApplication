@@ -1,7 +1,6 @@
 package service;
 
 import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
@@ -93,7 +92,8 @@ public class BackgroundScanService extends Service implements ProximityManager.P
     @Override
     public void onCreate() {
         super.onCreate();
-        BluetoothAdapter.getDefaultAdapter().enable();
+
+       // BluetoothAdapter.getDefaultAdapter().enable();
         beaconManger = new ProximityManager(this);
 
 
