@@ -104,9 +104,10 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         return  error == 0;
     }
 
-    public void sendCreateUserRequest(){
+    public void sendCreateUserRequest()
+    {
         serviceController = new ServiceController();
-        String url = getString(R.string.WebService_User)+"user";
+        String url = getString(R.string.WebService_User) + "user";
 
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("user", username.getText().toString());
@@ -124,10 +125,8 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("socialNetworkType","localuser");
         mapParams.put("socialNetworkJson","");
 
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");
-
 
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }

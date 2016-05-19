@@ -167,6 +167,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mDrawerList.addHeaderView(header);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */

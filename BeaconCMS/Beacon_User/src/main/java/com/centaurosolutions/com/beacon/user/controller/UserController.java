@@ -97,14 +97,14 @@ public class UserController {
 					{
 						response.put("status", 200);
 						response.put("message", "User registered");
-						response.put("user", user);
+						response.put("user", userExist);
 					}
 					else
 					{
 						userRepository.save(user);
 						response.put("status", 200);
 						response.put("message", "User created");
-						response.put("user", user);							
+						response.put("user", userExist);							
 					}
 				}
 				else

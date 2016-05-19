@@ -46,17 +46,14 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         response = this;
         serviceController =  new ServiceController();
         nonStaticUtils = new NonStaticUtils();
-
         prefs = nonStaticUtils.loadLoginInfo(this);
 
-
-        if(prefs.getString("userId",null) != null){
-
+        if(prefs.getString("userId",null) != null)
+        {
             sendUserRequestById(prefs.getString("userId", null));
         }
-
-        else{
-
+        else
+        {
             info.setText("Redirigiendo al Login");
             SystemClock.sleep(2000);
             Intent intent = new Intent(getApplicationContext(), Login_Options.class);
@@ -64,13 +61,12 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         }
     }
 
-
     public void sendUserRequestById(String userId){
 
         info.setText("Cargando Aplicación");
         SystemClock.sleep(2000);
         serviceController = new ServiceController();
-        String url = getString(R.string.WebService_User)+"user/id/"+userId;
+        String url = getString(R.string.WebService_User) + "user/id/" + userId;
         Map<String,String> nullMap =  new HashMap<String, String>();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
