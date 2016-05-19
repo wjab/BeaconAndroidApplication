@@ -35,17 +35,16 @@ public class NonStaticUtils extends Activity {
 
         SharedPreferences prefs =  null;
 
-        try{
-
+        try
+        {
             prefs =  context.getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             ex.printStackTrace();
         }
 
-
         return prefs;
-
     }
 
     public void saveLogin(Context context,
@@ -55,7 +54,8 @@ public class NonStaticUtils extends Activity {
                           int points,
                           boolean isAuth,
                           String loginType,
-                          String socialNetworkId){
+                          String socialNetworkId)
+    {
 
         SharedPreferences prefs = null;
         SharedPreferences.Editor editor = null;
@@ -68,7 +68,7 @@ public class NonStaticUtils extends Activity {
         editor.putInt("points",points);
         editor.putBoolean("isAuthenticated", isAuth);
         editor.putString("loginType", loginType);
-        editor.putString("loginType", socialNetworkId);
+        editor.putString("socialNetworkId", socialNetworkId);
         editor.commit();
     }
 

@@ -48,7 +48,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         nonStaticUtils = new NonStaticUtils();
         prefs = nonStaticUtils.loadLoginInfo(this);
 
-        if(prefs.getString("userId",null) != null)
+        if(prefs.getString("userId", null) != null)
         {
             sendUserRequestById(prefs.getString("userId", null));
         }

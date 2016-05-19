@@ -34,6 +34,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
@@ -53,6 +54,7 @@ import broadcast.AbstractBroadcastInterceptor;
 import broadcast.ForegroundBroadcastInterceptor;
 import butterknife.InjectView;
 import controllers.ServiceController;
+import de.hdodenhof.circleimageview.CircleImageView;
 import model.cache.BeaconCache;
 import model.elementMenu.ElementMenu;
 import model.promo.Promo;
@@ -60,10 +62,11 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ada
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 import receiver.AbstractScanBroadcastReceiver;
 import service.BackgroundScanService;
+import utils.NonStaticUtils;
 import utils.Utils;
 
-public class BackgroundScanActivity extends BaseActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
-
+public class BackgroundScanActivity extends BaseActivity implements Response.Listener<JSONObject>, Response.ErrorListener
+{
     public static final String TAG = BackgroundScanActivity.class.getSimpleName();
 
     public static final int MESSAGE_START_SCAN = 16;
@@ -71,46 +74,62 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
     private static final IntentFilter SCAN_INTENT_FILTER;
 
-
-
-
     private ArrayList<ElementMenu> mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private CharSequence mpoints;
     private CharSequence mTitle;
+    private String imageUrl;
+    private CircleImageView profileImage;
+
     public Adaptador_Promo adapter;
     public ListView llistviewPromo;
     private ActionBarDrawerToggle mDrawerToggle;
     public  ArrayList<Promociones> listPromoArray;
+
     static {
         SCAN_INTENT_FILTER = new IntentFilter(BackgroundScanService.BROADCAST);
         SCAN_INTENT_FILTER.setPriority(2);
     }
 
     private ServiceConnection serviceConnection;
-
     private Messenger serviceMessenger;
+    private ServiceController serviceController;
+    Response.Listener<JSONObject> response;
+    Response.ErrorListener responseError;
+    private String url;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
     private String[] titulos;
     private TypedArray NavIcons;
     private final BroadcastReceiver scanReceiver = new ForegrondScanReceiver();
+    private Boolean exit = false;
+
+    SharedPreferences preferences;
+    NonStaticUtils nonStaticUtils;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.background_scan_activity);
+
+        nonStaticUtils = new NonStaticUtils();
+        preferences = nonStaticUtils.loadLoginInfo(this);
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
         // Inflate your custom layout
-        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-                R.layout.action_bar_layout,
-                null);
-        llistviewPromo= (ListView) findViewById(R.id.listviewPromo);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.action_bar_layout, null);
+        llistviewPromo = (ListView) findViewById(R.id.listviewPromo);
+
         // Set up your ActionBar
-        mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username", "");
-        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
+        mTitle = preferences.getString("username", "");
+        mpoints = preferences.getInt("points", 0) + "";
+
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -120,9 +139,11 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         pointsAction.setText(mpoints + " pts");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
-        llistviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        llistviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 Promociones promo = new Promociones();
                 promo = listPromoArray.get(position);
                 Intent intentSuccess = new Intent(getApplicationContext(), Detail_Promo.class);
@@ -131,7 +152,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             }
         });
 
-
+        profileImage = (CircleImageView) findViewById(R.id.profile_image);
 
         NavIcons = getResources().obtainTypedArray(R.array.navigation_iconos);
         //Tomamos listado  de titulos desde el string-array de los recursos @string/nav_options
@@ -139,6 +160,12 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+        if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
+        {
+            url = getString(R.string.getProfilePictureFaceBook);
+            url = String.format(url, preferences.getString("socialNetworkId", ""));
+            serviceController.imageRequest(url, profileImage, 1, R.drawable.profiledefault);
+        }
 
         mPlanetTitles= new ArrayList<ElementMenu>();
         //Principal
@@ -157,17 +184,16 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mPlanetTitles.add(new ElementMenu(titulos[6], NavIcons.getResourceId(6, -1)));
 
 
-
         // Set the adapter for the list view
         mDrawerList.setAdapter(new MenuAdapter(this, mPlanetTitles));
         //Declaramos el header el caul sera el layout de header.xml
         View header = getLayoutInflater().inflate(R.layout.header_menu, null);
-        TextView text=((TextView) header.findViewById(R.id.usernameheader));
+        TextView text = ((TextView) header.findViewById(R.id.usernameheader));
         text.setText(mTitle);
         mDrawerList.addHeaderView(header);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        
+
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
@@ -175,16 +201,19 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                 R.drawable.ic_deseos,  /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
-        ) {
+        )
+        {
 
             /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
+            public void onDrawerClosed(View view)
+            {
                /* getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
                 setTitle("");*/
             }
 
             /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(View drawerView)
+            {
               /*  getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
                 setTitle("");*/
             }
@@ -195,19 +224,18 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-      //  setUpActionBar(toolbar);
+       //  setUpActionBar(toolbar);
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
         serviceConnection = createServiceConnection();
 
         bindServiceAndStartMonitoring();
         promoService();
-
     }
 
 
-    public void logOut(){
-        
+    public void logOut()
+    {
         SharedPreferences prefs;
         SharedPreferences.Editor editor;
         prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
@@ -220,42 +248,48 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         editor.commit();
         Intent intent= new Intent(getApplicationContext(),Login_Options.class);
         startActivity(intent);
-
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         Utils.cancelNotifications(this, BackgroundScanService.INFO_LIST);
         registerReceiver(scanReceiver, SCAN_INTENT_FILTER);
     }
-    private Boolean exit = false;
+
     @Override
-    public void onBackPressed() {
-        if (exit) {
+    public void onBackPressed()
+    {
+        if (exit)
+        {
             moveTaskToBack(true);
-        } else {
+        }
+        else
+        {
             Toast.makeText(this, "Press Back again to Exit.",
                     Toast.LENGTH_SHORT).show();
             exit = true;
-            new Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     exit = false;
                 }
             }, 3 * 1000);
-
         }
-
     }
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
         unregisterReceiver(scanReceiver);
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
         sendMessage(Message.obtain(null, MESSAGE_STOP_SCAN));
         serviceMessenger = null;
@@ -264,67 +298,77 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
       //  ButterKnife.reset(this);
     }
 
-    private void bindServiceAndStartMonitoring() {
+    private void bindServiceAndStartMonitoring()
+    {
         final Intent intent = new Intent(this, BackgroundScanService.class);
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
-    private ServiceConnection createServiceConnection() {
-        return new ServiceConnection() {
+    private ServiceConnection createServiceConnection()
+    {
+        return new ServiceConnection()
+        {
             @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
+            public void onServiceConnected(ComponentName name, IBinder service)
+            {
                 serviceMessenger = new Messenger(service);
-
                 sendMessage(Message.obtain(null, MESSAGE_START_SCAN));
             }
 
             @Override
-            public void onServiceDisconnected(ComponentName name) {
-
+            public void onServiceDisconnected(ComponentName name)
+            {
             }
         };
     }
 
-    private void sendMessage(final Message message) {
+    private void sendMessage(final Message message)
+    {
         SDKPreconditions.checkNotNull(serviceMessenger, "ServiceMessenger is null.");
         SDKPreconditions.checkNotNull(message, "Message is null");
 
-        try {
+        try
+        {
             serviceMessenger.send(message);
-        } catch (RemoteException e) {
+        }
+        catch (RemoteException e)
+        {
             e.printStackTrace();
             Logger.d(": message not sent(" + message.toString() + ")");
         }
     }
 
-    private static class ForegrondScanReceiver extends AbstractScanBroadcastReceiver {
-
+    private static class ForegrondScanReceiver extends AbstractScanBroadcastReceiver
+    {
         @Override
-        protected AbstractBroadcastInterceptor createBroadcastHandler(Context context) {
+        protected AbstractBroadcastInterceptor createBroadcastHandler(Context context)
+        {
             return new ForegroundBroadcastInterceptor(context);
         }
     }
 
-
-
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(Bundle savedInstanceState)
+    {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig)
+    {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected(item))
+        {
             return true;
         }
         // Handle your other action bar items...
@@ -335,7 +379,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     /**
      * Swaps fragments in the main content view
      */
-    private void selectItem(int position) {
+    private void selectItem(int position)
+    {
         mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username","");
         //Toast.makeText(this, mTitle, Toast.LENGTH_SHORT).show();
 
@@ -346,25 +391,28 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     }
 
     @Override
-    public void setTitle(CharSequence title) {
-
+    public void setTitle(CharSequence title)
+    {
         getSupportActionBar().setTitle(title);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener
+    {
         @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
+        public void onItemClick(AdapterView parent, View view, int position, long id)
+        {
             selectItem(position-1);
-            if(mPlanetTitles.get(position-1).getElemento().equals("Cerrar Session")){
+            if(mPlanetTitles.get(position-1).getElemento().equals("Cerrar Session"))
+            {
                 logOut();
             }
         }
     }
     @Override
-    public void onResponse(JSONObject response) {
-
-
-        try {
+    public void onResponse(JSONObject response)
+    {
+        try
+        {
             listPromoArray = new ArrayList<Promociones>();
             Gson gson= new Gson();
             JSONArray ranges= response.getJSONArray("Promo");
@@ -373,9 +421,9 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             String messageType = "";
             String promo = "";
 
-            for(int i=0; i < ranges.length(); i++ ){
+            for(int i=0; i < ranges.length(); i++ )
+            {
                 JSONObject currRange = ranges.getJSONObject(i);
-
                 Promociones promoelement = new Promociones();
                 promoelement.setTitulo(currRange.getString("title"));
                 promoelement.setDescripcion(currRange.getString("description"));
@@ -386,21 +434,21 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
             adapter=new Adaptador_Promo(this, listPromoArray);
             llistviewPromo.setAdapter(adapter);
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
-
     }
+
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onErrorResponse(VolleyError error)
+    {
         Log.d("Login Error", error.toString());
     }
-    ServiceController serviceController;
-    Response.Listener<JSONObject> response;
-    Response.ErrorListener responseError;
 
-
-    public void promoService(){
+    public void promoService()
+    {
             serviceController = new ServiceController();
             responseError = this;
             response = this;
@@ -411,6 +459,5 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             map.put("Content-Type", "application/json");
             String url = getString(R.string.WebService_Promo)+"promo/";
             serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-
     }
 }

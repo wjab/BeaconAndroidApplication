@@ -17,8 +17,8 @@ import java.util.Map;
 /**
  * Created by dcortess on 9/4/15.
  */
-public class ServiceController {
-
+public class ServiceController
+{
     String url;
     int method;
     Map<String, Object> params;

@@ -6,9 +6,8 @@ import java.util.Date;
 /**
  * Created by Eduardo on 30/11/2015.
  */
-public class Device {
-
-
+public class Device
+{
     private String id;
     private ArrayList<Range> ranges;
     private boolean enable;
@@ -21,8 +20,6 @@ public class Device {
     private String MasterPassword;
     private String DevicePassword;
 
-
-
     /**
      * @param ranges
      * @param enable
@@ -34,7 +31,8 @@ public class Device {
      * @param uniqueID
      */
     public Device(ArrayList<Range> ranges, boolean enable, int txPower, Date creationDate, Date modifiedDate,
-                  String updatedBy, String proximityUUID, String uniqueID, String MasterPassword,String DevicePassword) {
+                  String updatedBy, String proximityUUID, String uniqueID, String MasterPassword,String DevicePassword)
+    {
         super();
         this.ranges = ranges;
         this.enable = enable;
@@ -49,38 +47,29 @@ public class Device {
     }
 
 
-    public Device(){
-
-
-    }
-
-
-
+    public Device() { }
 
     /**
      * @return the id
      */
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
-
-
-
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(String id)
+    {
         this.id = id;
     }
-
-
-
 
     /**
      * @return the ranges
      */
-    public ArrayList<Range> getRanges() {
+    public ArrayList<Range> getRanges()
+    {
         return ranges;
     }
 
