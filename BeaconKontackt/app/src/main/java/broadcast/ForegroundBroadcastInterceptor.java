@@ -7,13 +7,15 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,25 +125,35 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     @Override
     public void onResponse(JSONObject response) {
 
-        try {
-            JSONArray ranges = response.getJSONArray("ranges");
-            String range = "";
-            String message = "";
-            String messageType = "";
-            String promo = "";
-            String promoPicture = "";
-            String description = "";
-            int givepoints = 0;
-            JSONArray arrayImages;
-            JSONObject imageObject;
-            boolean isAutomatic;
+        Gson gson =  new Gson();
+        Map<String,Object> map;
+        String jsonresult = String.valueOf(response.toString());
+        Type stringStringMap = new TypeToken<Map<String, Object>>(){}.getType();
+        map = gson.fromJson(jsonresult, stringStringMap);
 
-            for(int i=0; i < ranges.length(); i++ ){
-                JSONObject currRange = ranges.getJSONObject(i);
-                range = currRange.getString("type");
-                message = currRange.getString("message");
-                messageType = currRange.getString("messageType");
-                promo = currRange.getString("promoID");
+
+        try {
+            if (map.get("device") != null) {
+                String range = "";
+                String message = "";
+                String messageType = "";
+                String promo = "";
+                String promoPicture = "";
+                String description = "";
+                int givepoints = 0;
+                JSONArray arrayImages;
+                JSONObject imageObject;
+                boolean isAutomatic;
+                JSONObject device = response.getJSONObject("device");
+                JSONArray ranges = device.getJSONArray("ranges");
+
+
+                for (int i = 0; i < ranges.length(); i++) {
+                    JSONObject currRange = ranges.getJSONObject(i);
+                    range = currRange.getString("type");
+                    message = currRange.getString("message");
+                    messageType = currRange.getString("messageType");
+                    promo = currRange.getString("promoID");
 
                 /*description = currRange.getString("description");
                 isAutomatic = currRange.getBoolean("isAutomatic");
@@ -158,23 +170,27 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
                     promoPicture = "";
                 }*/
 
-                myBeaconCache.message = message ;
-                myBeaconCache.proximity = range;
-                myBeaconCache.uniqueID = response.getString("uniqueID");
-                myBeaconCache.promoId = promo;
-                myBeaconCache.expiration = Utils.UnixTimeStampWithDefaultExpiration();
-                myBeaconCache.currentDatetime = Utils.UnixTimeStamp();
+                    myBeaconCache.message = message;
+                    myBeaconCache.proximity = range;
+                    myBeaconCache.uniqueID = device.getString("uniqueID");
+                    myBeaconCache.promoId = promo;
+                    myBeaconCache.expiration = Utils.UnixTimeStampWithDefaultExpiration();
+                    myBeaconCache.currentDatetime = Utils.UnixTimeStamp();
                /*myBeaconCache.descrition = description;
                 myBeaconCache.isautomatic = isAutomatic;
                 myBeaconCache.picturePath = promoPicture;
                 myBeaconCache.giftPoints = givepoints;*/
 
-                addBeaconDB(myBeaconCache);
+                    addBeaconDB(myBeaconCache);
+
+                }
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
 
         requestDevice = false;
     }

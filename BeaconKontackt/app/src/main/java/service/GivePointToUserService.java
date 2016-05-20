@@ -13,10 +13,13 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,13 +132,17 @@ public class GivePointToUserService extends Service implements Response.Listener
         JSONObject userObject = new JSONObject();
         SharedPreferences sharedPreferences;
         int giftPoints = 0;
+        Gson gson =  new Gson();
+        Map<String,Object> map;
+        String jsonresult = String.valueOf(response.toString());
+        Type stringStringMap = new TypeToken<Map<String, Object>>(){}.getType();
+        map = gson.fromJson(jsonresult, stringStringMap);
 
         try
         {
-            userObject = response.getJSONObject("user");
-
-            if( userObject != null )
+            if( map.get("user") != null )
             {
+                userObject = response.getJSONObject("user");
                 sharedPreferences = nonStaticUtils.loadLoginInfo(context);
                 giftPoints = userObject.getInt("total_gift_points");
 
