@@ -14,6 +14,8 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by dcortess on 9/4/15.
  */
@@ -141,6 +143,11 @@ public class ServiceController
     }
 
     public void imageRequest(String url, ImageView imageView, int icon_loading, int icon_error) {
+        ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+        imageLoader.get(url, ImageLoader.getImageListener(imageView, icon_loading, icon_error));
+    }
+
+    public void imageRequest(String url, CircleImageView imageView, int icon_loading, int icon_error) {
         ImageLoader imageLoader = AppController.getInstance().getImageLoader();
         imageLoader.get(url, ImageLoader.getImageListener(imageView, icon_loading, icon_error));
     }

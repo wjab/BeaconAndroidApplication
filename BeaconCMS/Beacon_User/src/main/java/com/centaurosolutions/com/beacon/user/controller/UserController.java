@@ -90,10 +90,10 @@ public class UserController {
 				/* Verifica que el usuario de red social este registrado:
 				 * haciendo una verificacion por idRedSocial y el type */
 				
-				userExist = userRepository.findBySocialNetworkType(user.getSocialNetworkType());
+				userExist = userRepository.findBySocialNetworkId(user.getSocialNetworkId());
 				if(userExist != null)
 				{
-					if(userExist.getSocialNetworkId().equals(user.getSocialNetworkId()))
+					if(userExist.getSocialNetworkType().equals(user.getSocialNetworkType()))
 					{
 						response.put("status", 200);
 						response.put("message", "User registered");
@@ -104,7 +104,7 @@ public class UserController {
 						userRepository.save(user);
 						response.put("status", 200);
 						response.put("message", "User created");
-						response.put("user", userExist);							
+						response.put("user", user);							
 					}
 				}
 				else

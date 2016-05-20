@@ -4,16 +4,17 @@
         android:background="@color/fondo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-
         android:weightSum="1">
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             >
         <RadioGroup
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-        <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/space_rounded">
+
+            <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/space_rounded"
@@ -25,19 +26,20 @@
 
           >
             <ImageView
+                android:id="@+id/Imagen_Promo_Detail"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="fitXY"
                 android:background="@drawable/space_rounded"
-                android:id="@+id/Imagen_Promo_Detail"
                 android:src="@drawable/promo"
                 />
             <TextView
+                android:id="@+id/Titulo_Promo"
                 android:text="Titulo"
                 android:layout_below="@+id/Imagen_Promo_Detail"
                 android:textSize="33dp"
                 android:paddingBottom="10dp"
-               android:layout_marginTop="5dp"
+                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:textColor="@color/TituloPromo"
                 android:textStyle="bold"
@@ -46,13 +48,13 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/Titulo_Promo"
                 />
             <TextView
+                android:id="@+id/DescriptionPromoDetai"
                 android:text="sdghfh gfh df ff hg dfh hgdfhdfhdfghdfhgfhgf h fgddh gfhdfh"
                 android:textSize="15dp"
                 android:layout_below="@+id/Titulo_Promo"
-                               android:paddingBottom="30dp"
+                android:paddingBottom="30dp"
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:textColor="@color/DescripciónPromo"
@@ -62,21 +64,22 @@
                 android:maxLines = "13"
                 android:scrollbars = "vertical"
                 android:layout_marginRight="15dp"
-                android:layout_height="match_parent"
-                android:id="@+id/DescriptionPromoDetai"
+                android:layout_height="fill_parent"
               />
             <ImageView
+                android:id="@+id/etiquetaPuntos"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="fitXY"
-                android:id="@+id/etiquetaPuntos"
                 android:src="@drawable/circulo"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_alignTop="@+id/Imagen_Promo_Detail"
                 android:layout_alignEnd="@+id/Imagen_Promo_Detail"
                 android:layout_marginTop="15dp" />
+
             <TextView
+                android:id="@+id/Puntos_promo_Detail"
                 android:text="10000 pts"
                 android:layout_marginRight="15dp"
                 android:textSize="15dp"
@@ -85,14 +88,26 @@
                 android:textColor="@color/white"
                 android:gravity="center_vertical|center"
                 android:layout_height="wrap_content"
-                android:id="@+id/Puntos_promo_Detail"
                 android:textIsSelectable="false"
                 android:layout_marginLeft="15dp"
                 android:layout_alignTop="@+id/etiquetaPuntos"
                 android:layout_alignStart="@+id/etiquetaPuntos"
                 android:layout_alignBottom="@+id/etiquetaPuntos"
                 android:layout_alignEnd="@+id/etiquetaPuntos"/>
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_horizontal"
+                    android:src="@drawable/ic_deseos"
+                    android:background="@color/YellowGreen"
+                    android:layout_marginTop="310dp" />
+
          </RelativeLayout> <!-- The navigation drawer -->
+
+
+
         </RadioGroup>
         </ScrollView>
     </LinearLayout> <!-- The navigation drawer -->

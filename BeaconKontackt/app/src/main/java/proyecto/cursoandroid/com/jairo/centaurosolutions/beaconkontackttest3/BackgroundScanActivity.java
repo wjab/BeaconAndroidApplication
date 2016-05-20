@@ -11,6 +11,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,7 +83,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private CharSequence mpoints;
     private CharSequence mTitle;
     private String imageUrl;
-    private CircleImageView profileImage;
 
     public Adaptador_Promo adapter;
     public ListView llistviewPromo;
@@ -97,7 +99,9 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
-    private String url;
+    private String url, userAcumulatedPoints;
+    CircleImageView profileImage;
+    TextView textUserName, userTotalPoints;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -129,6 +133,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),  mpoints);
 
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -136,7 +141,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
 
-        pointsAction.setText(mpoints + " pts");
+        pointsAction.setText(userAcumulatedPoints);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
         llistviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -152,20 +157,11 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             }
         });
 
-        profileImage = (CircleImageView) findViewById(R.id.profile_image);
-
         NavIcons = getResources().obtainTypedArray(R.array.navigation_iconos);
         //Tomamos listado  de titulos desde el string-array de los recursos @string/nav_options
         titulos = getResources().getStringArray(R.array.nav_options);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
-        {
-            url = getString(R.string.getProfilePictureFaceBook);
-            url = String.format(url, preferences.getString("socialNetworkId", ""));
-            serviceController.imageRequest(url, profileImage, 1, R.drawable.profiledefault);
-        }
 
         mPlanetTitles= new ArrayList<ElementMenu>();
         //Principal
@@ -183,13 +179,27 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         //Logout
         mPlanetTitles.add(new ElementMenu(titulos[6], NavIcons.getResourceId(6, -1)));
 
-
         // Set the adapter for the list view
         mDrawerList.setAdapter(new MenuAdapter(this, mPlanetTitles));
+
         //Declaramos el header el caul sera el layout de header.xml
         View header = getLayoutInflater().inflate(R.layout.header_menu, null);
-        TextView text = ((TextView) header.findViewById(R.id.usernameheader));
-        text.setText(mTitle);
+
+        textUserName = ((TextView) header.findViewById(R.id.usernameheader));
+        textUserName.setText(mTitle);
+
+        userTotalPoints = (TextView) header.findViewById(R.id.user_total_points);
+        userTotalPoints.setText( userAcumulatedPoints);
+
+        profileImage = ((CircleImageView) header.findViewById(R.id.profile_image));
+
+        if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
+        {
+            url = getString(R.string.getProfilePictureFaceBook);
+            url = String.format(url, preferences.getString("socialNetworkId", ""));
+            Picasso.with(this).load(url).into(profileImage);
+        }
+
         mDrawerList.addHeaderView(header);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
