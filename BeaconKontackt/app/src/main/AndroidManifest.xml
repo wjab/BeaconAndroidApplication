@@ -23,7 +23,6 @@
         <activity android:name=".range.IBeaconRangeActivity" />
         <activity android:name=".management.BeaconManagementActivity" />
         <activity android:name=".BackgroundScanActivity" />
-        <activity android:name=".ProfilesActivity" />
         <activity android:name="management.ConfigFormActivity" />
 
         <service
@@ -49,8 +48,7 @@
 
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-           />
+            android:label="@string/title_activity_main2" />
         <activity
             android:name=".Activity_Principal"
             android:label="@string/title_activity_activity__principal" />
@@ -65,8 +63,8 @@
             android:label="@string/title_activity_promo_detail" />
         <activity
             android:name=".LoginMainActivity"
-            android:theme="@style/AppThemelogin"
-            android:label="BeaconApp" />
+            android:label="BeaconApp"
+            android:theme="@style/AppThemelogin" />
 
         <service
             android:name="service.BeaconSyncMessageService"
@@ -111,8 +109,11 @@
 
         <activity
             android:name=".Login_Options"
-            android:label="@string/title_activity_login__options"
-           ></activity>
+            android:label="@string/title_activity_login__options" />
+        <activity
+            android:name=".Activity_profile"
+            android:label="@string/title_activity_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
