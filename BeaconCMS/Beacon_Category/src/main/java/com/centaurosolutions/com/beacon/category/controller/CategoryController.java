@@ -1,25 +1,14 @@
 package com.centaurosolutions.com.beacon.category.controller;
 
+import com.centaurosolutions.com.beacon.category.model.Category;
+import com.centaurosolutions.com.beacon.category.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.centaurosolutions.com.beacon.category.model.Category;
-import com.centaurosolutions.com.beacon.category.repository.CategoryRepository;
+import java.util.*;
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -123,15 +112,24 @@ public class CategoryController {
 		  
 		  try
 		  {
-		      List<Category> categories = categoryRepository.findAll();		 
-		      response.put("Total de categorías", categories.size());
-		      response.put("Categories", categories);
-		      response.put("status", "200"); 
+		      List<Category> categories = categoryRepository.findAll();
+
+			  if(categories != null && categories.size() > 0){
+				  response.put("message", "Lista de categorías");
+				  response.put("listCategory", categories);
+				  response.put("status", "200");
+			  }
+			  else{
+				  response.put("message", "No hay categorías registradas");
+				  response.put("listCategory", null);
+				  response.put("status", "404");
+			  }
+
 		  }
 		  catch(Exception ex)
 		  {
 			  response.put("message", ex.getMessage());
-			  response.put("category", null);
+			  response.put("listCategory", null);
 			  response.put("status", "400"); 
 		  }
 		  return response;
@@ -150,7 +148,7 @@ public class CategoryController {
 			 category = new Category(Integer.parseInt(categoryMap.get("startRange").toString()),Integer.parseInt(categoryMap.get("endRange").toString()), Integer.parseInt(categoryMap.get("giftPoints").toString()) ,DateFormatter(categoryMap.get("creationDate").toString()),DateFormatter(categoryMap.get("modifieldDate").toString()),categoryMap.get("categoryName").toString(),(Boolean)categoryMap.get("enable"));
 			 category.setId(CategoryId);	  
 			 response.put("message", "Categoría actualizada correctamente");
-			 response.put("Category", categoryRepository.save(category));
+			 response.put("category", categoryRepository.save(category));
 			 response.put("status", "200"); 
 		  }
 		  catch(Exception ex)

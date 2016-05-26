@@ -1,26 +1,16 @@
 package com.centaurosolutions.com.beacon.user.controller;
 
+import com.centaurosolutions.com.beacon.user.model.User;
+import com.centaurosolutions.com.beacon.user.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.centaurosolutions.com.beacon.user.model.*;
-import com.centaurosolutions.com.beacon.user.repository.UserRepository;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -167,15 +157,13 @@ public class UserController {
 			users = userRepository.findAll();	
 			response.put("status", 200);
 			response.put("message", "AllUserDetails got");
-			response.put("userCount", users.size());
-			response.put("users", users);
+			response.put("listUser", users);
 		}
 		catch(Exception ex)
 		{
 			response.put("status", 200);
 			response.put("message", "Error getAllUserDetails");
-			response.put("userCount", 0);
-			response.put("Users", null);
+			response.put("listUser", null);
 		}
 		
 		return response;
@@ -206,7 +194,7 @@ public class UserController {
 	
 				response.put("status", 200);
 				response.put("message", "User updated");
-				response.put("User", userRepository.save(user));
+				response.put("user", userRepository.save(user));
 			} 
 			else 
 			{
@@ -218,7 +206,7 @@ public class UserController {
 		{
 			response.put("status", 500);
 			response.put("message", "Error editUser");
-			response.put("User", null);
+			response.put("user", null);
 		}
 		
 		return response;
@@ -242,13 +230,14 @@ public class UserController {
 				user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
 				user.setId(UserId);
 				response.put("message", "User updated");
-				response.put("User", userRepository.save(user));
+				response.put("user", userRepository.save(user));
+				response.put("status", 200);
 			}
 			else
 			{
 				response.put("status", 404);
 				response.put("message", "User doesn't exist, points not given");
-				response.put("User", null);
+				response.put("user", null);
 			}			
 		}
 		catch(Exception ex)
@@ -277,20 +266,21 @@ public class UserController {
 				user.setPassword(setEncryptedPassword(userMap.get("password").toString()));
 				user.setId(UserId);
 				response.put("message", "Password updated");
-				response.put("User", userRepository.save(user));	
+				response.put("user", userRepository.save(user));
+				response.put("status",200);
 			} 
 			else 
 			{
 				response.put("status", 404);
 				response.put("message", "User not found, password not changed");
-				response.put("User", null);
+				response.put("user", null);
 			}
 		}
 		catch(Exception ex)
 		{
 			response.put("status", 500);
 			response.put("message", "Error editUserPassword");
-			response.put("User", null);
+			response.put("user", null);
 		}
 
 		return response;

@@ -1,24 +1,19 @@
 package com.centaurosolutions.com.beacon.utils.controller;
 
+import com.centaurosolutions.com.beacon.utils.model.*;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TimeZone;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.ResponseEntity;
-
-import com.centaurosolutions.com.beacon.utils.model.*;
 
 @RestController
 @RequestMapping("/utils")
@@ -42,24 +37,31 @@ public class UtilsController
 		Date dateNow = new Date();
 		int points = 0;
 		User userObject = null;
+		UserResponse userResponse = null;
+		OfferHistoryAttemptResponse offerHistoryAttemptResponse = null;
 		OfferHistoryAttempt offerHistoryAttempt = null;
 		Promo promoObject  = null;
+		PromoResponse promoResponse = null;
 		RestTemplate restTemplate = new RestTemplate();
+
 		
 		try
 		{
-			offerHistoryAttempt = restTemplate.getForObject(
+			offerHistoryAttemptResponse = restTemplate.getForObject(
 					urlOfferHistory + String.format(
 							offerHistoryAttemptResource, 
 							customMap.get("userId").toString(), 
 							customMap.get("promoId")),
-					OfferHistoryAttempt.class);
+					OfferHistoryAttemptResponse.class);
+
+			promoResponse = restTemplate.getForObject(
+					urlPromo + "" + customMap.get("promoId").toString(), PromoResponse.class);
 			
-			promoObject = restTemplate.getForObject(
-					urlPromo + "" + customMap.get("promoId").toString(), Promo.class);
-			
-			if(promoObject != null && offerHistoryAttempt != null) 
+			if(promoResponse.getStatus() == 200 && offerHistoryAttemptResponse.getStatus() == 200 )
 			{
+				offerHistoryAttempt = offerHistoryAttemptResponse.getAttemptData();
+				promoObject = promoResponse.getPromo();
+
                 dateDiffInfo = getDateDiffCall(
                 		format.format(offerHistoryAttempt.getLastScan()).toString(), 
                 		format.format(dateNow));
@@ -70,37 +72,47 @@ public class UtilsController
                 		(dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) && 
                 		dateDiffInfo.getHours() > promoObject.getInterval())) 
                 {
-                    userObject = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), User.class);
-                    if (userObject != null) 
+                    userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
+
+                    if (userResponse.getStatus() == 200)
                     {
+						userObject = userResponse.getUser();
                         points = userObject.getTotal_gift_points() + promoObject.getGift_points();
                         userObject.setTotal_gift_points(points);
                         
                         if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())) 
                         {
                             response.put("user", userObject);
+							response.put("status", 200);
+							response.put("message", "Puntos asignados correctamente");
                         }
                     } 
                     else 
                     {
                         response.put("user", null);
+						response.put("status", 404);
+						response.put("message", "Usuario no encontrado");
                     }
                 } 
                 else 
                 {
-                    response.put("user", null);
+					response.put("user", null);
+					response.put("status", 400);
+					response.put("message", "El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido");
                 }
             }
 			else
 			{
 				response.put("user", null);
-				response.put("cause", "Objetos vacíos");
+				response.put("status", 400);
+				response.put("message", "Error inesperado obteniendo datos de usuario y promociones");
 			}
 		}
 		catch(Exception ex)
 		{
 			response.put("user", null);
-			response.put("error", ex.getMessage());
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
 		}
 		
 		return response;
@@ -110,6 +122,7 @@ public class UtilsController
 	@RequestMapping(method = RequestMethod.POST, value="/getDateDiff")
 	public Map<String, Object> getAccurateDateDifference(@RequestBody Map<String, Object> customMap){
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Map<String, Object> dateDiffValues = new LinkedHashMap<>();
 		
 		Date d1 = null;
 		Date d2 = null;
@@ -136,26 +149,37 @@ public class UtilsController
 					diffMinutes = diff / (60 * 1000) % 60;
 					diffHours = (diff / (60 * 60) % 24) + (diff / (24 * 60 * 60)) * 24;;
 					diffDays = diff / (24 * 60 * 60 * 1000);
-										
-					response.put("days", diffDays);
-					response.put("hours", diffHours);
-					response.put("minutes", diffMinutes);
-					response.put("seconds", diffSeconds);
+
+					dateDiffValues.put("days", diffDays);
+					dateDiffValues.put("hours", diffHours);
+					dateDiffValues.put("minutes", diffMinutes);
+					dateDiffValues.put("seconds", diffSeconds);
+
+					response.put("message", "Resultados de diferencia de fechas");
+					response.put("status", 200);
+					response.put("dateDiffValues", dateDiffValues);
+
 				}
 				else
 				{
-					response.put("error", "Initial date is more recently than final date");
+					response.put("message", "La fecha de inicio es mayor a la fecha final");
+					response.put("status", 400);
+					response.put("dateDiffValues", null);
 				}			
 			}		
 			else
 			{
-				response.put("error", "Null parameters");
+				response.put("message", "Parámetros inválidos");
+				response.put("status", 400);
+				response.put("dateDiffValues", null);
 			}
 
 		} 
-		catch (Exception e) 
+		catch (Exception ex)
 		{
-			response.put("error", e.getStackTrace());
+			response.put("message", ex.getMessage());
+			response.put("status", 500);
+			response.put("dateDiffValues", null);
 		}
 				
 		return response;
@@ -219,6 +243,7 @@ public class UtilsController
 		Map<String, Object> parameters = new LinkedHashMap<String, Object>();
 		Map<String, Object> responseObject = new LinkedHashMap<String, Object>();
 		DateDiffValues diffValues = new DateDiffValues();
+		DateDiffResponse dateDiffResponse = null;
 		
 		try
 		{
@@ -230,8 +255,11 @@ public class UtilsController
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);
 				HttpEntity<DateDiffValues> entity = new HttpEntity(parameters , headers);
-				ResponseEntity<DateDiffValues> out =  restTemplate.exchange("http://butilsdevel.cfapps.io/utils/getDateDiff", HttpMethod.POST, entity , DateDiffValues.class);
-				diffValues = out.getBody();
+				ResponseEntity<DateDiffResponse> out =  restTemplate.exchange("http://butilsdevel.cfapps.io/utils/getDateDiff", HttpMethod.POST, entity , DateDiffResponse.class);
+				dateDiffResponse = out.getBody();
+				if(dateDiffResponse.getStatus() == "200"){
+					diffValues = dateDiffResponse.getDateDiffValues();
+				}
 			}
 		}
 		catch(Exception ex)

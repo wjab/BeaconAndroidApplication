@@ -1,25 +1,15 @@
 package com.centaurosolutions.com.beacon.offerhistory.controller;
 
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-
+import com.centaurosolutions.com.beacon.offerhistory.model.OfferHistory;
+import com.centaurosolutions.com.beacon.offerhistory.repository.OfferHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import com.centaurosolutions.com.beacon.offerhistory.model.*;
-import com.centaurosolutions.com.beacon.offerhistory.repository.*;
+import org.springframework.web.bind.annotation.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @RestController
 @RequestMapping("/offerhistory")
@@ -33,70 +23,135 @@ public class OfferHistoryController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createDevice(@RequestBody Map<String, Object> offerhistoryMap){
-		
 
-		OfferHistory offerhistoryModel = new OfferHistory( 
-				offerhistoryMap.get("user_id").toString(),
-				offerhistoryMap.get("promo_id").toString(), 
-				offerhistoryMap.get("merchant_id").toString(),
-				offerhistoryMap.get("shopZone_id").toString(), 
-				DateFormatter(new Date().toString()), 
-				DateFormatter(new Date().toString()),
-				DateFormatter(new Date().toString()));    
-		
-	    Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "Historial de oferta creado correctamente");
-	    response.put("offerhistory", offerhistoryModel); 
-		
-	    offerhistoryRepository.save(offerhistoryModel);
+        OfferHistory offerhistoryModel = new OfferHistory();
+        Map<String, Object> response = new LinkedHashMap<String, Object>();
+        try{
+
+             offerhistoryModel = new OfferHistory(
+                    offerhistoryMap.get("user_id").toString(),
+                    offerhistoryMap.get("promo_id").toString(),
+                    offerhistoryMap.get("merchant_id").toString(),
+                    offerhistoryMap.get("shopZone_id").toString(),
+                    DateFormatter(new Date().toString()),
+                    DateFormatter(new Date().toString()),
+                    DateFormatter(new Date().toString()));
+
+            offerhistoryRepository.save(offerhistoryModel);
+
+            response.put("message", "Historial de oferta creado correctamente");
+            response.put("offerhistory", offerhistoryModel);
+            response.put("status", 200);
+
+        }
+        catch (Exception ex){
+            response.put("message", ex.getMessage());
+            response.put("offerhistory", null);
+            response.put("status", 400);
+        }
+
 		return response;
 	}
 	
 	  @RequestMapping(method = RequestMethod.GET, value="/{offerId}")
-	  public OfferHistory getDeviceDetails(@PathVariable("offerId") String offerHistoryId){
-		  return offerhistoryRepository.findOne(offerHistoryId);
+	  public Map<String, Object> getDeviceDetails(@PathVariable("offerId") String offerHistoryId){
+
+          Map<String, Object> response = new LinkedHashMap<String, Object>();
+          OfferHistory offerhistoryModel = new OfferHistory();
+
+          try{
+              offerhistoryModel = offerhistoryRepository.findOne(offerHistoryId);
+
+              if(offerhistoryModel !=null){
+                  response.put("message", "Historial de oferta encontrado");
+                  response.put("offerhistory", offerhistoryModel);
+                  response.put("status", 200);
+              }
+              else{
+                  response.put("message", "Historial de oferta no encontrado");
+                  response.put("offerhistory", null);
+                  response.put("status", 404);
+              }
+          }
+          catch (Exception ex){
+              response.put("message", ex.getMessage());
+              response.put("offerhistory", null);
+              response.put("status", 500);
+          }
+
+		  return response;
 	  }
 	  
 	  
 	  @RequestMapping(method = RequestMethod.GET, value="/getAttempts/user/{userId}/promo/{promoId}")
 	  public Map<String, Object> getPromoUserAttempts (@PathVariable("userId") String userId, @PathVariable("promoId") String promoId){
 			
-		  List<OfferHistory> offerhistoryModelList = offerhistoryRepository.findAll();
+		  List<OfferHistory> offerhistoryModelList;
+          Map<String, Object> response = new LinkedHashMap<String, Object>();
+          Map<String, Object> attemptData = new LinkedHashMap<String, Object>();
 		  Date date = new Date();
+          int attempts = 0;
 
-			int attempts = 0;
-	
-			for(OfferHistory offerHistory : offerhistoryModelList){
-				
-				if(offerHistory.getPromo_id().equals(promoId) && offerHistory.getUser_id().equals(userId))
-				{
-					if(attempts==0){
-						date=offerHistory.getScanDate();
-					}else{
-						if(date.getTime()<offerHistory.getScanDate().getTime()){
-							date=offerHistory.getScanDate();
-						}
-					}
-					attempts++;
-					
-				}				
-			}
-						
-			Map<String, Object> response = new LinkedHashMap<String, Object>();
-			response.put("promoId", promoId);
-			response.put("userId", userId);
-			response.put("lastScan", date);
-			response.put("attempts", attempts);
-			return response; 
+          try{
+              offerhistoryModelList = offerhistoryRepository.findAll();
+              for(OfferHistory offerHistory : offerhistoryModelList){
+
+                  if(offerHistory.getPromo_id().equals(promoId) && offerHistory.getUser_id().equals(userId))
+                  {
+                      if(attempts==0){
+                          date=offerHistory.getScanDate();
+                      }else{
+                          if(date.getTime()<offerHistory.getScanDate().getTime()){
+                              date=offerHistory.getScanDate();
+                          }
+                      }
+                      attempts++;
+                  }
+              }
+              attemptData.put("promoId", promoId);
+              attemptData.put("userId", userId);
+              attemptData.put("lastScan", date);
+              attemptData.put("attempts", attempts);
+
+              response.put("message", "Número de intentos del usuario");
+              response.put("status", 200);
+              response.put("attemptData", attemptData);
+          }
+          catch (Exception ex){
+              response.put("message", ex.getMessage());
+              response.put("attemptData", null);
+              response.put("status", 500);
+          }
+
+          return response;
 
 	  }
 	  
 	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> getAllDeviceDetails(){
-		List<OfferHistory> offerhistoryModelList = offerhistoryRepository.findAll();
-		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		response.put("Total de Dispositivos", offerhistoryModelList.size());
-		response.put("Historial de oferta", offerhistoryModelList);
+
+        Map<String, Object> response = new LinkedHashMap<String, Object>();
+
+        try{
+            List<OfferHistory> offerhistoryModelList = offerhistoryRepository.findAll();
+
+            if(offerhistoryModelList!= null && offerhistoryModelList.size() > 0){
+                response.put("message", "Historial de ofertas");
+                response.put("status", 200);
+                response.put("listOfferhistory", offerhistoryModelList);
+            }
+            else {
+                response.put("message", "No hay promociones registradas");
+                response.put("status", 404);
+                response.put("listOfferhistory", null);
+            }
+        }
+        catch (Exception ex){
+            response.put("message", ex.getMessage());
+            response.put("listOfferhistory", null);
+            response.put("status", 500);
+        }
+
 		return response;
 	}
 	  
@@ -104,32 +159,49 @@ public class OfferHistoryController {
 	@RequestMapping(method = RequestMethod.PUT, value="/{offerId}")
 	public Map<String, Object> editDevice(@PathVariable("offerId") String offerHistoryId,
 	      @RequestBody Map<String, Object> offerhistoryMap){
-		  
 
-		  
-		OfferHistory offerhistoryModel = new OfferHistory( 
-				offerhistoryMap.get("user_id").toString(),
-				offerhistoryMap.get("promo_id").toString(), 
-				offerhistoryMap.get("merchant_id").toString(),
-				offerhistoryMap.get("shopZone_id").toString(),
-				DateFormatter(offerhistoryMap.get("scanDate").toString()), 
-				DateFormatter(offerhistoryMap.get("creationDate").toString()),
-				DateFormatter(offerhistoryMap.get("modifiedDate").toString()));  
-		
-		offerhistoryModel.setId(offerHistoryId);
-		Map<String, Object> response = new LinkedHashMap<String, Object>();
-	    response.put("message", "Historial de oferta actualizado correctamente");
-	    response.put("Historial de oferta", offerhistoryRepository.save(offerhistoryModel));
+        Map<String, Object> response = new LinkedHashMap<String, Object>();
+
+        try{
+            OfferHistory offerhistoryModel = new OfferHistory(
+                    offerhistoryMap.get("user_id").toString(),
+                    offerhistoryMap.get("promo_id").toString(),
+                    offerhistoryMap.get("merchant_id").toString(),
+                    offerhistoryMap.get("shopZone_id").toString(),
+                    DateFormatter(offerhistoryMap.get("scanDate").toString()),
+                    DateFormatter(offerhistoryMap.get("creationDate").toString()),
+                    DateFormatter(offerhistoryMap.get("modifiedDate").toString()));
+
+            response.put("message", "Historial de oferta actualizado correctamente");
+            response.put("offerhistory", offerhistoryModel);
+            response.put("status", 200);
+        }
+        catch (Exception ex){
+            response.put("message", ex.getMessage());
+            response.put("offerhistory", null);
+            response.put("status", 500);
+        }
+
 	    return response;
 	}
 	  
 	  
 	@RequestMapping(method = RequestMethod.DELETE, value="/{offerId}")
-	public Map<String, String> deleteDevice(@PathVariable("offerId") String offerhistoryId)
+	public Map<String, Object> deleteDevice(@PathVariable("offerId") String offerhistoryId)
 	{
-	    offerhistoryRepository.delete(offerhistoryId);
-	    Map<String, String> response = new HashMap<String, String>();
-	    response.put("message", "Historial de oferta eliminado correctamente");
+        Map<String, Object> response = new HashMap<String, Object>();
+
+        try{
+            offerhistoryRepository.delete(offerhistoryId);
+            response.put("message", "Historial de oferta eliminado correctamente");
+            response.put("status", 200);
+            response.put("offerhistory", offerhistoryId);
+        }
+        catch (Exception ex){
+            response.put("message", ex.getMessage());
+            response.put("status", 500);
+            response.put("offerhistory", offerhistoryId);
+        }
 
 	    return response;
 	}

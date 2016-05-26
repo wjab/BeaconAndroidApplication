@@ -1,28 +1,12 @@
 package com.centaurosolutions.com.beacon.promo.controller;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.centaurosolutions.com.beacon.promo.model.*;
+import com.centaurosolutions.com.beacon.promo.model.Promo;
 import com.centaurosolutions.com.beacon.promo.repository.PromoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.*;
+import java.util.*;
 
 @RestController
 @RequestMapping("/promo")
@@ -36,89 +20,174 @@ public class PromoController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Map<String, Object> createPromo(@RequestBody Map<String, Object> promoMap){
-        
 
-
-        Promo promoModel = new Promo(
-        		Boolean.valueOf(promoMap.get("enable").toString()), 
-        		promoMap.get("profile_id").toString(), 
-        		promoMap.get("code").toString(),
-        		Integer.parseInt(promoMap.get("gift_points").toString()),
-        		Integer.parseInt(promoMap.get("attempt").toString()),
-        		DateFormatter(promoMap.get("startDate").toString()), 
-        		DateFormatter(promoMap.get("endDate").toString()),
-        		promoMap.get("type").toString(),
-        		Integer.parseInt(promoMap.get("availability").toString()), 
-        		DateFormatter(promoMap.get("creationDate").toString()), 
-        		DateFormatter(promoMap.get("modifiedDate").toString()),
-        		promoMap.get("updatedby").toString(),
-        		promoMap.get("title").toString(),
-        		promoMap.get("description").toString(),
-        		Boolean.valueOf(promoMap.get("isAutomatic").toString()),
-        		promoMap.get("images").toString(), 
-        		Integer.parseInt(promoMap.get("interval").toString()));
-        
         Map<String, Object> response = new LinkedHashMap<String, Object>();
-        response.put("message", "Promoción creada correctamente");
-        response.put("promo", promoModel); 
-        
-        promoRepository.save(promoModel);
+        try{
+
+
+            Promo promoModel = new Promo((Boolean)promoMap.get("enable"),
+                                          promoMap.get("profile_id").toString(),
+                                          promoMap.get("code").toString() ,
+                                          Integer.parseInt(promoMap.get("gift_points").toString()),
+                                          Integer.parseInt(promoMap.get("attempt").toString()),
+                                          DateFormatter(promoMap.get("startDate").toString()),
+                                          DateFormatter(promoMap.get("endDate").toString()),
+                                          promoMap.get("type").toString(),
+                                          Integer.parseInt(promoMap.get("availability").toString()),
+                                          DateFormatter(promoMap.get("creationDate").toString()),
+                                          DateFormatter(promoMap.get("modifiedDate").toString()),
+                                          promoMap.get("updatedby").toString(),
+                                          promoMap.get("title").toString(),
+                                          promoMap.get("description").toString(),
+                                         (Boolean)promoMap.get("isAutomatic"),
+                                          promoMap.get("images").toString(),
+                                          Integer.parseInt(promoMap.get("interval").toString()));
+
+
+            promoRepository.save(promoModel);
+            response.put("message", "Promoción creada correctamente");
+            response.put("status", 200);;
+            response.put("promo", promoModel);
+
+        }
+        catch (Exception ex){
+            response.put("message", ex.getMessage());
+            response.put("status", 500);
+            response.put("promo",null);
+        }
+
         return response;
     }
     
       @RequestMapping(method = RequestMethod.GET, value="/{PromoId}")
-      public Promo getPromoDetails(@PathVariable("PromoId") String promoId){
-        return promoRepository.findOne(promoId);
+      public Map<String, Object> getPromoDetails(@PathVariable("PromoId") String promoId){
+
+          Map<String, Object> response =  new LinkedHashMap<String, Object>();
+          Promo promo = new Promo();
+
+          try{
+
+              promo = promoRepository.findOne(promoId);
+
+              if(promo != null){
+
+                  response.put("message","Promoción encontrada");
+                  response.put("status", 200);
+                  response.put("promo",promo);
+              }
+              else{
+                  response.put("message","Promoción no encontrada");
+                  response.put("status", 404);
+                  response.put("promo",null);
+              }
+          }
+          catch (Exception ex){
+              response.put("message", ex.getMessage());
+              response.put("status", 500);
+              response.put("promo",null);
+          }
+
+          return response ;
       }
       
       @RequestMapping(method = RequestMethod.GET)
       public Map<String, Object> getAllPromoDetails(){
-          List<Promo> promoModelList = promoRepository.findAll();
+
           Map<String, Object> response = new LinkedHashMap<String, Object>();
-          response.put("Total de promociones", promoModelList.size());
-          response.put("Promo", promoModelList);
+
+          try{
+
+              List<Promo> promoModelList = promoRepository.findAll();
+              if(promoModelList!=null && promoModelList.size() > 0){
+                  response.put("message", "Promociones encontradas: "+  promoModelList.size());
+                  response.put("status", 200);
+                  response.put("listPromo", promoModelList);
+              }
+              else{
+                  response.put("message", "No hay promociones registradas");
+                  response.put("status", 404);
+                  response.put("listPromo", null);
+              }
+
+          }
+          catch (Exception ex){
+              response.put("message",ex.getMessage());
+              response.put("status", 500);
+              response.put("listPromo", null);
+          }
+
           return response;
       }
       
       @RequestMapping(method = RequestMethod.GET, value="/exp/{PromoId}")
       public Map<String, Object>  getPromoExpiration(@PathVariable("PromoId") String promoId){
-          Promo myPromo = promoRepository.findOne(promoId);
-          Date startDate = myPromo.getStartDate();
-          Date endDate = myPromo.getEndDate();
-          Double expiration = getDaysDiff(endDate,startDate);
-    
-          
 
           Map<String, Object> response = new LinkedHashMap<String, Object>();
-          response.put("promoId", promoId );
-          response.put("expiration", expiration);
-          
+          Map<String, Object> expirationData = new LinkedHashMap<String, Object>();
+
+          try{
+              Promo myPromo = promoRepository.findOne(promoId);
+
+              if(myPromo != null){
+                  Date startDate = myPromo.getStartDate();
+                  Date endDate = myPromo.getEndDate();
+                  Double expiration = getDaysDiff(endDate,startDate);
+                  expirationData.put("promoId", promoId );
+                  expirationData.put("expiration", expiration);
+
+                  response.put("message","Expiración de la promoción");
+                  response.put("status", 200);
+                  response.put("expirationData", expirationData);
+
+              }
+              else {
+                  response.put("message","La promoción no existe");
+                  response.put("status", 404);
+                  response.put("expirationData", null);
+              }
+          }
+          catch (Exception ex){
+              response.put("message",ex.getMessage());
+              response.put("status", 500);
+              response.put("expirationData", null);
+          }
+
           return response;
       }
       
       @RequestMapping(method = RequestMethod.GET, value="/exp")
       public Map<String, Object> getAllPromoExp(){
-          List<Promo> promoModelList = promoRepository.findAll();
-          ArrayList promoExpList =     new ArrayList();
 
+          ArrayList promoExpList = new ArrayList();
+          Map<String, Object> response = new LinkedHashMap<String, Object>();
 
-          Double expiration = 0.00;
-          for(Promo myPromo:promoModelList){
-              if(myPromo.getStartDate() != null && myPromo.getEndDate()!=null){
-                  Date startDate = myPromo.getStartDate();
-                  Date endDate = myPromo.getEndDate();
-                   expiration = getDaysDiff(endDate,startDate);
+          try{
+              Double expiration = 0.00;
+              List<Promo> promoModelList = promoRepository.findAll();
+              for(Promo myPromo:promoModelList){
+                  if(myPromo.getStartDate() != null && myPromo.getEndDate()!=null){
+                      Date startDate = myPromo.getStartDate();
+                      Date endDate = myPromo.getEndDate();
+                      expiration = getDaysDiff(endDate,startDate);
                       Map<String, Object> dataExp = new LinkedHashMap<String, Object>();
                       dataExp.put("promoId", myPromo.getId());
                       dataExp.put("expiration",expiration);
-                      
-                      promoExpList.add(dataExp);
-              }
-          }
-          Map<String, Object> response = new LinkedHashMap<String, Object>();
-          response.put("PromosExp", promoExpList);
 
-          
+                      promoExpList.add(dataExp);
+                  }
+              }
+
+              response.put("message","Listado de expiración de promociones");
+              response.put("status", 200);
+              response.put("listPromo", promoExpList);
+
+          }
+          catch (Exception ex){
+
+              response.put("message", ex.getMessage());
+              response.put("status", 500);
+              response.put("listPromo", promoExpList);
+          }
 
           return response;
       }
@@ -127,39 +196,59 @@ public class PromoController {
       @RequestMapping(method = RequestMethod.PUT, value="/{PromoId}")
       public Map<String, Object> editPromo(@PathVariable("PromoId") String PromoId,
           @RequestBody Map<String, Object> promoMap){
-          
-          
-        Promo promoModel = new Promo(
-        		Boolean.valueOf(promoMap.get("enable").toString()), 
-        		promoMap.get("profile_id").toString(), 
-        		promoMap.get("code").toString(),
-        		Integer.parseInt(promoMap.get("gift_points").toString()),
-        		Integer.parseInt(promoMap.get("attempt").toString()),
-        		DateFormatter(promoMap.get("startDate").toString()), 
-        		DateFormatter(promoMap.get("endDate").toString()),
-        		promoMap.get("type").toString(),
-        		Integer.parseInt(promoMap.get("availability").toString()), 
-        		DateFormatter(promoMap.get("creationDate").toString()), 
-        		DateFormatter(promoMap.get("modifiedDate").toString()),
-        		promoMap.get("updatedby").toString(),
-        		promoMap.get("title").toString(),
-        		promoMap.get("description").toString(),
-        		Boolean.valueOf(promoMap.get("isAutomatic").toString()),
-        		promoMap.get("images").toString(), 
-        		Integer.parseInt(promoMap.get("interval").toString()));
-        
-        promoModel.setId(PromoId);
-        Map<String, Object> response = new LinkedHashMap<String, Object>();
-        response.put("message", "Promoción actualizada correctamente");
-        response.put("Promo", promoRepository.save(promoModel));
+
+          Map<String, Object> response = new HashMap<String, Object>();
+
+          try{
+              Promo promoModel = new Promo((Boolean)promoMap.get("enable"),
+                      promoMap.get("profile_id").toString(),
+                      promoMap.get("code").toString() ,
+                      Integer.parseInt(promoMap.get("gift_points").toString()),
+                      Integer.parseInt(promoMap.get("attempt").toString()),
+                      DateFormatter(promoMap.get("startDate").toString()),
+                      DateFormatter(promoMap.get("endDate").toString()),
+                      promoMap.get("type").toString(),
+                      Integer.parseInt(promoMap.get("availability").toString()),
+                      DateFormatter(promoMap.get("creationDate").toString()),
+                      DateFormatter(promoMap.get("modifiedDate").toString()),
+                      promoMap.get("updatedby").toString(),
+                      promoMap.get("title").toString(),
+                      promoMap.get("description").toString(),
+                      (Boolean)promoMap.get("isAutomatic"),
+                      promoMap.get("images").toString(),
+                      Integer.parseInt(promoMap.get("interval").toString()));
+              promoModel.setId(PromoId);
+
+              response.put("message", "Promoción actualizada correctamente");
+              response.put("promo", promoModel);
+              response.put("status", 200);
+
+          }
+          catch (Exception ex){
+
+              response.put("message", ex.getMessage());
+              response.put("promo", null);
+              response.put("status", 500);
+          }
+
         return response;
       }
     
       @RequestMapping(method = RequestMethod.DELETE, value="/{PromoId}")
-      public Map<String, String> deletePromo(@PathVariable("PromoId") String promoId){
-        promoRepository.delete(promoId);
-        Map<String, String> response = new HashMap<String, String>();
-        response.put("message", "Promoción eliminada correctamente");
+      public Map<String, Object> deletePromo(@PathVariable("PromoId") String promoId){
+
+          Map<String, Object> response = new LinkedHashMap<>();
+          try{
+              promoRepository.delete(promoId);
+              response.put("message", "Promoción eliminada correctamente");
+              response.put("status", 200);
+              response.put("promo", promoId);
+          }
+          catch (Exception ex){
+              response.put("message", ex.getMessage());
+              response.put("status", 500);
+              response.put("promo", promoId);
+          }
 
         return response;
       }
@@ -175,17 +264,13 @@ public class PromoController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				
 			return finalDate;		
 		}		
 
         public  double getDaysDiff(Date date1, Date date2){
 
             NumberFormat daysFormat = new DecimalFormat("#0.00");
-
             long diff = date1.getTime() - date2.getTime();
-
-
             double diffDays = (double) (diff / (24 * 60 * 60 * 1000));
             double result = Double.valueOf((String.valueOf(daysFormat.format(diffDays)).replace(',', '.').toString()));
 
