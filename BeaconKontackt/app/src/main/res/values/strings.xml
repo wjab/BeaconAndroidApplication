@@ -152,9 +152,6 @@
     <string name="login_userlocal">userlocal</string>
     <string name="login_facebook">facebook</string>
     <string name="getProfilePictureFaceBook">http://graph.facebook.com/v2.6/%s/picture?width=130</string>
-    <string name="title_activity_profile_activity">profile_activity</string>
-    <string name="title_activity_activity_profile">activity_profile</string>
-    <string name="gender">Sexo</string>
 
 
 </resources>

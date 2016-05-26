@@ -22,6 +22,7 @@ import com.kontakt.sdk.android.http.KontaktApiClient;
 
 import java.util.UUID;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import dialog.ChoiceDialogFragment;
