@@ -83,6 +83,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private CharSequence mpoints;
     private CharSequence mTitle;
     private String imageUrl;
+    private String idUser;
 
     public Adaptador_Promo adapter;
     public ListView llistviewPromo;
@@ -133,6 +134,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";
+        idUser = preferences.getString("userId","");
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),  mpoints);
 
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -416,6 +418,14 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             {
                 logOut();
             }
+            if(mPlanetTitles.get(position-1).getElemento().equals("Perfil"))
+            {
+                Intent intent= new Intent(getApplicationContext(),Activity_profile.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
+
+            }
+
         }
     }
     @Override
