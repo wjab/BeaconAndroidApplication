@@ -96,7 +96,8 @@
                 android:layout_alignEnd="@+id/etiquetaPuntos"/>
 
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/deseos_button"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_horizontal"

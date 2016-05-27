@@ -2,6 +2,7 @@
     <string name="app_name">QuickShop</string>
     <!--<string name="app_name">BeaconAppFacebook</string>-->
     <string name="facebook_app_id">479104362292883</string>
+    <string name="projectPackage">proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

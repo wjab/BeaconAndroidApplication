@@ -63,21 +63,19 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
     ImageButton userButton;
     SharedPreferences prefs;
     NonStaticUtils nonStaticUtils;
-    Collection<String> arraysPreferences = new ArrayList<String>(Arrays.asList("email",
-            "user_photos", "public_profile", "user_friends"));
-    /*,"user_birthday", "user_tagged_places", "user_tagged_places"*/
+    Collection<String> arraysPreferences = new ArrayList<String>(Arrays.asList("email", "user_photos", "public_profile", "user_friends"));
 
     Gson gson = new Gson();
     Type stringStringMap = new TypeToken<Map<String, Object>>(){}.getType();
     Map<String,Object> map;
-
 
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -91,7 +89,6 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         loginButtonFace = (LoginButton) findViewById(R.id.login_button_facebook);
         loginButtonFace.setReadPermissions((ArrayList<String>)arraysPreferences);
 
-
         nonStaticUtils =  new NonStaticUtils();
         responseError = this;
         response = this;
@@ -101,9 +98,11 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         loginImage = (ImageView)findViewById(R.id.loginImage);
 
         userButton = (ImageButton)findViewById(R.id.user_icon);
-        userButton.setOnClickListener(new View.OnClickListener() {
+        userButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
                 startActivity(intent);
 
@@ -111,40 +110,45 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         });
 
         /* Gets aplication hash*/
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
+        try
+        {
+            PackageInfo info = getPackageManager().getPackageInfo(getString(R.string.projectPackage), PackageManager.GET_SIGNATURES);
+
+            for (Signature signature : info.signatures)
+            {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         }
-        catch (PackageManager.NameNotFoundException e) {
-        }
-        catch (NoSuchAlgorithmException e) {
-        }
+        catch (PackageManager.NameNotFoundException e)
+        { }
+        catch (NoSuchAlgorithmException e)
+        { }
 
-        facebookLogin.setOnClickListener(new View.OnClickListener() {
+        facebookLogin.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 onFblogin();
             }
         });
 
-        loginButtonFace.setOnClickListener(new View.OnClickListener() {
+        loginButtonFace.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 onFblogin();
             }
         });
 
-        accessTokenTracker = new AccessTokenTracker() {
+        accessTokenTracker = new AccessTokenTracker()
+        {
             @Override
-            protected void onCurrentAccessTokenChanged(
-                    AccessToken oldAccessToken,
-                    AccessToken currentAccessToken) {
+            protected void onCurrentAccessTokenChanged( AccessToken oldAccessToken, AccessToken currentAccessToken)
+            {
                 // Set the access token using
                 // currentAccessToken when it's loaded or set.
             }
@@ -156,12 +160,15 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
 
     private Boolean exit = false;
     @Override
-    public void onBackPressed() {
-        if (exit) {
+    public void onBackPressed()
+    {
+        if (exit)
+        {
             moveTaskToBack(true);
-        } else {
-            Toast.makeText(this, "Press Back again to Exit.",
-                    Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
             exit = true;
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -169,9 +176,7 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
                     exit = false;
                 }
             }, 3 * 1000);
-
         }
-
     }
 
     @Override

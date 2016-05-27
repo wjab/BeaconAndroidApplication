@@ -47,9 +47,6 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity__principal);
 
-
-
-
         Intent intentService = new Intent(this, BackgroundScanService.class);
         startService(intentService);
 

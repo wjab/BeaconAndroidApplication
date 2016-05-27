@@ -118,7 +118,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.background_scan_activity);
 
         nonStaticUtils = new NonStaticUtils();
