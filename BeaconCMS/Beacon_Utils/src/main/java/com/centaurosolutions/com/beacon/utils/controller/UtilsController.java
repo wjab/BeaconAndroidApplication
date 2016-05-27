@@ -214,10 +214,10 @@ public class UtilsController
 			OfferHistory historyOffer = new OfferHistory();
 			String strDate =  format.format(new Date().getTime());
             Date scanDate =  format.parse(strDate);
-			historyOffer.setPromo_id(promoId);
-			historyOffer.setUser_id(userId);
-			historyOffer.setMerchant_id("");
-			historyOffer.setShopZone_id("");
+			historyOffer.setPromoId(promoId);
+			historyOffer.setUserId(userId);
+			historyOffer.setMerchantId("");
+			historyOffer.setShopZoneId("");
 			historyOffer.setScanDate(scanDate);
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();

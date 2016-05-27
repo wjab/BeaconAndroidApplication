@@ -74,7 +74,7 @@ public class OfferHistory {
 	/**
 	 * @return the user_id
 	 */
-	public String getUser_id() {
+	public String getUserId() {
 		return user_id;
 	}
 
@@ -82,7 +82,7 @@ public class OfferHistory {
 	/**
 	 * @param user_id the user_id to set
 	 */
-	public void setUser_id(String user_id) {
+	public void setUserId(String user_id) {
 		this.user_id = user_id;
 	}
 
@@ -90,7 +90,7 @@ public class OfferHistory {
 	/**
 	 * @return the merchant_id
 	 */
-	public String getMerchant_id() {
+	public String getMerchantId() {
 		return merchant_id;
 	}
 
@@ -98,7 +98,7 @@ public class OfferHistory {
 	/**
 	 * @param merchant_id the merchant_id to set
 	 */
-	public void setMerchant_id(String merchant_id) {
+	public void setMerchantId(String merchant_id) {
 		this.merchant_id = merchant_id;
 	}
 
@@ -106,7 +106,7 @@ public class OfferHistory {
 	/**
 	 * @return the shopZone_id
 	 */
-	public String getShopZone_id() {
+	public String getShopZoneId() {
 		return shopZone_id;
 	}
 
@@ -114,7 +114,7 @@ public class OfferHistory {
 	/**
 	 * @param shopZone_id the shopZone_id to set
 	 */
-	public void setShopZone_id(String shopZone_id) {
+	public void setShopZoneId(String shopZone_id) {
 		this.shopZone_id = shopZone_id;
 	}
 
@@ -171,7 +171,7 @@ public class OfferHistory {
 	/**
 	 * @return the promo_id
 	 */
-	public String getPromo_id() {
+	public String getPromoId() {
 		return promo_id;
 	}
 
@@ -180,7 +180,7 @@ public class OfferHistory {
 	/**
 	 * @param promo_id the promo_id to set
 	 */
-	public void setPromo_id(String promo_id) {
+	public void setPromoId(String promo_id) {
 		this.promo_id = promo_id;
 	}
 
