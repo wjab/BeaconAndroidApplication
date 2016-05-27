@@ -43,7 +43,6 @@ public class UtilsController
 		Promo promoObject  = null;
 		PromoResponse promoResponse = null;
 		RestTemplate restTemplate = new RestTemplate();
-
 		
 		try
 		{
@@ -54,8 +53,7 @@ public class UtilsController
 							customMap.get("promoId")),
 					OfferHistoryAttemptResponse.class);
 
-			promoResponse = restTemplate.getForObject(
-					urlPromo + "" + customMap.get("promoId").toString(), PromoResponse.class);
+			promoResponse = restTemplate.getForObject( urlPromo + "" + customMap.get("promoId").toString(), PromoResponse.class);
 			
 			if(promoResponse.getStatus() == 200 && offerHistoryAttemptResponse.getStatus() == 200 )
 			{

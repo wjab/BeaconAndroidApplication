@@ -64,7 +64,8 @@ public class Promo {
 	 */
 	public Promo(boolean enable, String profile_id, String code, int gift_points, int attempt, Date startDate,
 			Date endDate, String type, int availability, Date creationDate, Date modifiedDate, String updatedby, String title,
-			String description, Boolean isAutomatic, String image, int interval) {
+			String description, Boolean isAutomatic, String image, int interval) 
+	{
 		super();
 		this.enable = enable;
 		this.profile_id = profile_id;
@@ -85,294 +86,261 @@ public class Promo {
 		this.interval = interval;
 	}
 
-
-
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public String getId() 
+	{
 		return id;
 	}
-
-
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(String id) 
+	{
 		this.id = id;
 	}
-
-
-
+	
 	/**
 	 * @return the enable
 	 */
-	public boolean isEnable() {
+	public boolean isEnable() 
+	{
 		return enable;
 	}
-
-
 
 	/**
 	 * @param enable the enable to set
 	 */
-	public void setEnable(boolean enable) {
+	public void setEnable(boolean enable) 
+	{
 		this.enable = enable;
 	}
-
-
 
 	/**
 	 * @return the profile_id
 	 */
-	public String getProfile_id() {
+	public String getProfile_id() 
+	{
 		return profile_id;
 	}
-
-
 
 	/**
 	 * @param profile_id the profile_id to set
 	 */
-	public void setProfile_id(String profile_id) {
+	public void setProfile_id(String profile_id) 
+	{
 		this.profile_id = profile_id;
 	}
-
-
 
 	/**
 	 * @return the code
 	 */
-	public String getCode() {
+	public String getCode() 
+	{
 		return code;
 	}
-
-
 
 	/**
 	 * @param code the code to set
 	 */
-	public void setCode(String code) {
+	public void setCode(String code) 
+	{
 		this.code = code;
 	}
-
-
 
 	/**
 	 * @return the gift_points
 	 */
-	public int getGift_points() {
+	public int getGift_points() 
+	{
 		return gift_points;
 	}
-
-
 
 	/**
 	 * @param gift_points the gift_points to set
 	 */
-	public void setGift_points(int gift_points) {
+	public void setGift_points(int gift_points) 
+	{
 		this.gift_points = gift_points;
 	}
-
-
 
 	/**
 	 * @return the attempt
 	 */
-	public int getAttempt() {
+	public int getAttempt() 
+	{
 		return attempt;
 	}
-
-
 
 	/**
 	 * @param attempt the attempt to set
 	 */
-	public void setAttempt(int attempt) {
+	public void setAttempt(int attempt) 
+	{
 		this.attempt = attempt;
 	}
 	
-
 	/**
 	 * @return the title
 	 */
-	public String getTitle() {
+	public String getTitle() 
+	{
 		return title;
 	}
-
-
 
 	/**
 	 * @param title the title to set
 	 */
-	public void setTitle(String title) {
+	public void setTitle(String title) 
+	{
 		this.title = title;
 	}
-
-
 
 	/**
 	 * @return the startDate
 	 */
-	public Date getStartDate() {
+	public Date getStartDate() 
+	{
 		return startDate;
 	}
-
-
 
 	/**
 	 * @param startDate the startDate to set
 	 */
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Date startDate) 
+	{
 		this.startDate = startDate;
 	}
-
-
 
 	/**
 	 * @return the endDate
 	 */
-	public Date getEndDate() {
+	public Date getEndDate() 
+	{
 		return endDate;
 	}
-
-
 
 	/**
 	 * @param endDate the endDate to set
 	 */
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Date endDate) 
+	{
 		this.endDate = endDate;
 	}
-
-
-
+	
 	/**
 	 * @return the type
 	 */
-	public String getType() {
+	public String getType() 
+	{
 		return type;
 	}
-
-
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(String type) {
+	public void setType(String type) 
+	{
 		this.type = type;
 	}
-
-
 
 	/**
 	 * @return the availability
 	 */
-	public int getAvailability() {
+	public int getAvailability() 
+	{
 		return availability;
 	}
-
-
 
 	/**
 	 * @param availability the availability to set
 	 */
-	public void setAvailability(int availability) {
+	public void setAvailability(int availability) 
+	{
 		this.availability = availability;
 	}
-
-
 
 	/**
 	 * @return the creationDate
 	 */
-	public Date getCreationDate() {
+	public Date getCreationDate() 
+	{
 		return creationDate;
 	}
-
-
 
 	/**
 	 * @param creationDate the creationDate to set
 	 */
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Date creationDate) 
+	{
 		this.creationDate = creationDate;
 	}
-
-
 
 	/**
 	 * @return the modifiedDate
 	 */
-	public Date getModifiedDate() {
+	public Date getModifiedDate() 
+	{
 		return modifiedDate;
 	}
-
-
 
 	/**
 	 * @param modifiedDate the modifiedDate to set
 	 */
-	public void setModifiedDate(Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) 
+	{
 		this.modifiedDate = modifiedDate;
 	}
-
-
 
 	/**
 	 * @return the updatedby
 	 */
-	public String getUpdatedby() {
+	public String getUpdatedby() 
+	{
 		return updatedby;
 	}
-
-
 
 	/**
 	 * @param updatedby the updatedby to set
 	 */
-	public void setUpdatedby(String updatedby) {
+	public void setUpdatedby(String updatedby) 
+	{
 		this.updatedby = updatedby;
 	}
-
-
 
 	/**
 	 * @return the description
 	 */
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return description;
 	}
-
-
 
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(String description) {
+	public void setDescription(String description) 
+	{
 		this.description = description;
 	}
-
-
 
 	/**
 	 * @return the isAutomatic
 	 */
-	public Boolean getIsAutomatic() {
+	public Boolean getIsAutomatic() 
+	{
 		return isAutomatic;
 	}
-
-
 
 	/**
 	 * @param isAutomatic the isAutomatic to set
 	 */
-	public void setIsAutomatic(Boolean isAutomatic) {
+	public void setIsAutomatic(Boolean isAutomatic) 
+	{
 		this.isAutomatic = isAutomatic;
 	}
-
-
 
 	/**
 	 * @return the images
@@ -386,10 +354,10 @@ public class Promo {
 	/**
 	 * @param images the images to set
 	 */
-	public void setImages(String image) {
+	public void setImages(String image) 
+	{
 		this.image = image;
 	}
-
 
 	/**
 	 * @return the interval
@@ -402,17 +370,8 @@ public class Promo {
 	/**
 	 * @param interval the interval to set
 	 */
-	public void setInterval(int interval) {
+	public void setInterval(int interval) 
+	{
 		this.interval = interval;
 	}
-	
-	
-	
-	
-	
-
-
-	
-
-
 }
