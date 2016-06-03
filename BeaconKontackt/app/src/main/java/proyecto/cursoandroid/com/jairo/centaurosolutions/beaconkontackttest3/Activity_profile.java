@@ -1,5 +1,7 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +47,10 @@ public class Activity_profile extends AppCompatActivity implements Response.List
     EditText edit_Email;
     EditText edit_Phone;
     EditText edit_User;
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private Button dateView;
+    private int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +66,98 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         edit_Email = (EditText) findViewById(R.id.email);
         edit_Phone = (EditText) findViewById(R.id.phone);
         edit_User = (EditText) findViewById(R.id.user);
+        dateView = (Button) findViewById(R.id.buttonbirthday);
+        dateView.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onClick(View v) {
+                showDialog(999);
+                Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT)
+                        .show();
+
+            }
+        });
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //showDate(year, month+1, day);
         sendUserRequestById(id_user);
 
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            // TODO Auto-generated method stub
+            // arg1 = year
+            // arg2 = month
+            // arg3 = day
+            StringBuilder stringdate=formatDate(year,month,day);
+            showDate(stringdate);
+        }
+    };
+
+    private void showDate(StringBuilder stringdate) {
+        dateView.setText(stringdate);
+    }
+
+    private StringBuilder formatDate(int year, int month, int day) {
+        String String_Month="";
+        switch (month){
+            case 1 : {
+                String_Month="Enero";
+            }
+            case 2 : {
+                String_Month="Febrero";
+            }
+            case 3 : {
+                String_Month="Marzo";
+            }
+            case 4 : {
+                String_Month="Abril";
+            }
+            case 5 : {
+                String_Month="Mayo";
+            }
+            case 6 : {
+                String_Month="Junio";
+            }
+            case 7 : {
+                String_Month="Julio";
+            }
+            case 8 : {
+                String_Month="Agosto";
+            }
+            case 9 : {
+                String_Month="Setiembre";
+            }
+            case 10 : {
+                String_Month="Octubre";
+            }
+            case 11 : {
+                String_Month="Noviembre";
+            }
+            case 12 : {
+                String_Month="Diciembre";
+            }
+        }
+        StringBuilder Date_Formated = new StringBuilder().append(day).append(" de ").append(String_Month).append(" de ").append(year);
+        return Date_Formated;
+    }
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+
+    }
     public void sendUserRequestById(String id_user) {
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User) + "user/id/" + id_user;
