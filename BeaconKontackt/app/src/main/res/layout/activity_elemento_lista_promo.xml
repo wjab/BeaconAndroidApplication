@@ -59,16 +59,13 @@
             android:textColor="@color/white"
             android:gravity="center_vertical|center"
             android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
             android:id="@+id/Puntos_promo"
             android:textIsSelectable="false"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="18dp"
             android:layout_alignTop="@+id/etiquetaPuntos"
             android:layout_alignStart="@+id/etiquetaPuntos"
             android:layout_alignBottom="@+id/etiquetaPuntos"
             android:layout_alignEnd="@+id/etiquetaPuntos"/>
-
-
-
-
 </RelativeLayout>
 
