@@ -1,5 +1,6 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -65,10 +66,19 @@ private View rootView;
     });
     TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
     pointsAction.setText(mpoints + " pts");
+    pointsAction.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            openHistory();
+        }
+    });
     shopProductService();
     return;
     }
-
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
 

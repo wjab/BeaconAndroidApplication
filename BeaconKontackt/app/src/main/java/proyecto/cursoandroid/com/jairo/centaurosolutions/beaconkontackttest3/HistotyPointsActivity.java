@@ -77,7 +77,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                JSONObject currRange = ranges.getJSONObject(i);
 
            History historyElement = new History();
-            historyElement.setPromo_id(currRange.getString("promo_id"));
+           historyElement.setPromo_id(currRange.getString("promo_id"));
                 //historyElement.setScanDate(currRange.getString("price"));
             historyElement.setShopZone_id("shopZone_id");
             //historyElement.setPrice(1000);
