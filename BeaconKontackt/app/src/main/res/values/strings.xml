@@ -150,6 +150,7 @@
     <string name="title_activity_pull_notifications">PullNotificationsActivity</string>
     <string name="title_activity_login__options">Login_Options</string>
     <string name="totalPointsLabel">Total %s pts</string>
+    <string name="save">Guardar</string>
 
 
     <!-- Aca van los strings que son constantes y que se utilizan dentro del codigo para poder hacer comparaciones -->

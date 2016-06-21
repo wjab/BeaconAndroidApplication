@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -13,8 +10,6 @@
     android:orientation="vertical"
     android:gravity="center"
     android:paddingBottom="@dimen/activity_vertical_margin"
-
-
     android:background="@color/fondo"
     tools:context="proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.UserRegister">
 
@@ -23,8 +18,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center" >
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -35,14 +28,6 @@
         android:orientation="vertical"
         android:gravity="center"
         >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/name"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white"
-            />
         <EditText
             android:id="@+id/name"
             android:layout_width="fill_parent"
@@ -56,13 +41,6 @@
             android:textColorHint="@color/LigthBluehint"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/lastname"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white" />
         <EditText
             android:id="@+id/lastname"
             android:layout_width="fill_parent"
@@ -77,12 +55,6 @@
             android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/email"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white" />
         <EditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
@@ -98,19 +70,13 @@
             android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/gender"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white" />
+
         <RadioGroup
             android:id="@+id/radioGrp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-
             >
             <RadioButton
                 android:id="@+id/radioM"
@@ -128,9 +94,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/male"/>
-
-
-
             <RadioButton
                 android:id="@+id/radioF"
                 android:layout_width="wrap_content"
@@ -147,12 +110,7 @@
                 android:layout_height="45dp"
                 android:src="@drawable/female"/>
         </RadioGroup>
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/birthday"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white" />
+
         <Button
             android:id="@+id/buttonbirthday"
             android:layout_width="fill_parent"
@@ -167,13 +125,7 @@
             android:hint="@string/user"
             android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="5dp"
-            android:text="@string/birthdaynotset" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/phone"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white" />
+            android:text="@string/birthday" />
         <EditText
             android:id="@+id/phone"
             android:layout_width="fill_parent"
@@ -189,12 +141,6 @@
             android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:text="@string/user"
-            android:textSize="20dp"
-            android:layout_height="25dp"
-            android:textColor="@color/white" />
         <EditText
             android:id="@+id/user"
             android:layout_width="fill_parent"
@@ -210,13 +156,6 @@
             android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
-
-
-
-
-
-
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -229,7 +168,7 @@
         <Button
             android:id="@+id/register"
             android:gravity="center"
-            android:text="Registrar"
+            android:text="@string/save"
             android:textSize="17dp"
             android:textColor="@color/white"
             android:background="@drawable/button_rounded"
@@ -241,4 +180,3 @@
     </LinearLayout>
 
 </LinearLayout>
-</ScrollView>

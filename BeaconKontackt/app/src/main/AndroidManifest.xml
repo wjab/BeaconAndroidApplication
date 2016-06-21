@@ -113,7 +113,7 @@
         <activity
             android:name=".Activity_profile"
             android:label="@string/title_activity_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            ></activity>
     </application>
 
 </manifest>
