@@ -253,7 +253,7 @@ public class LoginMainActivity extends Activity implements Response.Listener<JSO
 
                         isAuthenticated = true;
                         nonStaticUtils.saveLogin(this,response.getString("user"), response.getString("password"), response.getString("id"), response.getInt("total_gift_points"), isAuthenticated);
-                        Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),BackgroundScanActivity.class);
                         startActivity(intent);
 
                     } else {

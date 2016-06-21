@@ -59,7 +59,7 @@ public class Detail_Promo extends AppCompatActivity {
             }
             });
             */
-      
+
         TextView pointsAction= (TextView) findViewById(R.id.userPointsAction);
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override

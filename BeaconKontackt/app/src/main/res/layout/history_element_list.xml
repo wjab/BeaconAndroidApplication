@@ -3,8 +3,8 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -13,7 +13,7 @@
         />
     <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="170dp"
+        android:layout_height="120dp"
         android:scaleType="fitXY"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -35,34 +35,7 @@
         android:id="@+id/name"
         android:layout_alignBottom="@+id/store_image"
         android:layout_alignStart="@+id/store_image" />
-    <TextView
-        android:text="2 km"
-        android:textSize="15dp"
-        android:paddingBottom="16dp"
-        android:lines="3"
-        android:ellipsize="end"
-        android:textColor="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_marginRight="20dp"
-        android:gravity="right|bottom"
-        android:layout_height="wrap_content"
-        android:id="@+id/distance"
-        android:layout_alignBottom="@+id/store_image"
-        android:layout_alignStart="@+id/store_image" />
-    <TextView
-        android:text="@string/address"
-        android:textSize="15dp"
-        android:paddingBottom="-7dp"
-        android:lines="3"
-        android:ellipsize="end"
-        android:textColor="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_marginRight="20dp"
-        android:gravity="right|bottom"
-        android:layout_height="wrap_content"
-        android:id="@+id/address"
-        android:layout_alignBottom="@+id/store_image"
-        android:layout_alignStart="@+id/store_image" />
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"

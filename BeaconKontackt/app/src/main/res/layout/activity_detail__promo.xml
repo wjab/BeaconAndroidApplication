@@ -86,6 +86,7 @@
                 android:gravity="center_vertical|center"
                 android:layout_height="wrap_content"
                 android:id="@+id/Puntos_promo_Detail"
+                android:layout_marginTop="38dp"
                 android:textIsSelectable="false"
                 android:layout_marginLeft="15dp"
                 android:layout_alignTop="@+id/etiquetaPuntos"
