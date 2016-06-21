@@ -52,6 +52,12 @@ public class PromoDetailActivity extends AppCompatActivity {
         */
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(mpoints + " pts");
+        pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHistory();
+            }
+        });
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
         Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
@@ -78,7 +84,10 @@ public class PromoDetailActivity extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
-
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

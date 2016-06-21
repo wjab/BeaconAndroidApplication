@@ -3,8 +3,10 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,13 +33,26 @@ public CustomAdapterProductStore adapter;
 public ListView listviewShopProduct;
 public ArrayList<ProductStore> listStoreProductArray;
 private View rootView;
+    String mpoints;
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_products_store);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+            R.layout.action_bar_layout,
+            null);
+
+    mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
+
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayShowHomeEnabled(false);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    getSupportActionBar().setDisplayShowCustomEnabled(true);
+    getSupportActionBar().setCustomView(actionBarLayout);
     listviewShopProduct= (ListView)findViewById(R.id.listviewStoresProducts);
+
     listviewShopProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,6 +63,8 @@ private View rootView;
             //startActivity(intentSuccess);
         }
     });
+    TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+    pointsAction.setText(mpoints + " pts");
     shopProductService();
     return;
     }
