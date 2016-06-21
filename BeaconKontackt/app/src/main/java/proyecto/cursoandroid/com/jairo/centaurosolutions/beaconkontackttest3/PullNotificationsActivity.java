@@ -55,7 +55,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(actionBarLayout);
 
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        ImageButton imageButton= (ImageButton) actionBarLayout.findViewById(R.id.back_action);
+        /*ImageButton imageButton= (ImageButton) actionBarLayout.findViewById(R.id.back_action);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +67,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        */
         pointsAction.setText(mpoints + " pts");
 
         Intent intent1= getIntent();

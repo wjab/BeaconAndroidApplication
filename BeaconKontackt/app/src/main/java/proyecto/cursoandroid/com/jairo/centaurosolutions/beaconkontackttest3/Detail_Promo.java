@@ -24,7 +24,7 @@ public class Detail_Promo extends AppCompatActivity {
 
     TextView TituloPromo ;
     TextView DescripcionPromo;
-    TextView Points;
+    TextView Points, points;
     ImageView ImagenPromo;
     String mpoints;
     ArrayList<BeaconCache> myBeaconCacheList;
@@ -34,15 +34,18 @@ public class Detail_Promo extends AppCompatActivity {
 
         setContentView(R.layout.activity_detail__promo);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-                R.layout.action_bar_promodetail,
+                R.layout.action_bar_layout,
                 null);
+
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        // ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
+       /* imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(myBeaconCacheList!=null) {
@@ -55,7 +58,15 @@ public class Detail_Promo extends AppCompatActivity {
                 //
             }
             });
-        TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+            */
+      
+        TextView pointsAction= (TextView) findViewById(R.id.userPointsAction);
+        pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHistory();
+            }
+        });
         pointsAction.setText(mpoints + " pts");
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
         Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
@@ -87,18 +98,15 @@ public class Detail_Promo extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if(myBeaconCacheList!=null){
-        Intent redirectIntent = new Intent(getApplicationContext(), PullNotificationsActivity.class);
-        redirectIntent.putExtra("promoDetail", myBeaconCacheList);
-        startActivity(redirectIntent);}else{
-            this.finish();
-        }
-      //
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        startActivity(intent);
     }
-
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

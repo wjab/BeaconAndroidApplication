@@ -31,14 +31,15 @@ public class PromoDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_promo_detail);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-                R.layout.action_bar_notification_layout,
+                R.layout.action_bar_layout,
                 null);
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
+       // getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(actionBarLayout);
-        ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
+        //getSupportActionBar().setDisplayShowCustomEnabled(true);
+        //getSupportActionBar().setCustomView(actionBarLayout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +49,7 @@ public class PromoDetailActivity extends AppCompatActivity {
 
             }
         });
+        */
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(mpoints + " pts");
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
@@ -71,7 +73,11 @@ public class PromoDetailActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
