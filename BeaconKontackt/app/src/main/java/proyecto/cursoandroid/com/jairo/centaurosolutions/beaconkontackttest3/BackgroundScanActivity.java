@@ -18,7 +18,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -62,13 +65,14 @@ import model.cache.BeaconCache;
 import model.elementMenu.ElementMenu;
 import model.promo.Promo;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapter;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 import receiver.AbstractScanBroadcastReceiver;
 import service.BackgroundScanService;
 import utils.NonStaticUtils;
 import utils.Utils;
 
-public class BackgroundScanActivity extends BaseActivity implements Response.Listener<JSONObject>, Response.ErrorListener
+public class BackgroundScanActivity extends BaseActivity
 {
     public static final String TAG = BackgroundScanActivity.class.getSimpleName();
 
@@ -81,12 +85,11 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private CharSequence mpoints;
+    private TextView points;
     private CharSequence mTitle;
     private String imageUrl;
     private String idUser;
 
-    public Adaptador_Promo adapter;
-    public ListView llistviewPromo;
     private ActionBarDrawerToggle mDrawerToggle;
     public  ArrayList<Promociones> listPromoArray;
 
@@ -113,6 +116,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
+    ViewPager  pager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -123,13 +128,21 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         serviceController = new ServiceController();
-        responseError = this;
-        response = this;
 
         // Inflate your custom layout
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.action_bar_layout, null);
-        llistviewPromo = (ListView) findViewById(R.id.listviewPromo);
+        pager= (ViewPager) findViewById(R.id.view_pager);
+        tabLayout= (TabLayout) findViewById(R.id.tab_layout);
 
+        FragmentManager manager=getSupportFragmentManager();
+        PagerAdapter adapter=new PagerAdapter(manager);
+        pager.setAdapter(adapter);
+
+        tabLayout.setupWithViewPager(pager);
+        // mTabLayout.setupWithViewPager(mPager1);
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setTabsFromPagerAdapter(adapter);
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";
@@ -143,21 +156,16 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
 
         pointsAction.setText(userAcumulatedPoints);
+        //imagen facebook
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
-        llistviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+
+        pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Promociones promo = new Promociones();
-                promo = listPromoArray.get(position);
-                Intent intentSuccess = new Intent(getApplicationContext(), Detail_Promo.class);
-                intentSuccess.putExtra("Detail", promo);
-                startActivity(intentSuccess);
+            public void onClick(View view) {
+                openHistory();
             }
         });
-
         NavIcons = getResources().obtainTypedArray(R.array.navigation_iconos);
         //Tomamos listado  de titulos desde el string-array de los recursos @string/nav_options
         titulos = getResources().getStringArray(R.array.nav_options);
@@ -241,10 +249,13 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         serviceConnection = createServiceConnection();
 
         bindServiceAndStartMonitoring();
-        promoService();
+
     }
 
-
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        startActivity(intent);
+    }
     public void logOut()
     {
         SharedPreferences prefs;
@@ -427,56 +438,5 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
         }
     }
-    @Override
-    public void onResponse(JSONObject response)
-    {
-        try
-        {
-            listPromoArray = new ArrayList<Promociones>();
-            Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("Promo");
-            String range = "";
-            String message = "";
-            String messageType = "";
-            String promo = "";
 
-            for(int i=0; i < ranges.length(); i++ )
-            {
-                JSONObject currRange = ranges.getJSONObject(i);
-                Promociones promoelement = new Promociones();
-                promoelement.setTitulo(currRange.getString("title"));
-                promoelement.setDescripcion(currRange.getString("description"));
-                promoelement.setPuntos(currRange.getInt("gift_points"));promoelement.setUrlImagen(currRange.getString("images"));
-
-                listPromoArray.add(promoelement);
-            }
-
-            adapter=new Adaptador_Promo(this, listPromoArray);
-            llistviewPromo.setAdapter(adapter);
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onErrorResponse(VolleyError error)
-    {
-        Log.d("Login Error", error.toString());
-    }
-
-    public void promoService()
-    {
-            serviceController = new ServiceController();
-            responseError = this;
-            response = this;
-
-            Map<String, String> nullMap = new HashMap<String, String>();
-
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("Content-Type", "application/json");
-            String url = getString(R.string.WebService_Promo)+"promo/";
-            serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-    }
 }

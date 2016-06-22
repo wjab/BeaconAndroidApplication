@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PromoFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/listviewPromo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="15dp"
+            android:layout_marginTop="15dp"
+
+            android:divider="@android:color/transparent"
+            android:background="@android:color/transparent"/>
+    </LinearLayout> <!-- The navigation drawer -->
+
+</RelativeLayout>
