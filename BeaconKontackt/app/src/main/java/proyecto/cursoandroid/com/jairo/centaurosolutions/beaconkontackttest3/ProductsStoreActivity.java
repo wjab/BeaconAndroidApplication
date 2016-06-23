@@ -65,7 +65,7 @@ private View rootView;
         }
     });
     TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-    pointsAction.setText(mpoints + " pts");
+    pointsAction.setText("Total "+mpoints + " pts");
     pointsAction.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {

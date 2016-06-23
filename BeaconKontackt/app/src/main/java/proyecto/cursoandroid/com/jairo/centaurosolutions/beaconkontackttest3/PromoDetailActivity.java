@@ -49,7 +49,7 @@ public class PromoDetailActivity extends AppCompatActivity {
             }
         });
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        pointsAction.setText(mpoints + " pts");
+        pointsAction.setText("Total "+mpoints + " pts");
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
         Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
