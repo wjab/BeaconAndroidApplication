@@ -455,6 +455,14 @@ public class BackgroundScanActivity extends BaseActivity
                 startActivity(intent);
 
             }
+            if(mPlanetTitles.get(position-1).getElemento().equals("Invitar"))
+            {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about quickshop? http://link_quickshop_app.com");
+
+                startActivity(Intent.createChooser(intent, "Share with"));
+            }
 
         }
     }

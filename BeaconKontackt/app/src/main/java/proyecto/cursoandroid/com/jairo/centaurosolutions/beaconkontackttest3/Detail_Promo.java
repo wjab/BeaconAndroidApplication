@@ -53,14 +53,14 @@ public class Detail_Promo extends AppCompatActivity
 
 
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        pointsAction.setText("Total "+mpoints + " pts");
+        pointsAction.setText("Total " + mpoints + " pts");
 
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
         Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
         DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         intent = getIntent();
-
+        ImagenPromo= (ImageView) findViewById(R.id.Imagen_Promo_Detail);
 
         Promociones promo = (Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
@@ -68,6 +68,19 @@ public class Detail_Promo extends AppCompatActivity
         TituloPromo.setText(promo.getTitulo());
         DescripcionPromo.setText(promo.getDescripcion());
         imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0, 0);
+        final String description= DescripcionPromo.getText().toString()+" "+promo.getUrlImagen();
+        final String image=promo.getUrlImagen();
+        ImagenPromo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, description);
+
+                startActivity(Intent.createChooser(intent, "Share with"));
+
+            }
+        });
 
         myBeaconCacheList = (ArrayList<BeaconCache>)intent.getSerializableExtra("promoDetail");
 
