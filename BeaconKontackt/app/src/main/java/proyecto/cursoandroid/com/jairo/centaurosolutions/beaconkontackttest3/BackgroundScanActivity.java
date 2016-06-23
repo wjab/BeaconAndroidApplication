@@ -11,6 +11,9 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +24,7 @@ import android.os.RemoteException;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -44,6 +48,7 @@ import com.google.gson.reflect.TypeToken;
 import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -104,7 +109,7 @@ public class BackgroundScanActivity extends BaseActivity
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
     private String url, userAcumulatedPoints;
-    CircleImageView profileImage;
+    CircleImageView profileImage, imageNavigation;
     TextView textUserName, userTotalPoints;
 
     @InjectView(R.id.toolbar)
@@ -146,7 +151,7 @@ public class BackgroundScanActivity extends BaseActivity
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";
-        idUser = preferences.getString("userId","");
+        idUser = preferences.getString("userId", "");
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),  mpoints);
 
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -156,9 +161,8 @@ public class BackgroundScanActivity extends BaseActivity
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
 
         pointsAction.setText(userAcumulatedPoints);
-        //imagen facebook
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +170,8 @@ public class BackgroundScanActivity extends BaseActivity
                 openHistory();
             }
         });
+
+
         NavIcons = getResources().obtainTypedArray(R.array.navigation_iconos);
         //Tomamos listado  de titulos desde el string-array de los recursos @string/nav_options
         titulos = getResources().getStringArray(R.array.nav_options);
@@ -193,7 +199,6 @@ public class BackgroundScanActivity extends BaseActivity
 
         //Declaramos el header el caul sera el layout de header.xml
         View header = getLayoutInflater().inflate(R.layout.header_menu, null);
-
         textUserName = ((TextView) header.findViewById(R.id.usernameheader));
         textUserName.setText(mTitle);
 
@@ -201,12 +206,15 @@ public class BackgroundScanActivity extends BaseActivity
         userTotalPoints.setText( userAcumulatedPoints);
 
         profileImage = ((CircleImageView) header.findViewById(R.id.profile_image));
+        imageNavigation=((CircleImageView) findViewById(R.id.imageprofile_navigation));
 
         if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
         {
             url = getString(R.string.getProfilePictureFaceBook);
             url = String.format(url, preferences.getString("socialNetworkId", ""));
             Picasso.with(this).load(url).into(profileImage);
+            Picasso.with(this).load(url).into(imageNavigation);
+
         }
 
         mDrawerList.addHeaderView(header);
@@ -240,9 +248,20 @@ public class BackgroundScanActivity extends BaseActivity
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        imageNavigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+                else {
+                    mDrawerLayout.openDrawer(mDrawerList);
+                }
+            }
+        });
        //  setUpActionBar(toolbar);
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
