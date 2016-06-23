@@ -39,7 +39,7 @@ public class Detail_Promo extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail__promo);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -50,25 +50,7 @@ public class Detail_Promo extends AppCompatActivity
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
 
-        imageButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(myBeaconCacheList != null)
-                {
-                    Intent redirectIntent = new Intent(getApplicationContext(), PullNotificationsActivity.class);
-                    redirectIntent.putExtra("promoDetail", myBeaconCacheList);
-                    startActivity(redirectIntent);
-                }
-                else
-                {
-                    finish();
-                }
-            }
-        });
 
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(mpoints + " pts");
@@ -105,7 +87,11 @@ public class Detail_Promo extends AppCompatActivity
             }
         }
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
     @Override
     public void onBackPressed()
     {

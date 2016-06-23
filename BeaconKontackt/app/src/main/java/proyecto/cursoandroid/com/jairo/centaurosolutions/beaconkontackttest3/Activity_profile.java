@@ -58,22 +58,16 @@ public class Activity_profile extends AppCompatActivity implements Response.List
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-                R.layout.action_bar_promodetail,
-                null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(actionBarLayout);
-        ImageButton imageButton = (ImageButton) actionBarLayout.findViewById(R.id.back_action);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        //getSupportActionBar().setCustomView(actionBarLayout);
+
         Intent intent1 = getIntent();
         id_user = intent1.getStringExtra("idUser");
+
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -122,7 +116,11 @@ public class Activity_profile extends AppCompatActivity implements Response.List
             showDate(stringdate);
         }
     };
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
     private void showDate(StringBuilder stringdate) {
         dateView.setText(stringdate);
     }

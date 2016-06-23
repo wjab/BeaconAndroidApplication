@@ -42,7 +42,7 @@ private View rootView;
     setContentView(R.layout.activity_products_store);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-            R.layout.action_bar_layout,
+            R.layout.action_bar_promodetail,
             null);
 
     mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";

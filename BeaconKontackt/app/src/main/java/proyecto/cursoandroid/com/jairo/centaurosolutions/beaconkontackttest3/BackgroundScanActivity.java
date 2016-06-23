@@ -250,7 +250,9 @@ public class BackgroundScanActivity extends BaseActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
+        serviceConnection = createServiceConnection();
 
+        bindServiceAndStartMonitoring();
         imageNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -265,9 +267,7 @@ public class BackgroundScanActivity extends BaseActivity
        //  setUpActionBar(toolbar);
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
-        serviceConnection = createServiceConnection();
 
-        bindServiceAndStartMonitoring();
 
     }
 
@@ -449,7 +449,7 @@ public class BackgroundScanActivity extends BaseActivity
             }
             if(mPlanetTitles.get(position-1).getElemento().equals("Perfil"))
             {
-                Intent intent= new Intent(getApplicationContext(),Activity_profile.class);
+                Intent intent= new Intent(getBaseContext(),Activity_profile.class);
                 intent.putExtra("idUser",idUser);
                 startActivity(intent);
 

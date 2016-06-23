@@ -4,28 +4,23 @@
     android:layout_height="50dp"
     >
 
-    <ImageButton
-         android:id="@+id/back_action"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_centerInParent="true"
-         android:layout_alignParentLeft="true"
-         android:gravity="left"
-        android:src="@drawable/ic_back"
-         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="@android:color/transparent"
-         />
     <TextView
         android:id="@+id/userPointsAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
-        />
+        android:layout_alignBottom="@+id/button"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="32dp"
+        android:layout_height="32dp"
 
+        android:background="@drawable/ic_deseos"
+
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button" />
 
 </RelativeLayout>
 
