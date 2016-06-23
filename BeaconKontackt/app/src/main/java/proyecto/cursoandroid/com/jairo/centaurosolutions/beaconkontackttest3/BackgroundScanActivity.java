@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -144,10 +145,10 @@ public class BackgroundScanActivity extends BaseActivity
         pager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(pager);
-        // mTabLayout.setupWithViewPager(mPager1);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
         tabLayout.setTabsFromPagerAdapter(adapter);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
+
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";

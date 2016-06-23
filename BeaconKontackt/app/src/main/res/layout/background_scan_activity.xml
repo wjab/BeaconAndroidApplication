@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             app:tabSelectedTextColor="#ffffff"
-
             >
 
         </android.support.design.widget.TabLayout>
@@ -35,7 +34,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
-        android:divider="@color/DarkBlueBar"
-        android:dividerHeight="1dp"
+        android:divider="@null"
         android:background="@android:color/transparent"/>
 </android.support.v4.widget.DrawerLayout>

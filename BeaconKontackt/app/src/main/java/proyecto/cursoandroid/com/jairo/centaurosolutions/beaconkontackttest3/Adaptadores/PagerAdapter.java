@@ -50,7 +50,7 @@ public class PagerAdapter  extends FragmentStatePagerAdapter {
                 title="Tiendas";
                 break;
             case 2:
-                title="Products";
+                title="Productos";
                 break;
         }
 
