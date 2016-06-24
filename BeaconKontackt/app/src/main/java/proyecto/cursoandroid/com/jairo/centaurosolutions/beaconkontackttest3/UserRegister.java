@@ -31,7 +31,6 @@ import utils.Utils;
 public class UserRegister extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
 
-    private TextView username;
     private TextView password;
     private TextView name;
     private TextView email;
@@ -49,11 +48,14 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
         validator = new InputValidatorHelper();
 
 
         register = (Button)findViewById(R.id.register);
-        username = (TextView) findViewById(R.id.user);
         password = (TextView) findViewById(R.id.password);
         name = (TextView) findViewById(R.id.name);
         phone = (TextView) findViewById(R.id.phone);
@@ -74,13 +76,14 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
             }
         });
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
     public Boolean validateFields(){
         int error = 0;
-        if(!validator.isValidUsername(username.getText().toString())) {
-            username.setError("El usuario debe estar compuesto por letras y números");
-            error++;
-        }
+
         if(!validator.isValidPassword(password.getText().toString())) {
             password.setError("La longitud mínima debe ser de al menos 6 caracteres");
             error++;
@@ -111,7 +114,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         String url = getString(R.string.WebService_User) + "user";
 
         Map<String, Object> mapParams = new HashMap<>();
-        mapParams.put("user", username.getText().toString());
+        mapParams.put("user", email.getText().toString());
         mapParams.put("password", password.getText().toString());
         mapParams.put("enable", "true");
         mapParams.put("category_id", "0");
@@ -163,13 +166,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_welcome_screen, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

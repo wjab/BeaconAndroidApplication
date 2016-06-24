@@ -48,7 +48,6 @@ public class Activity_profile extends AppCompatActivity implements Response.List
     EditText edit_LastName;
     EditText edit_Email;
     EditText edit_Phone;
-    EditText edit_User;
     private DatePicker datePicker;
     private Calendar calendar;
     private Button dateView;
@@ -59,15 +58,12 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         //getSupportActionBar().setCustomView(actionBarLayout);
-
         Intent intent1 = getIntent();
         id_user = intent1.getStringExtra("idUser");
-
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -75,7 +71,6 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         edit_LastName = (EditText) findViewById(R.id.lastname);
         edit_Email = (EditText) findViewById(R.id.email);
         edit_Phone = (EditText) findViewById(R.id.phone);
-        edit_User = (EditText) findViewById(R.id.user);
         dateView = (Button) findViewById(R.id.buttonbirthday);
         dateView.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
@@ -89,12 +84,9 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         });
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        //showDate(year, month+1, day);
         sendUserRequestById(id_user);
-
     }
 
     @Override
@@ -191,7 +183,6 @@ public class Activity_profile extends AppCompatActivity implements Response.List
                 edit_LastName.setText(response.getString("lastName"));
                 edit_Email.setText(response.getString("email"));
                 edit_Phone.setText(response.getString("phone"));
-                edit_User.setText(response.getString("user"));
 
             }
         } catch (Exception e) {
