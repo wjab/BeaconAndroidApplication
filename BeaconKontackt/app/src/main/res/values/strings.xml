@@ -154,7 +154,7 @@
 
 
     <!-- Aca van los strings que son constantes y que se utilizan dentro del codigo para poder hacer comparaciones -->
-    <string name="login_userlocal">userlocal</string>
+    <string name="login_userlocal">localuser</string>
     <string name="login_facebook">facebook</string>
     <string name="getProfilePictureFaceBook">http://graph.facebook.com/v2.6/%s/picture?width=130</string>
     <string name="title_activity_profile_activity">profile_activity</string>
