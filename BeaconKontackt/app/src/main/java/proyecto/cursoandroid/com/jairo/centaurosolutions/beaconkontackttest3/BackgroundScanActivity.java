@@ -161,7 +161,7 @@ public class BackgroundScanActivity extends BaseActivity
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
 
-        pointsAction.setText(userAcumulatedPoints);
+        pointsAction.setText(mpoints.toString());
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 

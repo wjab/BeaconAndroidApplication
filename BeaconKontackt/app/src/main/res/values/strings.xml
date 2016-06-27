@@ -149,7 +149,7 @@
     <string name="WebService_VisitorHistory">http://bvisitorhistorydevel.cfapps.io/</string>
     <string name="title_activity_pull_notifications">PullNotificationsActivity</string>
     <string name="title_activity_login__options">Login_Options</string>
-    <string name="totalPointsLabel">Total %s pts</string>
+    <string name="totalPointsLabel">%s kicks</string>
     <string name="save">Guardar</string>
 
 
