@@ -30,7 +30,6 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     public CustomAdapterHistoryPoints adapter;
     public ListView listviewHistory;
     public ArrayList<History> listHistoryArray;
-    private View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

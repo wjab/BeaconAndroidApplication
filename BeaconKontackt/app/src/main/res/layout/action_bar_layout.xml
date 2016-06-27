@@ -25,6 +25,17 @@
         android:textColor="#fff"
         android:layout_alignBottom="@+id/button"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:id="@+id/open_history_points"
+        android:background="@android:drawable/ic_menu_more"
+        android:layout_alignBottom="@+id/button"
+        android:layout_toStartOf="@+id/button"
+        android:layout_marginEnd="55dp" />
+
+
     <Button
         android:layout_width="32dp"
         android:layout_height="32dp"

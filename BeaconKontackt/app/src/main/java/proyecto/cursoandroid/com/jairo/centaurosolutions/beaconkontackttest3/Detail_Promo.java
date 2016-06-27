@@ -25,8 +25,8 @@ import utils.NonStaticUtils;
 public class Detail_Promo extends AppCompatActivity
 {
     TextView TituloPromo, DescripcionPromo, Points, pointsAction;
-    ImageView ImagenPromo;
-    String mpoints;
+    ImageView ImagenPromo, open_history_points;
+    String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
     ImageButton wishes;
     Intent intent;
@@ -44,7 +44,7 @@ public class Detail_Promo extends AppCompatActivity
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         mpoints = preferences.getInt("points", 0) + "";
-
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -53,7 +53,7 @@ public class Detail_Promo extends AppCompatActivity
 
 
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        pointsAction.setText("Total " + mpoints + " pts");
+        pointsAction.setText(userAcumulatedPoints.toString());
 
         TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
         Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
@@ -61,7 +61,7 @@ public class Detail_Promo extends AppCompatActivity
         ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         intent = getIntent();
         ImagenPromo= (ImageView) findViewById(R.id.Imagen_Promo_Detail);
-
+        open_history_points=(ImageView) actionBarLayout.findViewById(R.id.open_history_points);
         Promociones promo = (Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
         Points.setText(promo.getPuntos() + " pts");
@@ -70,6 +70,20 @@ public class Detail_Promo extends AppCompatActivity
         imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0, 0);
         final String description= DescripcionPromo.getText().toString()+" "+promo.getUrlImagen();
         final String image=promo.getUrlImagen();
+
+        open_history_points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHistory();
+            }
+        });
+        pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHistory();
+            }
+        });
+
         ImagenPromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +95,7 @@ public class Detail_Promo extends AppCompatActivity
 
             }
         });
+
 
         myBeaconCacheList = (ArrayList<BeaconCache>)intent.getSerializableExtra("promoDetail");
 
@@ -119,7 +134,10 @@ public class Detail_Promo extends AppCompatActivity
             this.finish();
         }
     }
-
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {

@@ -8,11 +8,18 @@
         android:id="@+id/userPointsAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignBottom="@+id/open_history_points"
         android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:id="@+id/open_history_points"
+        android:background="@android:drawable/ic_menu_more"
+        android:layout_marginEnd="34dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/button" />
     <Button
         android:layout_width="32dp"
         android:layout_height="32dp"

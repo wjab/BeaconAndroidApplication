@@ -1,6 +1,8 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -24,6 +26,7 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -112,6 +115,7 @@ public class BackgroundScanActivity extends BaseActivity
     private String url, userAcumulatedPoints;
     CircleImageView profileImage, imageNavigation;
     TextView textUserName, userTotalPoints;
+    ImageView open_history_points;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -153,19 +157,26 @@ public class BackgroundScanActivity extends BaseActivity
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";
         idUser = preferences.getString("userId", "");
-        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),  mpoints);
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
 
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        open_history_points=(ImageView) actionBarLayout.findViewById(R.id.open_history_points);
 
-        pointsAction.setText(mpoints.toString());
+        pointsAction.setText(userAcumulatedPoints.toString());
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
         pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHistory();
+            }
+        });
+        open_history_points.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openHistory();
@@ -457,11 +468,15 @@ public class BackgroundScanActivity extends BaseActivity
             }
             if(mPlanetTitles.get(position-1).getElemento().equals("Invitar"))
             {
+
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about quickshop? http://link_quickshop_app.com");
+                intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about" + getString(R.string.link));
 
-                startActivity(Intent.createChooser(intent, "Share with"));
+                startActivity(Intent.createChooser(intent, "Invitar mediante:"));
+
+
+
             }
 
         }

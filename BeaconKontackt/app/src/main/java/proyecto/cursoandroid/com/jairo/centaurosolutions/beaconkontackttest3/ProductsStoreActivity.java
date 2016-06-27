@@ -34,7 +34,7 @@ public CustomAdapterProductStore adapter;
 public ListView listviewShopProduct;
 public ArrayList<ProductStore> listStoreProductArray;
 private View rootView;
-    String mpoints;
+    String mpoints,userAcumulatedPoints;;
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ private View rootView;
             null);
 
     mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
-
+    userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowHomeEnabled(false);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -65,7 +65,7 @@ private View rootView;
         }
     });
     TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-    pointsAction.setText("Total "+mpoints + " pts");
+    pointsAction.setText(userAcumulatedPoints.toString());
     pointsAction.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
