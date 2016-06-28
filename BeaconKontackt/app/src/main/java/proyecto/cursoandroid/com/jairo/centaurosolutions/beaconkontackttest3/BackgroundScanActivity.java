@@ -13,7 +13,9 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -24,6 +26,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 
@@ -40,6 +43,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +62,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,7 +102,7 @@ public class BackgroundScanActivity extends BaseActivity
     private TextView points;
     private CharSequence mTitle;
     private String imageUrl;
-    private String idUser;
+    private String idUser,imgDecodableString;
 
     private ActionBarDrawerToggle mDrawerToggle;
     public  ArrayList<Promociones> listPromoArray;
@@ -116,6 +121,7 @@ public class BackgroundScanActivity extends BaseActivity
     CircleImageView profileImage, imageNavigation;
     TextView textUserName, userTotalPoints;
     ImageView open_history_points;
+    RelativeLayout layout_header;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -128,6 +134,7 @@ public class BackgroundScanActivity extends BaseActivity
     NonStaticUtils nonStaticUtils;
     ViewPager  pager;
     TabLayout tabLayout;
+    private int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -211,6 +218,7 @@ public class BackgroundScanActivity extends BaseActivity
 
         //Declaramos el header el caul sera el layout de header.xml
         View header = getLayoutInflater().inflate(R.layout.header_menu, null);
+        layout_header= (RelativeLayout)header.findViewById(R.id.layout_header);
         textUserName = ((TextView) header.findViewById(R.id.usernameheader));
         textUserName.setText(mTitle);
 
@@ -218,6 +226,22 @@ public class BackgroundScanActivity extends BaseActivity
         userTotalPoints.setText( userAcumulatedPoints);
 
         profileImage = ((CircleImageView) header.findViewById(R.id.profile_image));
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal))) {
+                    Toast.makeText(getApplication(), "Para actualizar su foto actualice la de su perfil de facebook", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+                }
+            }
+        });
+
         imageNavigation=((CircleImageView) findViewById(R.id.imageprofile_navigation));
 
         if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
@@ -268,10 +292,19 @@ public class BackgroundScanActivity extends BaseActivity
         imageNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(mDrawerList);
+                } else {
+                    mDrawerLayout.openDrawer(mDrawerList);
                 }
-                else {
+            }
+        });
+        layout_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                } else {
                     mDrawerLayout.openDrawer(mDrawerList);
                 }
             }
@@ -282,6 +315,44 @@ public class BackgroundScanActivity extends BaseActivity
 
 
     }
+   /*
+      @Override
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       super.onActivityResult(requestCode, resultCode, data);
+       try {
+           // When an Image is picked
+           if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                   && null != data) {
+               // Get the Image from data
+
+               Uri selectedImage = data.getData();
+               String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+               // Get the cursor
+               Cursor cursor = getContentResolver().query(selectedImage,
+                       filePathColumn, null, null, null);
+               // Move to first row
+               cursor.moveToFirst();
+
+               int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+               imgDecodableString = cursor.getString(columnIndex);
+               cursor.close();
+               profileImage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+               //Enviarla al servicio para consumirla.
+
+           } else {
+               Toast.makeText(this, "You haven't picked Image",
+                       Toast.LENGTH_LONG).show();
+           }
+       } catch (Exception e) {
+           Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+                   .show();
+       }
+
+   }
+
+    */
+
 
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);

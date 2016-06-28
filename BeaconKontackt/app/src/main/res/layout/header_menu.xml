@@ -8,7 +8,7 @@
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="200dp"
-
+    android:id="@+id/layout_header"
     android:gravity="top|center"
     android:background="@color/fondoPerfilBoton">
 
