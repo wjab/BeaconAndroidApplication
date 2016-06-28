@@ -173,7 +173,7 @@ public class BackgroundScanActivity extends BaseActivity
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         open_history_points=(ImageView) actionBarLayout.findViewById(R.id.open_history_points);
 
-        pointsAction.setText(userAcumulatedPoints.toString());
+        pointsAction.setText(mpoints.toString());
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
 
