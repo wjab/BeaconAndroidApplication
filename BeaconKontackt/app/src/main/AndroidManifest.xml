@@ -113,10 +113,11 @@
             android:label="@string/title_activity_login__options" />
         <activity
             android:name=".Activity_profile"
-            android:label="@string/title_activity_activity_profile"
-            ></activity>
+            android:label="@string/title_activity_activity_profile" />
         <activity android:name=".HistotyPointsActivity" />
-        <activity android:name=".ProductsStoreActivity"></activity>
+        <activity android:name=".ProductsStoreActivity" />
+        <activity android:name=".PreferencesActivity" />
+        <activity android:name=".ShowPopUp"></activity>
     </application>
 
 </manifest>

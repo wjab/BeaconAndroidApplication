@@ -149,7 +149,7 @@
     <string name="WebService_VisitorHistory">http://bvisitorhistorydevel.cfapps.io/</string>
     <string name="title_activity_pull_notifications">PullNotificationsActivity</string>
     <string name="title_activity_login__options">Login_Options</string>
-    <string name="totalPointsLabel">%s kicks</string>
+    <string name="totalPointsLabel">%s</string>
     <string name="save">Guardar</string>
 
 
@@ -160,6 +160,9 @@
     <string name="title_activity_profile_activity">profile_activity</string>
     <string name="title_activity_activity_profile">activity_profile</string>
     <string name="link">quickshop/download.com</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

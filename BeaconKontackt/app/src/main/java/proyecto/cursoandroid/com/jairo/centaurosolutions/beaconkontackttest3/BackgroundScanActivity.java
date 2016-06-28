@@ -62,6 +62,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -315,43 +316,26 @@ public class BackgroundScanActivity extends BaseActivity
 
 
     }
-   /*
+
       @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
        try {
            // When an Image is picked
-           if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                   && null != data) {
-               // Get the Image from data
-
-               Uri selectedImage = data.getData();
-               String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-               // Get the cursor
-               Cursor cursor = getContentResolver().query(selectedImage,
-                       filePathColumn, null, null, null);
-               // Move to first row
-               cursor.moveToFirst();
-
-               int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-               imgDecodableString = cursor.getString(columnIndex);
-               cursor.close();
-               profileImage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-               //Enviarla al servicio para consumirla.
-
+           if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
+               Uri pickedImage = data.getData();
+               Picasso.with(this).load(pickedImage).into(profileImage);
+               Picasso.with(this).load(pickedImage).into(imageNavigation);
            } else {
-               Toast.makeText(this, "You haven't picked Image",
-                       Toast.LENGTH_LONG).show();
+               Toast.makeText(this, "No ha seleccionado una imagen aun.", Toast.LENGTH_LONG).show();
            }
        } catch (Exception e) {
-           Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
-                   .show();
+           Toast.makeText(this, "Lo sentimos algo salio mal.", Toast.LENGTH_LONG).show();
        }
 
    }
 
-    */
+
 
 
     public void openHistory(){
@@ -546,7 +530,15 @@ public class BackgroundScanActivity extends BaseActivity
 
                 startActivity(Intent.createChooser(intent, "Invitar mediante:"));
 
+            }
+            if(mPlanetTitles.get(position-1).getElemento().equals("Preferencias")){
+               // Intent intent= new Intent(getBaseContext(),PreferencesActivity.class);
+               // intent.putExtra("idUser",idUser);
+               // startActivity(intent);
+                FragmentManager fm = getSupportFragmentManager();
+                PreferencesDialogFragment p= new PreferencesDialogFragment();
 
+                p.show(fm,"tag");
 
             }
 
