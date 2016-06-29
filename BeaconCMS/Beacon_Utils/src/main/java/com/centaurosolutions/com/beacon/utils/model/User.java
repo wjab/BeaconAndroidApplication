@@ -1,44 +1,49 @@
 package com.centaurosolutions.com.beacon.utils.model;
 
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-
 	private String id;
-	
+
 	private String user;
-	
+
 	private String password;
-	
-	private Boolean enable;	
+
+	private Boolean enable;
 
 	private int category_id;
-	
+
 	private int total_gift_points;
-	
+
 	private Date  creationDate;
-	
+
 	private Date  modifiedDate;
-	
+
 	private String name;
-	
+
 	private String lastName;
-	
+
 	private String email;
-	
+
 	private String phone;
-	
+
 	private String socialNetworkId;
-	
+
 	private String socialNetworkType;
-	
+
 	private String socialNetworkJson;
-	
-	
+
+	private String gender;
+
+	private ArrayList<String> productWishList;
+
+
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
@@ -60,11 +65,13 @@ public class User {
 	 * @param socialNetworkId
 	 * @param socialNetworkType
 	 * @param socialNetworkJson
+	 * @param gender
+	 * @param productWishList
 	 */
-	public User(String user, String password, Boolean enable, int category_id, 
-			int total_gift_points, Date creationDate, Date modifiedDate, String name, 
-			String lastName, String email, String phone, String socialNetworkId,
-			String socialNetworkType, String socialNetworkJson) {
+	public User(String user, String password, Boolean enable, int category_id,
+				int total_gift_points, Date creationDate, Date modifiedDate, String name,
+				String lastName, String email, String phone, String socialNetworkId,
+				String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList ) {
 		super();
 		this.user = user;
 		this.password = password;
@@ -80,10 +87,9 @@ public class User {
 		this.socialNetworkId = socialNetworkId;
 		this.socialNetworkType = socialNetworkType;
 		this.socialNetworkJson = socialNetworkJson;
+		this.gender = gender;
+		this.productWishList = productWishList;
 	}
-
-
-
 
 
 	/**
@@ -269,8 +275,8 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	
+
+
 	/**
 	 * @return the socialNetworkId
 	 */
@@ -284,7 +290,7 @@ public class User {
 	public void setSocialNetworkId(String socialNetworkId) {
 		this.socialNetworkId = socialNetworkId;
 	}
-	
+
 	/**
 	 * @return the socialNetworkType
 	 */
@@ -298,7 +304,7 @@ public class User {
 	public void setSocialNetworkType(String socialNetworkType) {
 		this.socialNetworkType = socialNetworkType;
 	}
-	
+
 	/**
 	 * @return the socialNetworkJson
 	 */
@@ -313,5 +319,33 @@ public class User {
 		this.socialNetworkJson = socialNetworkJson;
 	}
 
-}
 
+	/**
+	 * @return the gender
+	 */
+	public String getGender() {
+		return gender;
+	}
+
+	/**
+	 * @param gender to set
+	 */
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	/**
+	 * @return the productWishList
+	 */
+	public ArrayList<String> getProductWishList() {
+		return productWishList;
+	}
+
+	/**
+	 * @param productWishList to set
+	 */
+	public void setProductWishList(ArrayList<String> productWishList) {
+		this.productWishList = productWishList;
+	}
+}

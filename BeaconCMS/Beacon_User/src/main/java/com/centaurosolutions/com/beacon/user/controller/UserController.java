@@ -43,7 +43,9 @@ public class UserController {
 					userMap.get("phone").toString(),
 					userMap.get("socialNetworkId").toString(), 
 					userMap.get("socialNetworkType").toString(),
-					userMap.get("socialNetworkJson").toString());
+					userMap.get("socialNetworkJson").toString(),
+					userMap.get("gender").toString(),
+					null);
 			
 			if(LOCAL_USER == user.getSocialNetworkType())
 			{
@@ -117,33 +119,52 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/id/{userId}")
-	public User getUserById(@PathVariable("userId") String userId) 
+	public Map<String, Object>  getUserById(@PathVariable("userId") String userId)
 	{
 		User user = null;
-		
-		try
-		{
-			user = userRepository.findOne(userId);
-		}
-		catch(Exception ex)
-		{ }
-		
-		return user;
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+
+			try
+			{
+				user  = userRepository.findOne(userId);;
+				response.put("status", 200);
+				response.put("message", "");
+				response.put("user", user);
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", ex.getMessage());
+				response.put("user", null);
+			}
+
+
+			return response;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{username}")
-	public User getUserByNameDetails(@PathVariable("username") String username) 
+	public Map<String, Object> getUserByNameDetails(@PathVariable("username") String username)
 	{
 		User user = null;
-		
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		List<User> users;
+
 		try
 		{
 			user = userRepository.findByUser(username);
+			response.put("status", 200);
+			response.put("message", "");
+			response.put("user", user);
 		}
 		catch(Exception ex)
-		{ }
-		
-		return user;
+		{
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+			response.put("user", null);
+		}
+
+		return response;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -156,13 +177,13 @@ public class UserController {
 		{
 			users = userRepository.findAll();	
 			response.put("status", 200);
-			response.put("message", "AllUserDetails got");
+			response.put("message", "");
 			response.put("listUser", users);
 		}
 		catch(Exception ex)
 		{
-			response.put("status", 200);
-			response.put("message", "Error getAllUserDetails");
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
 			response.put("listUser", null);
 		}
 		
@@ -190,6 +211,7 @@ public class UserController {
 				user.setLastName(userMap.get("lastName").toString());
 				user.setEmail(userMap.get("email").toString());
 				user.setPhone(userMap.get("phone").toString());
+				user.setGender(userMap.get("gender").toString());
 				user.setId(UserId);
 	
 				response.put("status", 200);
@@ -347,6 +369,132 @@ public class UserController {
 
 		return sb.toString();
 
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "/wishlist/add")
+	public Map<String, Object> addProductToWishlist(@RequestBody Map<String, Object> userMap) {
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User userExist = null;
+		Boolean productIdExist = false;
+
+		try
+		{
+		  if( userMap.get("productId") != null && userMap.get("userId") != null){
+
+			  userExist =  userRepository.findOne( userMap.get("userId").toString());
+
+			  if(userExist != null){
+
+				  if(userExist.getProductWishList() != null){
+					  for(String id : userExist.getProductWishList()){
+						  if( userMap.get("productId").toString().equals(id)){
+							  productIdExist = true;
+							  break;
+						  }
+					  }
+				  }
+                  else{
+                      userExist.setProductWishList(new ArrayList<String>());
+                  }
+
+
+				  if(!productIdExist){
+
+					  userExist.getProductWishList().add(userMap.get("productId").toString());
+					  userRepository.save(userExist);
+
+					  response.put("message", "User updated");
+					  response.put("user",  userExist);
+					  response.put("status", 200);
+				  }
+				  else{
+					  response.put("message", "Product already added to wishlist");
+					  response.put("user", userExist);
+					  response.put("status", 200);
+				  }
+			  }
+			  else{
+				  response.put("status", 404);
+				  response.put("message", "User not found");
+				  response.put("user", null);
+			  }
+
+		  }else{
+			  response.put("status", 400);
+			  response.put("message", "Missing parameters");
+			  response.put("user", null);
+		  }
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error addWishlist");
+			response.put("user", null);
+		}
+
+		return response;
+	}
+
+
+	@RequestMapping(method = RequestMethod.POST,  value = "/wishlist/delete")
+	public Map<String, Object> deleteProductToWishlist(@RequestBody Map<String, Object> userMap) {
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User userExist = null;
+		Boolean productIdExist = false;
+
+		try
+		{
+			if( userMap.get("productId") != null && userMap.get("userId") != null){
+
+				userExist =  userRepository.findOne( userMap.get("userId").toString());
+
+				if(userExist != null){
+
+                    if(userExist.getProductWishList() != null){
+                        for(String id : userExist.getProductWishList()){
+                            if( userMap.get("productId").toString().equals(id)){
+                                productIdExist = true;
+                                break;
+                            }
+                        }
+                    }
+
+					if(productIdExist){
+
+						userExist.getProductWishList().remove(userMap.get("productId").toString());
+						userRepository.save(userExist);
+
+						response.put("message", "User updated");
+						response.put("user",  userExist);
+						response.put("status", 200);
+					}
+					else{
+						response.put("message", "Product not found");
+						response.put("user", userExist);
+						response.put("status", 404);
+					}
+				}
+				else{
+					response.put("status", 404);
+					response.put("message", "User not found");
+					response.put("user", null);
+				}
+
+			}else{
+				response.put("status", 400);
+				response.put("message", "Missing parameters");
+				response.put("user", null);
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error deleteWishlist");
+			response.put("user", null);
+		}
+
+		return response;
 	}
 
 }
