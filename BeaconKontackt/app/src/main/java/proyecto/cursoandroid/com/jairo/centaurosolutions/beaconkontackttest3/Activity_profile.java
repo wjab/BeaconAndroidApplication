@@ -27,8 +27,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,8 +87,9 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         });
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
+        month = calendar.get(Calendar.MONTH) + 1;
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        showDate(formatDate(year, month, day));
         sendUserRequestById(id_user);
     }
 
@@ -97,6 +101,7 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         }
         return null;
     }
+
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
@@ -104,66 +109,82 @@ public class Activity_profile extends AppCompatActivity implements Response.List
             // arg1 = year
             // arg2 = month
             // arg3 = day
-            StringBuilder stringdate=formatDate(year,month,day);
+            StringBuilder stringdate = formatDate(year, month, day);
             showDate(stringdate);
         }
     };
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
+
     private void showDate(StringBuilder stringdate) {
         dateView.setText(stringdate);
     }
 
     private StringBuilder formatDate(int year, int month, int day) {
-        String String_Month="";
-        switch (month){
-            case 1 : {
-                String_Month="Enero";
+        String String_Month = "";
+        switch (month) {
+            case 1: {
+                String_Month = "Enero";
+                break;
             }
-            case 2 : {
-                String_Month="Febrero";
+            case 2: {
+                String_Month = "Febrero";
+                break;
             }
-            case 3 : {
-                String_Month="Marzo";
+            case 3: {
+                String_Month = "Marzo";
+                break;
             }
-            case 4 : {
-                String_Month="Abril";
+            case 4: {
+                String_Month = "Abril";
+                break;
             }
-            case 5 : {
-                String_Month="Mayo";
+            case 5: {
+                String_Month = "Mayo";
+                break;
             }
-            case 6 : {
-                String_Month="Junio";
+            case 6: {
+                String_Month = "Junio";
+                break;
             }
-            case 7 : {
-                String_Month="Julio";
+            case 7: {
+                String_Month = "Julio";
+                break;
             }
-            case 8 : {
-                String_Month="Agosto";
+            case 8: {
+                String_Month = "Agosto";
+                break;
             }
-            case 9 : {
-                String_Month="Setiembre";
+            case 9: {
+                String_Month = "Setiembre";
+                break;
             }
-            case 10 : {
-                String_Month="Octubre";
+            case 10: {
+                String_Month = "Octubre";
+                break;
             }
-            case 11 : {
-                String_Month="Noviembre";
+            case 11: {
+                String_Month = "Noviembre";
+                break;
             }
-            case 12 : {
-                String_Month="Diciembre";
+            case 12: {
+                String_Month = "Diciembre";
+                break;
             }
         }
         StringBuilder Date_Formated = new StringBuilder().append(day).append(" de ").append(String_Month).append(" de ").append(year);
         return Date_Formated;
     }
+
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
 
     }
+
     public void sendUserRequestById(String id_user) {
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User) + "user/id/" + id_user;
@@ -183,6 +204,23 @@ public class Activity_profile extends AppCompatActivity implements Response.List
                 edit_LastName.setText(response.getString("lastName"));
                 edit_Email.setText(response.getString("email"));
                 edit_Phone.setText(response.getString("phone"));
+                try {
+                    if (!response.getString("creationDate").isEmpty()) {
+                        Date date = new Date(Long.parseLong(response.getString("creationDate")));
+                        Calendar calendar = new GregorianCalendar();
+                        calendar.setTime(date);
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH) + 1;
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+                        showDate(formatDate(year, month, day));
+                    }
+                } catch (Exception e) {
+                    calendar = Calendar.getInstance();
+                    year = calendar.get(Calendar.YEAR);
+                    month = calendar.get(Calendar.MONTH) + 1;
+                    day = calendar.get(Calendar.DAY_OF_MONTH);
+                    showDate(formatDate(year, month, day));
+                }
 
             }
         } catch (Exception e) {
