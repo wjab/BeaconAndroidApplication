@@ -170,7 +170,7 @@ public class MerchantProfileController {
 		    	
 		    	merchantProfileModel.setId(MerchantProfileId);
 		    	response.put("message", "Perfil de Tiendas actualizado correctamente");
-		    	response.put("MerchantProfile", merchantProfileRepository.save(merchantProfileModel));
+		    	response.put("merchantProfile", merchantProfileRepository.save(merchantProfileModel));
 		    }
 		    else
 		    {
