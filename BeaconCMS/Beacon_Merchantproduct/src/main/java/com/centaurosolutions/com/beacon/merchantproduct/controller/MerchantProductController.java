@@ -1,20 +1,12 @@
 package com.centaurosolutions.com.beacon.merchantproduct.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import com.centaurosolutions.com.beacon.merchantproduct.model.MerchantProduct;
 import com.centaurosolutions.com.beacon.merchantproduct.model.Product;
 import com.centaurosolutions.com.beacon.merchantproduct.repository.MerchantProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/merchantproduct")
@@ -30,20 +22,20 @@ public class MerchantProductController
 		try
 		{
 			List<MerchantProduct> merchantProductModelList = merchantProductRepository.findAll();
-			response.put("Total de Productos del Negocio", merchantProductModelList.size());
-			response.put("MerchantProduct", merchantProductModelList);
-			response.put("Status", "200");
+			response.put("message", "Total de productos de la tienda: "+ merchantProductModelList.size());
+			response.put("merchantProduct", merchantProductModelList);
+			response.put("status", "200");
 		}
 		catch(Exception ex)
 		{
-			response.put("Message", ex.getMessage());
-			response.put("MerchantProduct", null);
-			response.put("Status", "400");
+			response.put("message", ex.getMessage());
+			response.put("merchantProduct", null);
+			response.put("status", "400");
 		}
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "{/{merchantproductid}")
+	@RequestMapping(method = RequestMethod.GET, value = "/{merchantproductid}")
 	public Map<String, Object> GetMerchantProductsById(@PathVariable("merchantproductid") String merchantProductId)
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -51,22 +43,22 @@ public class MerchantProductController
 		{		
 			MerchantProduct merchant_Finded= merchantProductRepository.findOne(merchantProductId);
 			if(merchant_Finded!=null){
-				response.put("Message", "MerchantProduct encontrado");
-				response.put("MerchantProduct", null);
-				response.put("Status", "200");
+				response.put("message", "MerchantProduct encontrado");
+				response.put("merchantProduct", merchant_Finded);
+				response.put("status", "200");
 			}
 			else
 			{
-				response.put("Message", "MerchantProduct no encontrado");
-				response.put("MerchantProduct", null);
-				response.put("Status", "401");
+				response.put("message", "MerchantProduct no encontrado");
+				response.put("merchantProduct", null);
+				response.put("status", "401");
 			}
 		}
 		catch(Exception ex)
 		{
-			response.put("Message", ex.getMessage());
-			response.put("MerchantProduct", null);
-			response.put("Status", "400");
+			response.put("message", ex.getMessage());
+			response.put("merchantProduct", null);
+			response.put("status", "400");
 		}
 		return response;
 	}
@@ -91,14 +83,14 @@ public class MerchantProductController
 			
 		    merchantProductRepository.save(MerchantProductModel);
 			response.put("message", "MerchantProduct creado correctamente");
-			response.put("MerchantProduct", MerchantProductModel); 
-			response.put("Status", "200");
+			response.put("merchantProduct", MerchantProductModel);
+			response.put("status", "200");
 		}
 		catch(Exception ex)
 		{
 			response.put("message", ex.getMessage());
-			response.put("MerchantProduct", null); 
-			response.put("Status", "400");			
+			response.put("merchantProduct", null);
+			response.put("status", "400");
 		}
 	    return response;
 	}
@@ -129,21 +121,21 @@ public class MerchantProductController
 				
 				merchantProductRepository.save(MerchantProductModel);
 				response.put("message", "MerchantProduct actualizado correctamente");
-				response.put("MerchantProduct", MerchantProductModel); 
-				response.put("Status", "200");		
+				response.put("merchantProduct", MerchantProductModel);
+				response.put("status", "200");
 			}
 			else
 			{
 				response.put("message", "MerchantProduct no encontrado");
-				response.put("MerchantProduct", null); 
-				response.put("Status", "401");
+				response.put("merchantProduct", null);
+				response.put("status", "401");
 			}
 		}
 		catch(Exception ex)
 		{
 			response.put("message", ex.getMessage());
-			response.put("MerchantProduct", null); 
-			response.put("Status", "400");			
+			response.put("merchantProduct", null);
+			response.put("status", "400");
 		}
 	    return response;
 	}
@@ -155,13 +147,13 @@ public class MerchantProductController
 		{
 			merchantProductRepository.delete(merchantProductId);		
 			response.put("message", "MerchantProductId eliminado correctamente");
-			response.put("Status", "200");
+			response.put("status", "200");
 		}
 		catch(Exception ex)
 		{
 			response.put("message", ex.getMessage());
-			response.put("MerchantProduct", null); 
-			response.put("Status", "400");			
+			response.put("merchantProduct", null);
+			response.put("status", "400");
 		}
     return response;
 	}

@@ -1,28 +1,17 @@
 package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.centaurosolutions.com.beacon.merchantprofile.model.*;
+import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantContactData;
+import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
+import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantUser;
 import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.*;
 
 
 @RestController
@@ -125,8 +114,8 @@ public class MerchantProfileController {
 		  try
 		  {
 		      List<MerchantProfile> merchantProfileModelList = merchantProfileRepository.findAll();
-		      response.put("Total de Perfiles de Tiendas", merchantProfileModelList.size());
-		      response.put("MerchantProfile", merchantProfileModelList);
+		      response.put("message", "Total de tiendas: "+ merchantProfileModelList.size());
+		      response.put("merchantProfile", merchantProfileModelList);
 		      response.put("status", "200");
 		  }
 		  catch(Exception ex)
