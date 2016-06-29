@@ -1,7 +1,10 @@
 package com.centaurosolutions.com.beacon.user.model;
 
 import org.springframework.data.annotation.Id;
-import java.util.Date;;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 
 public class User {
 
@@ -35,6 +38,10 @@ public class User {
 	private String socialNetworkType;
 	
 	private String socialNetworkJson;
+
+	private String gender;
+
+	private ArrayList<String> productWishList;
 	
 	
 	
@@ -59,11 +66,13 @@ public class User {
 	 * @param socialNetworkId
 	 * @param socialNetworkType
 	 * @param socialNetworkJson
+	 * @param gender
+	 * @param productWishList
 	 */
-	public User(String user, String password, Boolean enable, int category_id, 
-			int total_gift_points, Date creationDate, Date modifiedDate, String name, 
+	public User(String user, String password, Boolean enable, int category_id,
+			int total_gift_points, Date creationDate, Date modifiedDate, String name,
 			String lastName, String email, String phone, String socialNetworkId,
-			String socialNetworkType, String socialNetworkJson ) {
+			String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList ) {
 		super();
 		this.user = user;
 		this.password = password;
@@ -79,6 +88,8 @@ public class User {
 		this.socialNetworkId = socialNetworkId;
 		this.socialNetworkType = socialNetworkType;
 		this.socialNetworkJson = socialNetworkJson;
+		this.gender = gender;
+		this.productWishList = productWishList;
 	}
 
 
@@ -311,7 +322,28 @@ public class User {
 	public void setSocialNetworkJson(String socialNetworkJson) {
 		this.socialNetworkJson = socialNetworkJson;
 	}
-	
 
+
+	/**
+	 * @return the gender
+	 */
+	public String getGender() {
+		return gender;
+	}
+
+	/**
+	 * @param gender to set
+	 */
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public ArrayList<String> getProductWishList() {
+		return productWishList;
+	}
+
+	public void setProductWishList(ArrayList<String> productWishList) {
+		this.productWishList = productWishList;
+	}
 }
 
