@@ -23,6 +23,8 @@ public class UtilsController
     private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 	private String urlUser = "http://buserdevel.cfapps.io/user/";
 	private String urlPromo = "http://bpromodevel.cfapps.io/promo/";
+	private String urlProduct = "http://bmerchantproductdevel.cfapps.io/merchantproduct/";
+	private String urlMerchant = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/";
 	private String urlOfferHistory = "http://bofferhistorydevel.cfapps.io/offerhistory/";
     private String offerHistoryAttemptResource = "/getAttempts/user/%s/promo/%s";
 	
@@ -267,6 +269,63 @@ public class UtilsController
    	
 		return diffValues;
    }
+
+	@RequestMapping(method = RequestMethod.POST, value="/product/getdata")
+	public Map<String, Object> getMerchantProductData(@RequestBody Map<String, Object> customMap){
+
+		// Attributes
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Map<String, Object> productData = new LinkedHashMap<String, Object>();
+        MerchantProductResponse merchantProductResponse =  null;
+		MerchantProfileResponse merchantProfileResponse = null;
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		try
+		{
+			if( customMap.get("productId") != null && customMap.get("merchantId") != null){
+
+				merchantProductResponse = restTemplate.getForObject( urlProduct + "" + customMap.get("productId").toString(), MerchantProductResponse.class);
+
+				merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + customMap.get("merchantId").toString(), MerchantProfileResponse.class);
+
+				if(merchantProductResponse != null && merchantProfileResponse != null){
+
+					if(merchantProductResponse.getMerchantProduct().getMerchantId().equals(merchantProfileResponse.getMerchantProfile().getId())){
+						response.put("status", 200);
+						productData.put("product", merchantProductResponse.getMerchantProduct());
+						productData.put("merchant", merchantProfileResponse.getMerchantProfile());
+						response.put("productData", productData);
+						response.put("message", "");
+					}
+					else {
+						response.put("status", 404);
+						response.put("message", "El producto no pertenece a la tienda ingresada");
+						response.put("productData", null);
+					}
+				}
+				else{
+					response.put("status", 400);
+					response.put("message", "Error during request product and merchant");
+					response.put("productData", null);
+				}
+			}
+			else{
+				response.put("status", 400);
+				response.put("message", "Missing parameters");
+				response.put("productData", null);
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("productData", null);
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+		}
+
+		return response;
+	}
 }
 
 
