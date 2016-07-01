@@ -40,6 +40,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -223,34 +224,31 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
         try
         {
             String requestPassword = Utils.setEncryptedText(password.getText().toString());
+            JSONObject currRange= response.getJSONObject("user");
 
-            if (response.getString("password").equals(requestPassword)) {
+                if (currRange.getString("password").equals(requestPassword)) {
 
-                if (response.getBoolean("enable"))
-                {
-                    isAuthenticated = true;
-                    nonStaticUtils.saveLogin(this,
-                            response.getString("user"),
-                            response.getString("password"),
-                            response.getString("id"),
-                            response.getInt("total_gift_points"),
-                            isAuthenticated,
-                            response.getString("socialNetworkType"),
-                            response.getString("socialNetworkId"));
-                    Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                    startActivity(intent);
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
+                    if (currRange.getBoolean("enable")) {
+                        isAuthenticated = true;
+                        nonStaticUtils.saveLogin(this,
+                                currRange.getString("user"),
+                                currRange.getString("password"),
+                                currRange.getString("id"),
+                                currRange.getInt("total_gift_points"),
+                                isAuthenticated,
+                                currRange.getString("socialNetworkType"),
+                                currRange.getString("socialNetworkId"));
+                        Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-            }
-            else
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+
         }
         catch (Exception ex)
         {

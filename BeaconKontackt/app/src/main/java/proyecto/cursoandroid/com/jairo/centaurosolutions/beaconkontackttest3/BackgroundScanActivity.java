@@ -227,7 +227,6 @@ public class BackgroundScanActivity extends BaseActivity
         userTotalPoints.setText( userAcumulatedPoints);
 
         profileImage = ((CircleImageView) header.findViewById(R.id.profile_image));
-
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,6 +235,7 @@ public class BackgroundScanActivity extends BaseActivity
                 } else {
                     Intent intent = new Intent();
                     intent.setType("image/*");
+
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
 
@@ -324,6 +324,7 @@ public class BackgroundScanActivity extends BaseActivity
            // When an Image is picked
            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
                Uri pickedImage = data.getData();
+               Log.e("URI---->",pickedImage.toString());
                Picasso.with(this).load(pickedImage).into(profileImage);
                Picasso.with(this).load(pickedImage).into(imageNavigation);
            } else {
@@ -334,7 +335,6 @@ public class BackgroundScanActivity extends BaseActivity
        }
 
    }
-
 
 
 
@@ -524,7 +524,7 @@ public class BackgroundScanActivity extends BaseActivity
             if(mPlanetTitles.get(position-1).getElemento().equals("Invitar"))
             {
 
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SHARED);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about" + getString(R.string.link));
 

@@ -66,7 +66,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         try {
             listHistoryArray = new ArrayList<History>();
             Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("Historial de oferta");
+            JSONArray ranges= response.getJSONArray("listOfferhistory");
             String range = "";
             String message = "";
             String messageType = "";
@@ -76,9 +76,9 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                JSONObject currRange = ranges.getJSONObject(i);
 
            History historyElement = new History();
-           historyElement.setPromo_id(currRange.getString("promo_id"));
+           historyElement.setPromo_id(currRange.getString("promoId"));
                 //historyElement.setScanDate(currRange.getString("price"));
-            historyElement.setShopZone_id("shopZone_id");
+            historyElement.setShopZone_id("shopZoneId");
             //historyElement.setPrice(1000);
             //historyElement.setUrlImagen(currRange.getString("image"));
 

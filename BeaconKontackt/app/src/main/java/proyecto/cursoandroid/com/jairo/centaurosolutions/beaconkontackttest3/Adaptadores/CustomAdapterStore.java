@@ -57,7 +57,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
         ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
         ServiceController imageRequest =  new ServiceController();
 
-        imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
+       imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
 
 
         address.setText(storeList.get(position).getAddress());

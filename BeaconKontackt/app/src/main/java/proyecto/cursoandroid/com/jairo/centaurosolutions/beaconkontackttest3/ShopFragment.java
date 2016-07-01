@@ -75,7 +75,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
         try {
             listStoreArray = new ArrayList<Store>();
             Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("MerchantProfile");
+            JSONArray ranges= response.getJSONArray("merchantProfile");
             String range = "";
             String message = "";
             String messageType = "";

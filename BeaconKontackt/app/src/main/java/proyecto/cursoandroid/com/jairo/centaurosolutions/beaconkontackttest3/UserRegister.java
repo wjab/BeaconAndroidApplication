@@ -128,6 +128,9 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("socialNetworkId","");
         mapParams.put("socialNetworkType","localuser");
         mapParams.put("socialNetworkJson","");
+        mapParams.put("gender","");
+        mapParams.put("productWishList","");
+
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");

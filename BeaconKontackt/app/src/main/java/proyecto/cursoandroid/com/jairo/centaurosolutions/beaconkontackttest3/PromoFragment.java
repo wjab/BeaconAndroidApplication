@@ -72,7 +72,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
         try {
             listPromoArray = new ArrayList<Promociones>();
             Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("Promo");
+            JSONArray ranges= response.getJSONArray("listPromo");
             String range = "";
             String message = "";
             String messageType = "";
