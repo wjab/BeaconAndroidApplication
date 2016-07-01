@@ -4,9 +4,8 @@ package com.centaurosolutions.com.beacon.offerhistory.controller;
 import com.centaurosolutions.com.beacon.offerhistory.model.OfferHistory;
 import com.centaurosolutions.com.beacon.offerhistory.repository.OfferHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -225,25 +224,33 @@ public class OfferHistoryController {
 	    return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> GetOfferHistoryByUserId(@RequestBody Map<String, Object> offerhistoryMap)
+	@RequestMapping(method = RequestMethod.GET, value = "/user/{userId}" )
+	public Map<String, Object> GetOfferHistoryByUserId(@PathVariable("userId") String userId)
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		String userId = "";
-		int page = 0;
-		Pageable pageable; 
-		
-		try
-		{
-			userId = offerhistoryMap.get("userId").toString();
-			page = (offerhistoryMap.get("pageable") != null ? Integer.parseInt( offerhistoryMap.get("pageable").toString() ) : 0 );
-			pageable = new PageRequest(0, page);
-			
-			List<OfferHistory> offerHistoryList = offerhistoryRepository.findAllByUserId(userId, pageable);
-			
-			response.put("message", "");
-            response.put("status", 200);
-			response.put("offerhistory", offerHistoryList);
+        List<OfferHistory> offerHistoryList = null;
+
+		try{
+
+            if(userId !=null && !userId.isEmpty()){
+                offerHistoryList = offerhistoryRepository.findAllByUserId(userId);
+
+                if(offerHistoryList != null && offerHistoryList.size() > 0){
+                    response.put("message", "");
+                    response.put("status", 200);
+                    response.put("offerhistory", offerHistoryList);
+                }
+                else{
+                    response.put("message", "User does not have points registered");
+                    response.put("status", 404);
+                    response.put("offerhistory", null);
+                }
+            }
+            else{
+                response.put("message", "Missing parameters");
+                response.put("status", 400);
+                response.put("offerhistory", null);
+            }
 		}
 		catch(Exception ex)
 		{
