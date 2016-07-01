@@ -4,8 +4,6 @@ package com.centaurosolutions.com.beacon.offerhistory.controller;
 import com.centaurosolutions.com.beacon.offerhistory.model.OfferHistory;
 import com.centaurosolutions.com.beacon.offerhistory.repository.OfferHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -226,15 +224,14 @@ public class OfferHistoryController {
 	    return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/user/{userId}/page/{page}" )
-	public Map<String, Object> GetOfferHistoryByUserId(@PathVariable("userId") String userId, @PathVariable("page") int page)
+	@RequestMapping(method = RequestMethod.GET, value = "/user/{userId}" )
+	public Map<String, Object> GetOfferHistoryByUserId(@PathVariable("userId") String userId)
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
         List<OfferHistory> offerHistoryList = null;
-        Pageable pageable;
 
         try{
-            pageable = new PageRequest(0, page);
+
             if(userId !=null && !userId.isEmpty()){
                 offerHistoryList = offerhistoryRepository.findAllByUserId(userId);
 
