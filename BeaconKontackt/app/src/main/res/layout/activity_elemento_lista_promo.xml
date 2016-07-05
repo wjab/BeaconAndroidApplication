@@ -44,7 +44,7 @@
             android:textSize="15dp"
             android:layout_width="100dp"
             android:textColor="@color/white"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:id="@+id/Puntos_promo"
             android:textIsSelectable="false"
             android:layout_alignBottom="@+id/degradadoFondo"

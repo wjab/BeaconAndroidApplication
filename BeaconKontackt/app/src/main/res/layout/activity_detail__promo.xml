@@ -16,7 +16,7 @@
 
             <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="409dp"
             android:background="@drawable/space_rounded"
             android:orientation="vertical"
             android:layout_marginTop="18dp"
@@ -33,86 +33,104 @@
                 android:background="@drawable/space_rounded"
                 android:src="@drawable/promo"
                 />
-            <TextView
-                android:id="@+id/Titulo_Promo"
-                android:text="Titulo"
-                android:layout_below="@+id/Imagen_Promo_Detail"
-                android:textSize="33dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="5dp"
-                android:ellipsize="end"
-                android:textColor="@color/TituloPromo"
-                android:textStyle="bold"
-                android:layout_width="fill_parent"
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_height="wrap_content"
-                />
-            <TextView
-                android:id="@+id/DescriptionPromoDetai"
-                android:text="sdghfh gfh df ff hg dfh hgdfhdfhdfghdfhgfhgf h fgddh gfhdfh"
-                android:textSize="15dp"
-                android:layout_below="@+id/Titulo_Promo"
-                android:paddingBottom="30dp"
-                android:layout_marginTop="5dp"
-                android:ellipsize="end"
-                android:textColor="@color/DescripciónPromo"
-                android:layout_width="match_parent"
-                android:gravity="center_vertical|left"
-                android:layout_marginLeft="15dp"
-                android:maxLines = "13"
-                android:scrollbars = "vertical"
-                android:layout_marginRight="15dp"
-                android:layout_height="fill_parent"
-              />
-            <ImageView
-                android:id="@+id/etiquetaPuntos"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/circulo"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_alignTop="@+id/Imagen_Promo_Detail"
-                android:layout_alignEnd="@+id/Imagen_Promo_Detail"
-                android:layout_marginTop="15dp" />
 
-            <TextView
-                android:id="@+id/Puntos_promo_Detail"
-                android:text="10000 pts"
-                android:layout_marginRight="15dp"
-                android:textSize="15dp"
-                android:rotation="-15"
-                android:layout_width="fill_parent"
-                android:textColor="@color/white"
-                android:gravity="center_vertical|center"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="false"
-                android:layout_marginLeft="15dp"
-                android:layout_alignTop="@+id/etiquetaPuntos"
-                android:layout_alignStart="@+id/etiquetaPuntos"
-                android:layout_alignBottom="@+id/etiquetaPuntos"
-                android:layout_alignEnd="@+id/etiquetaPuntos"/>
-
-
-                <Button
-                    android:id="@+id/deseos_button"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_horizontal"
-                    android:drawableRight="@drawable/ic_deseos1"
-                    android:text="Añadir a la lista"
-                    android:textAllCaps="false"
-                    android:textSize="20dp"
-                    android:textColor="@color/white"
-                    android:background="@color/com_facebook_button_background_color"
-                    android:layout_marginTop="310dp" />
+                    android:layout_height="wrap_content"
+                    android:background="#97000000"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:layout_alignBottom="@+id/Imagen_Promo_Detail"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/linearLayout2"
+                    android:layout_alignParentStart="true">
 
-         </RelativeLayout> <!-- The navigation drawer -->
+
+                    <TextView
+                        android:text="Nombre "
+                        android:textSize="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:ellipsize="end"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:gravity="center_horizontal|bottom"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Titulo_Promo"
+                        android:layout_alignBottom="@+id/degradadoFondo"
+                        android:layout_alignParentStart="true"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:text="10000"
+                        android:textSize="15dp"
+                        android:layout_width="67dp"
+                        android:textColor="@color/white"
+                        android:layout_height="31dp"
+                        android:id="@+id/Puntos_promo_Detail"
+                        android:textIsSelectable="false"
+                        android:layout_alignBottom="@+id/degradadoFondo"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="end|center" />
+
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="126dp"
+                    android:layout_height="84dp"
+                    android:id="@+id/imageView"
+                    android:background="@drawable/promo"
+                    android:layout_marginTop="32dp"
+                    android:layout_below="@+id/Imagen_Promo_Detail"
+                    android:layout_alignStart="@+id/linearLayout2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Detalles de la tienda"
+                    android:id="@+id/textView2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_above="@+id/DescriptionPromoDetai"
+                    android:layout_alignEnd="@+id/DescriptionPromoDetai"
+                    android:layout_alignTop="@+id/imageView"
+                    android:layout_toEndOf="@+id/imageView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Detalles de la promocion"
+                    android:id="@+id/DescriptionPromoDetai"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignStart="@+id/imageView"
+                    android:layout_marginTop="38dp"
+                    android:layout_alignEnd="@+id/linearLayout2"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout> <!-- The navigation drawer -->
 
 
 
         </RadioGroup>
         </ScrollView>
+
+
+
+        <Button
+            android:id="@+id/deseos_button"
+            android:layout_width="331dp"
+            android:layout_height="30dp"
+            android:gravity="center_horizontal"
+            android:drawableRight="@drawable/ic_deseos1"
+            android:text="Añadir a la lista"
+            android:textAllCaps="false"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:background="@color/com_facebook_button_background_color"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal" />
+
+
     </LinearLayout> <!-- The navigation drawer -->

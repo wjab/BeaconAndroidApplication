@@ -37,10 +37,9 @@
 
 
     <Button
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-
-        android:background="@drawable/ic_deseos"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/corazon"
         android:layout_alignTop="@+id/imageprofile_navigation"
         android:layout_alignParentEnd="true"
         android:id="@+id/button" />

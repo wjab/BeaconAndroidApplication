@@ -99,11 +99,11 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/user_icon"
-            android:background="@color/barraAccion"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:scaleType="fitStart"
-            android:src="@drawable/user_icon" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/user_icon1" />
 
 
     </LinearLayout>

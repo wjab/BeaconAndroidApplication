@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:orientation="horizontal"
-    android:background="@color/barraAccion"
-    >
+    android:layout_height="50dp"
+    android:background="@color/barraAccion">
+
 
     <ImageButton
         android:id="@+id/back_action"
@@ -15,16 +14,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:background="@android:color/transparent"
         />
-        <TextView
+
+    <TextView
         android:id="@+id/userPointsAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:gravity="center"
-        android:layout_marginLeft="10dp"
-            android:text="Volver"
+        android:layout_marginRight="8dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
-        />
+        android:text="Volver"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/back_action"
+        android:layout_marginStart="37dp" />
 
-</LinearLayout>
 
+
+</RelativeLayout>
