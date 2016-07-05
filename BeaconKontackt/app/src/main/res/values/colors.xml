@@ -16,10 +16,10 @@
     <color name="DarkBlue">#4290a2</color>
     <color name="LigthBluehint">#aebec2</color>
     <color name="DarkBlueBar">#2a8296</color>
-    <color name="fondo">#3741b5</color>
-    <color name="fondoPerfilBoton">#00ac55</color>
-    <color name="letrasmenucolor">#006b35</color>
-    <color name="barraAccion">#f58700</color>
+    <color name="fondo">#ffffff</color>
+    <color name="fondoPerfilBoton">#6E6E6E</color>
+    <color name="letrasmenucolor">#000000</color>
+    <color name="barraAccion">#00ac55</color>
     <color name="TituloPromo">#3741b5</color>
     <color name="DescripciónPromo">#383838</color>
 </resources>

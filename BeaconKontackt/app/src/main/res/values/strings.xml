@@ -88,16 +88,15 @@
     <string name="title_activity_tab_promociones">TabPromocionesActivity</string>
     <string name="title_activity_elemento_lista_promo">ElementoListaPromoActivity</string>
     <string name="promo_name">Nombre Promo</string>
-    <string name="promo_description">Descripción corta de la promoción para informar al cliente de dicha promo, bla bla bla bla</string>
+    <string name="promo_description">Descripción corta de la promoción</string>
     <string name="promo_points">75</string>
-    <string name="promo_text">pts</string>
     <string name="title_activity_promo_detail">PromoDetailActivity</string>
     <string name="title_activity_main_login">MainLoginActivity</string>
     <string name="title_activity_login_activity_main">LoginActivityMain</string>
     <string name="mail">Correo Electrónico</string>
     <string name="pass">Contraseña</string>
     <string name="restorePass">Recuperar Contraseña</string>
-    <string name="register">Registrate con tu correo</string>
+    <string name="register">Registrate aqui</string>
     <string name="name">Nombre</string>
     <string name="lastname">Apellido</string>
     <string name="phone">Teléfono</string>
@@ -124,12 +123,12 @@
     </string-array>
     <!-- Lista de iconos de navegacion-->
     <array name="navigation_iconos">
-        <item>@drawable/ic_principal</item>
-        <item>@drawable/ic_perfil</item>
-        <item>@drawable/ic_preferencias</item>
-        <item>@drawable/ic_deseos</item>
-        <item>@drawable/ic_invitar</item>
-        <item>@drawable/ic_faq</item>
+        <item>@drawable/ic_principal1</item>
+        <item>@drawable/ic_perfil1</item>
+        <item>@drawable/ic_preferencias1</item>
+        <item>@drawable/ic_deseos1</item>
+        <item>@drawable/ic_invitar1</item>
+        <item>@drawable/ic_faq1</item>
         <item>@drawable/ic_log_out</item>
     </array>
     <string name="title_activity_welcome_screen">WelcomeScreen</string>

@@ -96,13 +96,17 @@
                 android:layout_alignEnd="@+id/etiquetaPuntos"/>
 
 
-                <ImageButton
+                <Button
                     android:id="@+id/deseos_button"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center_horizontal"
-                    android:src="@drawable/ic_deseos"
-                    android:background="@color/YellowGreen"
+                    android:drawableRight="@drawable/ic_deseos1"
+                    android:text="Añadir a la lista"
+                    android:textAllCaps="false"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:background="@color/com_facebook_button_background_color"
                     android:layout_marginTop="310dp" />
 
          </RelativeLayout> <!-- The navigation drawer -->

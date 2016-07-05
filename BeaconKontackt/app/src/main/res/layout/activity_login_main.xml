@@ -32,13 +32,11 @@
         <EditText
             android:id="@+id/usuario"
             android:layout_width="fill_parent"
-
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/edittext_rounded"
+            android:hint="Usuario"
             android:paddingLeft="8dp"
-            android:drawableLeft="@drawable/user"
-
+            android:background="@drawable/edittext_border"
             android:inputType="textEmailAddress"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
@@ -50,41 +48,11 @@
             android:inputType="textPassword"
             android:layout_marginTop="10dp"
             android:paddingLeft="8dp"
-            android:drawableLeft="@drawable/pass"
+            android:hint="Contraseña"
             android:scaleType="fitXY"
-            android:background="@drawable/edittext_rounded"
+            android:background="@drawable/edittext_border"
             android:layout_marginBottom="5dp"
             android:textSize="15dp" />
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:id="@+id/layout_register"
-            >
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/flecha_der"
-            android:background="@null"
-            android:layout_marginRight="3dp"
-
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/flecha_der" />
-        <TextView
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-           android:text="@string/register"
-            android:scaleType="fitXY"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:textSize="20dp" />
-        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
@@ -99,16 +67,49 @@
     <Button
         android:id="@+id/login"
         android:gravity="center"
-        android:text="Ingresar"
+        android:text="Ingresa"
         android:textSize="17dp"
         android:textColor="@color/white"
-        android:background="@drawable/button_rounded"
+        android:background="@color/com_facebook_blue"
+        android:textAllCaps="false"
         android:paddingLeft="60dp"
         android:paddingRight="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"></Button>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:id="@+id/layout_register"
+        >
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/flecha_der"
+        android:background="@null"
+        android:layout_marginRight="3dp"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/flecha_der" />
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+       android:text="@string/register"
+        android:scaleType="fitXY"
+        android:gravity="center"
+        android:textColor="@color/unselectedTab"
+        android:drawableLeft="@android:drawable/ic_media_play"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="17dp" />
     </LinearLayout>
 
 </LinearLayout>

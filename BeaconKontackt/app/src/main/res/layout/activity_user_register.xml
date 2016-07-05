@@ -38,12 +38,12 @@
                 android:layout_height="40dp"
                 android:inputType="textEmailAddress"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/DarkBlue"
+                android:textColor="@color/black"
                 android:textColorHint="@color/LigthBluehint"
                 android:hint="@string/email"
                 android:paddingLeft="8dp"
+                android:background="@drawable/edittext_border"
                 android:scaleType="fitXY"
-                android:background="@drawable/edittext_rounded"
                 android:layout_marginBottom="5dp"
                 android:textSize="15dp" />
 
@@ -57,7 +57,7 @@
                 android:paddingLeft="8dp"
                 android:textColorHint="@color/LigthBluehint"
                 android:scaleType="fitXY"
-                android:background="@drawable/edittext_rounded"
+                android:background="@drawable/edittext_border"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/DarkBlue"
                 android:textSize="15dp" />
@@ -74,7 +74,7 @@
                 android:scaleType="fitXY"
                 android:textColor="@color/DarkBlue"
                 android:hint="@string/phone"
-                android:background="@drawable/edittext_rounded"
+                android:background="@drawable/edittext_border"
                 android:layout_marginBottom="5dp"
                 android:textSize="15dp" />
 
@@ -89,7 +89,7 @@
                 android:scaleType="fitXY"
                 android:textColor="@color/DarkBlue"
                 android:hint="@string/name"
-                android:background="@drawable/edittext_rounded"
+                android:background="@drawable/edittext_border"
                 android:layout_marginBottom="5dp"
                 android:textSize="15dp" />
 
@@ -104,7 +104,7 @@
                 android:paddingLeft="8dp"
                 android:hint="@string/lastname"
                 android:scaleType="fitXY"
-                android:background="@drawable/edittext_rounded"
+                android:background="@drawable/edittext_border"
                 android:layout_marginBottom="5dp"
                 android:textSize="15dp" />
 
@@ -124,10 +124,11 @@
             <Button
                 android:id="@+id/register"
                 android:gravity="center"
-                android:text="Registrar"
+                android:text="Registrate"
                 android:textSize="17dp"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@drawable/button_rounded"
+                android:background="@color/com_facebook_blue"
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp"
                 android:layout_width="match_parent"
