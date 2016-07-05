@@ -27,7 +27,7 @@
             android:minHeight="150dp"
             android:id="@+id/loginImage"
             android:layout_gravity="center"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo1"
             android:scaleType="fitStart"/>
 
     </LinearLayout>
@@ -84,7 +84,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:scaleType="fitStart"
-            android:src="@drawable/facebook" />
+            android:src="@drawable/facebookicon" />
 
         <ImageButton
             android:layout_width="60dp"
@@ -94,12 +94,12 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:scaleType="fitStart"
-            android:src="@drawable/google" />
+            android:src="@drawable/googleplus" />
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/user_icon"
-            android:background="@null"
+            android:background="@color/barraAccion"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:scaleType="fitStart"
