@@ -49,7 +49,7 @@
             android:textIsSelectable="false"
             android:layout_alignBottom="@+id/degradadoFondo"
             android:layout_alignParentStart="true"
-            android:drawableEnd="@drawable/corazon"
+            android:drawableEnd="@drawable/corazon2"
             android:layout_gravity="end|center" />
 
 

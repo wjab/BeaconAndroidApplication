@@ -65,17 +65,6 @@
                     android:layout_height="match_parent"
                     android:id="@+id/DescriptionPromoDetai"
                     />
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:scaleType="fitXY"
-                    android:id="@+id/etiquetaPuntos"
-                    android:src="@drawable/circulo"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_alignTop="@+id/Imagen_Promo_Detail"
-                    android:layout_alignEnd="@+id/Imagen_Promo_Detail"
-                    android:layout_marginTop="15dp" />
                 <TextView
                     android:text="10000 pts"
                     android:layout_marginRight="15dp"
