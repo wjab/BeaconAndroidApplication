@@ -94,7 +94,7 @@ private View rootView;
         try {
             listStoreProductArray = new ArrayList<ProductStore>();
             Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("MerchantProduct");
+            JSONArray ranges= response.getJSONArray("merchantProduct");
             String range = "";
             String message = "";
             String messageType = "";
