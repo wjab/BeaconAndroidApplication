@@ -5,6 +5,7 @@ import com.centaurosolutions.com.beacon.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.centaurosolutions.com.beacon.user.model.Preferences;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -29,8 +30,13 @@ public class UserController {
 		
 		try
 		{		
+			ArrayList<Preferences> preference = new ArrayList<Preferences>();
+		if(userMap.get("preference") != null)
+		{
+			preference = (ArrayList<Preferences>)userMap.get("preference");
+		}
 			User user = new User(
-					userMap.get("user").toString(), 
+				userMap.get("user").toString(), 
 					setEncryptedPassword(userMap.get("password").toString()),
 					Boolean.valueOf(userMap.get("enable").toString()),
 					Integer.parseInt(userMap.get("category_id").toString()),
@@ -45,7 +51,9 @@ public class UserController {
 					userMap.get("socialNetworkType").toString(),
 					userMap.get("socialNetworkJson").toString(),
 					userMap.get("gender").toString(),
-					null);
+					null,
+					userMap.get("path_image").toString(),
+					preference);
 			
 			if(LOCAL_USER == user.getSocialNetworkType())
 			{
@@ -199,7 +207,11 @@ public class UserController {
 		try
 		{
 			User user = userRepository.findById(UserId);
-	
+			ArrayList<Preferences> preference = new ArrayList<Preferences>();
+			if(userMap.get("preference") != null)
+			{
+				preference = (ArrayList<Preferences>)userMap.get("preference");
+			}
 			if (user != null) 
 			{
 				user.setUser(userMap.get("user").toString());
@@ -212,8 +224,9 @@ public class UserController {
 				user.setEmail(userMap.get("email").toString());
 				user.setPhone(userMap.get("phone").toString());
 				user.setGender(userMap.get("gender").toString());
+				user.setPath_image(userMap.get("path_image").toString());
+				user.setPreference(preference);
 				user.setId(UserId);
-	
 				response.put("status", 200);
 				response.put("message", "User updated");
 				response.put("user", userRepository.save(user));
@@ -496,5 +509,86 @@ public class UserController {
 
 		return response;
 	}
+	//-------->PathImage update
+		@RequestMapping(method = RequestMethod.PUT, value = "/editPathImage/{UserId}")
+		public Map<String, Object> editPathImage(
+				@PathVariable("UserId") String UserId,
+				@RequestBody Map<String, Object> userMap) 
+		{
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			User user;
+			
+			try
+			{
+				user = userRepository.findById(UserId);
+		
+				if (user != null) 
+				{
+					user.setPath_image(userMap.get("path_image").toString());
+					user.setId(UserId);
+					response.put("message", "PathImage updated");
+					response.put("user", userRepository.save(user));
+					response.put("status",200);
+				} 
+				else 
+				{
+					response.put("status", 404);
+					response.put("message", "User not found, PathImage not changed");
+					response.put("user", null);
+				}
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", "Error editPathImage");
+				response.put("user", null);
+			}
+
+			return response;
+		}
+		//------>Preferences Update
+		@SuppressWarnings("unchecked")
+		@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{UserId}")
+		public Map<String, Object> editPreferences(
+				@PathVariable("UserId") String UserId,
+				@RequestBody Map<String, Object> userMap) 
+		{
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			User user;
+			ArrayList<Preferences> preference = new ArrayList<Preferences>();
+			if(userMap.get("preference") != null)
+			{
+				preference = (ArrayList<Preferences>)userMap.get("preference");
+			}
+			
+			try
+			{
+				user = userRepository.findById(UserId);
+		
+				if (user != null) 
+				{
+					user.setPreference(preference);
+					user.setId(UserId);
+					response.put("message", "Preferences updated");
+					response.put("user", userRepository.save(user));
+					response.put("status",200);
+				} 
+				else 
+				{
+					response.put("status", 404);
+					response.put("message", "User not found, Preferences not changed");
+					response.put("user", null);
+				}
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", "Error editPreferences");
+				response.put("user", null);
+			}
+
+			return response;
+		}
+		
 
 }

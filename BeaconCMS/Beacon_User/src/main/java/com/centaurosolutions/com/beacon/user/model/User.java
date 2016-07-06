@@ -43,7 +43,9 @@ public class User {
 
 	private ArrayList<String> productWishList;
 	
+	private String path_image;
 	
+	public ArrayList<Preferences> preference;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -72,7 +74,8 @@ public class User {
 	public User(String user, String password, Boolean enable, int category_id,
 			int total_gift_points, Date creationDate, Date modifiedDate, String name,
 			String lastName, String email, String phone, String socialNetworkId,
-			String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList ) {
+			String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList,
+			String path_image,ArrayList<Preferences> preference) {
 		super();
 		this.user = user;
 		this.password = password;
@@ -90,6 +93,8 @@ public class User {
 		this.socialNetworkJson = socialNetworkJson;
 		this.gender = gender;
 		this.productWishList = productWishList;
+		this.path_image=path_image;
+		this.preference=preference;
 	}
 
 
@@ -344,6 +349,33 @@ public class User {
 
 	public void setProductWishList(ArrayList<String> productWishList) {
 		this.productWishList = productWishList;
+	}
+	/**
+	 * @return the path_image
+	 */
+	public String getPath_image() {
+		return path_image;
+	}
+
+	/**
+	 * @param id the path_image to set
+	 */
+	public void setPath_image(String path_image) {
+		this.path_image = path_image;
+	}
+	
+	/**
+	 * @return the preferences
+	 * */
+	public ArrayList<Preferences> getPreference() {
+		return preference;
+	}
+
+	/**
+	 * @param id the preferences to set
+	 */
+	public void setPreference(ArrayList<Preferences> preference) {
+		this.preference = preference;
 	}
 }
 
