@@ -87,17 +87,15 @@
         android:gravity="center"
         android:id="@+id/layout_register"
         >
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/flecha_der"
-        android:background="@null"
-        android:layout_marginRight="3dp"
 
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:scaleType="fitStart"
-        android:src="@drawable/flecha_der" />
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:id="@+id/open_history_points"
+            android:background="@drawable/arrowright"
+            android:layout_alignBottom="@+id/imageprofile_navigation"
+            android:layout_alignStart="@+id/userPointsAction"
+            android:layout_marginStart="7dp" />
     <TextView
         android:id="@+id/register"
         android:layout_width="wrap_content"
@@ -106,7 +104,6 @@
         android:scaleType="fitXY"
         android:gravity="center"
         android:textColor="@color/unselectedTab"
-        android:drawableLeft="@android:drawable/ic_media_play"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:textSize="17dp" />

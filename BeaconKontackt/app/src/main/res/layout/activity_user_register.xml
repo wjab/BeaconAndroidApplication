@@ -113,6 +113,15 @@
 
 
         </LinearLayout>
+    <ImageView
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:id="@+id/open_history_points"
+        android:background="@drawable/arrowrdown"
+        android:layout_alignBottom="@+id/imageprofile_navigation"
+        android:layout_alignStart="@+id/userPointsAction"
+        android:layout_marginStart="7dp"
+        android:layout_gravity="center_horizontal" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -121,6 +130,7 @@
             android:paddingRight="15dp"
             android:orientation="vertical"
             android:gravity="center">
+
             <Button
                 android:id="@+id/register"
                 android:gravity="center"

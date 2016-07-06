@@ -77,10 +77,7 @@
                     android:id="@+id/Puntos_promo_Detail"
                     android:textIsSelectable="false"
                     android:layout_marginLeft="15dp"
-                    android:layout_alignTop="@+id/etiquetaPuntos"
-                    android:layout_alignStart="@+id/etiquetaPuntos"
-                    android:layout_alignBottom="@+id/etiquetaPuntos"
-                    android:layout_alignEnd="@+id/etiquetaPuntos"/>
+                  />
             </RelativeLayout> <!-- The navigation drawer -->
         </RadioGroup>
     </ScrollView>

@@ -21,19 +21,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#fff"
-        android:layout_alignBottom="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginStart="70dp"
+        android:layout_above="@+id/open_history_points"
+        android:layout_toEndOf="@+id/imageprofile_navigation" />
 
     <ImageView
-        android:layout_width="23dp"
-        android:layout_height="23dp"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
         android:id="@+id/open_history_points"
-        android:background="@android:drawable/ic_menu_more"
-        android:layout_alignBottom="@+id/button"
-        android:layout_toStartOf="@+id/button"
-        android:layout_marginEnd="55dp" />
+        android:background="@drawable/arrow"
+        android:layout_alignBottom="@+id/imageprofile_navigation"
+        android:layout_alignStart="@+id/userPointsAction"
+        android:layout_marginStart="7dp" />
 
 
     <Button
