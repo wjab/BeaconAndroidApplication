@@ -2,6 +2,7 @@ package com.centaurosolutions.com.beacon.faq.controller;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,29 @@ public class BeaconFaqController {
 		}
 		
 		return response;
+	}
+	//------------------------------------OBTIENE LAS FAQ---------------------------------------------
+	@RequestMapping(method = RequestMethod.GET)
+	public Map<String, Object>  getFaq()
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		List<Faq> faq;
+			try
+			{
+				faq  = faqRepository.findAll();
+				response.put("status", 200);
+				response.put("message", "");
+				response.put("faq", faq);
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", ex.getMessage());
+				response.put("faq", null);
+			}
+
+
+			return response;
 	}
 	//------------------------------------OBTIENE UNA FAQ ESPECIFICA---------------------------------------------
 	//@param faqID

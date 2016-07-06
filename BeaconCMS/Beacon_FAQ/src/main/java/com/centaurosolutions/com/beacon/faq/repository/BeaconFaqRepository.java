@@ -1,5 +1,7 @@
 package com.centaurosolutions.com.beacon.faq.repository;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.centaurosolutions.com.beacon.faq.model.Faq;
