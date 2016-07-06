@@ -2,52 +2,61 @@
     android:background="@android:color/transparent" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:id="@+id/store_image"
-        android:src="@drawable/promo"
-        />
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:scaleType="fitXY"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:id="@+id/degradadoFondo"
-        android:src="@drawable/degnegro"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:text="@string/name"
         android:textSize="20dp"
-        android:paddingBottom="5dp"
-        android:lines="2"
         android:ellipsize="end"
-        android:textColor="@color/white"
-        android:layout_width="fill_parent"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
         android:gravity="left|bottom"
-        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="13dp"
         android:id="@+id/name"
-        android:layout_alignBottom="@+id/store_image"
-        android:layout_alignStart="@+id/store_image" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="10000"
-        android:layout_marginRight="13dp"
-        android:textSize="12dp"
-        android:layout_width="fill_parent"
-        android:textColor="@color/white"
+        android:text="1000"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/com_facebook_button_background_color"
         android:gravity="center_vertical|center"
         android:layout_height="wrap_content"
         android:id="@+id/points"
+        android:textStyle="bold"
+        android:layout_marginRight="15dp"
         android:textIsSelectable="false"
-        android:layout_marginLeft="18dp"
-        android:layout_below="@+id/store_image"
+        android:layout_marginEnd="18dp"
+        android:layout_alignParentTop="true"
+        android:drawableRight="@drawable/ic_deseos_azul"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Fecha de obtencion"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="13dp"
+        android:layout_alignTop="@+id/points"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Direccion del negocio"
+        android:layout_marginLeft="13dp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/name"
+        android:layout_alignParentStart="true" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/com_facebook_likeview_text_color"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
 </RelativeLayout>
 
