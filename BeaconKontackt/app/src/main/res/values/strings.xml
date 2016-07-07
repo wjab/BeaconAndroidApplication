@@ -109,6 +109,11 @@
     <string name="gender">Sexo</string>
     <string name="birthday">Fecha de nacimiento</string>
     <string name="birthdaynotset">Presione acá para asignar</string>
+    <string name="preferences">Preferencias</string>
+    <string name="send_invitation">Invitar mediante</string>
+    <string name="profile">Perfil</string>
+    <string name="invitation">Invitar</string>
+    <string name="close_session">Cerrar Session</string>
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>

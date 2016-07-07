@@ -510,28 +510,28 @@ public class BackgroundScanActivity extends BaseActivity
         public void onItemClick(AdapterView parent, View view, int position, long id)
         {
             selectItem(position-1);
-            if(mPlanetTitles.get(position-1).getElemento().equals("Cerrar Session"))
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.close_session)))
             {
                 logOut();
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals("Perfil"))
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.profile)))
             {
                 Intent intent= new Intent(getBaseContext(),Activity_profile.class);
                 intent.putExtra("idUser",idUser);
                 startActivity(intent);
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals("Invitar"))
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.invitation)))
             {
 
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about" + getString(R.string.link));
 
-                startActivity(Intent.createChooser(intent, "Invitar mediante:"));
+                startActivity(Intent.createChooser(intent,getString(R.string.send_invitation)));
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals("Preferencias")){
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.preferences))){
                // Intent intent= new Intent(getBaseContext(),PreferencesActivity.class);
                // intent.putExtra("idUser",idUser);
                // startActivity(intent);

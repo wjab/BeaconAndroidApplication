@@ -36,7 +36,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edittext_border"
             android:paddingLeft="8dp"
-            android:textColor="@color/DarkBlue"
+            android:textColor="@color/black"
             android:inputType="text"
             android:textColorHint="@color/LigthBluehint"
             android:layout_marginBottom="5dp"
@@ -50,7 +50,7 @@
             android:paddingLeft="8dp"
             android:textColorHint="@color/LigthBluehint"
             android:scaleType="fitXY"
-            android:textColor="@color/DarkBlue"
+            android:textColor="@color/black"
             android:hint="@string/lastname"
             android:background="@drawable/edittext_border"
             android:layout_marginBottom="5dp"
@@ -65,7 +65,7 @@
             android:enabled="false"
             android:textColorHint="@color/LigthBluehint"
             android:scaleType="fitXY"
-            android:textColor="@color/selectedTab"
+            android:textColor="@color/black"
             android:hint="@string/email"
             android:background="@drawable/edittext_border"
             android:layout_marginBottom="5dp"
@@ -85,7 +85,8 @@
                 android:layout_gravity="left"
                 android:gravity="center"
                 android:checked="true"
-                android:textColor="@color/white"
+                android:buttonTint="@color/black"
+                android:textColor="@color/black"
 
                 />
             <ImageView
@@ -93,7 +94,7 @@
                 android:layout_height="45dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/male"/>
+                android:src="@drawable/male1"/>
             <RadioButton
                 android:id="@+id/radioF"
                 android:layout_width="wrap_content"
@@ -101,14 +102,15 @@
                 android:layout_gravity="right"
                 android:gravity="center"
                 android:checked="false"
-                android:textColor="@color/white"
+                android:buttonTint="@color/black"
+                android:textColor="@color/black"
 
                 />
             <ImageView
                 android:gravity="right"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/female"/>
+                android:src="@drawable/female1"/>
         </RadioGroup>
 
         <Button
@@ -121,7 +123,7 @@
             android:paddingLeft="8dp"
             android:textColorHint="@color/LigthBluehint"
             android:scaleType="fitXY"
-            android:textColor="@color/DarkBlue"
+            android:textColor="@color/black"
             android:hint="@string/user"
             android:background="@drawable/edittext_border"
             android:layout_marginBottom="5dp"
@@ -136,7 +138,7 @@
             android:paddingLeft="8dp"
             android:textColorHint="@color/LigthBluehint"
             android:scaleType="fitXY"
-            android:textColor="@color/selectedTab"
+            android:textColor="@color/black"
             android:hint="@string/phone"
             android:background="@drawable/edittext_border"
             android:layout_marginBottom="5dp"
