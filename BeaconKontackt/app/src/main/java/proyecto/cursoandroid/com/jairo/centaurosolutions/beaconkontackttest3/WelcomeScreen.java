@@ -85,21 +85,24 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
         try
         {
-            if (response.getBoolean("enable") && prefs.getBoolean("isAuthenticated", false)) {
+            JSONObject currRange= response.getJSONObject("user");
 
-                info.setText("Bienvenido "+ response.getString("user"));
+
+            if (currRange.getString("enable").equals("true") && prefs.getBoolean("isAuthenticated", false)) {
+
+                info.setText("Bienvenido "+ currRange.getString("user"));
                 SystemClock.sleep(2000);
                 Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                intent.putExtra("totalPoints",response.getInt("total_gift_points"));
+                intent.putExtra("totalPoints",currRange.getInt("total_gift_points"));
 
                 nonStaticUtils.saveLogin(this,
-                        response.getString("user"),
-                        response.getString("password"),
-                        response.getString("id"),
-                        response.getInt("total_gift_points"),
+                        currRange.getString("user"),
+                        currRange.getString("password"),
+                        currRange.getString("id"),
+                        currRange.getInt("total_gift_points"),
                         true,
-                        response.getString("socialNetworkType"),
-                        response.getString("socialNetworkId"));
+                        currRange.getString("socialNetworkType"),
+                        currRange.getString("socialNetworkId"));
 
                 startActivity(intent);
             }
