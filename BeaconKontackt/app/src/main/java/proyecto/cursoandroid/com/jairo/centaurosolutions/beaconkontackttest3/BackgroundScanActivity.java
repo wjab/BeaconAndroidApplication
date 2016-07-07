@@ -524,7 +524,7 @@ public class BackgroundScanActivity extends BaseActivity
             if(mPlanetTitles.get(position-1).getElemento().equals("Invitar"))
             {
 
-                Intent intent = new Intent(Intent.ACTION_MEDIA_SHARED);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about" + getString(R.string.link));
 
