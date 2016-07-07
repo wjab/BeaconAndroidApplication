@@ -1,25 +1,21 @@
 package com.centaurosolutions.com.beacon.utils.controller;
 
 import com.centaurosolutions.com.beacon.utils.model.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 @RestController
 @RequestMapping("/utils")
-public class UtilsController 
+public class UtilsController
 {
-	
+
     private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 	private String urlUser = "http://buserdevel.cfapps.io/user/";
 	private String urlPromo = "http://bpromodevel.cfapps.io/promo/";
@@ -27,7 +23,7 @@ public class UtilsController
 	private String urlMerchant = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/";
 	private String urlOfferHistory = "http://bofferhistorydevel.cfapps.io/offerhistory/";
     private String offerHistoryAttemptResource = "/getAttempts/user/%s/promo/%s";
-	
+
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
 
@@ -45,32 +41,32 @@ public class UtilsController
 		Promo promoObject  = null;
 		PromoResponse promoResponse = null;
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		try
 		{
 			offerHistoryAttemptResponse = restTemplate.getForObject(
 					urlOfferHistory + String.format(
-							offerHistoryAttemptResource, 
-							customMap.get("userId").toString(), 
+							offerHistoryAttemptResource,
+							customMap.get("userId").toString(),
 							customMap.get("promoId")),
 					OfferHistoryAttemptResponse.class);
 
 			promoResponse = restTemplate.getForObject( urlPromo + "" + customMap.get("promoId").toString(), PromoResponse.class);
-			
+
 			if(promoResponse.getStatus() == 200 && offerHistoryAttemptResponse.getStatus() == 200 )
 			{
 				offerHistoryAttempt = offerHistoryAttemptResponse.getAttemptData();
 				promoObject = promoResponse.getPromo();
 
                 dateDiffInfo = getDateDiffCall(
-                		format.format(offerHistoryAttempt.getLastScan()).toString(), 
+                		format.format(offerHistoryAttempt.getLastScan()).toString(),
                 		format.format(dateNow));
 
                 /***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
-                if (offerHistoryAttempt.getAttempts() == 0 || 
-                		(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() && 
-                		(dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) && 
-                		dateDiffInfo.getHours() > promoObject.getInterval())) 
+                if (offerHistoryAttempt.getAttempts() == 0 ||
+                		(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() &&
+                		(dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) &&
+                		dateDiffInfo.getHours() > promoObject.getInterval()))
                 {
                     userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
 
@@ -79,22 +75,22 @@ public class UtilsController
 						userObject = userResponse.getUser();
                         points = userObject.getTotal_gift_points() + promoObject.getGift_points();
                         userObject.setTotal_gift_points(points);
-                        
-                        if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId())) 
+
+                        if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId()))
                         {
                             response.put("user", userObject);
 							response.put("status", 200);
 							response.put("message", "Puntos asignados correctamente");
                         }
-                    } 
-                    else 
+                    }
+                    else
                     {
                         response.put("user", null);
 						response.put("status", 404);
 						response.put("message", "Usuario no encontrado");
                     }
-                } 
-                else 
+                }
+                else
                 {
 					response.put("user", null);
 					response.put("status", 400);
@@ -114,16 +110,16 @@ public class UtilsController
 			response.put("status", 500);
 			response.put("message", ex.getMessage());
 		}
-		
+
 		return response;
 	}
-	
-	
+
+
 	@RequestMapping(method = RequestMethod.POST, value="/getDateDiff")
 	public Map<String, Object> getAccurateDateDifference(@RequestBody Map<String, Object> customMap){
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		Map<String, Object> dateDiffValues = new LinkedHashMap<>();
-		
+
 		Date d1 = null;
 		Date d2 = null;
 		long diff = 0;
@@ -133,18 +129,18 @@ public class UtilsController
 		long diffDays = 0;
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-		try 
-		{			
+		try
+		{
 			if(customMap.get("initialDate") != null && customMap.get("finalDate") != null )
-			{				
+			{
 				d1 = format.parse(customMap.get("initialDate").toString());
 				d2 = format.parse(customMap.get("finalDate").toString());
-	
+
 				//in seconds
 				diff = (d2.getTime() / 1000) - (d1.getTime() / 1000) ;
-				
+
 				if( diff > 0 )
-				{					
+				{
 					diffSeconds = diff / 1000 % 60;
 					diffMinutes = diff / (60 * 1000) % 60;
 					diffHours = (diff / (60 * 60) % 24) + (diff / (24 * 60 * 60)) * 24;;
@@ -165,8 +161,8 @@ public class UtilsController
 					response.put("message", "La fecha de inicio es mayor a la fecha final");
 					response.put("status", 400);
 					response.put("dateDiffValues", null);
-				}			
-			}		
+				}
+			}
 			else
 			{
 				response.put("message", "Parámetros inválidos");
@@ -174,21 +170,21 @@ public class UtilsController
 				response.put("dateDiffValues", null);
 			}
 
-		} 
+		}
 		catch (Exception ex)
 		{
 			response.put("message", ex.getMessage());
 			response.put("status", 500);
 			response.put("dateDiffValues", null);
 		}
-				
+
 		return response;
 	}
-	
+
 	public boolean setUserPoints(User userObject)
-	{		
+	{
 		boolean setUserPoint = false;
-		
+
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();
@@ -201,15 +197,15 @@ public class UtilsController
 		catch(Exception ex)
 		{
 			setUserPoint = false;
-		}	
-		
+		}
+
 		return setUserPoint;
 	}
-	
+
 	public boolean setUserPromoOffer(String userId, String promoId)
-	{		
+	{
 		boolean setPromoOffer = false;
-		
+
 		try
 		{
 			format.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -226,17 +222,17 @@ public class UtilsController
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity<OfferHistory> entity = new HttpEntity<OfferHistory>(historyOffer , headers);
 			ResponseEntity<OfferHistory> out = restTemplate.exchange("http://bofferhistorydevel.cfapps.io/offerhistory/", HttpMethod.POST, entity , OfferHistory.class);
-			
+
 			setPromoOffer = true;
 		}
 		catch(Exception ex)
 		{
 			setPromoOffer = false;
-		}	
-		
+		}
+
 		return setPromoOffer;
-	}	
-	
+	}
+
 
 	public DateDiffValues getDateDiffCall (String initialDate, String finalDate)
 	{
@@ -244,7 +240,7 @@ public class UtilsController
 		Map<String, Object> responseObject = new LinkedHashMap<String, Object>();
 		DateDiffValues diffValues = new DateDiffValues();
 		DateDiffResponse dateDiffResponse = null;
-		
+
 		try
 		{
 			if((!initialDate.isEmpty() || initialDate != null)  && (!initialDate.isEmpty() || initialDate != null))
@@ -266,7 +262,7 @@ public class UtilsController
 		{
 			diffValues = null;
 		}
-   	
+
 		return diffValues;
    }
 
@@ -279,25 +275,49 @@ public class UtilsController
 		Map<String, Object> productData = new LinkedHashMap<String, Object>();
         MerchantProductResponse merchantProductResponse =  null;
 		MerchantProfileResponse merchantProfileResponse = null;
+        Product product = null;
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		try
 		{
-			if( customMap.get("productId") != null && customMap.get("merchantId") != null){
+			if( customMap.get("merchantProductId") != null && customMap.get("merchantId") != null &&  customMap.get("productId") != null  ){
 
-				merchantProductResponse = restTemplate.getForObject( urlProduct + "" + customMap.get("productId").toString(), MerchantProductResponse.class);
+				merchantProductResponse = restTemplate.getForObject( urlProduct + "" + customMap.get("merchantProductId").toString(), MerchantProductResponse.class);
 
 				merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + customMap.get("merchantId").toString(), MerchantProfileResponse.class);
 
-				if(merchantProductResponse != null && merchantProfileResponse != null){
+				if(merchantProductResponse.getStatus() == 200 && merchantProfileResponse.getStatus() == 200){
 
 					if(merchantProductResponse.getMerchantProduct().getMerchantId().equals(merchantProfileResponse.getMerchantProfile().getId())){
-						response.put("status", 200);
-						productData.put("product", merchantProductResponse.getMerchantProduct());
-						productData.put("merchant", merchantProfileResponse.getMerchantProfile());
-						response.put("productData", productData);
-						response.put("message", "");
+
+                        if(merchantProductResponse.getMerchantProduct().getProductList() != null && merchantProductResponse.getMerchantProduct().getProductList().size() > 0){
+
+                            for(Product listProduct : merchantProductResponse.getMerchantProduct().getProductList()) {
+                                if (customMap.get("productId").toString().equals(listProduct.getProductId())) {
+                                    product = listProduct;
+                                }
+                            }
+
+                             if(product != null) {
+                                 response.put("status", 200);
+                                 productData.put("product", product);
+                                 productData.put("storeName", merchantProfileResponse.getMerchantProfile().getMerchantName());
+                                 productData.put("shopZoneId", merchantProductResponse.getMerchantProduct().getShopZoneId());
+                                 response.put("productData", productData);
+                                 response.put("message", null);
+                             }
+                             else{
+                                 response.put("status", 404);
+                                 response.put("message", "Producto inexistente");
+                                 response.put("productData", null);
+                             }
+                        }
+                        else{
+                            response.put("status", 404);
+                            response.put("message", "No hay un listado de productos");
+                            response.put("productData", null);
+                        }
 					}
 					else {
 						response.put("status", 404);
@@ -326,6 +346,117 @@ public class UtilsController
 
 		return response;
 	}
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/user/getPointsData/{userId}")
+    public Map<String, Object> getPointsHistory(@PathVariable("userId") String userId){
+
+        // Attributes
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Map<String, Object> response = new LinkedHashMap<String, Object>();
+        Map<String, Object> customData = new LinkedHashMap<String, Object>();
+        Map<String, Object> promoData = new LinkedHashMap<String, Object>();
+        PromoResponse promoResponse =  null;
+        MerchantProfileResponse merchantProfileResponse = null;
+		OfferHistoryResponse offerHistoryResponse = null;
+        OfferHistoryAttemptResponse offerHistoryAttemptResponse = null;
+        UserResponse userResponse = null;
+        RestTemplate restTemplate = new RestTemplate();
+		int totalPoints = 0;
+		List<OfferHistory> offerHistoryList = new ArrayList<OfferHistory>();
+		List<OfferHistory> filteredList =  new ArrayList<OfferHistory>();
+		LinkedHashMap<String,Object> data = new LinkedHashMap<String, Object>();
+		String promoId = "";
+		ObjectMapper mapper = new ObjectMapper();
+		Object custom =  new Object();
+		ArrayList<Object> listData = new ArrayList<Object>();
+
+        try{
+
+            if(!userId.isEmpty() || userId != null)
+            {
+                offerHistoryResponse =  restTemplate.getForObject(urlOfferHistory + "user/" + userId, OfferHistoryResponse.class);
+                if(offerHistoryResponse.getStatus() == 200){
+
+
+					offerHistoryList = mapper.convertValue(offerHistoryResponse.getOfferhistory(), new TypeReference<List<OfferHistory>>() { });
+
+
+					//Get unique promos
+					for(OfferHistory offerHistory : offerHistoryList){
+							if(!promoId.equals(offerHistory.getPromoId())){
+								promoId = offerHistory.getPromoId();
+								filteredList.add(offerHistory);
+							}
+					}
+
+					//Iterate unique promos
+					for(OfferHistory offerHistory : filteredList){
+                        offerHistoryAttemptResponse = restTemplate.getForObject(
+                                urlOfferHistory + String.format(
+                                        offerHistoryAttemptResource,
+                                        offerHistory.getUserId(),
+                                        offerHistory.getPromoId()),
+                                OfferHistoryAttemptResponse.class);
+
+                        if(offerHistoryAttemptResponse.getStatus() == 200){
+
+                            promoResponse = restTemplate.getForObject( urlPromo  + "" + offerHistoryAttemptResponse.getAttemptData().getPromoId(), PromoResponse.class);
+
+                            if(promoResponse.getStatus() == 200){
+
+                                merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getProfile_id(), MerchantProfileResponse.class);
+
+                            }
+                        }
+						if(promoResponse.getPromo() != null && merchantProfileResponse.getMerchantProfile() != null)
+						{
+							totalPoints = offerHistoryAttemptResponse.getAttemptData().getAttempts() * promoResponse.getPromo().getGift_points();
+							merchantProfileResponse.getMerchantProfile().setUsers(null);
+
+							customData.put("merchantProfile", merchantProfileResponse.getMerchantProfile());
+							customData.put("promo", promoResponse.getPromo());
+							customData.put("points", totalPoints);
+
+							 custom = mapper.convertValue(customData, new TypeReference<Object>() {
+							});
+
+						}
+                        else {
+							customData.put("merchantProfile", null);
+							customData.put("promo", null);
+							customData.put("points", 0);
+							custom = mapper.convertValue(customData, new TypeReference<Object>() {
+							});
+						}
+
+						listData.add(custom);
+					}
+					response.put("status", 200);
+					response.put("message", "");
+					response.put("pointsData", listData);
+
+                }
+                else{
+					response.put("status", 404);
+					response.put("message", "The user does not have points ");
+					response.put("customData", null); 
+                }
+            }
+            else{
+				response.put("status", 400);
+				response.put("message", "Missing parameters");
+				response.put("customData", null);
+            }
+        }
+        catch (Exception ex){
+            response.put("customData", null);
+            response.put("status", 500);
+            response.put("message", ex.getMessage());
+        }
+
+        return response;
+    }
 }
 
 
