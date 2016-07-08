@@ -150,6 +150,7 @@
     <string name="WebService_Promo">http://bpromodevel.cfapps.io/</string>
     <string name="WebService_User">http://buserdevel.cfapps.io/</string>
     <string name="WebService_Utils">http://butilsdevel.cfapps.io/</string>
+    <string name="WebServiceFaq">http://bfaqdevel.cfapps.io/</string>
     <string name="WebService_VisitorHistory">http://bvisitorhistorydevel.cfapps.io/</string>
     <string name="title_activity_pull_notifications">PullNotificationsActivity</string>
     <string name="title_activity_login__options">Login_Options</string>
@@ -167,6 +168,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="faq">FAQ</string>
 
 
 </resources>

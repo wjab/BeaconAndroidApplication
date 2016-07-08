@@ -34,7 +34,7 @@ public CustomAdapterProductStore adapter;
 public ListView listviewShopProduct;
 public ArrayList<ProductStore> listStoreProductArray;
 private View rootView;
-    String mpoints,userAcumulatedPoints;;
+    String mpoints,userAcumulatedPoints;
 
 @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -453,6 +453,7 @@ public class BackgroundScanActivity extends BaseActivity
         {
             return new ForegroundBroadcastInterceptor(context);
         }
+
     }
 
     @Override
@@ -532,13 +533,14 @@ public class BackgroundScanActivity extends BaseActivity
 
             }
             if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.preferences))){
-               // Intent intent= new Intent(getBaseContext(),PreferencesActivity.class);
-               // intent.putExtra("idUser",idUser);
-               // startActivity(intent);
                 FragmentManager fm = getSupportFragmentManager();
                 PreferencesDialogFragment p= new PreferencesDialogFragment();
+                p.show(fm, "tag");
 
-                p.show(fm,"tag");
+            }
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.faq))){
+                Intent intent= new Intent(getBaseContext(),FaqActivity.class);
+                startActivity(intent);
 
             }
 
