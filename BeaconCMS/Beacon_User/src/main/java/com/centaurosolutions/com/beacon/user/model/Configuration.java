@@ -6,16 +6,16 @@ public class Configuration {
 	@Id 
 	private String id;
 	
-	private String MaxReccordsSQLite;
+	private String maxRecordsSQLite;
 	
-	private String TimeScan;
+	private String timeScan;
 
 	public Configuration(){}
 	
-	public Configuration(String MaxReccordsSQLite, String TimeScan){
+	public Configuration(String maxRecordsSQLite, String timeScan){
 		super();
-		this.MaxReccordsSQLite = MaxReccordsSQLite;
-		this.TimeScan = TimeScan;
+		this.maxRecordsSQLite = maxRecordsSQLite;
+		this.timeScan = timeScan;
 	}
 	public String getId() {
 		return id;
@@ -25,20 +25,20 @@ public class Configuration {
 		this.id = id;
 	}
 
-	public String getMaxReccordsSQLite() {
-		return MaxReccordsSQLite;
+	public String getMaxRecordsSQLite() {
+		return maxRecordsSQLite;
 	}
 
-	public void setMaxReccordsSQLite(String maxReccordsSQLite) {
-		MaxReccordsSQLite = maxReccordsSQLite;
+	public void setMaxRecordsSQLite(String maxRecordsSQLite) {
+		maxRecordsSQLite = maxRecordsSQLite;
 	}
 
 	public String getTimeScan() {
-		return TimeScan;
+		return timeScan;
 	}
 
 	public void setTimeScan(String timeScan) {
-		TimeScan = timeScan;
+		timeScan = timeScan;
 	}
 	
 

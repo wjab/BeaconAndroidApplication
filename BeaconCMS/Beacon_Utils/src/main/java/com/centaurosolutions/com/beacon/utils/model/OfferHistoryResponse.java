@@ -7,14 +7,14 @@ public class OfferHistoryResponse {
 
     public String message;
     public int status;
-    public Object offerhistory;
+    public Object offerHistory;
 
     public OfferHistoryResponse(){}
 
-    public OfferHistoryResponse(String message, int status, Object offerhistory) {
+    public OfferHistoryResponse(String message, int status, Object offerHistory) {
         this.message = message;
         this.status = status;
-        this.offerhistory = offerhistory;
+        this.offerHistory = offerHistory;
     }
 
     public String getMessage() {
@@ -34,10 +34,10 @@ public class OfferHistoryResponse {
     }
 
     public Object getOfferhistory() {
-        return offerhistory;
+        return offerHistory;
     }
 
-    public void setOfferhistory(Object offerhistory) {
-        this.offerhistory = offerhistory;
+    public void setOfferhistory(Object offerHistory) {
+        this.offerHistory = offerHistory;
     }
 }

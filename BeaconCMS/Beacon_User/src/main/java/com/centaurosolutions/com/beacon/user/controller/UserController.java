@@ -39,8 +39,8 @@ public class UserController {
 				userMap.get("user").toString(), 
 					setEncryptedPassword(userMap.get("password").toString()),
 					Boolean.valueOf(userMap.get("enable").toString()),
-					Integer.parseInt(userMap.get("category_id").toString()),
-					Integer.parseInt(userMap.get("total_gift_points").toString()),
+					Integer.parseInt(userMap.get("categoryId").toString()),
+					Integer.parseInt(userMap.get("totalGiftPoints").toString()),
 					DateFormatter(userMap.get("creationDate").toString()),
 					DateFormatter(userMap.get("modifiedDate").toString()), 
 					userMap.get("name").toString(),
@@ -198,8 +198,8 @@ public class UserController {
 		return response;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/{UserId}")
-	public Map<String, Object> editUser(@PathVariable("UserId") String UserId,
+	@RequestMapping(method = RequestMethod.PUT, value = "/{userId}")
+	public Map<String, Object> editUser(@PathVariable("userId") String UserId,
 			@RequestBody Map<String, Object> userMap) 
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -216,15 +216,15 @@ public class UserController {
 			{
 				user.setUser(userMap.get("user").toString());
 				user.setEnable(Boolean.valueOf(userMap.get("enable").toString()));
-				user.setCategory_id(Integer.parseInt(userMap.get("category_id").toString()));
-				user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+				user.setCategoryId(Integer.parseInt(userMap.get("categoryId").toString()));
+				user.setTotalGiftPoints(Integer.parseInt(userMap.get("totalGiftPoints").toString()));
 				user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
 				user.setName(userMap.get("name").toString());
 				user.setLastName(userMap.get("lastName").toString());
 				user.setEmail(userMap.get("email").toString());
 				user.setPhone(userMap.get("phone").toString());
 				user.setGender(userMap.get("gender").toString());
-				user.setPath_image(userMap.get("path_image").toString());
+				user.setPathImage(userMap.get("path_image").toString());
 				user.setPreference(preference);
 				user.setId(UserId);
 				response.put("status", 200);
@@ -247,9 +247,9 @@ public class UserController {
 		return response;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/setPoints/{UserId}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/setPoints/{userId}")
 	public Map<String, Object> setPointsUser(
-			@PathVariable("UserId") String UserId,
+			@PathVariable("userId") String UserId,
 			@RequestBody Map<String, Object> userMap) 
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -262,7 +262,7 @@ public class UserController {
 			
 			if (user != null) 
 			{
-				user.setTotal_gift_points(Integer.parseInt(userMap.get("total_gift_points").toString()));
+				user.setTotalGiftPoints(Integer.parseInt(userMap.get("totalGiftPoints").toString()));
 				user.setId(UserId);
 				response.put("message", "User updated");
 				response.put("user", userRepository.save(user));
@@ -284,9 +284,9 @@ public class UserController {
 		return response;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/changePassword/{UserId}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/changePassword/{userId}")
 	public Map<String, Object> editUserPassword(
-			@PathVariable("UserId") String UserId,
+			@PathVariable("userId") String UserId,
 			@RequestBody Map<String, Object> userMap) 
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -510,9 +510,9 @@ public class UserController {
 		return response;
 	}
 	//-------->PathImage update
-		@RequestMapping(method = RequestMethod.PUT, value = "/editPathImage/{UserId}")
+		@RequestMapping(method = RequestMethod.PUT, value = "/editPathImage/{userId}")
 		public Map<String, Object> editPathImage(
-				@PathVariable("UserId") String UserId,
+				@PathVariable("userId") String UserId,
 				@RequestBody Map<String, Object> userMap) 
 		{
 			Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -524,7 +524,7 @@ public class UserController {
 		
 				if (user != null) 
 				{
-					user.setPath_image(userMap.get("path_image").toString());
+					user.setPathImage(userMap.get("pathImage").toString());
 					user.setId(UserId);
 					response.put("message", "PathImage updated");
 					response.put("user", userRepository.save(user));
@@ -548,9 +548,9 @@ public class UserController {
 		}
 		//------>Preferences Update
 		@SuppressWarnings("unchecked")
-		@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{UserId}")
+		@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{userId}")
 		public Map<String, Object> editPreferences(
-				@PathVariable("UserId") String UserId,
+				@PathVariable("userId") String UserId,
 				@RequestBody Map<String, Object> userMap) 
 		{
 			Map<String, Object> response = new LinkedHashMap<String, Object>();

@@ -20,9 +20,9 @@ public class Promo {
 
 	private String id;
 	private boolean enable;
-	private String profile_id;
+	private String profileId;
 	private String code;
-	private int gift_points;
+	private int giftPoints;
 	private int attempt;
 	private Date startDate;
 	private Date endDate;
@@ -47,9 +47,9 @@ public class Promo {
 
 	/**
 	 * @param enable
-	 * @param profile_id
+	 * @param profileId
 	 * @param code
-	 * @param gift_points
+	 * @param giftPoints
 	 * @param attempt
 	 * @param startDate
 	 * @param endDate
@@ -62,15 +62,15 @@ public class Promo {
 	 * @param isAutomatic
 	 * @param images
 	 */
-	public Promo(boolean enable, String profile_id, String code, int gift_points, int attempt, Date startDate,
+	public Promo(boolean enable, String profileId, String code, int giftPoints, int attempt, Date startDate,
 			Date endDate, String type, int availability, Date creationDate, Date modifiedDate, String updatedby, String title,
 			String description, Boolean isAutomatic, String image, int interval) 
 	{
 		super();
 		this.enable = enable;
-		this.profile_id = profile_id;
+		this.profileId = profileId;
 		this.code = code;
-		this.gift_points = gift_points;
+		this.giftPoints = giftPoints;
 		this.attempt = attempt;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -121,17 +121,17 @@ public class Promo {
 	/**
 	 * @return the profile_id
 	 */
-	public String getProfile_id() 
+	public String getProfileId() 
 	{
-		return profile_id;
+		return profileId;
 	}
 
 	/**
-	 * @param profile_id the profile_id to set
+	 * @param profileId the profile_id to set
 	 */
-	public void setProfile_id(String profile_id) 
+	public void setProfileId(String profileId) 
 	{
-		this.profile_id = profile_id;
+		this.profileId = profileId;
 	}
 
 	/**
@@ -153,17 +153,17 @@ public class Promo {
 	/**
 	 * @return the gift_points
 	 */
-	public int getGift_points() 
+	public int getGiftPoints() 
 	{
-		return gift_points;
+		return giftPoints;
 	}
 
 	/**
-	 * @param gift_points the gift_points to set
+	 * @param giftPoints the gift_points to set
 	 */
-	public void setGift_points(int gift_points) 
+	public void setGiftPoints(int giftPoints) 
 	{
-		this.gift_points = gift_points;
+		this.giftPoints = giftPoints;
 	}
 
 	/**

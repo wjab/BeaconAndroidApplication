@@ -15,7 +15,7 @@ public class MerchantUser {
 	
 	private String user;
 	private String password;
-	private String shopZone_id;
+	private String shopZoneId;
 	
 	public MerchantUser() {
 		// TODO Auto-generated constructor stub
@@ -24,13 +24,13 @@ public class MerchantUser {
 	/**
 	 * @param user
 	 * @param password
-	 * @param shopZone_id
+	 * @param shopZoneId
 	 */
-	public MerchantUser(String user, String password, String shopZone_id) {
+	public MerchantUser(String user, String password, String shopZoneId) {
 		super();
 		this.user = user;
 		this.password = password;
-		this.shopZone_id = shopZone_id;
+		this.shopZoneId = shopZoneId;
 	}
 
 	/**
@@ -64,15 +64,15 @@ public class MerchantUser {
 	/**
 	 * @return the shopZone_id
 	 */
-	public String getShopZone_id() {
-		return shopZone_id;
+	public String getShopZoneId() {
+		return shopZoneId;
 	}
 
 	/**
-	 * @param shopZone_id the shopZone_id to set
+	 * @param shopZoneId the shopZone_id to set
 	 */
-	public void setShopZone_id(String shopZone_id) {
-		this.shopZone_id = shopZone_id;
+	public void setShopZoneId(String shopZoneId) {
+		this.shopZoneId = shopZoneId;
 	}
 	
 	

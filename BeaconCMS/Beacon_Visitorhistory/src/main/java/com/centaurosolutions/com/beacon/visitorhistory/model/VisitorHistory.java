@@ -5,22 +5,23 @@ public class VisitorHistory {
 	
 	@Id
 	private String id;
-	private String user_id;
-	private String merchant_id;
-	private String shopzone_id;
+	private String userId;
+	private String merchantId;
+	private String shopzoneId;
 	private Date rowDate;
 	/**
 	 * @param id
-	 * @param user_id
-	 * @param merchant_id
-	 * @param shopzone_id
+	 * @param userId
+	 * @param merchantId
+	 * @param shopzoneId
 	 * @param rowDate
 	 */
-	public VisitorHistory(String user_id, String merchant_id, String shopzone_id, Date rowDate) {
+	public VisitorHistory(String userId, String merchantId, String shopzoneId, Date rowDate) 
+	{
 		super();
-		this.user_id = user_id;
-		this.merchant_id = merchant_id;
-		this.shopzone_id = shopzone_id;
+		this.userId = userId;
+		this.merchantId = merchantId;
+		this.shopzoneId = shopzoneId;
 		this.rowDate = rowDate;
 	}
 	
@@ -49,48 +50,48 @@ public class VisitorHistory {
 	/**
 	 * @return the user_id
 	 */
-	public String getUser_id() {
-		return user_id;
+	public String getUserId() {
+		return userId;
 	}
 
 
 	/**
-	 * @param user_id the user_id to set
+	 * @param userId the user_id to set
 	 */
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUseId(String userId) {
+		this.userId = userId;
 	}
 
 
 	/**
 	 * @return the merchant_id
 	 */
-	public String getMerchant_id() {
-		return merchant_id;
+	public String getMerchantId() {
+		return merchantId;
 	}
 
 
 	/**
-	 * @param merchant_id the merchant_id to set
+	 * @param merchantId the merchant_id to set
 	 */
-	public void setMerchant_id(String merchant_id) {
-		this.merchant_id = merchant_id;
+	public void setMerchantId(String merchantId) {
+		this.merchantId = merchantId;
 	}
 
 
 	/**
 	 * @return the shopzone_id
 	 */
-	public String getShopzone_id() {
-		return shopzone_id;
+	public String getShopzoneId() {
+		return shopzoneId;
 	}
 
 
 	/**
-	 * @param shopzone_id the shopzone_id to set
+	 * @param shopzoneId the shopzone_id to set
 	 */
-	public void setShopzone_id(String shopzone_id) {
-		this.shopzone_id = shopzone_id;
+	public void setShopzoneId(String shopzoneId) {
+		this.shopzoneId = shopzoneId;
 	}
 
 

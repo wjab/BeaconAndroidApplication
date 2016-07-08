@@ -26,9 +26,9 @@ public class PromoController {
 
 
             Promo promoModel = new Promo((Boolean)promoMap.get("enable"),
-                                          promoMap.get("profile_id").toString(),
+                                          promoMap.get("profileId").toString(),
                                           promoMap.get("code").toString() ,
-                                          Integer.parseInt(promoMap.get("gift_points").toString()),
+                                          Integer.parseInt(promoMap.get("giftPoints").toString()),
                                           Integer.parseInt(promoMap.get("attempt").toString()),
                                           DateFormatter(promoMap.get("startDate").toString()),
                                           DateFormatter(promoMap.get("endDate").toString()),
@@ -59,8 +59,8 @@ public class PromoController {
         return response;
     }
     
-      @RequestMapping(method = RequestMethod.GET, value="/{PromoId}")
-      public Map<String, Object> getPromoDetails(@PathVariable("PromoId") String promoId){
+      @RequestMapping(method = RequestMethod.GET, value="/{promoId}")
+      public Map<String, Object> getPromoDetails(@PathVariable("promoId") String promoId){
 
           Map<String, Object> response =  new LinkedHashMap<String, Object>();
           Promo promo = new Promo();
@@ -119,8 +119,8 @@ public class PromoController {
           return response;
       }
       
-      @RequestMapping(method = RequestMethod.GET, value="/exp/{PromoId}")
-      public Map<String, Object>  getPromoExpiration(@PathVariable("PromoId") String promoId){
+      @RequestMapping(method = RequestMethod.GET, value="/exp/{promoId}")
+      public Map<String, Object>  getPromoExpiration(@PathVariable("promoId") String promoId){
 
           Map<String, Object> response = new LinkedHashMap<String, Object>();
           Map<String, Object> expirationData = new LinkedHashMap<String, Object>();
@@ -193,17 +193,17 @@ public class PromoController {
       }
       
       
-      @RequestMapping(method = RequestMethod.PUT, value="/{PromoId}")
-      public Map<String, Object> editPromo(@PathVariable("PromoId") String PromoId,
+      @RequestMapping(method = RequestMethod.PUT, value="/{promoId}")
+      public Map<String, Object> editPromo(@PathVariable("promoId") String PromoId,
           @RequestBody Map<String, Object> promoMap){
 
           Map<String, Object> response = new HashMap<String, Object>();
 
           try{
               Promo promoModel = new Promo((Boolean)promoMap.get("enable"),
-                      promoMap.get("profile_id").toString(),
+                      promoMap.get("profileId").toString(),
                       promoMap.get("code").toString() ,
-                      Integer.parseInt(promoMap.get("gift_points").toString()),
+                      Integer.parseInt(promoMap.get("giftPoints").toString()),
                       Integer.parseInt(promoMap.get("attempt").toString()),
                       DateFormatter(promoMap.get("startDate").toString()),
                       DateFormatter(promoMap.get("endDate").toString()),
@@ -234,8 +234,8 @@ public class PromoController {
         return response;
       }
     
-      @RequestMapping(method = RequestMethod.DELETE, value="/{PromoId}")
-      public Map<String, Object> deletePromo(@PathVariable("PromoId") String promoId){
+      @RequestMapping(method = RequestMethod.DELETE, value="/{promoId}")
+      public Map<String, Object> deletePromo(@PathVariable("promoId") String promoId){
 
           Map<String, Object> response = new LinkedHashMap<>();
           try{

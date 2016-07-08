@@ -35,9 +35,9 @@ public class VisitorHistoryController {
 		
 
 		VisitorHistory visitorhistoryModel = new VisitorHistory(
-				visitorHistoryMap.get("user_id").toString(), 
-				visitorHistoryMap.get("merchant_id").toString(), 
-				visitorHistoryMap.get("shopzone_id").toString(),
+				visitorHistoryMap.get("userId").toString(), 
+				visitorHistoryMap.get("merchantId").toString(), 
+				visitorHistoryMap.get("shopzoneId").toString(),
 				DateFormatter(visitorHistoryMap.get("rowDate").toString()));
 		
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -48,8 +48,8 @@ public class VisitorHistoryController {
 		return response;
 	}
 	
-	  @RequestMapping(method = RequestMethod.GET, value="/{VisitorHistoryId}")
-	  public VisitorHistory getVisitorHistoryDetails(@PathVariable("VisitorHistoryId") String visitorHistoryId){
+	  @RequestMapping(method = RequestMethod.GET, value="/{visitorHistoryId}")
+	  public VisitorHistory getVisitorHistoryDetails(@PathVariable("visitorHistoryId") String visitorHistoryId){
 	    return promoRepository.findOne(visitorHistoryId);
 	  }
 	  
@@ -63,15 +63,15 @@ public class VisitorHistoryController {
 	  }
 	  
 	  
-	  @RequestMapping(method = RequestMethod.PUT, value="/{VisitorHistoryId}")
-	  public Map<String, Object> editVisitorHistory(@PathVariable("VisitorHistoryId") String VisitorHistoryId,
+	  @RequestMapping(method = RequestMethod.PUT, value="/{visitorHistoryId}")
+	  public Map<String, Object> editVisitorHistory(@PathVariable("visitorHistoryId") String VisitorHistoryId,
 	      @RequestBody Map<String, Object> visitorHistoryMap){
 		  
 		  
 	    VisitorHistory visitorhistoryModel = new VisitorHistory(
-	    		visitorHistoryMap.get("user_id").toString(), 
-	    		visitorHistoryMap.get("merchant_id").toString(), 
-	    		visitorHistoryMap.get("shopzone_id").toString() ,
+	    		visitorHistoryMap.get("userId").toString(), 
+	    		visitorHistoryMap.get("merchantId").toString(), 
+	    		visitorHistoryMap.get("shopzoneId").toString() ,
 	    		DateFormatter(visitorHistoryMap.get("rowDate").toString()));
 			  
         visitorhistoryModel.setId(VisitorHistoryId);
@@ -82,8 +82,8 @@ public class VisitorHistoryController {
 	  }
 	  
 	  
-	  @RequestMapping(method = RequestMethod.DELETE, value="/{VisitorHistoryId}")
-	  public Map<String, String> deleteVisitorHistory(@PathVariable("VisitorHistoryId") String visitorHistoryId){
+	  @RequestMapping(method = RequestMethod.DELETE, value="/{visitorHistoryId}")
+	  public Map<String, String> deleteVisitorHistory(@PathVariable("visitorHistoryId") String visitorHistoryId){
 	    promoRepository.delete(visitorHistoryId);
 	    Map<String, String> response = new HashMap<String, String>();
 	    response.put("message", "Historial de visitas eliminado correctamente");

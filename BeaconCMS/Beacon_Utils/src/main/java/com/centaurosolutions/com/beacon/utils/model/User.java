@@ -16,9 +16,9 @@ public class User {
 
 	private Boolean enable;
 
-	private int category_id;
+	private int categoryId;
 
-	private int total_gift_points;
+	private int totalGiftPoints;
 
 	private Date  creationDate;
 
@@ -54,8 +54,8 @@ public class User {
 	 * @param user
 	 * @param password
 	 * @param enable
-	 * @param category_id
-	 * @param total_gift_points
+	 * @param categoryId
+	 * @param totalGiftPoints
 	 * @param creationDate
 	 * @param modifiedDate
 	 * @param name
@@ -68,16 +68,16 @@ public class User {
 	 * @param gender
 	 * @param productWishList
 	 */
-	public User(String user, String password, Boolean enable, int category_id,
-				int total_gift_points, Date creationDate, Date modifiedDate, String name,
+	public User(String user, String password, Boolean enable, int categoryId,
+				int totalGiftPoints, Date creationDate, Date modifiedDate, String name,
 				String lastName, String email, String phone, String socialNetworkId,
 				String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList ) {
 		super();
 		this.user = user;
 		this.password = password;
 		this.enable = enable;
-		this.category_id = category_id;
-		this.total_gift_points = total_gift_points;
+		this.categoryId = categoryId;
+		this.totalGiftPoints = totalGiftPoints;
 		this.creationDate = creationDate;
 		this.modifiedDate = modifiedDate;
 		this.name = name;
@@ -151,29 +151,29 @@ public class User {
 	/**
 	 * @return the category_id
 	 */
-	public int getCategory_id() {
-		return category_id;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
 	/**
-	 * @param category_id the category_id to set
+	 * @param categoryId the category_id to set
 	 */
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	/**
 	 * @return the total_gift_points
 	 */
-	public int getTotal_gift_points() {
-		return total_gift_points;
+	public int getTotalGiftPoints() {
+		return totalGiftPoints;
 	}
 
 	/**
-	 * @param total_gift_points the total_gift_points to set
+	 * @param totalGiftPoints the total_gift_points to set
 	 */
-	public void setTotal_gift_points(int total_gift_points) {
-		this.total_gift_points = total_gift_points;
+	public void setTotalGiftPoints(int totalGiftPoints) {
+		this.totalGiftPoints = totalGiftPoints;
 	}
 
 	/**

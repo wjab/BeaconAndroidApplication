@@ -29,10 +29,10 @@ public class OfferHistoryController {
         try
         {
              offerhistoryModel = new OfferHistory(
-                    offerhistoryMap.get("user_id").toString(),
-                    offerhistoryMap.get("promo_id").toString(),
-                    offerhistoryMap.get("merchant_id").toString(),
-                    offerhistoryMap.get("shopZone_id").toString(),
+                    offerhistoryMap.get("userId").toString(),
+                    offerhistoryMap.get("promoId").toString(),
+                    offerhistoryMap.get("merchantId").toString(),
+                    offerhistoryMap.get("shopZoneId").toString(),
                     DateFormatter(new Date().toString()),
                     DateFormatter(new Date().toString()),
                     DateFormatter(new Date().toString()));
@@ -40,14 +40,14 @@ public class OfferHistoryController {
             offerhistoryRepository.save(offerhistoryModel);
 
             response.put("message", "Historial de oferta creado correctamente");
-            response.put("offerhistory", offerhistoryModel);
+            response.put("offerHistory", offerhistoryModel);
             response.put("status", 200);
 
         }
         catch (Exception ex)
         {
             response.put("message", ex.getMessage());
-            response.put("offerhistory", null);
+            response.put("offerHistory", null);
             response.put("status", 400);
         }
 
@@ -67,20 +67,20 @@ public class OfferHistoryController {
               if(offerhistoryModel !=null)
               {
                   response.put("message", "Historial de oferta encontrado");
-                  response.put("offerhistory", offerhistoryModel);
+                  response.put("offerHistory", offerhistoryModel);
                   response.put("status", 200);
               }
               else
               {
                   response.put("message", "Historial de oferta no encontrado");
-                  response.put("offerhistory", null);
+                  response.put("offerHistory", null);
                   response.put("status", 404);
               }
           }
           catch (Exception ex)
           {
               response.put("message", ex.getMessage());
-              response.put("offerhistory", null);
+              response.put("offerHistory", null);
               response.put("status", 500);
           }
 
@@ -151,19 +151,19 @@ public class OfferHistoryController {
             {
                 response.put("message", "Historial de ofertas");
                 response.put("status", 200);
-                response.put("listOfferhistory", offerhistoryModelList);
+                response.put("listOfferHistory", offerhistoryModelList);
             }
             else 
             {
                 response.put("message", "No hay promociones registradas");
                 response.put("status", 404);
-                response.put("listOfferhistory", null);
+                response.put("listOfferHistory", null);
             }
         }
         catch (Exception ex)
         {
             response.put("message", ex.getMessage());
-            response.put("listOfferhistory", null);
+            response.put("listOfferHistory", null);
             response.put("status", 500);
         }
 
@@ -179,22 +179,22 @@ public class OfferHistoryController {
         try
         {
             OfferHistory offerhistoryModel = new OfferHistory(
-                    offerhistoryMap.get("user_id").toString(),
-                    offerhistoryMap.get("promo_id").toString(),
-                    offerhistoryMap.get("merchant_id").toString(),
-                    offerhistoryMap.get("shopZone_id").toString(),
+                    offerhistoryMap.get("userId").toString(),
+                    offerhistoryMap.get("promoId").toString(),
+                    offerhistoryMap.get("merchantId").toString(),
+                    offerhistoryMap.get("shopZoneId").toString(),
                     DateFormatter(offerhistoryMap.get("scanDate").toString()),
                     DateFormatter(offerhistoryMap.get("creationDate").toString()),
                     DateFormatter(offerhistoryMap.get("modifiedDate").toString()));
 
             response.put("message", "Historial de oferta actualizado correctamente");
-            response.put("offerhistory", offerhistoryModel);
+            response.put("offerHistory", offerhistoryModel);
             response.put("status", 200);
         }
         catch (Exception ex)
         {
             response.put("message", ex.getMessage());
-            response.put("offerhistory", null);
+            response.put("offerHistory", null);
             response.put("status", 500);
         }
 
@@ -212,13 +212,13 @@ public class OfferHistoryController {
             offerhistoryRepository.delete(offerhistoryId);
             response.put("message", "Historial de oferta eliminado correctamente");
             response.put("status", 200);
-            response.put("offerhistory", offerhistoryId);
+            response.put("offerHistory", offerhistoryId);
         }
         catch (Exception ex)
         {
             response.put("message", ex.getMessage());
             response.put("status", 500);
-            response.put("offerhistory", offerhistoryId);
+            response.put("offerHistory", offerhistoryId);
         }
 
 	    return response;
@@ -238,25 +238,25 @@ public class OfferHistoryController {
                 if(offerHistoryList != null && offerHistoryList.size() > 0){
                     response.put("message", "");
                     response.put("status", 200);
-                    response.put("offerhistory", offerHistoryList);
+                    response.put("offerHistory", offerHistoryList);
                 }
                 else{
                     response.put("message", "User does not have points registered");
                     response.put("status", 404);
-                    response.put("offerhistory", null);
+                    response.put("offerHistory", null);
                 }
             }
             else{
                 response.put("message", "Missing parameters");
                 response.put("status", 400);
-                response.put("offerhistory", null);
+                response.put("offerHistory", null);
             }
 		}
 		catch(Exception ex)
 		{
 			response.put("message", ex.getMessage());
             response.put("status", 500);
-            response.put("offerhistory", null);	
+            response.put("offerHistory", null);	
 		}
 		
 		return response;

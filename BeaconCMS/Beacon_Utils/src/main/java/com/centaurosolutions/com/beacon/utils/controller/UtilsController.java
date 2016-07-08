@@ -73,8 +73,8 @@ public class UtilsController
                     if (userResponse.getStatus() == 200)
                     {
 						userObject = userResponse.getUser();
-                        points = userObject.getTotal_gift_points() + promoObject.getGift_points();
-                        userObject.setTotal_gift_points(points);
+                        points = userObject.getTotalGiftPoints() + promoObject.getGiftPoints();
+                        userObject.setTotalGiftPoints(points);
 
                         if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId()))
                         {
@@ -405,13 +405,13 @@ public class UtilsController
 
                             if(promoResponse.getStatus() == 200){
 
-                                merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getProfile_id(), MerchantProfileResponse.class);
+                                merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getProfileId(), MerchantProfileResponse.class);
 
                             }
                         }
 						if(promoResponse.getPromo() != null && merchantProfileResponse.getMerchantProfile() != null)
 						{
-							totalPoints = offerHistoryAttemptResponse.getAttemptData().getAttempts() * promoResponse.getPromo().getGift_points();
+							totalPoints = offerHistoryAttemptResponse.getAttemptData().getAttempts() * promoResponse.getPromo().getGiftPoints();
 							merchantProfileResponse.getMerchantProfile().setUsers(null);
 
 							customData.put("merchantProfile", merchantProfileResponse.getMerchantProfile());
