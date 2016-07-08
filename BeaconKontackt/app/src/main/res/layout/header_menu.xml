@@ -10,7 +10,7 @@
     android:layout_height="200dp"
     android:id="@+id/layout_header"
     android:gravity="top|center"
-    android:background="@color/fondoPerfilBoton">
+    android:background="@color/mediumGrey">
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"

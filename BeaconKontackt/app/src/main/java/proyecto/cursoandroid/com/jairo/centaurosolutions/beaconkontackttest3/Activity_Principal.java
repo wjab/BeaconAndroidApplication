@@ -77,11 +77,11 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
                 .setContent(intent);
         tabHost.addTab(spec);
 
-        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.color.selectedTab);
-        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.color.unselectedTab);
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.color.darkGreen);
+        tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.color.white);
 
         tabHost.getTabWidget().setCurrentTab(0);
-        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.color.selectedTab);
+        tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.color.darkGreen);
 
 
         for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)
@@ -155,9 +155,9 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
         for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)
         {
             if(i==0)
-                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.color.unselectedTab);
+                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.color.white);
             else if(i==1)
-                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.color.unselectedTab);
+                tabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.color.white);
 
         }
 
@@ -165,11 +165,11 @@ public class Activity_Principal extends TabActivity implements TabHost.OnTabChan
 
 
         if(tabHost.getCurrentTab()==0)
-            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.color.selectedTab);
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.color.darkGreen);
         else if(tabHost.getCurrentTab()==1)
-            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.color.selectedTab);
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.color.darkGreen);
         else if(tabHost.getCurrentTab()==2)
-            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.color.selectedTab);
+            tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.color.darkGreen);
 
     }
 }

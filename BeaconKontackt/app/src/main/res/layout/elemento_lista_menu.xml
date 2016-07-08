@@ -28,6 +28,6 @@
         android:text="Folder name here."
 
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:textColor="@color/letrasmenucolor" />
+        android:textColor="@color/black" />
 
 </RelativeLayout>

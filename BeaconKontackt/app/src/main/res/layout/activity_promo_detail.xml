@@ -1,7 +1,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/fondo"
+    android:background="@color/white"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
 
@@ -54,7 +54,7 @@
                     android:paddingBottom="30dp"
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
-                    android:textColor="@color/DescripciónPromo"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:gravity="center_vertical|left"
                     android:layout_marginLeft="15dp"

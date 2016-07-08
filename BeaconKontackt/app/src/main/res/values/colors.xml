@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
-    <color name="grey">#A3A3A3</color>
-    <color name="green_title">#04B404</color>
-    <color name="grey_text">#424242</color>
-    <color name="unselectedTab">#1C1C1C</color>
-    <color name="selectedTab">#6E6E6E</color>
+
     <color name="white">#ffffff</color>
-    <color name="Black">#101116</color>
-    <color name="DarkGreen">#a1d940</color>
-    <color name="LigthBlue">#557fad</color>
-    <color name="DarkBlue">#1b518b</color>
-    <color name="LigthBluehint">#aebec2</color>
-    <color name="fondo">#ffffff</color>
-    <color name="fondoPerfilBoton">#6E6E6E</color>
+    <color name="black">#101116</color>
+    <color name="darkGreen">#a1d940</color>
+    <color name="ligthBlue">#557fad</color>
+    <color name="darkBlue">#1b518b</color>
     <color name="barraAccion">#31a46a</color>
-    <color name="DescripciónPromo">#383838</color>
-    <color name="letrasmenucolor">#101116</color>
+    <color name="grey">#464646</color>
+    <color name="lightGrey">#a8a8a8</color>
+    <color name="mediumGrey">#717171</color>
 </resources>
