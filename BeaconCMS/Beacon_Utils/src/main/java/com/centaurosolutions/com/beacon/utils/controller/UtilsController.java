@@ -417,6 +417,7 @@ public class UtilsController
 							customData.put("merchantProfile", merchantProfileResponse.getMerchantProfile());
 							customData.put("promo", promoResponse.getPromo());
 							customData.put("points", totalPoints);
+							customData.put("lastScanDate", offerHistoryAttemptResponse.getAttemptData().getLastScan());
 
 							 custom = mapper.convertValue(customData, new TypeReference<Object>() {
 							});
@@ -426,6 +427,7 @@ public class UtilsController
 							customData.put("merchantProfile", null);
 							customData.put("promo", null);
 							customData.put("points", 0);
+							customData.put("lastScanDate",null);
 							custom = mapper.convertValue(customData, new TypeReference<Object>() {
 							});
 						}
