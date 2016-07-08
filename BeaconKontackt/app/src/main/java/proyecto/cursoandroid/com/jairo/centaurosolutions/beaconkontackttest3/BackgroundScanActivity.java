@@ -340,6 +340,7 @@ public class BackgroundScanActivity extends BaseActivity
 
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
     public void logOut()

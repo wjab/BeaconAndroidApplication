@@ -31,20 +31,24 @@ public class Detail_Promo extends AppCompatActivity
     ImageButton wishes;
     Intent intent;
 
-    NonStaticUtils nonStaticUtils;
     SharedPreferences preferences;
+    NonStaticUtils nonStaticUtils;
+    String idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail__promo);
+        nonStaticUtils = new NonStaticUtils();
+        preferences = nonStaticUtils.loadLoginInfo(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         mpoints = preferences.getInt("points", 0) + "";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        idUser = preferences.getString("userId", "");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -136,6 +140,7 @@ public class Detail_Promo extends AppCompatActivity
     }
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
     @Override
