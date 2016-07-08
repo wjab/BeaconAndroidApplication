@@ -39,7 +39,6 @@
                     android:paddingBottom="10dp"
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
-                    android:textColor="@color/TituloPromo"
                     android:textStyle="bold"
                     android:layout_width="fill_parent"
                     android:gravity="center_horizontal"

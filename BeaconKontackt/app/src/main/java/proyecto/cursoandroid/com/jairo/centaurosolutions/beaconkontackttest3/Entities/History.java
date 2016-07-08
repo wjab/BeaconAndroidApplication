@@ -8,10 +8,11 @@ import java.util.Date;
  */
 public class History  implements Serializable {
     private String id;
-    private String user_id;
-    private String promo_id;
-    private String merchant_id;
-    private String shopZone_id;
+    private String points;
+    private String merchantName;
+    private String adressMerchant;
+    private String promoTitle;
+
     private Date scanDate;
 
     public String getId() {
@@ -22,43 +23,43 @@ public class History  implements Serializable {
         this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getPromo_id() {
-        return promo_id;
-    }
-
-    public void setPromo_id(String promo_id) {
-        this.promo_id = promo_id;
-    }
-
-    public String getMerchant_id() {
-        return merchant_id;
-    }
-
-    public void setMerchant_id(String merchant_id) {
-        this.merchant_id = merchant_id;
-    }
-
-    public String getShopZone_id() {
-        return shopZone_id;
-    }
-
-    public void setShopZone_id(String shopZone_id) {
-        this.shopZone_id = shopZone_id;
-    }
-
     public Date getScanDate() {
         return scanDate;
     }
 
     public void setScanDate(Date scanDate) {
         this.scanDate = scanDate;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
+
+    public String getAdressMerchant() {
+        return adressMerchant;
+    }
+
+    public void setAdressMerchant(String adressMerchant) {
+        this.adressMerchant = adressMerchant;
+    }
+
+    public String getPromoTitle() {
+        return promoTitle;
+    }
+
+    public void setPromoTitle(String promoTitle) {
+        this.promoTitle = promoTitle;
     }
 }

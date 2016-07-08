@@ -130,7 +130,7 @@
             android:layout_width="331dp"
             android:layout_height="32dp"
             android:gravity="center_horizontal"
-            android:drawableRight="@drawable/corazon2"
+            android:drawableRight="@drawable/ic_added"
             android:text="Añadir a la lista"
             android:textAllCaps="false"
             android:textAppearance="?android:attr/textAppearanceMedium"

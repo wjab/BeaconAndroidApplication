@@ -159,7 +159,7 @@ public class BackgroundScanActivity extends BaseActivity
         tabLayout.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
-        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#0fd60f"));
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
 
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");

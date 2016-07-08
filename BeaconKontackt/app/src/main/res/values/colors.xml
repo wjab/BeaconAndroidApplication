@@ -7,19 +7,14 @@
     <color name="unselectedTab">#1C1C1C</color>
     <color name="selectedTab">#6E6E6E</color>
     <color name="white">#ffffff</color>
-    <color name="Black">#000000</color>
-    <color name="LightGreen">#a3bd31</color>
-    <color name="YellowGreen">#a6cc01</color>
-    <color name="DarkGreen">#0fd60f</color>
-    <color name="LigthBlue">#2B8DB7</color>
-    <color name="red">#f00b31</color>
-    <color name="DarkBlue">#4290a2</color>
+    <color name="Black">#101116</color>
+    <color name="DarkGreen">#a1d940</color>
+    <color name="LigthBlue">#557fad</color>
+    <color name="DarkBlue">#1b518b</color>
     <color name="LigthBluehint">#aebec2</color>
-    <color name="DarkBlueBar">#2a8296</color>
     <color name="fondo">#ffffff</color>
     <color name="fondoPerfilBoton">#6E6E6E</color>
-    <color name="letrasmenucolor">#000000</color>
-    <color name="barraAccion">#00ac55</color>
-    <color name="TituloPromo">#3741b5</color>
+    <color name="barraAccion">#31a46a</color>
     <color name="DescripciónPromo">#383838</color>
+    <color name="letrasmenucolor">#101116</color>
 </resources>

@@ -1,5 +1,6 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,12 +31,14 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     public CustomAdapterHistoryPoints adapter;
     public ListView listviewHistory;
     public ArrayList<History> listHistoryArray;
-
+    String idUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histoty_points);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent1 = getIntent();
+        idUser = intent1.getStringExtra("idUser");
         listviewHistory= (ListView)findViewById(R.id.listviewHistory);
         listviewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,22 +69,25 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         try {
             listHistoryArray = new ArrayList<History>();
             Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("listOfferhistory");
+            JSONArray ranges= response.getJSONArray("pointsData");
+
             String range = "";
             String message = "";
             String messageType = "";
             String storeProduct = "";
 
             for(int i=0; i < ranges.length(); i++ ){
-               JSONObject currRange = ranges.getJSONObject(i);
+                History historyElement = new History();
+                //Agarra el array que se encuentra en la posdicion i
+                JSONObject currRange=ranges.getJSONObject(i);
+                //Array de tiendas
+                JSONObject store= currRange.getJSONObject("merchantProfile");
+                //Array de ptomo
+                JSONObject promo= currRange.getJSONObject("promo");
 
-           History historyElement = new History();
-           historyElement.setPromo_id(currRange.getString("promoId"));
-                //historyElement.setScanDate(currRange.getString("price"));
-            historyElement.setShopZone_id("shopZoneId");
-            //historyElement.setPrice(1000);
-            //historyElement.setUrlImagen(currRange.getString("image"));
-
+                historyElement.setAdressMerchant(store.getString("address"));
+                historyElement.setPoints(currRange.getString("points"));
+                historyElement.setPromoTitle(promo.getString("title"));
             listHistoryArray.add(historyElement);
             }
 
@@ -104,7 +110,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_OfferHistory)+"offerhistory/";
+        String url = getString(R.string.WebServiceHistoryPointsUser)+idUser;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }

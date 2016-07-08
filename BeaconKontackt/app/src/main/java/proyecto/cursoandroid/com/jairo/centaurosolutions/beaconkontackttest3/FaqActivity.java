@@ -1,6 +1,7 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.util.Map;
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterFaq;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Faq;
+import utils.NonStaticUtils;
 
 public class FaqActivity extends  AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -32,19 +34,23 @@ public class FaqActivity extends  AppCompatActivity implements Response.Listener
     public ListView listView;
     public ArrayList<Faq> listArray;
     String mpoints,userAcumulatedPoints;;
-
-
+    SharedPreferences preferences;
+    NonStaticUtils nonStaticUtils;
+    String idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
+        nonStaticUtils = new NonStaticUtils();
+        preferences = nonStaticUtils.loadLoginInfo(this);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
                 null);
         listView= (ListView)findViewById(R.id.listviewFaq);
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        idUser = preferences.getString("userId", "");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -63,6 +69,7 @@ public class FaqActivity extends  AppCompatActivity implements Response.Listener
     }
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
     @Override

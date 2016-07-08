@@ -49,18 +49,18 @@ public class CustomAdapterHistoryPoints extends ArrayAdapter<History> {
         View rowView = inflater.inflate(R.layout.history_element_list, null, true);
 
 
-        TextView name = (TextView) rowView.findViewById(R.id.name);
-        TextView points = (TextView) rowView.findViewById(R.id.points);
-       // TextView address=(TextView)rowView.findViewById(R.id.address);
+        TextView name = (TextView) rowView.findViewById(R.id.nameHistory);
+        TextView points = (TextView) rowView.findViewById(R.id.pointsHistory);
+       TextView address=(TextView)rowView.findViewById(R.id.addressHistory);
        // ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
         ServiceController imageRequest =  new ServiceController();
 
         //imageRequest.imageRequest(listaPuntosObtenidos.get(position).getUrlImagen(), image, 0,0);
 
 
-        //address.setText(listaPuntosObtenidos.get(position).getAddress());
-        name.setText(listaPuntosObtenidos.get(position).getPromo_id() + "");
-        points.setText(listaPuntosObtenidos.get(position).getShopZone_id() + "");
+        address.setText(listaPuntosObtenidos.get(position).getAdressMerchant());
+        name.setText(listaPuntosObtenidos.get(position).getPromoTitle() + "");
+        points.setText(listaPuntosObtenidos.get(position).getPoints()+ "");
 
         return rowView;
 
