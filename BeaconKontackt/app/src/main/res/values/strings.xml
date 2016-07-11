@@ -118,7 +118,6 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string-array name="nav_options">
-        <item>Principal</item>
         <item>Perfil</item>
         <item>Preferencias</item>
         <item>Lista de Deseos</item>
@@ -128,7 +127,6 @@
     </string-array>
     <!-- Lista de iconos de navegacion-->
     <array name="navigation_iconos">
-        <item>@drawable/ic_principal1</item>
         <item>@drawable/ic_perfil1</item>
         <item>@drawable/ic_preferencias1</item>
         <item>@drawable/ic_deseos1</item>

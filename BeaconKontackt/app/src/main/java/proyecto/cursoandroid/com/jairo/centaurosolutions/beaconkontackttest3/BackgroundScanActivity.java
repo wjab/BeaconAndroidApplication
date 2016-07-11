@@ -87,7 +87,7 @@ import service.BackgroundScanService;
 import utils.NonStaticUtils;
 import utils.Utils;
 
-public class BackgroundScanActivity extends BaseActivity
+public class BackgroundScanActivity extends BaseActivity implements Response.Listener<JSONObject>, Response.ErrorListener
 {
     public static final String TAG = BackgroundScanActivity.class.getSimpleName();
 
@@ -102,9 +102,8 @@ public class BackgroundScanActivity extends BaseActivity
     private CharSequence mpoints;
     private TextView points;
     private CharSequence mTitle;
-    private String imageUrl;
+    private String imageUrl=null;
     private String idUser,imgDecodableString;
-
     private ActionBarDrawerToggle mDrawerToggle;
     public  ArrayList<Promociones> listPromoArray;
 
@@ -199,20 +198,18 @@ public class BackgroundScanActivity extends BaseActivity
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         mPlanetTitles= new ArrayList<ElementMenu>();
-        //Principal
-        mPlanetTitles.add(new ElementMenu(titulos[0], NavIcons.getResourceId(0, -1)));
         //Perfil
-        mPlanetTitles.add(new ElementMenu(titulos[1], NavIcons.getResourceId(1, -1)));
+        mPlanetTitles.add(new ElementMenu(titulos[0], NavIcons.getResourceId(0, -1)));
         //Preferencias
-        mPlanetTitles.add(new ElementMenu(titulos[2], NavIcons.getResourceId(2, -1)));
+        mPlanetTitles.add(new ElementMenu(titulos[1], NavIcons.getResourceId(1, -1)));
         //Lista de deseos
-        mPlanetTitles.add(new ElementMenu(titulos[3], NavIcons.getResourceId(3, -1)));
+        mPlanetTitles.add(new ElementMenu(titulos[2], NavIcons.getResourceId(2, -1)));
         //Invitar
-        mPlanetTitles.add(new ElementMenu(titulos[4], NavIcons.getResourceId(4, -1)));
+        mPlanetTitles.add(new ElementMenu(titulos[3], NavIcons.getResourceId(3, -1)));
         //FAQ
-        mPlanetTitles.add(new ElementMenu(titulos[5], NavIcons.getResourceId(5, -1)));
+        mPlanetTitles.add(new ElementMenu(titulos[4], NavIcons.getResourceId(4, -1)));
         //Logout
-        mPlanetTitles.add(new ElementMenu(titulos[6], NavIcons.getResourceId(6, -1)));
+        mPlanetTitles.add(new ElementMenu(titulos[5], NavIcons.getResourceId(5, -1)));
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(new MenuAdapter(this, mPlanetTitles));
@@ -313,7 +310,7 @@ public class BackgroundScanActivity extends BaseActivity
        //  setUpActionBar(toolbar);
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
-
+  //     service(imageUrl);
 
     }
 
@@ -321,12 +318,13 @@ public class BackgroundScanActivity extends BaseActivity
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
        try {
-           // When an Image is picked
+           // Enviar la imagen
+           //De la respuesta carga la imagen
+
            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
                Uri pickedImage = data.getData();
-               Log.e("URI---->",pickedImage.toString());
-               Picasso.with(this).load(pickedImage).into(profileImage);
-               Picasso.with(this).load(pickedImage).into(imageNavigation);
+               service(pickedImage.toString());
+
            } else {
                Toast.makeText(this, "No ha seleccionado una imagen aun.", Toast.LENGTH_LONG).show();
            }
@@ -444,6 +442,51 @@ public class BackgroundScanActivity extends BaseActivity
         {
             e.printStackTrace();
             Logger.d(": message not sent(" + message.toString() + ")");
+        }
+    }
+
+    //Service-----------------------------------------------------------------------------------------------------------------------------------------
+    public void service(String uri){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
+        Map<String, String> nullMap = new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        if(uri==null) {
+            String url = getString(R.string.WebService_User) + "user/"+idUser;
+            serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+        }
+        else
+        {
+            String url = getString(R.string.WebService_User) + "user/editPathImage/"+idUser;
+
+            Map<String, Object> mapParams = new HashMap<>();
+            mapParams.put("path_image",uri);
+            serviceController.jsonObjectRequest(url, Request.Method.PUT, mapParams, map, response, responseError);
+        }
+
+    }
+//on error response ------------------------------------------------------------------------------------------------------------------------------------
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+//onresponse-------------------------------------------------------------------------------------------------------------------------------------------
+    @Override
+    public void onResponse(JSONObject response) {
+        try {
+            response=response.getJSONObject("user");
+                String url= response.getString("path_image");
+                Log.e("URI---->", url);
+            if(url!=null) {
+                Picasso.with(this).load(url).into(profileImage);
+                Picasso.with(this).load(url).into(imageNavigation);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

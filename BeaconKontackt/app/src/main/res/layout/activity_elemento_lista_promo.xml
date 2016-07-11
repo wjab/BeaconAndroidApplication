@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#97000000"
+        android:background="@drawable/gradient"
         android:baselineAligned="false"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -26,8 +26,6 @@
         <TextView
             android:text="@string/promo_description"
             android:textSize="15dp"
-            android:layout_marginBottom="10dp"
-            android:ellipsize="end"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:gravity="center_horizontal|bottom"
@@ -35,22 +33,32 @@
             android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:id="@+id/Titulo_Promo"
-            android:layout_alignBottom="@+id/degradadoFondo"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
             android:layout_alignParentStart="true"
             android:layout_weight="1" />
 
         <TextView
             android:text="10000"
             android:textSize="15dp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:textColor="@color/white"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:id="@+id/Puntos_promo"
             android:textIsSelectable="false"
-            android:layout_alignBottom="@+id/degradadoFondo"
+            android:layout_marginRight="23dp"
+            android:layout_marginTop="15dp"
             android:layout_alignParentStart="true"
-            android:drawableEnd="@drawable/ic_add"
+            android:layout_marginBottom="11dp"
             android:layout_gravity="end|center" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_add"
+            />
 
 
 </LinearLayout>

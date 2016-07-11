@@ -2,6 +2,10 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,19 +29,20 @@ import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterFaq;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapter;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapterFaq;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Faq;
 import utils.NonStaticUtils;
 
-public class FaqActivity extends  AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class FaqActivity extends  AppCompatActivity{
 
-    public CustomAdapterFaq adapter;
-    public ListView listView;
-    public ArrayList<Faq> listArray;
+
     String mpoints,userAcumulatedPoints;;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
-
+    ViewPager pager;
+    TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +52,17 @@ public class FaqActivity extends  AppCompatActivity implements Response.Listener
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
                 null);
-        listView= (ListView)findViewById(R.id.listviewFaq);
+        pager= (ViewPager) findViewById(R.id.view_pager_faq);
+        tabLayout= (TabLayout) findViewById(R.id.tab_layout_faq);
+        FragmentManager manager=getSupportFragmentManager();
+        PagerAdapterFaq adapter=new PagerAdapterFaq(manager);
+        pager.setAdapter(adapter);
+
+        tabLayout.setupWithViewPager(pager);
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setTabsFromPagerAdapter(adapter);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
+
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
         idUser = preferences.getString("userId", "");
@@ -64,7 +79,6 @@ public class FaqActivity extends  AppCompatActivity implements Response.Listener
                 openHistory();
             }
         });
-        service();
         return;
     }
     public void openHistory(){
@@ -78,56 +92,5 @@ public class FaqActivity extends  AppCompatActivity implements Response.Listener
         return super.onSupportNavigateUp();
     }
 
-    ServiceController serviceController;
-    Response.Listener<JSONObject> response;
-    Response.ErrorListener responseError;
 
-    public void service(){
-        serviceController = new ServiceController();
-        responseError = this;
-        response = this;
-
-        Map<String, String> nullMap = new HashMap<String, String>();
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebServiceFaq)+"faq/";
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-
-    }
-    @Override
-    public void onResponse(JSONObject response) {
-
-
-        try {
-            listArray = new ArrayList<Faq>();
-            Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("faq");
-            String range = "";
-            String message = "";
-            String messageType = "";
-
-            for(int i=0; i < ranges.length(); i++ ){
-                JSONObject currRange = ranges.getJSONObject(i);
-
-                Faq element = new Faq();
-                element.setQuestion(currRange.getString("question"));
-                element.setAnswer(currRange.getString("answer"));
-
-
-                listArray.add(element);
-            }
-
-            adapter=new CustomAdapterFaq(this, listArray);
-            listView.setAdapter(adapter);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Log.d("Error Faq Error", error.toString());
-    }
 }

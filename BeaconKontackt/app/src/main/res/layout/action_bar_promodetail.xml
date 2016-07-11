@@ -11,9 +11,8 @@
         android:layout_marginRight="8dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#fff"
-        android:layout_marginStart="118dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/button"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="13dp"
@@ -21,7 +20,7 @@
         android:id="@+id/open_history_points"
         android:background="@drawable/arrow"
         android:layout_below="@+id/userPointsAction"
-        android:layout_alignStart="@+id/userPointsAction" />
+        android:layout_centerHorizontal="true" />
 
 
     <Button
@@ -32,16 +31,6 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/button" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
-        android:text="Volver"
-        android:id="@+id/textView"
-        android:layout_alignBottom="@+id/userPointsAction"
-        android:layout_toStartOf="@+id/userPointsAction"
-        android:layout_marginEnd="46dp" />
 
 </RelativeLayout>
 
