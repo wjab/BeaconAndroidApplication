@@ -237,7 +237,8 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                                 currRange.getInt("total_gift_points"),
                                 isAuthenticated,
                                 currRange.getString("socialNetworkType"),
-                                currRange.getString("socialNetworkId"));
+                                currRange.getString("socialNetworkId"),
+                                currRange.getString("path_image"));
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                         startActivity(intent);
                     } else {

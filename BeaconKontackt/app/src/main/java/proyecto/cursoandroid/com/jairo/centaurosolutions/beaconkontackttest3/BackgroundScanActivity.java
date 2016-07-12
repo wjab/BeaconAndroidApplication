@@ -250,6 +250,9 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             Picasso.with(this).load(url).into(imageNavigation);
 
         }
+        else {
+         imageService();
+        }
 
         mDrawerList.addHeaderView(header);
         // Set the list's click listener
@@ -310,7 +313,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
        //  setUpActionBar(toolbar);
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
-  //     service(imageUrl);
+
 
     }
 
@@ -318,8 +321,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
        try {
-           // Enviar la imagen
-           //De la respuesta carga la imagen
 
            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
                Uri pickedImage = data.getData();
@@ -455,18 +456,25 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        if(uri==null) {
-            String url = getString(R.string.WebService_User) + "user/"+idUser;
-            serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-        }
-        else
-        {
+
             String url = getString(R.string.WebService_User) + "user/editPathImage/"+idUser;
 
             Map<String, Object> mapParams = new HashMap<>();
             mapParams.put("path_image",uri);
             serviceController.jsonObjectRequest(url, Request.Method.PUT, mapParams, map, response, responseError);
-        }
+
+    }
+    public void imageService(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
+        Map<String, String> nullMap = new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_User) + "user/id/"+idUser;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
 //on error response ------------------------------------------------------------------------------------------------------------------------------------
@@ -482,8 +490,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                 String url= response.getString("path_image");
                 Log.e("URI---->", url);
             if(url!=null) {
-                Picasso.with(this).load(url).into(profileImage);
-                Picasso.with(this).load(url).into(imageNavigation);
+                Picasso.with(this).load(url).error(R.drawable.profiledefault).into(profileImage);
+                Picasso.with(this).load(url).error(R.drawable.profiledefault).into(imageNavigation);
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -102,7 +102,8 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                         currRange.getInt("total_gift_points"),
                         true,
                         currRange.getString("socialNetworkType"),
-                        currRange.getString("socialNetworkId"));
+                        currRange.getString("socialNetworkId"),
+                        currRange.getString("path_image"));
 
                 startActivity(intent);
             }

@@ -302,7 +302,8 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
                             response.getInt("total_gift_points"),
                             true,
                             response.getString("socialNetworkType"),
-                            response.getString("socialNetworkId"));
+                            response.getString("socialNetworkId"),
+                            response.getString("path_image"));
 
                     Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                     startActivity(intent);
