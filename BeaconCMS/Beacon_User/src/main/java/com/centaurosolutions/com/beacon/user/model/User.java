@@ -75,7 +75,7 @@ public class User {
 			int totalGiftPoints, Date creationDate, Date modifiedDate, String name,
 			String lastName, String email, String phone, String socialNetworkId,
 			String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList,
-			String path_image,ArrayList<Preferences> preference) {
+			String pathImage,ArrayList<Preferences> preference) {
 		super();
 		this.user = user;
 		this.password = password;
@@ -93,7 +93,7 @@ public class User {
 		this.socialNetworkJson = socialNetworkJson;
 		this.gender = gender;
 		this.productWishList = productWishList;
-		this.pathImage=path_image;
+		this.pathImage=pathImage;
 		this.preference=preference;
 	}
 

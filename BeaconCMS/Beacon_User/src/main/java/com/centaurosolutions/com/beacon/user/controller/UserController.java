@@ -52,7 +52,7 @@ public class UserController {
 					userMap.get("socialNetworkJson").toString(),
 					userMap.get("gender").toString(),
 					null,
-					userMap.get("path_image").toString(),
+					userMap.get("pathImage").toString(),
 					preference);
 			
 			if(LOCAL_USER == user.getSocialNetworkType())
@@ -224,7 +224,7 @@ public class UserController {
 				user.setEmail(userMap.get("email").toString());
 				user.setPhone(userMap.get("phone").toString());
 				user.setGender(userMap.get("gender").toString());
-				user.setPathImage(userMap.get("path_image").toString());
+				user.setPathImage(userMap.get("pathImage").toString());
 				user.setPreference(preference);
 				user.setId(UserId);
 				response.put("status", 200);
