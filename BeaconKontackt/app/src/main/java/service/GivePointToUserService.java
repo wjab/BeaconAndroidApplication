@@ -154,7 +154,7 @@ public class GivePointToUserService extends Service implements Response.Listener
                         sharedPreferences.getBoolean("isAuthenticated", false),
                         sharedPreferences.getString("socialNetworkType", null),
                         sharedPreferences.getString("socialNetworkId", null),
-                        sharedPreferences.getString("path_image",null));
+                        sharedPreferences.getString("pathImage",null));
 
                 ShowPromoNotification(context);
             }
