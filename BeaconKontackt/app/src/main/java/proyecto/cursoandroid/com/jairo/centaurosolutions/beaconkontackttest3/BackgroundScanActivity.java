@@ -460,7 +460,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             String url = getString(R.string.WebService_User) + "user/editPathImage/"+idUser;
 
             Map<String, Object> mapParams = new HashMap<>();
-            mapParams.put("path_image",uri);
+            mapParams.put("pathImage",uri);
             serviceController.jsonObjectRequest(url, Request.Method.PUT, mapParams, map, response, responseError);
 
     }

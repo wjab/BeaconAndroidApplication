@@ -144,7 +144,7 @@ public class GivePointToUserService extends Service implements Response.Listener
             {
                 userObject = response.getJSONObject("user");
                 sharedPreferences = nonStaticUtils.loadLoginInfo(context);
-                giftPoints = userObject.getInt("total_gift_points");
+                giftPoints = userObject.getInt("totalGiftPoints");
 
                 nonStaticUtils.saveLogin(getApplicationContext(),
                         sharedPreferences.getString("username", null),

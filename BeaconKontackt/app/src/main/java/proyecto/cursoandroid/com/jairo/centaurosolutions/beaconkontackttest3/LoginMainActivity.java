@@ -234,7 +234,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                                 currRange.getString("user"),
                                 currRange.getString("password"),
                                 currRange.getString("id"),
-                                currRange.getInt("total_gift_points"),
+                                currRange.getInt("totalGiftPoints"),
                                 isAuthenticated,
                                 currRange.getString("socialNetworkType"),
                                 currRange.getString("socialNetworkId"),

@@ -93,13 +93,13 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                 info.setText("Bienvenido "+ currRange.getString("user"));
                 SystemClock.sleep(2000);
                 Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                intent.putExtra("totalPoints",currRange.getInt("total_gift_points"));
+                intent.putExtra("totalPoints",currRange.getInt("totalGiftPoints"));
 
                 nonStaticUtils.saveLogin(this,
                         currRange.getString("user"),
                         currRange.getString("password"),
                         currRange.getString("id"),
-                        currRange.getInt("total_gift_points"),
+                        currRange.getInt("totalGiftPoints"),
                         true,
                         currRange.getString("socialNetworkType"),
                         currRange.getString("socialNetworkId"),

@@ -299,7 +299,7 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
                             response.getString("user"),
                             response.getString("password"),
                             response.getString("id"),
-                            response.getInt("total_gift_points"),
+                            response.getInt("totalGiftPoints"),
                             true,
                             response.getString("socialNetworkType"),
                             response.getString("socialNetworkId"),
