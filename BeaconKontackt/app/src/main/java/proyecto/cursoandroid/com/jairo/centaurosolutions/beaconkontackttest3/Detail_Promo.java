@@ -25,7 +25,7 @@ import utils.NonStaticUtils;
 public class Detail_Promo extends AppCompatActivity
 {
     TextView TituloPromo, DescripcionPromo, Points, pointsAction;
-    ImageView ImagenPromo, open_history_points;
+    ImageView ImagenPromo, open_history_points,share;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
     ImageButton wishes;
@@ -66,6 +66,7 @@ public class Detail_Promo extends AppCompatActivity
         intent = getIntent();
         ImagenPromo= (ImageView) findViewById(R.id.Imagen_Promo_Detail);
         open_history_points=(ImageView) actionBarLayout.findViewById(R.id.open_history_points);
+        share=(ImageView)findViewById(R.id.share);
         Promociones promo = (Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
         Points.setText(promo.getPuntos() + " pts");
@@ -78,17 +79,31 @@ public class Detail_Promo extends AppCompatActivity
         open_history_points.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHistory();
+                if(mpoints.toString().equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
             }
         });
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHistory();
-            }
+                if(mpoints.toString().equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
+        }
         });
 
-        ImagenPromo.setOnClickListener(new View.OnClickListener() {
+        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);

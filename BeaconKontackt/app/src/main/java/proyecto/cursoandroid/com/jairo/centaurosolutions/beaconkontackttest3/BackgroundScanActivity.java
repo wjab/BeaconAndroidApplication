@@ -180,13 +180,27 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHistory();
+                if(mpoints.toString().equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
             }
         });
         open_history_points.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHistory();
+                if(mpoints.toString().equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
             }
         });
 

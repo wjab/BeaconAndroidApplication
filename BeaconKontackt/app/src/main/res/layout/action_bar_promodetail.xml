@@ -4,23 +4,30 @@
     android:layout_height="50dp"
     >
 
-    <TextView
-        android:id="@+id/userPointsAction"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#fff"
-        android:layout_alignBottom="@+id/button"
-        android:layout_centerHorizontal="true" />
+        android:orientation="vertical"
+        android:layout_marginStart="120dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/userPointsAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#fff"
+            android:text="1000"
+            />
 
-    <ImageView
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:id="@+id/open_history_points"
-        android:background="@drawable/arrow"
-        android:layout_below="@+id/userPointsAction"
-        android:layout_centerHorizontal="true" />
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:id="@+id/open_history_points"
+            android:background="@drawable/arrow"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
 
 
     <Button
