@@ -349,9 +349,8 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         mapParams.put("socialNetworkType", "facebook");
         mapParams.put("socialNetworkJson", jsonMap.toString());
         mapParams.put("gender","");
-        mapParams.put("productWishList", null);
-        mapParams.put("pathImage", null);
-
+        mapParams.put("productWishList", "");
+        mapParams.put("pathImage", "");
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");
