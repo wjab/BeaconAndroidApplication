@@ -5,7 +5,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/imageprofile_navigation"
+        android:id="@+id/imageProfileNavigation"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
@@ -33,7 +33,7 @@
         <ImageView
             android:layout_width="13dp"
             android:layout_height="13dp"
-            android:id="@+id/open_history_points"
+            android:id="@+id/openHistoryPoints"
             android:background="@drawable/arrow"
             android:layout_gravity="center_horizontal" />
 
@@ -44,7 +44,7 @@
         android:layout_width="30dp"
         android:layout_height="25dp"
         android:background="@drawable/ic_added"
-        android:layout_alignTop="@+id/imageprofile_navigation"
+        android:layout_alignTop="@+id/imageProfileNavigation"
         android:layout_alignParentEnd="true"
         android:id="@+id/button" />
 

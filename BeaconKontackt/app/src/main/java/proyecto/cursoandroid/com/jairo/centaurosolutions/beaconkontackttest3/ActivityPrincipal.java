@@ -31,7 +31,7 @@ import model.cache.BeaconCache;
 import model.elementMenu.ElementMenu;
 import service.BackgroundScanService;
 
-public class Activity_Principal extends TabActivity implements TabHost.OnTabChangeListener {
+public class ActivityPrincipal extends TabActivity implements TabHost.OnTabChangeListener {
     TabHost tabHost;
     TextView totalPoints;
     DrawerLayout drawerLayout;

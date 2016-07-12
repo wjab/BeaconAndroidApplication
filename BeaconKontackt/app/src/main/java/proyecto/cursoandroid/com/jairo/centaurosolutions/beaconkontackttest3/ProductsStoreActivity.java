@@ -67,7 +67,7 @@ private View rootView;
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ProductStore storeProduct = new ProductStore();
             storeProduct = listStoreProductArray.get(position);
-            //Intent intentSuccess = new Intent(getActivity().getBaseContext(), Detail_Promo.class);
+            //Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
             //intentSuccess.putExtra("Detail", store);
             //startActivity(intentSuccess);
         }

@@ -26,7 +26,7 @@
 
           >
             <ImageView
-                android:id="@+id/Imagen_Promo_Detail"
+                android:id="@+id/imagenPromoDetail"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:scaleType="fitXY"
@@ -40,7 +40,7 @@
                     android:background="@drawable/gradient"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:layout_alignBottom="@+id/Imagen_Promo_Detail"
+                    android:layout_alignBottom="@+id/imagenPromoDetail"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/linearLayout2"
                     android:layout_alignParentStart="true">
@@ -58,7 +58,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="20dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/Titulo_Promo"
+                        android:id="@+id/tituloPromo"
                         android:layout_alignBottom="@+id/degradadoFondo"
                         android:layout_alignParentStart="true"
                         android:layout_weight="1" />
@@ -72,7 +72,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="11dp"
                         android:layout_marginRight="47dp"
-                        android:id="@+id/Puntos_promo_Detail"
+                        android:id="@+id/puntosPromoDetail"
                         android:textIsSelectable="false"
                         android:layout_alignBottom="@+id/degradadoFondo"
                         android:layout_alignParentStart="true"
@@ -101,7 +101,7 @@
                     android:id="@+id/imageView"
                     android:background="@drawable/promo"
                     android:layout_marginTop="32dp"
-                    android:layout_below="@+id/Imagen_Promo_Detail"
+                    android:layout_below="@+id/imagenPromoDetail"
                     android:layout_alignStart="@+id/linearLayout2" />
 
                 <TextView
@@ -112,8 +112,8 @@
                     android:id="@+id/textView2"
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_above="@+id/DescriptionPromoDetai"
-                    android:layout_alignEnd="@+id/DescriptionPromoDetai"
+                    android:layout_above="@+id/descriptionPromoDetai"
+                    android:layout_alignEnd="@+id/descriptionPromoDetai"
                     android:layout_alignTop="@+id/imageView"
                     android:layout_toEndOf="@+id/imageView" />
 
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Detalles de la promocion"
-                    android:id="@+id/DescriptionPromoDetai"
+                    android:id="@+id/descriptionPromoDetai"
                     android:layout_below="@+id/imageView"
                     android:layout_alignStart="@+id/imageView"
                     android:layout_marginTop="38dp"
@@ -138,7 +138,7 @@
 
 
         <Button
-            android:id="@+id/deseos_button"
+            android:id="@+id/deseosButton"
             android:layout_width="331dp"
             android:layout_height="32dp"
             android:gravity="center_horizontal"

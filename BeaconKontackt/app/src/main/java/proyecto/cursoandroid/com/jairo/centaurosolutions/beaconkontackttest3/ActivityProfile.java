@@ -41,16 +41,16 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ada
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 import utils.Utils;
 
-public class Activity_profile extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class ActivityProfile extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
-    String id_user;
+    String idUser;
     ServiceController serviceController;
-    EditText edit_Name;
-    EditText edit_LastName;
-    EditText edit_Email;
-    EditText edit_Phone;
+    EditText editName;
+    EditText editLastName;
+    EditText editEmail;
+    EditText editPhone;
     private DatePicker datePicker;
     private Calendar calendar;
     private Button dateView;
@@ -66,14 +66,14 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         //getSupportActionBar().setCustomView(actionBarLayout);
         Intent intent1 = getIntent();
-        id_user = intent1.getStringExtra("idUser");
+        idUser = intent1.getStringExtra("idUser");
         serviceController = new ServiceController();
         responseError = this;
         response = this;
-        edit_Name = (EditText) findViewById(R.id.name);
-        edit_LastName = (EditText) findViewById(R.id.lastname);
-        edit_Email = (EditText) findViewById(R.id.email);
-        edit_Phone = (EditText) findViewById(R.id.phone);
+        editName = (EditText) findViewById(R.id.name);
+        editLastName = (EditText) findViewById(R.id.lastname);
+        editEmail = (EditText) findViewById(R.id.email);
+        editPhone = (EditText) findViewById(R.id.phone);
         dateView = (Button) findViewById(R.id.buttonbirthday);
         dateView.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
@@ -90,7 +90,7 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(formatDate(year, month, day));
-        sendUserRequestById(id_user);
+        sendUserRequestById(idUser);
     }
 
     @Override
@@ -201,10 +201,10 @@ public class Activity_profile extends AppCompatActivity implements Response.List
             Log.d("Response", response.toString());
             response = response.getJSONObject("user");
             if (response.getBoolean("enable")) {
-                edit_Name.setText(response.getString("name"));
-                edit_LastName.setText(response.getString("lastName"));
-                edit_Email.setText(response.getString("email"));
-                edit_Phone.setText(response.getString("phone"));
+                editName.setText(response.getString("name"));
+                editLastName.setText(response.getString("lastName"));
+                editEmail.setText(response.getString("email"));
+                editPhone.setText(response.getString("phone"));
                 try {
                     if (!response.getString("creationDate").isEmpty()) {
                         Date date = new Date(Long.parseLong(response.getString("creationDate")));

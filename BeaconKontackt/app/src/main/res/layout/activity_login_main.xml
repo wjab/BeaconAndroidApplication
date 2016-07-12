@@ -93,7 +93,7 @@
             android:layout_height="23dp"
             android:id="@+id/open_history_points"
             android:background="@drawable/arrowright"
-            android:layout_alignBottom="@+id/imageprofile_navigation"
+            android:layout_alignBottom="@+id/imageProfileNavigation"
             android:layout_alignStart="@+id/userPointsAction"
             android:layout_marginStart="7dp" />
     <TextView

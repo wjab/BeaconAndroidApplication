@@ -22,10 +22,10 @@ import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 import utils.NonStaticUtils;
 
-public class Detail_Promo extends AppCompatActivity
+public class DetailPromo extends AppCompatActivity
 {
-    TextView TituloPromo, DescripcionPromo, Points, pointsAction;
-    ImageView ImagenPromo, open_history_points,share;
+    TextView tituloPromo, descripcionPromo, points, pointsAction;
+    ImageView imagenPromo, openHistoryPoints,share;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
     ImageButton wishes;
@@ -47,7 +47,7 @@ public class Detail_Promo extends AppCompatActivity
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         mpoints = preferences.getInt("points", 0) + "";
-        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -59,24 +59,23 @@ public class Detail_Promo extends AppCompatActivity
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(userAcumulatedPoints.toString());
 
-        TituloPromo = (TextView) findViewById(R.id.Titulo_Promo);
-        Points = (TextView) findViewById(R.id.Puntos_promo_Detail);
-        DescripcionPromo = (TextView) findViewById(R.id.DescriptionPromoDetai);
-        ImagenPromo = (ImageView) findViewById(R.id.Imagen_Promo_Detail);
+        tituloPromo = (TextView) findViewById(R.id.tituloPromo);
+        points = (TextView) findViewById(R.id.puntosPromoDetail);
+        descripcionPromo = (TextView) findViewById(R.id.descriptionPromoDetai);
+        imagenPromo = (ImageView) findViewById(R.id.imagenPromoDetail);
         intent = getIntent();
-        ImagenPromo= (ImageView) findViewById(R.id.Imagen_Promo_Detail);
-        open_history_points=(ImageView) actionBarLayout.findViewById(R.id.open_history_points);
+        openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         share=(ImageView)findViewById(R.id.share);
         Promociones promo = (Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
-        Points.setText(promo.getPuntos() + " pts");
-        TituloPromo.setText(promo.getTitulo());
-        DescripcionPromo.setText(promo.getDescripcion());
-        imageRequest.imageRequest(promo.getUrlImagen(), ImagenPromo, 0, 0);
-        final String description= DescripcionPromo.getText().toString()+" "+promo.getUrlImagen();
+        points.setText(promo.getPuntos() + " pts");
+        tituloPromo.setText(promo.getTitulo());
+        descripcionPromo.setText(promo.getDescripcion());
+        imageRequest.imageRequest(promo.getUrlImagen(), imagenPromo, 0, 0);
+        final String description= descripcionPromo.getText().toString()+" "+promo.getUrlImagen();
         final String image=promo.getUrlImagen();
 
-        open_history_points.setOnClickListener(new View.OnClickListener() {
+        openHistoryPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mpoints.toString().equals("0"))

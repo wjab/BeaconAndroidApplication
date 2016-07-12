@@ -51,7 +51,7 @@
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2" />
         <activity
-            android:name=".Activity_Principal"
+            android:name=".ActivityPrincipal"
             android:label="@string/title_activity_activity__principal" />
         <activity
             android:name=".TabPromocionesActivity"
@@ -85,7 +85,7 @@
             android:name=".UserRegister"
             android:label="@string/title_activity_user_register" />
         <activity
-            android:name=".Detail_Promo"
+            android:name=".DetailPromo"
             android:label="@string/title_activity_detail__promo" />
         <activity
             android:name=".PullNotificationsActivity"
@@ -109,10 +109,10 @@
         <!-- fin de configuracion de facebook -->
 
         <activity
-            android:name=".Login_Options"
+            android:name=".LoginOptions"
             android:label="@string/title_activity_login__options" />
         <activity
-            android:name=".Activity_profile"
+            android:name=".ActivityProfile"
             android:label="@string/title_activity_activity_profile" />
         <activity android:name=".HistotyPointsActivity" />
         <activity android:name=".ProductsStoreActivity" />

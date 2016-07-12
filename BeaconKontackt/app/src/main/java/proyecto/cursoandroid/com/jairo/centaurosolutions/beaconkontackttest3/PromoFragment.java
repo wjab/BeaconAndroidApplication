@@ -56,7 +56,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Promociones promo = new Promociones();
                 promo = listPromoArray.get(position);
-                Intent intentSuccess = new Intent(getActivity().getBaseContext(), Detail_Promo.class);
+                Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
                 intentSuccess.putExtra("Detail", promo);
                 startActivity(intentSuccess);
             }

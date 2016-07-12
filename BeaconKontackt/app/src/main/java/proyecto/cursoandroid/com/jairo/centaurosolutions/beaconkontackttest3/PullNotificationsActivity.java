@@ -86,7 +86,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
                     promo.setUrlImagen(url);
                 }
 
-                Intent intentSuccess = new Intent(getApplicationContext(), Detail_Promo.class);
+                Intent intentSuccess = new Intent(getApplicationContext(), DetailPromo.class);
                 intentSuccess.putExtra("Detail", promo);
                 intentSuccess.putExtra("promoDetail", myBeaconCacheList);
                 startActivity(intentSuccess);

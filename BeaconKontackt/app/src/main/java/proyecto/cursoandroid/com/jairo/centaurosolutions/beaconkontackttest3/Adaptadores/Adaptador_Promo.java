@@ -56,17 +56,17 @@ public class Adaptador_Promo extends ArrayAdapter<Promociones> {
         View rowView = inflater.inflate(R.layout.activity_elemento_lista_promo, null, true);
 
 
-        TextView TituloPromo = (TextView) rowView.findViewById(R.id.Titulo_Promo);
-        TextView PuntosPromo = (TextView) rowView.findViewById(R.id.Puntos_promo);
-        ImageView ImagenPromo = (ImageView) rowView.findViewById(R.id.Imagen_Promo);
+        TextView tituloPromo = (TextView) rowView.findViewById(R.id.tituloPromo);
+        TextView puntosPromo = (TextView) rowView.findViewById(R.id.puntosPromo);
+        ImageView imagenPromo = (ImageView) rowView.findViewById(R.id.imagenPromo);
         ServiceController imageRequest =  new ServiceController();
 
-        imageRequest.imageRequest(listaPromociones.get(position).getUrlImagen(), ImagenPromo, 0,0);
+        imageRequest.imageRequest(listaPromociones.get(position).getUrlImagen(), imagenPromo, 0,0);
 
 
 
-        TituloPromo.setText(listaPromociones.get(position).getTitulo() + "");
-        PuntosPromo.setText(listaPromociones.get(position).getPuntos() + " pts");
+        tituloPromo.setText(listaPromociones.get(position).getTitulo() + "");
+        puntosPromo.setText(listaPromociones.get(position).getPuntos() + " pts");
 
         return rowView;
 

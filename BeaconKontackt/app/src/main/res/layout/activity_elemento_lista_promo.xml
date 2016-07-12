@@ -8,7 +8,7 @@
         android:scaleType="fitXY"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:id="@+id/Imagen_Promo"
+        android:id="@+id/imagenPromo"
         android:src="@drawable/promo"
         />
     <LinearLayout
@@ -19,7 +19,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:orientation="horizontal"
-        android:layout_alignBottom="@+id/Imagen_Promo"
+        android:layout_alignBottom="@+id/imagenPromo"
         android:layout_alignParentStart="true">
 
 
@@ -32,7 +32,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
-            android:id="@+id/Titulo_Promo"
+            android:id="@+id/tituloPromo"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:layout_alignParentStart="true"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:textColor="@color/white"
             android:layout_height="wrap_content"
-            android:id="@+id/Puntos_promo"
+            android:id="@+id/puntosPromo"
             android:textIsSelectable="false"
             android:layout_marginRight="23dp"
             android:layout_marginTop="15dp"

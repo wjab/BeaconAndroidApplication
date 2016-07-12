@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="13dp"
             android:layout_height="13dp"
-            android:id="@+id/open_history_points"
+            android:id="@+id/openHistoryPoints"
             android:background="@drawable/arrow"
             android:layout_gravity="center_horizontal" />
 

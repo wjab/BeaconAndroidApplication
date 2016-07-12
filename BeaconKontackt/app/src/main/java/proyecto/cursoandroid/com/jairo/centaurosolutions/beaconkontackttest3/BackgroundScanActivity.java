@@ -1,9 +1,5 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,12 +9,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +17,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 
@@ -36,7 +26,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,24 +39,15 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.internal.Streams;
-import com.google.gson.reflect.TypeToken;
 import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import adapter.menu.MenuAdapter;
@@ -76,10 +56,7 @@ import broadcast.ForegroundBroadcastInterceptor;
 import butterknife.InjectView;
 import controllers.ServiceController;
 import de.hdodenhof.circleimageview.CircleImageView;
-import model.cache.BeaconCache;
 import model.elementMenu.ElementMenu;
-import model.promo.Promo;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapter;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 import receiver.AbstractScanBroadcastReceiver;
@@ -171,7 +148,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        open_history_points=(ImageView) actionBarLayout.findViewById(R.id.open_history_points);
+        open_history_points=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
 
         pointsAction.setText(mpoints.toString());
 
@@ -254,7 +231,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             }
         });
 
-        imageNavigation=((CircleImageView) findViewById(R.id.imageprofile_navigation));
+        imageNavigation=((CircleImageView) findViewById(R.id.imageProfileNavigation));
 
         if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
         {
@@ -368,7 +345,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         editor.putInt("points", 0);
         editor.putBoolean("isAuthenticated", false);
         editor.commit();
-        Intent intent= new Intent(getApplicationContext(),Login_Options.class);
+        Intent intent= new Intent(getApplicationContext(),LoginOptions.class);
         startActivity(intent);
     }
 
@@ -583,7 +560,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             }
             if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.profile)))
             {
-                Intent intent= new Intent(getBaseContext(),Activity_profile.class);
+                Intent intent= new Intent(getBaseContext(),ActivityProfile.class);
                 intent.putExtra("idUser",idUser);
                 startActivity(intent);
 

@@ -51,7 +51,7 @@ import utils.NonStaticUtils;
 import utils.Utils;
 
 
-public class Login_Options extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class LoginOptions extends Activity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     public static CallbackManager callbackmanager;
     ImageButton facebookLogin;
