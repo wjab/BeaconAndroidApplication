@@ -238,7 +238,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                                 isAuthenticated,
                                 currRange.getString("socialNetworkType"),
                                 currRange.getString("socialNetworkId"),
-                                currRange.getString("path_image"));
+                                currRange.getString("pathImage"));
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                         startActivity(intent);
                     } else {

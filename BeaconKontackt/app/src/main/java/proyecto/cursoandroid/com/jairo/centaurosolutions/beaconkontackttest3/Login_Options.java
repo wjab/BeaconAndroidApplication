@@ -303,7 +303,7 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
                             true,
                             response.getString("socialNetworkType"),
                             response.getString("socialNetworkId"),
-                            response.getString("path_image"));
+                            response.getString("pathImage"));
 
                     Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                     startActivity(intent);

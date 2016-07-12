@@ -103,7 +103,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                         true,
                         currRange.getString("socialNetworkType"),
                         currRange.getString("socialNetworkId"),
-                        currRange.getString("path_image"));
+                        currRange.getString("pathImage"));
 
                 startActivity(intent);
             }

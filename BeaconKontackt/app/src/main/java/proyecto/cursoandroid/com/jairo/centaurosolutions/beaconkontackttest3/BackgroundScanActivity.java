@@ -487,7 +487,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     public void onResponse(JSONObject response) {
         try {
             response=response.getJSONObject("user");
-                String url= response.getString("path_image");
+                String url= response.getString("pathImage");
                 Log.e("URI---->", url);
             if(url!=null) {
                 Picasso.with(this).load(url).error(R.drawable.profiledefault).into(profileImage);
