@@ -55,7 +55,7 @@ public class NonStaticUtils extends Activity {
                           boolean isAuth,
                           String loginType,
                           String socialNetworkId,
-                          String path_image)
+                          String pathImage)
     {
 
         SharedPreferences prefs = null;
@@ -70,7 +70,7 @@ public class NonStaticUtils extends Activity {
         editor.putBoolean("isAuthenticated", isAuth);
         editor.putString("loginType", loginType);
         editor.putString("socialNetworkId", socialNetworkId);
-        editor.putString("path_image",path_image);
+        editor.putString("pathImage",pathImage);
         editor.commit();
     }
 
