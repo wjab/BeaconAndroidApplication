@@ -96,6 +96,31 @@ public class BeaconFaqController {
 
 			return response;
 	}
+	//------------------------------------OBTIENE LOS FAQ POR SECCION---------------------------------------------
+		//@param faqID
+		@RequestMapping(method = RequestMethod.GET, value = "/section/{section}")
+		public Map<String, Object>  getFaqSection(@PathVariable("section") String section)
+		{
+			Faq faq = null;
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+
+				try
+				{
+					faq  = faqRepository.findBySection(section);
+					response.put("status", 200);
+					response.put("message", "");
+					response.put("faq", faq);
+				}
+				catch(Exception ex)
+				{
+					response.put("status", 500);
+					response.put("message", ex.getMessage());
+					response.put("faq", null);
+				}
+
+
+				return response;
+		}
 	//------------------------------------ACTUALIZA LA PREGUNTA DE UNA FQA ESPECIFICA------------------------------------
 	//@param faqID
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateQuestion/{faqId}")

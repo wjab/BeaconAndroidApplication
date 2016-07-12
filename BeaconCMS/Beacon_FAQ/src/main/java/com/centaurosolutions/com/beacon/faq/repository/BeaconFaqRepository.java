@@ -9,4 +9,5 @@ import com.centaurosolutions.com.beacon.faq.model.Faq;
 public interface BeaconFaqRepository extends MongoRepository<Faq, String> 
 {
 	Faq findById(String id);
+	Faq findBySection(String section);
 }
