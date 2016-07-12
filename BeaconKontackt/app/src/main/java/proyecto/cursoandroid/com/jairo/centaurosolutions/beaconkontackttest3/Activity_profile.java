@@ -87,7 +87,7 @@ public class Activity_profile extends AppCompatActivity implements Response.List
         });
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH) + 1;
+        month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(formatDate(year, month, day));
         sendUserRequestById(id_user);
@@ -109,7 +109,7 @@ public class Activity_profile extends AppCompatActivity implements Response.List
             // arg1 = year
             // arg2 = month
             // arg3 = day
-            StringBuilder stringdate = formatDate(year, month, day);
+            StringBuilder stringdate = formatDate(arg1, arg2, arg3);
             showDate(stringdate);
         }
     };
@@ -199,6 +199,7 @@ public class Activity_profile extends AppCompatActivity implements Response.List
     public void onResponse(JSONObject response) {
         try {
             Log.d("Response", response.toString());
+            response = response.getJSONObject("user");
             if (response.getBoolean("enable")) {
                 edit_Name.setText(response.getString("name"));
                 edit_LastName.setText(response.getString("lastName"));

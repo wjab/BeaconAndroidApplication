@@ -337,8 +337,8 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         mapParams.put("user", jsonMap.get("name").toString());
         mapParams.put("password", Utils.setEncryptedText(jsonMap.get("id").toString()) );
         mapParams.put("enable", "true");
-        mapParams.put("category_id", "0");
-        mapParams.put("total_gift_points", "0");
+        mapParams.put("categoryId", "0");
+        mapParams.put("totalGiftPoints", "0");
         mapParams.put("name", jsonMap.get("name").toString());
         mapParams.put("lastName", (jsonMap.get("last_name") != null ? jsonMap.get("last_name").toString() : "") );
         mapParams.put("phone", (jsonMap.get("phone") != null ? jsonMap.get("phone").toString() : "") );
@@ -350,6 +350,7 @@ public class Login_Options extends Activity implements Response.Listener<JSONObj
         mapParams.put("socialNetworkJson", jsonMap.toString());
         mapParams.put("gender","");
         mapParams.put("productWishList", null);
+        mapParams.put("pathImage", null);
 
 
         Map<String, String> map = new HashMap<String, String>();

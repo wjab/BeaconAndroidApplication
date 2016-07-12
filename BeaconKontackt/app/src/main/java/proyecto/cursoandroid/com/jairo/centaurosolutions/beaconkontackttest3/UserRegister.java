@@ -117,8 +117,8 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("user", email.getText().toString());
         mapParams.put("password", password.getText().toString());
         mapParams.put("enable", "true");
-        mapParams.put("category_id", "0");
-        mapParams.put("total_gift_points", "0");
+        mapParams.put("categoryId", "0");
+        mapParams.put("totalGiftPoints", "0");
         mapParams.put("name", name.getText().toString());
         mapParams.put("lastName", lastName.getText().toString());
         mapParams.put("phone", phone.getText().toString());
@@ -130,6 +130,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("socialNetworkJson","");
         mapParams.put("gender","");
         mapParams.put("productWishList","");
+        mapParams.put("pathImage","");
 
 
         Map<String, String> map = new HashMap<String, String>();
