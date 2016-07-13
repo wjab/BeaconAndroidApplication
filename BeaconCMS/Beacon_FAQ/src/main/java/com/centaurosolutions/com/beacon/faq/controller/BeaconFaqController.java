@@ -101,7 +101,7 @@ public class BeaconFaqController {
 		@RequestMapping(method = RequestMethod.GET, value = "/section/{section}")
 		public Map<String, Object>  getFaqSection(@PathVariable("section") String section)
 		{
-			Faq faq = null;
+			List<Faq> faq;
 			Map<String, Object> response = new LinkedHashMap<String, Object>();
 
 				try
