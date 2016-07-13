@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.TabDeseosFragment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.TabPerfilFragment;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.TabSesionFragment;
 
 /**
  * Created by Centauro on 08/07/2016.
@@ -23,10 +25,10 @@ public class PagerAdapterFaq  extends FragmentStatePagerAdapter {
                 frag=new TabPerfilFragment();
                 break;
             case 1:
-                frag=new TabPerfilFragment();
+                frag=new TabDeseosFragment();
                 break;
             case 2:
-                frag=new TabPerfilFragment();
+                frag=new TabSesionFragment();
                 break;
         }
         return frag;

@@ -82,7 +82,7 @@ public class TabPerfilFragment extends Fragment implements Response.Listener<JSO
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebServiceFaq)+"faq/";
+        String url = getString(R.string.WebServiceFaq)+"faq/section/perfil/";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
@@ -97,7 +97,6 @@ public class TabPerfilFragment extends Fragment implements Response.Listener<JSO
             String range = "";
             String message = "";
             String messageType = "";
-
             for(int i=0; i < ranges.length(); i++ ){
                 JSONObject currRange = ranges.getJSONObject(i);
 
