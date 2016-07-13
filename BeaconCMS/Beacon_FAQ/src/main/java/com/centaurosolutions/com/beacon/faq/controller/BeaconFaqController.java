@@ -197,7 +197,45 @@ public class BeaconFaqController {
 		
 		return response;
 	}
-	
+	//------------------------------------ACTUALIZA LA SECCION DE UNA FAQ ESPECIFICA---------------------------------
+		//@param faqID
+		@RequestMapping(method = RequestMethod.PUT, value = "/updateSection/{faqId}")
+		public Map<String, Object> updateSection(
+				@PathVariable("faqId") String faqId,
+				@RequestBody Map<String, Object> faqMap) 
+		{
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			
+			Faq faq = null;
+			
+			try
+			{
+				faq= faqRepository.findById(faqId);
+				
+				if (faq != null) 
+				{
+					faq.setSection(faqMap.get("section").toString());
+					faq.setId(faqId);
+					response.put("message", "FAQ section updated");
+					response.put("faq", faqRepository.save(faq));
+					response.put("status", 200);
+				}
+				else
+				{
+					response.put("status", 404);
+					response.put("message", "FAQ doesn't exist");
+					response.put("faq", null);
+				}			
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", "Error updateSection");
+			}
+			
+			return response;
+		}
+		
 	//------------------------------------ELIMINA UNA FAQ ESPECIFICA---------------------------------
 		//@param faqID
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{faqId}")
