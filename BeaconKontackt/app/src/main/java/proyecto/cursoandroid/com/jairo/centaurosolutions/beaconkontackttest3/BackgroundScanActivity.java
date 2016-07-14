@@ -253,7 +253,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_deseos,  /* nav drawer icon to replace 'Up' caret */
+                R.drawable.ic_added,  /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
         )
@@ -577,7 +577,10 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             }
             if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.preferences))){
                 FragmentManager fm = getSupportFragmentManager();
+                Bundle args = new Bundle();
+                args.putString("idUser",idUser);
                 PreferencesDialogFragment p= new PreferencesDialogFragment();
+                p.setArguments(args);
                 p.show(fm, "tag");
 
             }
