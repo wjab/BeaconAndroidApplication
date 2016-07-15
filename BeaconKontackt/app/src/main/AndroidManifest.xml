@@ -116,7 +116,8 @@
             android:label="@string/title_activity_activity_profile" />
         <activity android:name=".HistotyPointsActivity" />
         <activity android:name=".ProductsStoreActivity" />
-        <activity android:name=".FaqActivity"></activity>
+        <activity android:name=".FaqActivity" />
+        <activity android:name=".WishListActivity"></activity>
     </application>
 
 </manifest>

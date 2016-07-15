@@ -30,7 +30,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
     // private final Integer[] imgid;
 /// constructor que recive el contexto y la lista de los elementos
     public CustomAdapterStore(Activity contexto, ArrayList<Store> lista) {
-        super(contexto, R.layout.activity_elemento_lista_promo, lista);
+        super(contexto, R.layout.store_element_list, lista);
         // TODO Auto-generated constructor stub
 
         this.contexto = contexto;

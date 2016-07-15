@@ -131,6 +131,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("gender","");
         mapParams.put("productWishList","");
         mapParams.put("pathImage","");
+        mapParams.put("preference","");
 
 
         Map<String, String> map = new HashMap<String, String>();

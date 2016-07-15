@@ -578,7 +578,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.preferences))){
                 FragmentManager fm = getSupportFragmentManager();
                 Bundle args = new Bundle();
-                args.putString("idUser",idUser);
+                args.putString("idUser", idUser);
                 PreferencesDialogFragment p= new PreferencesDialogFragment();
                 p.setArguments(args);
                 p.show(fm, "tag");
@@ -589,7 +589,12 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                 startActivity(intent);
 
             }
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.wishList))){
+                Intent intent= new Intent(getBaseContext(),WishListActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
 
+            }
         }
     }
 

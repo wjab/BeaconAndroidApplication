@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/transparent" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="1000"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/darkBlue"
+        android:gravity="center_vertical|center"
+        android:layout_height="wrap_content"
+        android:id="@+id/price"
+        android:textStyle="bold"
+        android:layout_marginRight="15dp"
+        android:textIsSelectable="false"
+        android:drawableRight="@drawable/ic_deseos_azul"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="72dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/com_facebook_likeview_text_color"
+        android:id="@+id/imageView3"
+        android:layout_below="@+id/imageViewProduct"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageViewProduct"
+        android:background="@drawable/com_facebook_profile_picture_blank_square"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name Product"
+        android:id="@+id/nameProduct"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="27dp"
+        android:layout_toEndOf="@+id/imageViewProduct" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/idProduct"
+        android:visibility="gone"
+        android:layout_alignBottom="@+id/price"
+        android:layout_toEndOf="@+id/imageViewProduct" />
+</RelativeLayout>
+
