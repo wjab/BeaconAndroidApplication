@@ -41,7 +41,7 @@ public class User {
 
 	private String gender;
 
-	private ArrayList<String> productWishList;
+	private ArrayList<Wish> productWishList;
 	
 	private String pathImage;
 	
@@ -74,7 +74,7 @@ public class User {
 	public User(String user, String password, Boolean enable, int categoryId,
 			int totalGiftPoints, Date creationDate, Date modifiedDate, String name,
 			String lastName, String email, String phone, String socialNetworkId,
-			String socialNetworkType, String socialNetworkJson, String gender, ArrayList<String> productWishList,
+			String socialNetworkType, String socialNetworkJson, String gender, ArrayList<Wish> productWishList,
 			String pathImage,ArrayList<Preferences> preference) {
 		super();
 		this.user = user;
@@ -343,11 +343,11 @@ public class User {
 		this.gender = gender;
 	}
 
-	public ArrayList<String> getProductWishList() {
+	public ArrayList<Wish> getProductWishList() {
 		return productWishList;
 	}
 
-	public void setProductWishList(ArrayList<String> productWishList) {
+	public void setProductWishList(ArrayList<Wish> productWishList) {
 		this.productWishList = productWishList;
 	}
 	/**

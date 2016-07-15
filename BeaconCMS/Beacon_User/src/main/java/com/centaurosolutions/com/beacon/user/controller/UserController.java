@@ -1,6 +1,7 @@
 package com.centaurosolutions.com.beacon.user.controller;
 
 import com.centaurosolutions.com.beacon.user.model.User;
+import com.centaurosolutions.com.beacon.user.model.Wish;
 import com.centaurosolutions.com.beacon.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -383,37 +384,45 @@ public class UserController {
 		return sb.toString();
 
 	}
+//----------------------------------------------Add Product to wishList-------------------------------------------------------
 	@RequestMapping(method = RequestMethod.POST, value = "/wishlist/add")
-	public Map<String, Object> addProductToWishlist(@RequestBody Map<String, Object> userMap) {
+	public Map<String, Object> addProductToWishlist(@RequestBody Map<String, Object> userMap) 
+	{
 
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		User userExist = null;
+		String userId=userMap.get("userId").toString();
 		Boolean productIdExist = false;
 
 		try
 		{
-		  if( userMap.get("productId") != null && userMap.get("userId") != null){
+		  if( userMap.get("productId") != null && userId != null){
 
-			  userExist =  userRepository.findOne( userMap.get("userId").toString());
+			  userExist =  userRepository.findOne(userId);
 
 			  if(userExist != null){
 
 				  if(userExist.getProductWishList() != null){
-					  for(String id : userExist.getProductWishList()){
-						  if( userMap.get("productId").toString().equals(id)){
+					  for(Wish wish : userExist.getProductWishList()){
+						  if( userMap.get("productId").toString().equals(wish.getProductId())){
 							  productIdExist = true;
 							  break;
+						
 						  }
 					  }
 				  }
+				  
                   else{
-                      userExist.setProductWishList(new ArrayList<String>());
-                  }
-
-
+                	  userExist.setProductWishList(new ArrayList<Wish>());
+                      }
+				  
 				  if(!productIdExist){
-
-					  userExist.getProductWishList().add(userMap.get("productId").toString());
+					  Wish wishList=new Wish();
+					  wishList.setProductId(userMap.get("productId").toString());
+					  wishList.setProductName(userMap.get("productName").toString());
+					  wishList.setPrice(Integer.parseInt(userMap.get("price").toString()));
+					  wishList.setImageUrlList(userMap.get("imageUrlList").toString());
+					  userExist.getProductWishList().add(wishList);
 					  userRepository.save(userExist);
 
 					  response.put("message", "User updated");
@@ -439,23 +448,23 @@ public class UserController {
 		  }
 		}
 		catch(Exception ex)
-		{
+		{	
 			response.put("status", 500);
-			response.put("message", "Error addWishlist");
+			response.put("message","Error");
 			response.put("user", null);
 		}
 
 		return response;
 	}
 
-
+//---------------------------------Delete product from wishlist-------------------------------------------------
 	@RequestMapping(method = RequestMethod.POST,  value = "/wishlist/delete")
 	public Map<String, Object> deleteProductToWishlist(@RequestBody Map<String, Object> userMap) {
 
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		User userExist = null;
 		Boolean productIdExist = false;
-
+		 Wish wishList = null;
 		try
 		{
 			if( userMap.get("productId") != null && userMap.get("userId") != null){
@@ -465,17 +474,19 @@ public class UserController {
 				if(userExist != null){
 
                     if(userExist.getProductWishList() != null){
-                        for(String id : userExist.getProductWishList()){
-                            if( userMap.get("productId").toString().equals(id)){
-                                productIdExist = true;
-                                break;
-                            }
+                    	 for(Wish wish : userExist.getProductWishList()){
+   						  if( userMap.get("productId").toString().equals(wish.getProductId())){
+   							  productIdExist = true;
+   							  wishList=wish;
+   							  break;
+   						  }
                         }
                     }
 
 					if(productIdExist){
-
-						userExist.getProductWishList().remove(userMap.get("productId").toString());
+						
+						 
+						userExist.getProductWishList().remove(wishList);
 						userRepository.save(userExist);
 
 						response.put("message", "User updated");
@@ -509,7 +520,147 @@ public class UserController {
 
 		return response;
 	}
-	//-------->PathImage update
+	//-----------------------------------------------------Add preference-----------------------------------------------------
+
+	@RequestMapping(method = RequestMethod.POST, value = "/preference/add")
+	public Map<String, Object> addPreference(@RequestBody Map<String, Object> userMap) 
+	{
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User userExist = null;
+		String userId=userMap.get("userId").toString();
+		Boolean preferenceExist = false;
+
+		try
+		{
+		  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
+
+			  userExist =  userRepository.findOne(userId);
+
+			  if(userExist != null){
+
+				  if(userExist.getPreference() != null){
+					  for(Preferences preference : userExist.getPreference()){
+						  if( 
+								userMap.get("preference").toString().equals(preference.getPreference())){
+							  preferenceExist = true;
+							  break;
+						
+						  }
+					  }
+				  }
+                  else{
+                	  userExist.setPreference(new ArrayList<Preferences>());
+                      
+                  }
+
+
+				  if(!preferenceExist){
+					  Preferences preferenceList=new Preferences();
+					  preferenceList.setPreference(userMap.get("preference").toString());
+					  preferenceList.setState(userMap.get("state").toString());
+					
+					  userExist.getPreference().add(preferenceList);
+					  userRepository.save(userExist);
+
+					  response.put("message", "User updated");
+					  response.put("user",  userExist);
+					  response.put("status", 200);
+				  }
+				  else{
+					  response.put("message", "Preference already added to preferences");
+					  response.put("user", userExist);
+					  response.put("status", 200);
+				  }
+			  }
+			  else{
+				  response.put("status", 404);
+				  response.put("message", "User not found");
+				  response.put("user", null);
+			  }
+
+		 }else{
+			  response.put("status", 400);
+			  response.put("message", "Missing parameters");
+			  response.put("user", null);
+		  }
+		  
+		}
+		
+		catch(Exception ex)
+		{	
+			response.put("status", 500);
+			response.put("message","Error");
+			response.put("user", null);
+		}
+
+		return response;
+	}
+	//---------------------------------Delete preference-------------------------------------------------
+		@RequestMapping(method = RequestMethod.POST,  value = "/preference/delete")
+		public Map<String, Object> deletePreference(@RequestBody Map<String, Object> userMap) {
+
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			User userExist = null;
+			Boolean preferenceExist = false;
+			String userId=userMap.get("userId").toString();
+			 Preferences preferenceList = null;
+			try
+			{
+				  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
+
+					userExist =  userRepository.findOne( userMap.get("userId").toString());
+
+					if(userExist != null){
+
+	                    if(userExist.getProductWishList() != null){
+	                    	 for(Preferences preference : userExist.getPreference()){
+	   						  if( userMap.get("preference").toString().equals(preference.getPreference())){
+	   							preferenceExist = true;
+	   							preferenceList=preference;
+	   							  break;
+	   						  }
+	                        }
+	                    }
+
+						if(preferenceExist){
+							
+							 
+							userExist.getPreference().remove(preferenceList);
+							userRepository.save(userExist);
+
+							response.put("message","User updated");
+							response.put("user",  userExist);
+							response.put("status", 200);
+						}
+						else{
+							response.put("message", "Preference not found");
+							response.put("user", userExist);
+							response.put("status", 404);
+						}
+					}
+					else{
+						response.put("status", 404);
+						response.put("message", "User not found");
+						response.put("user", null);
+					}
+
+				}else{
+					response.put("status", 400);
+					response.put("message", "Missing parameters");
+					response.put("user", null);
+				}
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", "Error deletePreference");
+				response.put("user", null);
+			}
+
+			return response;
+		}
+	//-------->PathImage update--------------------------------------------------------------------------------
 		@RequestMapping(method = RequestMethod.PUT, value = "/editPathImage/{userId}")
 		public Map<String, Object> editPathImage(
 				@PathVariable("userId") String UserId,
@@ -546,7 +697,7 @@ public class UserController {
 
 			return response;
 		}
-		//------>Preferences Update
+		//------>Preferences Update------------------------------------------------------------------------------
 		@SuppressWarnings("unchecked")
 		@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{userId}")
 		public Map<String, Object> editPreferences(
