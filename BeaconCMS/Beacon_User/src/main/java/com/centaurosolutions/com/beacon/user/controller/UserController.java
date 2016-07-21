@@ -697,6 +697,74 @@ public class UserController {
 
 			return response;
 		}
+		//-------------------------------Update Preference espefica---------------------------------------------
+		@RequestMapping(method = RequestMethod.POST,  value = "/preference/editState")
+		public Map<String, Object> editStatePreference(@RequestBody Map<String, Object> userMap) {
+
+			Map<String, Object> response = new LinkedHashMap<String, Object>();
+			User userExist = null;
+			Boolean preferenceExist = false;
+			String userId=userMap.get("userId").toString();
+			 Preferences preferenceList = null;
+			 Preferences newPreference=null;
+			try
+			{
+				  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
+
+					userExist =  userRepository.findOne( userMap.get("userId").toString());
+
+					if(userExist != null){
+
+	                    if(userExist.getProductWishList() != null){
+	                    	 for(Preferences preference : userExist.getPreference()){
+	   						  if( userMap.get("preference").toString().equals(preference.getPreference())){
+	   							preferenceExist = true;
+	   							preferenceList=preference;
+	   							newPreference=preference;
+	   							newPreference.setState(userMap.get("state").toString());
+	   							  break;
+	   						  }
+	                        }
+	                    }
+
+						if(preferenceExist){
+							
+							 
+							userExist.getPreference().remove(preferenceList);
+							userExist.getPreference().add(newPreference);
+							userRepository.save(userExist);
+
+							response.put("message","User updated");
+							response.put("user",  userExist);
+							response.put("status", 200);
+						}
+						else{
+							response.put("message", "Preference not found");
+							response.put("user", userExist);
+							response.put("status", 404);
+						}
+					}
+					else{
+						response.put("status", 404);
+						response.put("message", "User not found");
+						response.put("user", null);
+					}
+
+				}else{
+					response.put("status", 400);
+					response.put("message", "Missing parameters");
+					response.put("user", null);
+				}
+			}
+			catch(Exception ex)
+			{
+				response.put("status", 500);
+				response.put("message", "Error editStatePreference");
+				response.put("user", null);
+			}
+
+			return response;
+		}
 		//------>Preferences Update------------------------------------------------------------------------------
 		@SuppressWarnings("unchecked")
 		@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{userId}")
