@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:padding="15dp"
+        android:id="@+id/form_Profile"
         android:orientation="vertical"
         android:gravity="center"
         >
@@ -149,7 +150,7 @@
         android:orientation="vertical"
         android:gravity="center">
         <Button
-            android:id="@+id/register"
+            android:id="@+id/update"
             android:gravity="center"
             android:text="@string/save"
             android:textSize="17dp"

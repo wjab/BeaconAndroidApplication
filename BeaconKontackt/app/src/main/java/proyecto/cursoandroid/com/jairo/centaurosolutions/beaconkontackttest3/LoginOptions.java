@@ -214,7 +214,9 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
             public void onSuccess(LoginResult loginResult) {
 
                 System.out.println("------- Success -------");
-                GraphRequest.newMeRequest(
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "email,gender,first_name,last_name,name,id,birthday");
+                GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject json, GraphResponse response) {
@@ -255,7 +257,9 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
                                 }
                             }
 
-                        }).executeAsync();
+                        });
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override
@@ -339,7 +343,7 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
         mapParams.put("enable", "true");
         mapParams.put("categoryId", "0");
         mapParams.put("totalGiftPoints", "0");
-        mapParams.put("name", jsonMap.get("name").toString());
+        mapParams.put("name", (jsonMap.get("first_name") != null ? jsonMap.get("first_name").toString() : ""));
         mapParams.put("lastName", (jsonMap.get("last_name") != null ? jsonMap.get("last_name").toString() : "") );
         mapParams.put("phone", (jsonMap.get("phone") != null ? jsonMap.get("phone").toString() : "") );
         mapParams.put("creationDate", Utils.convertLongToDate(new Date().getTime()));
@@ -348,7 +352,7 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
         mapParams.put("socialNetworkId", jsonMap.get("id"));
         mapParams.put("socialNetworkType", "facebook");
         mapParams.put("socialNetworkJson", jsonMap.toString());
-        mapParams.put("gender","");
+        mapParams.put("gender",(jsonMap.get("gender") != null ? jsonMap.get("gender").toString() : ""));
         mapParams.put("productWishList", "");
         mapParams.put("pathImage", "");
 
