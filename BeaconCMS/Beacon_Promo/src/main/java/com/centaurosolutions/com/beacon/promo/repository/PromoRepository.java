@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.centaurosolutions.com.beacon.promo.model.Promo;
 
-public  interface PromoRepository extends MongoRepository<Promo, String> {
 
+public  interface PromoRepository extends MongoRepository<Promo, String> {
+	Promo findById(String id);
 }

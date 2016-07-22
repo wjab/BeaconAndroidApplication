@@ -194,34 +194,45 @@ public class PromoController {
       
       
       @RequestMapping(method = RequestMethod.PUT, value="/{promoId}")
-      public Map<String, Object> editPromo(@PathVariable("promoId") String PromoId,
+      public Map<String, Object> editPromo(@PathVariable("promoId") String promoId,
           @RequestBody Map<String, Object> promoMap){
 
           Map<String, Object> response = new HashMap<String, Object>();
-
+          Promo promo;
           try{
-              Promo promoModel = new Promo((Boolean)promoMap.get("enable"),
-                      promoMap.get("profileId").toString(),
-                      promoMap.get("code").toString() ,
-                      Integer.parseInt(promoMap.get("giftPoints").toString()),
-                      Integer.parseInt(promoMap.get("attempt").toString()),
-                      DateFormatter(promoMap.get("startDate").toString()),
-                      DateFormatter(promoMap.get("endDate").toString()),
-                      promoMap.get("type").toString(),
-                      Integer.parseInt(promoMap.get("availability").toString()),
-                      DateFormatter(promoMap.get("creationDate").toString()),
-                      DateFormatter(promoMap.get("modifiedDate").toString()),
-                      promoMap.get("updatedby").toString(),
-                      promoMap.get("title").toString(),
-                      promoMap.get("description").toString(),
-                      (Boolean)promoMap.get("isAutomatic"),
-                      promoMap.get("images").toString(),
-                      Integer.parseInt(promoMap.get("interval").toString()));
-              promoModel.setId(PromoId);
-
-              response.put("message", "Promoción actualizada correctamente");
-              response.put("promo", promoModel);
-              response.put("status", 200);
+        	  promo = promoRepository.findById(promoId);
+        	  if (promo != null) 
+				{
+					promo.setEnable((Boolean)promoMap.get("enable"));
+					
+                    promo.setProfileId(promoMap.get("profileId").toString());
+                    promo.setCode(promoMap.get("code").toString()); 
+                    promo.setGiftPoints(Integer.parseInt(promoMap.get("giftPoints").toString()));
+                    promo.setAttempt(Integer.parseInt(promoMap.get("attempt").toString()));
+                    promo.setStartDate(DateFormatter(promoMap.get("startDate").toString()));
+                    promo.setEndDate(DateFormatter(promoMap.get("endDate").toString()));
+                    promo.setType(promoMap.get("type").toString());
+                    promo.setAvailability(Integer.parseInt(promoMap.get("availability").toString()));
+                    promo.setCreationDate(DateFormatter(promoMap.get("creationDate").toString()));
+                    promo.setModifiedDate(DateFormatter(promoMap.get("modifiedDate").toString()));
+                    promo.setUpdatedby(promoMap.get("updatedby").toString());
+                    promo.setTitle(promoMap.get("title").toString());
+                    promo.setDescription(promoMap.get("description").toString());
+                    promo.setIsAutomatic((Boolean)promoMap.get("isAutomatic"));
+                    promo.setImages(promoMap.get("images").toString());
+                    promo.setInterval(Integer.parseInt(promoMap.get("interval").toString()));
+					
+					response.put("message", "Promo updated");
+					response.put("promo", promoRepository.save(promo));
+					response.put("status",200);
+				} 
+        	  else 
+				{
+					response.put("status", 404);
+					response.put("message", "Promo not found, not changed");
+					response.put("promo", null);
+				}
+              		
 
           }
           catch (Exception ex){
