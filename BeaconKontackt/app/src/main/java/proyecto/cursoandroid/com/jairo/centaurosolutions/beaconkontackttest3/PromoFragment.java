@@ -86,6 +86,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
                 promoelement.setDescripcion(currRange.getString("description"));
                 promoelement.setPuntos(currRange.getInt("giftPoints"));
                 promoelement.setUrlImagen(currRange.getString("images"));
+                promoelement.setProfileId(currRange.getString("profileId"));
 
                 listPromoArray.add(promoelement);
             }

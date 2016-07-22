@@ -92,14 +92,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/com_facebook_likeview_text_color"
-                    android:layout_below="@+id/imageView"
+                    android:layout_below="@+id/imageMerchant"
                     android:layout_marginTop="15dp"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/view" />
                 <ImageView
                     android:layout_width="126dp"
                     android:layout_height="84dp"
-                    android:id="@+id/imageView"
-                    android:background="@drawable/promo"
+                    android:id="@+id/imageMerchant"
                     android:layout_marginTop="32dp"
                     android:layout_below="@+id/imagenPromoDetail"
                     android:layout_alignStart="@+id/linearLayout2" />
@@ -109,13 +109,11 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Detalles de la tienda"
-                    android:id="@+id/textView2"
+                    android:id="@+id/detailMerchant"
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_above="@+id/descriptionPromoDetai"
-                    android:layout_alignEnd="@+id/descriptionPromoDetai"
-                    android:layout_alignTop="@+id/imageView"
-                    android:layout_toEndOf="@+id/imageView" />
+                    android:layout_below="@+id/pointsToGive"
+                    android:layout_alignStart="@+id/merchantName" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,11 +121,33 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Detalles de la promocion"
                     android:id="@+id/descriptionPromoDetai"
-                    android:layout_below="@+id/imageView"
-                    android:layout_alignStart="@+id/imageView"
+                    android:layout_below="@+id/imageMerchant"
+                    android:layout_alignStart="@+id/imageMerchant"
                     android:layout_marginTop="38dp"
                     android:layout_alignEnd="@+id/linearLayout2"
                     android:layout_alignParentBottom="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="merchantName"
+                    android:id="@+id/merchantName"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageMerchant" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="pointsToGive"
+                    android:id="@+id/pointsToGive"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/merchantName"
+                    android:layout_alignStart="@+id/merchantName" />
             </RelativeLayout> <!-- The navigation drawer -->
 
 
@@ -138,7 +158,7 @@
 
 
         <Button
-            android:id="@+id/deseosButton"
+            android:id="@+id/wishButton"
             android:layout_width="331dp"
             android:layout_height="32dp"
             android:gravity="center_horizontal"

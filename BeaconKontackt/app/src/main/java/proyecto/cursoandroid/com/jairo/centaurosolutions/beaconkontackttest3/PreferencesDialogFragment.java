@@ -2,14 +2,12 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Notification;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,59 +34,65 @@ public class PreferencesDialogFragment extends DialogFragment implements Respons
     public PreferencesDialogFragment() {
     }
     public CustomAdapterPreference adapter;
-    public ListView listView;
-    public ArrayList<Preference> listArray;
+    private static ListView listView;
+    private static ArrayList<Preference> listArray;
     Dialog dialog;
-    Button btn_save;
-    String idUser;
+
+    private static String idUser;
+    private static String webServiceUser;
+    private static Activity context;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setCanceledOnTouchOutside(false);
         // Get the layout inflater
         dialog.setTitle("Preferencias");
         dialog.setContentView(R.layout.layout_dialog);
         listView= (ListView)dialog.findViewById(R.id.listviewPreferences);
         Bundle mArgs = getArguments();
         idUser = mArgs.getString("idUser");
-        btn_save=(Button)dialog.findViewById(R.id.btn_save);
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                capturePreferences();
-            }
-        });
+        webServiceUser = getString(R.string.WebService_User);
+        context=getActivity();
         service();
         return dialog;
     }
 
-    public void capturePreferences(){
-
-            Toast.makeText(getActivity().getApplicationContext(), "Cambios guardados", Toast.LENGTH_SHORT).show();
-
-        dialog.cancel();
-
-    }
 
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
+
     public void service(){
         serviceController = new ServiceController();
         responseError = this;
         response = this;
 
         Map<String, String> nullMap = new HashMap<String, String>();
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_User)+"user/id/"+idUser;
+        String url = webServiceUser+"user/id/"+idUser;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
+
+    public void serviceUpdate(String valor, String preference)
+    {
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
+        Map<String, Object> mapParams = new HashMap<>();
+        mapParams.put("userId",idUser);
+        mapParams.put("preference",preference);
+        mapParams.put("state",valor);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url =webServiceUser+"user/preference/editState";
+        Log.e("URL",url);
+        serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
+    }
+
     @Override
     public void onResponse(JSONObject response) {
-
 
         try {
             listArray = new ArrayList<Preference>();
@@ -101,13 +105,13 @@ public class PreferencesDialogFragment extends DialogFragment implements Respons
 
                 Preference element = new Preference();
                 element.setPreference(currRange1.getString("preference"));
-               // element.setAnswer(currRange.getString("answer"));
+                element.setState(currRange1.getString("state"));
 
 
                 listArray.add(element);
             }
 
-            adapter=new CustomAdapterPreference(getActivity(), listArray);
+            adapter=new CustomAdapterPreference(context, listArray);
             listView.setAdapter(adapter);
 
         } catch (JSONException e) {

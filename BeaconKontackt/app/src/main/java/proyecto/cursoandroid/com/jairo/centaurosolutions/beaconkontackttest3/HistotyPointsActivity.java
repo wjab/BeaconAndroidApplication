@@ -36,6 +36,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histoty_points);
+        setTitle("Historial de puntos");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent1 = getIntent();
         idUser = intent1.getStringExtra("idUser");

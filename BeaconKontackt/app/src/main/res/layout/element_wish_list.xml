@@ -4,7 +4,7 @@
 
     <TextView
         android:text="1000"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:layout_width="wrap_content"
         android:textColor="@color/darkBlue"
         android:gravity="center_vertical|center"
@@ -13,7 +13,6 @@
         android:textStyle="bold"
         android:layout_marginRight="15dp"
         android:textIsSelectable="false"
-        android:drawableRight="@drawable/ic_deseos_azul"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="72dp" />
@@ -21,12 +20,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="6dp"
         android:background="@color/com_facebook_likeview_text_color"
         android:id="@+id/imageView3"
         android:layout_below="@+id/imageViewProduct"
         android:layout_alignParentStart="true" />
 
     <ImageView
+        android:layout_marginTop="6dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageViewProduct"
@@ -53,5 +54,23 @@
         android:visibility="gone"
         android:layout_alignBottom="@+id/price"
         android:layout_toEndOf="@+id/imageViewProduct" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="17dp"
+        android:id="@+id/deleteWish"
+        android:background="@drawable/ic_deseos_azul"
+        android:layout_alignTop="@+id/imageViewProduct"
+        android:layout_alignEnd="@+id/price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/urlImage"
+        android:visibility="gone"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_toStartOf="@+id/price" />
 </RelativeLayout>
 

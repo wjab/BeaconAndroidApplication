@@ -9,10 +9,10 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Tab
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.TabSesionFragment;
 
 /**
- * Created by Centauro on 08/07/2016.
+ * Created by Centauro on 22/07/2016.
  */
-public class PagerAdapterFaq  extends FragmentStatePagerAdapter {
-    public PagerAdapterFaq(FragmentManager fm) {
+public class PagerAdapterWishList  extends FragmentStatePagerAdapter {
+    public PagerAdapterWishList(FragmentManager fm) {
         super(fm);
     }
 
@@ -27,19 +27,14 @@ public class PagerAdapterFaq  extends FragmentStatePagerAdapter {
             case 1:
                 frag=new TabDeseosFragment();
                 break;
-            case 2:
-                frag=new TabSesionFragment();
-                break;
-            case 3:
-                frag=new TabSesionFragment();
-                break;
+
         }
         return frag;
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 2;
     }
 
     @Override
@@ -47,17 +42,12 @@ public class PagerAdapterFaq  extends FragmentStatePagerAdapter {
         String title=" ";
         switch (position){
             case 0:
-                title="Perfil";
+                title="Productos";
                 break;
             case 1:
-                title="Deseos";
+                title="Promociones";
                 break;
-            case 2:
-                title="Sesion";
-                break;
-            case 3:
-                title="Puntos";
-                break;
+
         }
 
         return title;

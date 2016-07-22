@@ -7,6 +7,7 @@
         android:layout_height="wrap_content"
         android:text="Correos"
         android:id="@+id/switchPreference"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="20dp" />
 </RelativeLayout>
