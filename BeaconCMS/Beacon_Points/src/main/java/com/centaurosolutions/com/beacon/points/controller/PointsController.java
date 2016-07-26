@@ -2,6 +2,7 @@ package com.centaurosolutions.com.beacon.points.controller;
 
 import com.centaurosolutions.com.beacon.points.model.Points;
 import com.centaurosolutions.com.beacon.points.repository.PointsRepository;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,6 +89,14 @@ public class PointsController {
                     if(userData.getStatus().equals(STATUS_ACTIVE)){
 
                         userData.setStatus(pointsMap.get("status").toString());
+                        
+                        if(pointsMap.get("status").toString().toUpperCase().equals(STATUS_REDEEMED)){
+                            userData.setRedeemedDate(new Date());
+                        }
+                        else{
+                            userData.setExpirationDate(new Date());
+                        }
+
                         pointsRepository.save(userData);
 
                         response.put("points", userData);
@@ -224,7 +233,7 @@ public class PointsController {
         return response;
     }
 
-    
+
     private String getDate()
     {
         DateFormat df = DateFormat.getDateTimeInstance();
