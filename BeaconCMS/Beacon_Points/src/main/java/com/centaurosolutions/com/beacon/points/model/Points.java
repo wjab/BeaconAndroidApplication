@@ -1,5 +1,7 @@
 package com.centaurosolutions.com.beacon.points.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.Date;
 
 /**
@@ -7,27 +9,32 @@ import java.util.Date;
  */
 public class Points {
 
+    @Id
+    private String id;
     private String userId;
-    private String type;
     private Date creationDate;
     private Date expirationDate;
     private String redeemedByUserId;
     private Date redeemedDate;
-    private String securityCode;
+    private String code;
     private String userType;
     private int points;
+    private String status;
 
-
-    public Points(String userId, String type, Date creationDate, Date expirationDate, String redeemedByUserId, Date redeemedDate, String securityCode, String userType, int points) {
+    public Points(String userId, Date creationDate, Date expirationDate, String redeemedByUserId, Date redeemedDate, String code, String userType, int points, String status) {
         this.userId = userId;
-        this.type = type;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
         this.redeemedByUserId = redeemedByUserId;
         this.redeemedDate = redeemedDate;
-        this.securityCode = securityCode;
+        this.code = code;
         this.userType = userType;
         this.points = points;
+        this.status = status;
+    }
+
+    public Points(){
+
     }
 
     public String getUserId() {
@@ -36,14 +43,6 @@ public class Points {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Date getCreationDate() {
@@ -70,12 +69,12 @@ public class Points {
         this.redeemedDate = redeemedDate;
     }
 
-    public String getSecurityCode() {
-        return securityCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setSecurityCode(String securityCode) {
-        this.securityCode = securityCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getUserType() {
@@ -100,5 +99,23 @@ public class Points {
 
     public void setRedeemedByUserId(String redeemedByUserId) {
         this.redeemedByUserId = redeemedByUserId;
+    }
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
