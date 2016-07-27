@@ -16,13 +16,18 @@ import java.util.*;
 public class UtilsController
 {
 
-    private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+	private DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
 	private String urlUser = "http://buserdevel.cfapps.io/user/";
 	private String urlPromo = "http://bpromodevel.cfapps.io/promo/";
 	private String urlProduct = "http://bmerchantproductdevel.cfapps.io/merchantproduct/";
 	private String urlMerchant = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/";
 	private String urlOfferHistory = "http://bofferhistorydevel.cfapps.io/offerhistory/";
-    private String offerHistoryAttemptResource = "/getAttempts/user/%s/promo/%s";
+	private String urlPoints = "http://bpointsdevel.cfapps.io/points/";
+	private String offerHistoryAttemptResource = "/getAttempts/user/%s/promo/%s";
+	private final String STATUS_ACTIVE = "ACTIVE";
+	private final String STATUS_EXPIRED = "EXPIRED";
+	private final String STATUS_REDEEMED = "REDEEMED";
+
 
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
@@ -58,45 +63,45 @@ public class UtilsController
 				offerHistoryAttempt = offerHistoryAttemptResponse.getAttemptData();
 				promoObject = promoResponse.getPromo();
 
-                dateDiffInfo = getDateDiffCall(
-                		format.format(offerHistoryAttempt.getLastScan()).toString(),
-                		format.format(dateNow));
+				dateDiffInfo = getDateDiffCall(
+						format.format(offerHistoryAttempt.getLastScan()).toString(),
+						format.format(dateNow));
 
-                /***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
-                if (offerHistoryAttempt.getAttempts() == 0 ||
-                		(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() &&
-                		(dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) &&
-                		dateDiffInfo.getHours() > promoObject.getInterval()))
-                {
-                    userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
+				/***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
+				if (offerHistoryAttempt.getAttempts() == 0 ||
+						(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() &&
+								(dateNow.after(promoObject.getStartDate()) && promoObject.getEndDate().after(dateNow)) &&
+								dateDiffInfo.getHours() > promoObject.getInterval()))
+				{
+					userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
 
-                    if (userResponse.getStatus() == 200)
-                    {
+					if (userResponse.getStatus() == 200)
+					{
 						userObject = userResponse.getUser();
-                        points = userObject.getTotalGiftPoints() + promoObject.getGiftPoints();
-                        userObject.setTotalGiftPoints(points);
+						points = userObject.getTotalGiftPoints() + promoObject.getGiftPoints();
+						userObject.setTotalGiftPoints(points);
 
-                        if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId()))
-                        {
-                            response.put("user", userObject);
+						if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId()))
+						{
+							response.put("user", userObject);
 							response.put("status", 200);
 							response.put("message", "Puntos asignados correctamente");
-                        }
-                    }
-                    else
-                    {
-                        response.put("user", null);
+						}
+					}
+					else
+					{
+						response.put("user", null);
 						response.put("status", 404);
 						response.put("message", "Usuario no encontrado");
-                    }
-                }
-                else
-                {
+					}
+				}
+				else
+				{
 					response.put("user", null);
 					response.put("status", 400);
 					response.put("message", "El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido");
-                }
-            }
+				}
+			}
 			else
 			{
 				response.put("user", null);
@@ -114,6 +119,156 @@ public class UtilsController
 		return response;
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value="/exchangePoints")
+	public Map<String, Object> exchangePoints(@RequestBody Map<String, Object> customMap){
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Points pointsModel = new Points();
+		PointsResponse pointsResponse = new PointsResponse();
+		User userObject = null;
+		UserResponse userResponse = null;
+		RestTemplate restTemplate = new RestTemplate();
+		ObjectMapper mapper = new ObjectMapper();
+		int points = 0;
+
+
+		try{
+			if((customMap.get("userId") != null && !customMap.get("userId").toString().isEmpty()) &&
+					(customMap.get("points") != null && !customMap.get("points").toString().isEmpty())){
+
+				String x = urlUser + "id/" + customMap.get("userId").toString();
+				userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
+
+				points = Integer.parseInt(customMap.get("points").toString());
+
+				if(userResponse.getStatus() == 200){
+
+					if(points <= userResponse.getUser().getTotalGiftPoints()){
+
+						pointsResponse = generateCodeCall(customMap.get("userId").toString(), Integer.parseInt(customMap.get("points").toString()));
+						pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() { });
+
+						if(pointsResponse.getStatus() == 200) {
+
+							userObject = userResponse.getUser();
+							userObject.setTotalGiftPoints(userObject.getTotalGiftPoints() - points);
+
+							if (setUserPoints(userObject)){
+								response.put("points", pointsModel);
+								response.put("status", 200);
+								response.put("message", "Saldo flotante creado");
+							}
+							else{
+								response.put("points", pointsModel);
+								response.put("status", 400);
+								response.put("message", "El usuario no tiene saldo para regalar puntos");
+							}
+						}
+						else{
+							response.put("points", null);
+							response.put("status", 400);
+							response.put("message", "Error durante la generación de código");
+						}
+					}
+					else{
+						response.put("points", null);
+						response.put("status", 404);
+						response.put("message", "El usuario no tiene saldo para regalar puntos");
+					}
+				}
+				else{
+					response.put("points", null);
+					response.put("status", 400);
+					response.put("message", "El usuario no existe");
+				}
+			}
+			else{
+				response.put("points", null);
+				response.put("status", 404);
+				response.put("message", "Faltan parámetros");
+			}
+		}
+		catch (Exception ex){
+			response.put("points", null);
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+		}
+
+
+		return response;
+	}
+
+
+	@RequestMapping(method = RequestMethod.POST, value="/redeemPoints")
+	public Map<String, Object> redeemPoints(@RequestBody Map<String, Object> customMap){
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Points pointsModel = new Points();
+		PointsResponse pointsResponse = new PointsResponse();
+		User userObject = null;
+		UserResponse userResponse = null;
+		RestTemplate restTemplate = new RestTemplate();
+		ObjectMapper mapper = new ObjectMapper();
+		int points = 0;
+
+
+		try{
+			if((customMap.get("userId") != null && !customMap.get("userId").toString().isEmpty()) &&
+					(customMap.get("code") != null && !customMap.get("code").toString().isEmpty())){
+
+				String x = urlUser + "id/" + customMap.get("userId").toString();
+				userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
+
+				if(userResponse.getStatus() == 200){
+
+					pointsResponse = redeemPointsCall(customMap.get("userId").toString(), customMap.get("code").toString());
+					pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() { });
+
+					if(pointsResponse.getStatus() == 200) {
+
+						points = pointsModel.getPoints();
+
+						userObject = userResponse.getUser();
+						userObject.setTotalGiftPoints(userObject.getTotalGiftPoints() + points);
+
+						if (setUserPoints(userObject)){
+							response.put("user", userObject);
+							response.put("status", 200);
+							response.put("message", null);
+						}
+						else{
+							response.put("user", pointsModel);
+							response.put("status", 400);
+							response.put("message", "Error durante la actualización del usuario");
+						}
+					}
+					else{
+						response.put("user", null);
+						response.put("status", 400);
+						response.put("message", "Código invalido");
+					}
+				}
+				else{
+					response.put("user", null);
+					response.put("status", 400);
+					response.put("message", "El usuario no existe");
+				}
+			}
+			else{
+				response.put("user", null);
+				response.put("status", 404);
+				response.put("message", "Faltan parámetros");
+			}
+		}
+		catch (Exception ex){
+			response.put("user", null);
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+		}
+
+
+		return response;
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value="/getDateDiff")
 	public Map<String, Object> getAccurateDateDifference(@RequestBody Map<String, Object> customMap){
@@ -191,7 +346,7 @@ public class UtilsController
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity<User> entity = new HttpEntity<User>(userObject , headers);
-			ResponseEntity<User> out = restTemplate.exchange("http://buserdevel.cfapps.io/user/" + userObject.getId(), HttpMethod.PUT, entity , User.class);
+			ResponseEntity<UserResponse> out = restTemplate.exchange(urlUser +"setPoints/" + userObject.getId(), HttpMethod.PUT, entity , UserResponse.class);
 			setUserPoint = true;
 		}
 		catch(Exception ex)
@@ -200,6 +355,57 @@ public class UtilsController
 		}
 
 		return setUserPoint;
+	}
+
+	public PointsResponse generateCodeCall(String userId, int points)
+	{
+		PointsResponse pointsModel =  null;
+		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
+
+		try
+		{
+			mainEntity.put("userId", userId);
+			mainEntity.put("points", points);
+			mainEntity.put("type", "");
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
+			ResponseEntity<PointsResponse> out = restTemplate.exchange(urlPoints, HttpMethod.POST, entity , PointsResponse.class);
+			pointsModel =  out.getBody();
+		}
+		catch(Exception ex)
+		{
+
+		}
+
+		return pointsModel;
+	}
+	public PointsResponse redeemPointsCall(String userId, String code)
+	{
+		PointsResponse pointsModel =  null;
+		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
+
+		try
+		{
+			mainEntity.put("code", code);
+			mainEntity.put("redeemedByUserId", userId);
+			mainEntity.put("status", STATUS_REDEEMED);
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
+			ResponseEntity<PointsResponse> out = restTemplate.exchange(urlPoints, HttpMethod.PUT, entity , PointsResponse.class);
+			pointsModel =  out.getBody();
+		}
+		catch(Exception ex)
+		{
+
+		}
+
+		return pointsModel;
 	}
 
 	public boolean setUserPromoOffer(String userId, String promoId)
@@ -211,7 +417,7 @@ public class UtilsController
 			format.setTimeZone(TimeZone.getTimeZone("UTC"));
 			OfferHistory historyOffer = new OfferHistory();
 			String strDate =  format.format(new Date().getTime());
-            Date scanDate =  format.parse(strDate);
+			Date scanDate =  format.parse(strDate);
 			historyOffer.setPromoId(promoId);
 			historyOffer.setUserId(userId);
 			historyOffer.setMerchantId("");
@@ -264,7 +470,7 @@ public class UtilsController
 		}
 
 		return diffValues;
-   }
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value="/product/getdata")
 	public Map<String, Object> getMerchantProductData(@RequestBody Map<String, Object> customMap){
@@ -273,9 +479,9 @@ public class UtilsController
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		Map<String, Object> productData = new LinkedHashMap<String, Object>();
-        MerchantProductResponse merchantProductResponse =  null;
+		MerchantProductResponse merchantProductResponse =  null;
 		MerchantProfileResponse merchantProfileResponse = null;
-        Product product = null;
+		Product product = null;
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -291,33 +497,33 @@ public class UtilsController
 
 					if(merchantProductResponse.getMerchantProduct().getMerchantId().equals(merchantProfileResponse.getMerchantProfile().getId())){
 
-                        if(merchantProductResponse.getMerchantProduct().getProductList() != null && merchantProductResponse.getMerchantProduct().getProductList().size() > 0){
+						if(merchantProductResponse.getMerchantProduct().getProductList() != null && merchantProductResponse.getMerchantProduct().getProductList().size() > 0){
 
-                            for(Product listProduct : merchantProductResponse.getMerchantProduct().getProductList()) {
-                                if (customMap.get("productId").toString().equals(listProduct.getProductId())) {
-                                    product = listProduct;
-                                }
-                            }
+							for(Product listProduct : merchantProductResponse.getMerchantProduct().getProductList()) {
+								if (customMap.get("productId").toString().equals(listProduct.getProductId())) {
+									product = listProduct;
+								}
+							}
 
-                             if(product != null) {
-                                 response.put("status", 200);
-                                 productData.put("product", product);
-                                 productData.put("storeName", merchantProfileResponse.getMerchantProfile().getMerchantName());
-                                 productData.put("shopZoneId", merchantProductResponse.getMerchantProduct().getShopZoneId());
-                                 response.put("productData", productData);
-                                 response.put("message", null);
-                             }
-                             else{
-                                 response.put("status", 404);
-                                 response.put("message", "Producto inexistente");
-                                 response.put("productData", null);
-                             }
-                        }
-                        else{
-                            response.put("status", 404);
-                            response.put("message", "No hay un listado de productos");
-                            response.put("productData", null);
-                        }
+							if(product != null) {
+								response.put("status", 200);
+								productData.put("product", product);
+								productData.put("storeName", merchantProfileResponse.getMerchantProfile().getMerchantName());
+								productData.put("shopZoneId", merchantProductResponse.getMerchantProduct().getShopZoneId());
+								response.put("productData", productData);
+								response.put("message", null);
+							}
+							else{
+								response.put("status", 404);
+								response.put("message", "Producto inexistente");
+								response.put("productData", null);
+							}
+						}
+						else{
+							response.put("status", 404);
+							response.put("message", "No hay un listado de productos");
+							response.put("productData", null);
+						}
 					}
 					else {
 						response.put("status", 404);
@@ -348,20 +554,20 @@ public class UtilsController
 	}
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/getPointsData/{userId}")
-    public Map<String, Object> getPointsHistory(@PathVariable("userId") String userId){
+	@RequestMapping(method = RequestMethod.GET, value = "/user/getPointsData/{userId}")
+	public Map<String, Object> getPointsHistory(@PathVariable("userId") String userId){
 
-        // Attributes
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Map<String, Object> response = new LinkedHashMap<String, Object>();
-        Map<String, Object> customData = new LinkedHashMap<String, Object>();
-        Map<String, Object> promoData = new LinkedHashMap<String, Object>();
-        PromoResponse promoResponse =  null;
-        MerchantProfileResponse merchantProfileResponse = null;
+		// Attributes
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Map<String, Object> customData = new LinkedHashMap<String, Object>();
+		Map<String, Object> promoData = new LinkedHashMap<String, Object>();
+		PromoResponse promoResponse =  null;
+		MerchantProfileResponse merchantProfileResponse = null;
 		OfferHistoryResponse offerHistoryResponse = null;
-        OfferHistoryAttemptResponse offerHistoryAttemptResponse = null;
-        UserResponse userResponse = null;
-        RestTemplate restTemplate = new RestTemplate();
+		OfferHistoryAttemptResponse offerHistoryAttemptResponse = null;
+		UserResponse userResponse = null;
+		RestTemplate restTemplate = new RestTemplate();
 		int totalPoints = 0;
 		List<OfferHistory> offerHistoryList = new ArrayList<OfferHistory>();
 		List<OfferHistory> filteredList =  new ArrayList<OfferHistory>();
@@ -371,12 +577,12 @@ public class UtilsController
 		Object custom =  new Object();
 		ArrayList<Object> listData = new ArrayList<Object>();
 
-        try{
+		try{
 
-            if(!userId.isEmpty() || userId != null)
-            {
-                offerHistoryResponse =  restTemplate.getForObject(urlOfferHistory + "user/" + userId, OfferHistoryResponse.class);
-                if(offerHistoryResponse.getStatus() == 200){
+			if(!userId.isEmpty() || userId != null)
+			{
+				offerHistoryResponse =  restTemplate.getForObject(urlOfferHistory + "user/" + userId, OfferHistoryResponse.class);
+				if(offerHistoryResponse.getStatus() == 200){
 
 
 					offerHistoryList = mapper.convertValue(offerHistoryResponse.getOfferhistory(), new TypeReference<List<OfferHistory>>() { });
@@ -384,31 +590,31 @@ public class UtilsController
 
 					//Get unique promos
 					for(OfferHistory offerHistory : offerHistoryList){
-							if(!promoId.equals(offerHistory.getPromoId())){
-								promoId = offerHistory.getPromoId();
-								filteredList.add(offerHistory);
-							}
+						if(!promoId.equals(offerHistory.getPromoId())){
+							promoId = offerHistory.getPromoId();
+							filteredList.add(offerHistory);
+						}
 					}
 
 					//Iterate unique promos
 					for(OfferHistory offerHistory : filteredList){
-                        offerHistoryAttemptResponse = restTemplate.getForObject(
-                                urlOfferHistory + String.format(
-                                        offerHistoryAttemptResource,
-                                        offerHistory.getUserId(),
-                                        offerHistory.getPromoId()),
-                                OfferHistoryAttemptResponse.class);
+						offerHistoryAttemptResponse = restTemplate.getForObject(
+								urlOfferHistory + String.format(
+										offerHistoryAttemptResource,
+										offerHistory.getUserId(),
+										offerHistory.getPromoId()),
+								OfferHistoryAttemptResponse.class);
 
-                        if(offerHistoryAttemptResponse.getStatus() == 200){
+						if(offerHistoryAttemptResponse.getStatus() == 200){
 
-                            promoResponse = restTemplate.getForObject( urlPromo  + "" + offerHistoryAttemptResponse.getAttemptData().getPromoId(), PromoResponse.class);
+							promoResponse = restTemplate.getForObject( urlPromo  + "" + offerHistoryAttemptResponse.getAttemptData().getPromoId(), PromoResponse.class);
 
-                            if(promoResponse.getStatus() == 200){
+							if(promoResponse.getStatus() == 200){
 
-                                merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getProfileId(), MerchantProfileResponse.class);
+								merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getProfileId(), MerchantProfileResponse.class);
 
-                            }
-                        }
+							}
+						}
 						if(promoResponse.getPromo() != null && merchantProfileResponse.getMerchantProfile() != null)
 						{
 							totalPoints = offerHistoryAttemptResponse.getAttemptData().getAttempts() * promoResponse.getPromo().getGiftPoints();
@@ -419,11 +625,11 @@ public class UtilsController
 							customData.put("points", totalPoints);
 							customData.put("lastScanDate", offerHistoryAttemptResponse.getAttemptData().getLastScan());
 
-							 custom = mapper.convertValue(customData, new TypeReference<Object>() {
+							custom = mapper.convertValue(customData, new TypeReference<Object>() {
 							});
 
 						}
-                        else {
+						else {
 							customData.put("merchantProfile", null);
 							customData.put("promo", null);
 							customData.put("points", 0);
@@ -438,27 +644,30 @@ public class UtilsController
 					response.put("message", "");
 					response.put("pointsData", listData);
 
-                }
-                else{
+				}
+				else{
 					response.put("status", 404);
 					response.put("message", "The user does not have points ");
-					response.put("customData", null); 
-                }
-            }
-            else{
+					response.put("customData", null);
+				}
+			}
+			else{
 				response.put("status", 400);
 				response.put("message", "Missing parameters");
 				response.put("customData", null);
-            }
-        }
-        catch (Exception ex){
-            response.put("customData", null);
-            response.put("status", 500);
-            response.put("message", ex.getMessage());
-        }
+			}
+		}
+		catch (Exception ex){
+			response.put("customData", null);
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+		}
 
-        return response;
-    }
+		return response;
+	}
+
+
+
 }
 
 
