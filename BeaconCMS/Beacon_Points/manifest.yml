@@ -1,0 +1,8 @@
+---
+applications:
+- name: bpointsdevel
+  memory: 512M
+  host: bpointsdevel
+  domain: cfapps.io
+  services:
+  - BeaconDataBase
