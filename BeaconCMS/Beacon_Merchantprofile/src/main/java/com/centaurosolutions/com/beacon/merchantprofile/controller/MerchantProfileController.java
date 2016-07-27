@@ -16,7 +16,8 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/merchantprofile")
-public class MerchantProfileController {
+public class MerchantProfileController 
+{
 	
 	@Autowired
 	private MerchantProfileRepository merchantProfileRepository;
@@ -86,8 +87,8 @@ public class MerchantProfileController {
 		      if(merchant != null)
 		      {
 		    	  response.put("message", "Perfil de tiendaa encontrado");
-				  response.put("merchantProfile", merchant);
-				  response.put("status", "200");
+		    	  response.put("merchantProfile", merchant);
+		    	  response.put("status", "200");
 		      }
 		      else
 		      {
@@ -132,7 +133,7 @@ public class MerchantProfileController {
 	  public Map<String, Object> editMerchantProfile(@PathVariable("MerchantProfileId") String MerchantProfileId,
 	      @RequestBody Map<String, Object> merchantProfileMap)
 	  {
-
+	
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		
 		try
@@ -150,6 +151,7 @@ public class MerchantProfileController {
 		    	{
 		    		users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
 		    	}
+		    	
 		    	MerchantProfile merchantProfileModel = new MerchantProfile(
 		    			merchantProfileMap.get("country").toString(),
 					    merchantProfileMap.get("city").toString(),
@@ -187,8 +189,7 @@ public class MerchantProfileController {
 		}
 		return response;  
 	 }
-	  
-	  
+	  	  
 	  @RequestMapping(method = RequestMethod.DELETE, value="/{MerchantProfileId}")
 	  public Map<String, String> deleteMerchantProfile(@PathVariable("MerchantProfileId") String merchantProfileId)
 	  {
@@ -210,22 +211,22 @@ public class MerchantProfileController {
 	  }
 	
 	  
-		private Date DateFormatter(String pDate)
-		{			
-			Date finalDate = new Date();
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-			format.setTimeZone(TimeZone.getTimeZone("UTC"));
-			
-			try 
-			{
-				finalDate = format.parse(pDate);
-			} 
-			catch (ParseException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-				
-			return finalDate;		
+	private Date DateFormatter(String pDate)
+	{			
+		Date finalDate = new Date();
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		try 
+		{
+			finalDate = format.parse(pDate);
+		} 
+		catch (ParseException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+			
+		return finalDate;		
+	}
 }

@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>Beacon_Utils</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Integration with other services</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -33,7 +33,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+		
 	</dependencies>
 	
 	<build>
