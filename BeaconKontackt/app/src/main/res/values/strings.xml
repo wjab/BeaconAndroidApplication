@@ -122,6 +122,7 @@
         <item>Preferencias</item>
         <item>Lista de Deseos</item>
         <item>Invitar</item>
+        <item>Puntos</item>
         <item>FAQ</item>
         <item>Cerrar Session</item>
     </string-array>
@@ -131,6 +132,7 @@
         <item>@drawable/ic_preferencias1</item>
         <item>@drawable/ic_deseos1</item>
         <item>@drawable/ic_invitar1</item>
+        <item>@drawable/ic_deseos1</item>
         <item>@drawable/ic_faq1</item>
         <item>@drawable/ic_log_out</item>
     </array>
@@ -169,6 +171,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="faq">FAQ</string>
     <string name="wishList">Lista de Deseos</string>
+    <string name="points">Puntos</string>
+    <string name="giftPoints">Usted tiene un total de %s pts disponibles para regalar</string>
 
 
 </resources>

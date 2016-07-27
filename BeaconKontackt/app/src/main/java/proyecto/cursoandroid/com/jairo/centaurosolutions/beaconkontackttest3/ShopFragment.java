@@ -59,8 +59,8 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Store store = new Store();
                 store = listStoreArray.get(position);
-                Intent intentSuccess = new Intent(getActivity().getBaseContext(), ProductsStoreActivity.class);
-                //intentSuccess.putExtra("Detail", store);
+                Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailShopActivity.class);
+                intentSuccess.putExtra("detailShop", store);
                 startActivity(intentSuccess);
             }
         });

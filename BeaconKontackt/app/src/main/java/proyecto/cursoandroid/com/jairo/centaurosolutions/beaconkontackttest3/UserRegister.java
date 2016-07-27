@@ -20,11 +20,13 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Preference;
 import utils.InputValidatorHelper;
 import utils.Utils;
 
@@ -112,6 +114,8 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
     {
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User) + "user";
+        ArrayList<Preference> preferenceList = new  ArrayList<Preference>();
+
 
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("user", email.getText().toString());
@@ -131,7 +135,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("gender","");
         mapParams.put("productWishList","");
         mapParams.put("pathImage","");
-        mapParams.put("preference","");
+        mapParams.put("preference",preferenceList );
 
 
         Map<String, String> map = new HashMap<String, String>();

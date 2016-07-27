@@ -51,18 +51,13 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
         View rowView = inflater.inflate(R.layout.store_element_list, null, true);
 
 
-        TextView name = (TextView) rowView.findViewById(R.id.name);
-        TextView points = (TextView) rowView.findViewById(R.id.points);
-        TextView address=(TextView)rowView.findViewById(R.id.address);
+
         ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
         ServiceController imageRequest =  new ServiceController();
 
        imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
 
 
-        address.setText(storeList.get(position).getAddress());
-        name.setText(storeList.get(position).getMerchantName() + "");
-        points.setText(storeList.get(position).getPointToGive() + "");
 
         return rowView;
 

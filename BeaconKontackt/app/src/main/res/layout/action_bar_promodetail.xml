@@ -31,13 +31,12 @@
 
 
     <Button
-        android:layout_width="30dp"
-        android:layout_height="25dp"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
         android:background="@drawable/ic_added"
-        android:layout_alignTop="@+id/imageprofile_navigation"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button" />
-
+        android:id="@+id/button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
 

@@ -117,7 +117,9 @@
         <activity android:name=".HistotyPointsActivity" />
         <activity android:name=".ProductsStoreActivity" />
         <activity android:name=".FaqActivity" />
-        <activity android:name=".WishListActivity"></activity>
+        <activity android:name=".WishListActivity" />
+        <activity android:name=".DetailShopActivity" />
+        <activity android:name=".PointsActivity"></activity>
     </application>
 
 </manifest>
