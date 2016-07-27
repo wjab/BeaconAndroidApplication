@@ -136,9 +136,16 @@ public class UserController {
 			try
 			{
 				user  = userRepository.findOne(userId);;
-				response.put("status", 200);
-				response.put("message", "");
-				response.put("user", user);
+				if(user!=null){
+					response.put("status", 200);
+					response.put("message", "");
+					response.put("user", user);
+				}
+				else{
+					response.put("status", 404);
+					response.put("message", "");
+					response.put("user", null);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -162,9 +169,16 @@ public class UserController {
 		try
 		{
 			user = userRepository.findByUser(username);
-			response.put("status", 200);
-			response.put("message", "");
-			response.put("user", user);
+			if(user!=null){
+				response.put("status", 200);
+				response.put("message", "");
+				response.put("user", user);
+			}
+			else{
+				response.put("status", 404);
+				response.put("message", "");
+				response.put("user", null);
+			}
 		}
 		catch(Exception ex)
 		{
@@ -184,10 +198,19 @@ public class UserController {
 		
 		try
 		{
-			users = userRepository.findAll();	
-			response.put("status", 200);
-			response.put("message", "");
-			response.put("listUser", users);
+			users = userRepository.findAll();
+
+			if(users != null && users.size() > 0){
+				response.put("status", 200);
+				response.put("message", "");
+				response.put("listUser", users);
+			}
+			else{
+				response.put("status", 404);
+				response.put("message", "");
+				response.put("listUser", null);
+			}
+
 		}
 		catch(Exception ex)
 		{
