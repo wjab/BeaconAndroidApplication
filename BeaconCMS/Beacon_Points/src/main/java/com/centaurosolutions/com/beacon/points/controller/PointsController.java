@@ -139,19 +139,19 @@ public class PointsController {
             {
                 response.put("message", "");
                 response.put("status", 200);
-                response.put("listPoints", pointsList);
+                response.put("points", pointsList);
             }
             else
             {
                 response.put("message", "No hay puntos registrados");
                 response.put("status", 404);
-                response.put("listPoints", null);
+                response.put("points", null);
             }
         }
         catch (Exception ex)
         {
             response.put("message", ex.getMessage());
-            response.put("listPoints", null);
+            response.put("points", null);
             response.put("status", 500);
         }
 
@@ -172,25 +172,25 @@ public class PointsController {
                 if(pointsList != null && pointsList.size() > 0){
                     response.put("message", "");
                     response.put("status", 200);
-                    response.put("listPoints", pointsList);
+                    response.put("points", pointsList);
                 }
                 else{
                     response.put("message", "No hay puntos flotantes para este usuario");
                     response.put("status", 404);
-                    response.put("listPoints", null);
+                    response.put("points", null);
                 }
             }
             else{
                 response.put("message", "Missing parameters");
                 response.put("status", 400);
-                response.put("listPoints", null);
+                response.put("points", null);
             }
         }
         catch(Exception ex)
         {
             response.put("message", ex.getMessage());
             response.put("status", 500);
-            response.put("listPoints", null);
+            response.put("points", null);
         }
 
         return response;
@@ -210,25 +210,25 @@ public class PointsController {
                 if(pointsList != null && pointsList.size() > 0){
                     response.put("message", "");
                     response.put("status", 200);
-                    response.put("listPoints", pointsList);
+                    response.put("points", pointsList);
                 }
                 else{
                     response.put("message", "No hay puntos registrados");
                     response.put("status", 404);
-                    response.put("listPoints", null);
+                    response.put("points", null);
                 }
             }
             else{
                 response.put("message", "Missing parameters");
                 response.put("status", 400);
-                response.put("listPoints", null);
+                response.put("points", null);
             }
         }
         catch(Exception ex)
         {
             response.put("message", ex.getMessage());
             response.put("status", 500);
-            response.put("listPoints", null);
+            response.put("points", null);
         }
 
         return response;
