@@ -15,6 +15,17 @@ public class MerchantInvoiceHistory
 	private float usedPoints;
 	private Date creationDate; 
 	
+	public MerchantInvoiceHistory(String invoiceId, float invoiceAmount, String securityCode,
+			String paymentType, float usedPoints, Date creationDate)
+	{
+		this.setInvoiceId(invoiceId);
+		this.setInvoiceAmount(invoiceAmount);
+		this.setSecurityCode(securityCode);
+		this.setPaymentType(paymentType);
+		this.setUsedPoints(usedPoints);
+		this.setCreationDate(creationDate);
+	}
+	
 	public void setId(String id) { this.id = id; }
 	public String getId() { return id; }
 	

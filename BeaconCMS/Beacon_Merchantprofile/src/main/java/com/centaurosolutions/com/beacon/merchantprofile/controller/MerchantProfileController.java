@@ -4,7 +4,8 @@ package com.centaurosolutions.com.beacon.merchantprofile.controller;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantContactData;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantUser;
-import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantProfileRepository;
+import com.centaurosolutions.com.beacon.merchantprofile.repository.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class MerchantProfileController
 	
 	@Autowired
 	private MerchantProfileRepository merchantProfileRepository;
-	
+		
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createMerchantProfile(@RequestBody Map<String, Object> merchantProfileMap)
@@ -44,7 +45,7 @@ public class MerchantProfileController
 			}
 			
 			
-			MerchantProfile merchantProfileModel =new MerchantProfile(
+			MerchantProfile merchantProfileModel = new MerchantProfile(
 					merchantProfileMap.get("country").toString(),
 				    merchantProfileMap.get("city").toString(), 
 				    contacts,
@@ -209,7 +210,6 @@ public class MerchantProfileController
 		  }
 		  return response; 
 	  }
-	
 	  
 	private Date DateFormatter(String pDate)
 	{			
