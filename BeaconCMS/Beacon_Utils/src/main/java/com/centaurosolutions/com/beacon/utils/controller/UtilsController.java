@@ -611,7 +611,7 @@ public class UtilsController
 
 							if(promoResponse.getStatus() == 200){
 
-								merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getProfileId(), MerchantProfileResponse.class);
+								merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getMerchantId(), MerchantProfileResponse.class);
 
 							}
 						}

@@ -10,7 +10,7 @@ public class Promo {
 	@Id
 	private String id;
 	private boolean enable;
-	private String profileId;
+	private String merchantId;
 	private String code;
 	private int giftPoints;
 	private int attempt;
@@ -54,12 +54,12 @@ public class Promo {
 	 * @param images
 	 * @param interval
 	 */
-	public Promo(boolean enable, String profileId, String code, int giftPoints, int attempt, Date startDate,
+	public Promo(boolean enable, String merchantId, String code, int giftPoints, int attempt, Date startDate,
 			Date endDate, String type, int availability, Date creationDate, Date modifiedDate, String updatedby, String title,
 			String description, Boolean isAutomatic, String image, int interval) {
 		super();
 		this.enable = enable;
-		this.profileId = profileId;
+		this.merchantId = merchantId;
 		this.code = code;
 		this.giftPoints = giftPoints;
 		this.attempt = attempt;
@@ -76,6 +76,18 @@ public class Promo {
 		this.image = image;
 		this.interval = interval;
 	}
+
+
+	public String getMerchantId() {
+		return merchantId;
+	}
+
+
+
+	public void setMerchantId(String merchantId) {
+		this.merchantId = merchantId;
+	}
+
 
 
 	/**
@@ -111,26 +123,6 @@ public class Promo {
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
-
-
-
-	/**
-	 * @return the profile_id
-	 */
-	public String getProfileId() {
-		return profileId;
-	}
-
-
-
-	/**
-	 * @param profileId the profile_id to set
-	 */
-	public void setProfileId(String profileId) {
-		this.profileId = profileId;
-	}
-
-
 
 	/**
 	 * @return the code

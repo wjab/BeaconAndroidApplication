@@ -26,7 +26,7 @@ public class PromoController {
 
 
             Promo promoModel = new Promo((Boolean)promoMap.get("enable"),
-                                          promoMap.get("profileId").toString(),
+                                          promoMap.get("merchantId").toString(),
                                           promoMap.get("code").toString() ,
                                           Integer.parseInt(promoMap.get("giftPoints").toString()),
                                           Integer.parseInt(promoMap.get("attempt").toString()),
@@ -205,7 +205,7 @@ public class PromoController {
 				{
 					promo.setEnable((Boolean)promoMap.get("enable"));
 					
-                    promo.setProfileId(promoMap.get("profileId").toString());
+                    promo.setMerchantId(promoMap.get("merchantId").toString());
                     promo.setCode(promoMap.get("code").toString()); 
                     promo.setGiftPoints(Integer.parseInt(promoMap.get("giftPoints").toString()));
                     promo.setAttempt(Integer.parseInt(promoMap.get("attempt").toString()));
