@@ -35,6 +35,7 @@ public class MerchantInvoiceHistoryController
 		try
 		{
 			MerchantInvoiceHistory invoiceHistory = new MerchantInvoiceHistory(
+					merchantInvoiceHistoryMap.get("merchantId").toString(),
 					merchantInvoiceHistoryMap.get("invoiceId").toString(),
 					Float.parseFloat(merchantInvoiceHistoryMap.get("invoiceAmount").toString()),
 					merchantInvoiceHistoryMap.get("securityCode").toString(),

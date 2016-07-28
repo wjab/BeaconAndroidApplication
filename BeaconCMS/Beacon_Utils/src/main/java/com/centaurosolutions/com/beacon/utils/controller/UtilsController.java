@@ -651,7 +651,8 @@ public class UtilsController
 					response.put("customData", null);
 				}
 			}
-			else{
+			else
+			{
 				response.put("status", 400);
 				response.put("message", "Missing parameters");
 				response.put("customData", null);
