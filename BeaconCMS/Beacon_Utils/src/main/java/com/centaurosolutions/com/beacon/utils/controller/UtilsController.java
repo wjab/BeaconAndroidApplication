@@ -21,6 +21,7 @@ public class UtilsController
 	private String urlPromo = "http://bpromodevel.cfapps.io/promo/";
 	private String urlProduct = "http://bmerchantproductdevel.cfapps.io/merchantproduct/";
 	private String urlMerchant = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/";
+	private String urlMerchantInvoice = "http://bmerchantprofiledevel.cfapps.io/merchantinvoicehistory/";
 	private String urlOfferHistory = "http://bofferhistorydevel.cfapps.io/offerhistory/";
 	private String urlPoints = "http://bpointsdevel.cfapps.io/points/";
 	private String offerHistoryAttemptResource = "/getAttempts/user/%s/promo/%s";
@@ -159,7 +160,7 @@ public class UtilsController
 								response.put("message", "Saldo flotante creado");
 							}
 							else{
-								response.put("points", pointsModel);
+								response.put("points", null);
 								response.put("status", 400);
 								response.put("message", "El usuario no tiene saldo para regalar puntos");
 							}
@@ -270,6 +271,80 @@ public class UtilsController
 		return response;
 	}
 
+
+	@RequestMapping(method = RequestMethod.POST, value="/redeemPointsMerchant")
+	public Map<String, Object> redeemPointsMerchant(@RequestBody Map<String, Object> customMap){
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Points pointsModel = new Points();
+		PointsResponse pointsResponse = new PointsResponse();
+		User userObject = null;
+		UserResponse userResponse = null;
+		RestTemplate restTemplate = new RestTemplate();
+		ObjectMapper mapper = new ObjectMapper();
+		MerchantProfileResponse merchantProfileResponse =  new MerchantProfileResponse();
+		MerchantInvoiceHistory invoiceHistory = null;
+		MerchantProfileInvoiceResponse invoiceResponse= null;
+		int points = 0;
+
+		try{
+			if((customMap.get("merchantId") != null && !customMap.get("merchantId").toString().isEmpty()) &&
+					(customMap.get("code") != null && !customMap.get("code").toString().isEmpty())){
+
+					pointsResponse = redeemPointsCall(customMap.get("merchantId").toString(), customMap.get("code").toString());
+					pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() { });
+
+					if(pointsResponse.getStatus() == 200) {
+
+						points = pointsModel.getPoints();
+						invoiceHistory = new MerchantInvoiceHistory();
+						invoiceHistory.setMerchantId(customMap.get("merchantId").toString());
+						invoiceHistory.setInvoiceId(customMap.get("invoiceId").toString());
+						invoiceHistory.setInvoiceAmount(Float.parseFloat(customMap.get("invoiceAmount").toString()));
+						invoiceHistory.setSecurityCode(pointsModel.getCode());
+						invoiceHistory.setPaymentType(customMap.get("paymentType").toString().toUpperCase());
+						invoiceHistory.setUsedPoints(points);
+						invoiceHistory.setUserId(pointsModel.getUserId());
+
+
+						invoiceResponse = setMerchantPoints(invoiceHistory);
+
+
+						if (invoiceResponse.getStatus() == 200){
+
+							invoiceHistory = mapper.convertValue(invoiceResponse.getInvoiceHistory(), new TypeReference<MerchantInvoiceHistory>() { });
+
+							response.put("invoiceHistory", invoiceHistory);
+							response.put("status", 200);
+							response.put("message", null);
+						}
+						else{
+							response.put("invoiceHistory", null);
+							response.put("status", 400);
+							response.put("message", "Error durante la actualización de la tienda");
+						}
+					}
+					else{
+						response.put("invoiceHistory", null);
+						response.put("status", 400);
+						response.put("message", "Código invalido");
+					}
+			}
+			else{
+				response.put("invoiceHistory", null);
+				response.put("status", 404);
+				response.put("message", "Faltan parámetros");
+			}
+		}
+		catch (Exception ex){
+			response.put("invoiceHistory", null);
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+		}
+
+		return response;
+	}
+
 	@RequestMapping(method = RequestMethod.POST, value="/getDateDiff")
 	public Map<String, Object> getAccurateDateDifference(@RequestBody Map<String, Object> customMap){
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -355,6 +430,29 @@ public class UtilsController
 		}
 
 		return setUserPoint;
+	}
+
+
+	public MerchantProfileInvoiceResponse setMerchantPoints(MerchantInvoiceHistory merchantInvoice){
+
+		MerchantProfileInvoiceResponse response  = null;
+
+		try{
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<MerchantInvoiceHistory> entity = new HttpEntity<MerchantInvoiceHistory>(merchantInvoice , headers);
+			ResponseEntity<MerchantProfileInvoiceResponse> out = restTemplate.exchange(urlMerchantInvoice, HttpMethod.POST, entity , MerchantProfileInvoiceResponse.class);
+
+			response = out.getBody();
+
+		}
+		catch (Exception ex){
+
+		}
+
+		return response;
 	}
 
 	public PointsResponse generateCodeCall(String userId, int points)
