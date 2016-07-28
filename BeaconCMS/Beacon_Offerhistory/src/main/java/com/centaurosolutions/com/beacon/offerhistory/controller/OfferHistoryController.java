@@ -33,11 +33,11 @@ public class OfferHistoryController {
                     offerhistoryMap.get("promoId").toString(),
                     offerhistoryMap.get("merchantId").toString(),
                     offerhistoryMap.get("shopZoneId").toString(),
-                    DateFormatter(new Date().toString()),
-                    DateFormatter(new Date().toString()),
-                    DateFormatter(new Date().toString()));
+                    new Date(),
+                    new Date(),
+                    new Date());
 
-            offerhistoryRepository.save(offerhistoryModel);
+         //   offerhistoryRepository.save(offerhistoryModel);
 
             response.put("message", "Historial de oferta creado correctamente");
             response.put("offerHistory", offerhistoryModel);
