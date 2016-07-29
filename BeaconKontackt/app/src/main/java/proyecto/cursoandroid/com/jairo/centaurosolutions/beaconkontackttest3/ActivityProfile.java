@@ -191,58 +191,7 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     }
 
     private StringBuilder formatDate(int year, int month, int day) {
-        String String_Month = "";
-        switch (month) {
-            case 1: {
-                String_Month = "Enero";
-                break;
-            }
-            case 2: {
-                String_Month = "Febrero";
-                break;
-            }
-            case 3: {
-                String_Month = "Marzo";
-                break;
-            }
-            case 4: {
-                String_Month = "Abril";
-                break;
-            }
-            case 5: {
-                String_Month = "Mayo";
-                break;
-            }
-            case 6: {
-                String_Month = "Junio";
-                break;
-            }
-            case 7: {
-                String_Month = "Julio";
-                break;
-            }
-            case 8: {
-                String_Month = "Agosto";
-                break;
-            }
-            case 9: {
-                String_Month = "Setiembre";
-                break;
-            }
-            case 10: {
-                String_Month = "Octubre";
-                break;
-            }
-            case 11: {
-                String_Month = "Noviembre";
-                break;
-            }
-            case 12: {
-                String_Month = "Diciembre";
-                break;
-            }
-        }
-        StringBuilder Date_Formated = new StringBuilder().append(day).append(" de ").append(String_Month).append(" de ").append(year);
+        StringBuilder Date_Formated = new StringBuilder().append(day).append(" / ").append(month).append(" / ").append(year);
         return Date_Formated;
     }
 
