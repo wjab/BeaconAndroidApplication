@@ -28,6 +28,7 @@ public class UtilsController
 	private final String STATUS_ACTIVE = "ACTIVE";
 	private final String STATUS_EXPIRED = "EXPIRED";
 	private final String STATUS_REDEEMED = "REDEEMED";
+	private final String AUTOMATIC_EXPIRATION = "AUTOMATIC PROCESS";
 
 
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
@@ -222,7 +223,7 @@ public class UtilsController
 
 				if(userResponse.getStatus() == 200){
 
-					pointsResponse = redeemPointsCall(customMap.get("userId").toString(), customMap.get("code").toString());
+					pointsResponse = redeemPointsCall(customMap.get("userId").toString(), customMap.get("code").toString(), STATUS_REDEEMED);
 					pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() { });
 
 					if(pointsResponse.getStatus() == 200) {
@@ -291,7 +292,7 @@ public class UtilsController
 			if((customMap.get("merchantId") != null && !customMap.get("merchantId").toString().isEmpty()) &&
 					(customMap.get("code") != null && !customMap.get("code").toString().isEmpty())){
 
-					pointsResponse = redeemPointsCall(customMap.get("merchantId").toString(), customMap.get("code").toString());
+					pointsResponse = redeemPointsCall(customMap.get("merchantId").toString(), customMap.get("code").toString(), STATUS_REDEEMED);
 					pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() { });
 
 					if(pointsResponse.getStatus() == 200) {
@@ -411,6 +412,8 @@ public class UtilsController
 		return response;
 	}
 
+
+
 	public boolean setUserPoints(User userObject)
 	{
 		boolean setUserPoint = false;
@@ -480,7 +483,7 @@ public class UtilsController
 
 		return pointsModel;
 	}
-	public PointsResponse redeemPointsCall(String userId, String code)
+	public PointsResponse redeemPointsCall(String userId, String code, String status)
 	{
 		PointsResponse pointsModel =  null;
 		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
@@ -489,7 +492,7 @@ public class UtilsController
 		{
 			mainEntity.put("code", code);
 			mainEntity.put("redeemedByUserId", userId);
-			mainEntity.put("status", STATUS_REDEEMED);
+			mainEntity.put("status", status);
 
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
@@ -746,18 +749,18 @@ public class UtilsController
 				else{
 					response.put("status", 404);
 					response.put("message", "The user does not have points ");
-					response.put("customData", null);
+					response.put("pointsData", null);
 				}
 			}
 			else
 			{
 				response.put("status", 400);
 				response.put("message", "Missing parameters");
-				response.put("customData", null);
+				response.put("pointsData", null);
 			}
 		}
 		catch (Exception ex){
-			response.put("customData", null);
+			response.put("pointsData", null);
 			response.put("status", 500);
 			response.put("message", ex.getMessage());
 		}
@@ -766,11 +769,68 @@ public class UtilsController
 	}
 
 
+	@RequestMapping(method = RequestMethod.GET, value = "/code/checkExpiration")
+	public Map<String, Object> getPointsHistory(){
+
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		PointsResponse pointsResponse;
+		Points pointsModel;
+		RestTemplate restTemplate =  new RestTemplate();
+		List<Points> listPoints = new ArrayList<Points>();;
+		List<Points> listExpiredPoints = new ArrayList<Points>();
+		ObjectMapper mapper = new ObjectMapper();
+		Date currDate = new Date();
+
+		try {
+
+			pointsResponse = restTemplate.getForObject(urlPoints + "/status/"+ STATUS_ACTIVE, PointsResponse.class);
+
+			if(pointsResponse.getStatus() == 200){
+
+				listPoints = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<List<Points>>() { });
+
+				for(Points points: listPoints){
+
+					if(currDate.compareTo(points.getExpirationDate()) > 0){
+						pointsResponse = redeemPointsCall(AUTOMATIC_EXPIRATION, points.getCode(), STATUS_EXPIRED);
+						if(pointsResponse.getStatus() == 200){
+							points.setStatus(STATUS_EXPIRED);
+							points.setRedeemedByUserId(AUTOMATIC_EXPIRATION);
+							listExpiredPoints.add(points);
+						}
+					}
+				}
+				if(listExpiredPoints.size() > 0){
+					response.put("totalExpired", listExpiredPoints.size());
+					response.put("status", 200);
+					response.put("message","Registros expirados");
+
+				}
+				else{
+					response.put("totalExpired", 0);
+					response.put("status", 404);
+					response.put("message", "No se expiraron códigos");
+				}
+			}
+		}
+		catch (Exception ex){
+
+			response.put("totalExpired", null);
+			response.put("status", 500);
+			response.put("message", ex.getMessage());
+		}
+
+		return response;
+
+	}
+
+
 
 }
 
 
-	
+
 
 	
 
