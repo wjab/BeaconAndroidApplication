@@ -120,6 +120,7 @@
         <activity android:name=".WishListActivity" />
         <activity android:name=".DetailShopActivity" />
         <activity android:name=".PointsActivity"></activity>
+        <activity android:name=".RedimirRegalarActivity"></activity>
     </application>
 
 </manifest>

@@ -2,50 +2,59 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import controllers.ServiceController;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapterPoints;
 import utils.NonStaticUtils;
 
-public class PointsActivity extends AppCompatActivity {
-    ViewPager pager;
-    TabLayout tabLayout;
+public class RedimirRegalarActivity extends AppCompatActivity {
+    private String type, messageToSend;
+    private TextView message,code,expiration;
+    private Button sendData;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    ImageView open_history_points;
-    private CharSequence mpoints,mTitle;
+    private CharSequence mpoints;
     private String idUser,userAcumulatedPoints;
-    private ServiceController serviceController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_points);
+        setContentView(R.layout.activity_redimir_regalar);
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
                 null);
-        pager= (ViewPager) findViewById(R.id.view_pager_points);
-        tabLayout= (TabLayout) findViewById(R.id.tab_layout_points);
-        FragmentManager manager=getSupportFragmentManager();
-        PagerAdapterPoints adapter=new PagerAdapterPoints(manager);
-        pager.setAdapter(adapter);
+        message=(TextView)findViewById(R.id.messageToShow);
+        code=(TextView)findViewById(R.id.code);
+        expiration=(TextView)findViewById(R.id.expiration);
+        sendData=(Button)findViewById(R.id.button);
+        expiration.setText(getString(R.string.expiracionPuntos));
+        if(type.equals("redimir")){
+            sendData.setVisibility(View.GONE);
+            message.setText(getString(R.string.redimirPuntos));
+            code.setText(intent.getStringExtra("code"));
+        }
+        else
+        {
+            message.setText(getString(R.string.regalarPuntos));
+            sendData.setText(getString(R.string.sendMessageButton));
+            messageToSend = intent.getStringExtra("message");
+            code.setText(intent.getStringExtra("code"));
+            sendData.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sendPoints();
+                }
+            });
 
-        tabLayout.setupWithViewPager(pager);
-        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setTabsFromPagerAdapter(adapter);
-        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
+        }
 
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
@@ -77,9 +86,16 @@ public class PointsActivity extends AppCompatActivity {
         intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
+    private void sendPoints(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,  messageToSend+" este es el código: "+ code.getText().toString());
+
+        startActivity(Intent.createChooser(intent,"Enviar el código"));
+    }
     @Override
     public boolean onSupportNavigateUp() {
-        Intent intent = new Intent(this.getBaseContext(), BackgroundScanActivity.class);
+        Intent intent = new Intent(this.getBaseContext(), PointsActivity.class);
         startActivity(intent);
         return true;
     }

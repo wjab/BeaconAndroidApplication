@@ -7,7 +7,7 @@
         android:textSize="20dp"
         android:ellipsize="end"
         android:textColor="@color/black"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:gravity="left|bottom"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -17,17 +17,39 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp" />
 
-
+    <EditText
+        android:id="@+id/points"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:hint="Puntos a redimir"
+        android:paddingLeft="8dp"
+        android:background="@drawable/edittext_border"
+        android:scaleType="fitXY"
+        android:textSize="15dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/messagePoints" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        android:gravity="center"
         android:text="Redimir puntos"
-        android:id="@+id/gift_points"
-        android:background="@color/darkBlue"
+        android:id="@+id/gift_pointsR"
+        android:textSize="17dp"
+        android:textAllCaps="false"
         android:textColor="@color/white"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:background="@color/darkBlue"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="53dp"></Button>
+
+
 
 </RelativeLayout>
 

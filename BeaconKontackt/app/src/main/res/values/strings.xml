@@ -153,11 +153,16 @@
     <string name="WebServiceFaq">http://bfaqdevel.cfapps.io/</string>
     <string name="WebServiceHistoryPointsUser">http://butilsdevel.cfapps.io/utils/user/getPointsData/</string>
     <string name="WebService_VisitorHistory">http://bvisitorhistorydevel.cfapps.io/</string>
+    <string name="WebServicePoints">http://bpointsdevel.cfapps.io/</string>
     <string name="title_activity_pull_notifications">PullNotificationsActivity</string>
     <string name="title_activity_login__options">Login_Options</string>
     <string name="totalPointsLabel">%s</string>
     <string name="save">Guardar</string>
-
+    <string name="regalarPuntos">Enviale este código a la persona que le queires regalar los puntos.</string>
+    <string name="confirmacionPuntos">Felicidades, has obtenido un total de %s puntos para redimir en tus compras.</string>
+    <string name="expiracionPuntos">Este codigo expira en:</string>
+    <string name="principalMenuButton">Ir al menú principal</string>
+    <string name="sendMessageButton">Enviar mensaje</string>
 
     <!-- Aca van los strings que son constantes y que se utilizan dentro del codigo para poder hacer comparaciones -->
     <string name="login_userlocal">localuser</string>
@@ -173,6 +178,9 @@
     <string name="wishList">Lista de Deseos</string>
     <string name="points">Puntos</string>
     <string name="giftPoints">Usted tiene un total de %s pts disponibles para regalar</string>
+    <string name="changePoints">Usted tiene un total de %s pts disponibles para redimir</string>
+    <string name="obtainPoints">Obtén aquí tus puntos, ingresando el código!</string>
+    <string name="redimirPuntos">Muestra este código en cajas, a la hora de realizar tu pago, para redimir puntos !</string>
 
 
 </resources>
