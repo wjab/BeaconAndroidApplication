@@ -1,10 +1,14 @@
 package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
 
+import com.centaurosolutions.com.beacon.merchantprofile.model.Department;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantContactData;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantUser;
+import com.centaurosolutions.com.beacon.merchantprofile.model.TotalGiftPoints;
 import com.centaurosolutions.com.beacon.merchantprofile.repository.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +37,9 @@ public class MerchantProfileController
 		{
 			ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
 			ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
-			
+			ArrayList<Department> departments = new ArrayList<Department>();
+			TotalGiftPoints totalGiftPoints = new TotalGiftPoints();
+			ObjectMapper mapper = new ObjectMapper();
 			if(merchantProfileMap.get("contacts") != null)
 			{
 				contacts = (ArrayList<MerchantContactData>) merchantProfileMap.get("contacts");
@@ -43,7 +49,14 @@ public class MerchantProfileController
 			{
 				users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
 			}
-			
+			if(merchantProfileMap.get("departments") != null)
+			{
+				departments = (ArrayList<Department>) merchantProfileMap.get("departments");
+			}
+			if(merchantProfileMap.get("totalGiftPoints") != null)
+			{				
+				totalGiftPoints = mapper.convertValue(merchantProfileMap.get("totalGiftPoints"), new TypeReference<TotalGiftPoints>() { });
+			}
 			
 			MerchantProfile merchantProfileModel = new MerchantProfile(
 					merchantProfileMap.get("country").toString(),
@@ -61,7 +74,9 @@ public class MerchantProfileController
 				    DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
 				    merchantProfileMap.get("updatedBy").toString(),
 				    merchantProfileMap.get("latitude").toString(),
-				    merchantProfileMap.get("longitude").toString());
+				    merchantProfileMap.get("longitude").toString(),
+				    departments,
+				    totalGiftPoints);
 			
 			merchantProfileRepository.save(merchantProfileModel);
 			response.put("message", "Perfil de Tiendas creado correctamente");
@@ -144,6 +159,9 @@ public class MerchantProfileController
 		    {
 		    	ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
 		    	ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
+		    	ArrayList<Department> departments = new ArrayList<Department>();
+				TotalGiftPoints totalGiftPoints = new TotalGiftPoints();
+				ObjectMapper mapper = new ObjectMapper();
 		    	if(merchantProfileMap.get("contacts") != null)
 		    	{
 		    		contacts = (ArrayList<MerchantContactData>) merchantProfileMap.get("contacts");
@@ -152,7 +170,14 @@ public class MerchantProfileController
 		    	{
 		    		users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
 		    	}
-		    	
+				if(merchantProfileMap.get("departments") != null)
+				{
+					departments = (ArrayList<Department>) merchantProfileMap.get("departments");
+				}
+				if(merchantProfileMap.get("totalGiftPoints") != null)
+				{				
+					totalGiftPoints = mapper.convertValue(merchantProfileMap.get("totalGiftPoints"), new TypeReference<TotalGiftPoints>() { });
+				}
 		    	MerchantProfile merchantProfileModel = new MerchantProfile(
 		    			merchantProfileMap.get("country").toString(),
 					    merchantProfileMap.get("city").toString(),
@@ -169,7 +194,9 @@ public class MerchantProfileController
 					    DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
 					    merchantProfileMap.get("updatedBy").toString(),
 					    merchantProfileMap.get("latitude").toString(),
-					    merchantProfileMap.get("longitude").toString());
+					    merchantProfileMap.get("longitude").toString(),
+					    departments,
+					    totalGiftPoints);
 		    	
 		    	merchantProfileModel.setId(MerchantProfileId);
 		    	response.put("message", "Perfil de Tiendas actualizado correctamente");

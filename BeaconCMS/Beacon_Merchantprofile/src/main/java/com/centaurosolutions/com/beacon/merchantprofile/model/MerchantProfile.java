@@ -24,6 +24,8 @@ public class MerchantProfile {
 	public String updatedBy;
 	public String latitude ;
 	public String longitude;
+	public ArrayList<Department> departments;
+	public TotalGiftPoints totalGiftPoints;
 	
 
 
@@ -57,7 +59,7 @@ public class MerchantProfile {
 			String merchantName, String address, String image, String businessType,
 			ArrayList<MerchantUser> users, boolean enable, int pointsToGive,
 			Date creationDate, Date modifiedDate, String updatedBy,
-			String latitude,String longitude) {
+			String latitude,String longitude, ArrayList<Department> departments, TotalGiftPoints totalGiftPoints) {
 		super();
 		this.country = country;
 		this.city = city;
@@ -75,6 +77,8 @@ public class MerchantProfile {
 		this.updatedBy = updatedBy;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.departments = departments;
+		this.totalGiftPoints = totalGiftPoints;
 	}
 
 
