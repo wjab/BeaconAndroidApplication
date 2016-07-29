@@ -47,7 +47,6 @@ public class PointsController {
                     null,
                     null,
                     code,
-                    pointsMap.get("type").toString(),
                     Integer.parseInt(pointsMap.get("points").toString()),
                     STATUS_ACTIVE
             );
@@ -89,10 +88,10 @@ public class PointsController {
 
                         if (pointsMap.get("status").toString().toUpperCase().equals(STATUS_REDEEMED)) {
                             userData.setRedeemedDate(new Date());
-                            userData.setRedeemedByUserId(pointsMap.get("redeemedByUserId").toString());
                         } else {
                             userData.setExpirationDate(new Date());
                         }
+                        userData.setRedeemedByUserId(pointsMap.get("redeemedByUserId").toString());
 
                         pointsRepository.save(userData);
 

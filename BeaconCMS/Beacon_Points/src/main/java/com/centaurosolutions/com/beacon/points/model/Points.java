@@ -17,18 +17,16 @@ public class Points {
     private String redeemedByUserId;
     private Date redeemedDate;
     private String code;
-    private String userType;
     private int points;
     private String status;
 
-    public Points(String userId, Date creationDate, Date expirationDate, String redeemedByUserId, Date redeemedDate, String code, String userType, int points, String status) {
+    public Points(String userId, Date creationDate, Date expirationDate, String redeemedByUserId, Date redeemedDate, String code,int points, String status) {
         this.userId = userId;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
         this.redeemedByUserId = redeemedByUserId;
         this.redeemedDate = redeemedDate;
         this.code = code;
-        this.userType = userType;
         this.points = points;
         this.status = status;
     }
@@ -75,14 +73,6 @@ public class Points {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
     }
 
     public int getPoints() {
