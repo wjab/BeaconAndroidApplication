@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -65,10 +66,7 @@ public class UtilsController
 				offerHistoryAttempt = offerHistoryAttemptResponse.getAttemptData();
 				promoObject = promoResponse.getPromo();
 
-				dateDiffInfo = getDateDiffCall(
-						format.format(offerHistoryAttempt.getLastScan()).toString(),
-						format.format(dateNow));
-
+				dateDiffInfo = getDateDiff(format.format(offerHistoryAttempt.getLastScan()).toString(), format.format(dateNow));
 				/***Verificar si es la primera vez en registrar una promoción en el historial de ofertas***/
 				if (offerHistoryAttempt.getAttempts() == 0 ||
 						(offerHistoryAttempt.getAttempts() < promoObject.getAttempt() &&
@@ -200,7 +198,6 @@ public class UtilsController
 		return response;
 	}
 
-
 	@RequestMapping(method = RequestMethod.POST, value="/redeemPoints")
 	public Map<String, Object> redeemPoints(@RequestBody Map<String, Object> customMap){
 
@@ -271,7 +268,6 @@ public class UtilsController
 
 		return response;
 	}
-
 
 	@RequestMapping(method = RequestMethod.POST, value="/redeemPointsMerchant")
 	public Map<String, Object> redeemPointsMerchant(@RequestBody Map<String, Object> customMap){
@@ -348,44 +344,22 @@ public class UtilsController
 
 	@RequestMapping(method = RequestMethod.POST, value="/getDateDiff")
 	public Map<String, Object> getAccurateDateDifference(@RequestBody Map<String, Object> customMap){
-		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		Map<String, Object> dateDiffValues = new LinkedHashMap<>();
 
-		Date d1 = null;
-		Date d2 = null;
-		long diff = 0;
-		long diffSeconds = 0;
-		long diffMinutes = 0;
-		long diffHours = 0;
-		long diffDays = 0;
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		DateDiffValues dateDiffValues = null;
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		try
 		{
 			if(customMap.get("initialDate") != null && customMap.get("finalDate") != null )
 			{
-				d1 = format.parse(customMap.get("initialDate").toString());
-				d2 = format.parse(customMap.get("finalDate").toString());
+                 dateDiffValues =  getDateDiff(customMap.get("initialDate").toString(),customMap.get("finalDate").toString() );
 
-				//in seconds
-				diff = (d2.getTime() / 1000) - (d1.getTime() / 1000) ;
-
-				if( diff > 0 )
+				if( dateDiffValues != null )
 				{
-					diffSeconds = diff / 1000 % 60;
-					diffMinutes = diff / (60 * 1000) % 60;
-					diffHours = (diff / (60 * 60) % 24) + (diff / (24 * 60 * 60)) * 24;;
-					diffDays = diff / (24 * 60 * 60 * 1000);
-
-					dateDiffValues.put("days", diffDays);
-					dateDiffValues.put("hours", diffHours);
-					dateDiffValues.put("minutes", diffMinutes);
-					dateDiffValues.put("seconds", diffSeconds);
-
 					response.put("message", "Resultados de diferencia de fechas");
 					response.put("status", 200);
 					response.put("dateDiffValues", dateDiffValues);
-
 				}
 				else
 				{
@@ -410,167 +384,6 @@ public class UtilsController
 		}
 
 		return response;
-	}
-
-
-
-	public boolean setUserPoints(User userObject)
-	{
-		boolean setUserPoint = false;
-
-		try
-		{
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<User> entity = new HttpEntity<User>(userObject , headers);
-			ResponseEntity<UserResponse> out = restTemplate.exchange(urlUser +"setPoints/" + userObject.getId(), HttpMethod.PUT, entity , UserResponse.class);
-			setUserPoint = true;
-		}
-		catch(Exception ex)
-		{
-			setUserPoint = false;
-		}
-
-		return setUserPoint;
-	}
-
-
-	public MerchantProfileInvoiceResponse setMerchantPoints(MerchantInvoiceHistory merchantInvoice){
-
-		MerchantProfileInvoiceResponse response  = null;
-
-		try{
-
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<MerchantInvoiceHistory> entity = new HttpEntity<MerchantInvoiceHistory>(merchantInvoice , headers);
-			ResponseEntity<MerchantProfileInvoiceResponse> out = restTemplate.exchange(urlMerchantInvoice, HttpMethod.POST, entity , MerchantProfileInvoiceResponse.class);
-
-			response = out.getBody();
-
-		}
-		catch (Exception ex){
-
-		}
-
-		return response;
-	}
-
-	public PointsResponse generateCodeCall(String userId, int points)
-	{
-		PointsResponse pointsModel =  null;
-		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
-
-		try
-		{
-			mainEntity.put("userId", userId);
-			mainEntity.put("points", points);
-			mainEntity.put("type", "");
-
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
-			ResponseEntity<PointsResponse> out = restTemplate.exchange(urlPoints, HttpMethod.POST, entity , PointsResponse.class);
-			pointsModel =  out.getBody();
-		}
-		catch(Exception ex)
-		{
-
-		}
-
-		return pointsModel;
-	}
-	public PointsResponse redeemPointsCall(String userId, String code, String status)
-	{
-		PointsResponse pointsModel =  null;
-		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
-
-		try
-		{
-			mainEntity.put("code", code);
-			mainEntity.put("redeemedByUserId", userId);
-			mainEntity.put("status", status);
-
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
-			ResponseEntity<PointsResponse> out = restTemplate.exchange(urlPoints, HttpMethod.PUT, entity , PointsResponse.class);
-			pointsModel =  out.getBody();
-		}
-		catch(Exception ex)
-		{
-
-		}
-
-		return pointsModel;
-	}
-
-	public boolean setUserPromoOffer(String userId, String promoId)
-	{
-		boolean setPromoOffer = false;
-
-		try
-		{
-			format.setTimeZone(TimeZone.getTimeZone("UTC"));
-			OfferHistory historyOffer = new OfferHistory();
-			String strDate =  format.format(new Date().getTime());
-			Date scanDate =  format.parse(strDate);
-			historyOffer.setPromoId(promoId);
-			historyOffer.setUserId(userId);
-			historyOffer.setMerchantId("");
-			historyOffer.setShopZoneId("");
-			historyOffer.setScanDate(scanDate);
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<OfferHistory> entity = new HttpEntity<OfferHistory>(historyOffer , headers);
-			ResponseEntity<OfferHistory> out = restTemplate.exchange("http://bofferhistorydevel.cfapps.io/offerhistory/", HttpMethod.POST, entity , OfferHistory.class);
-
-			setPromoOffer = true;
-		}
-		catch(Exception ex)
-		{
-			setPromoOffer = false;
-		}
-
-		return setPromoOffer;
-	}
-
-
-	public DateDiffValues getDateDiffCall (String initialDate, String finalDate)
-	{
-		Map<String, Object> parameters = new LinkedHashMap<String, Object>();
-		Map<String, Object> responseObject = new LinkedHashMap<String, Object>();
-		DateDiffValues diffValues = new DateDiffValues();
-		DateDiffResponse dateDiffResponse = null;
-
-		try
-		{
-			if((!initialDate.isEmpty() || initialDate != null)  && (!initialDate.isEmpty() || initialDate != null))
-			{
-				parameters.put("initialDate",initialDate);
-				parameters.put("finalDate", finalDate);
-				RestTemplate restTemplate = new RestTemplate();
-				HttpHeaders headers = new HttpHeaders();
-				headers.setContentType(MediaType.APPLICATION_JSON);
-				HttpEntity<DateDiffValues> entity = new HttpEntity(parameters , headers);
-				ResponseEntity<DateDiffResponse> out =  restTemplate.exchange("http://butilsdevel.cfapps.io/utils/getDateDiff", HttpMethod.POST, entity , DateDiffResponse.class);
-				dateDiffResponse = out.getBody();
-				if(dateDiffResponse.getStatus() == "200"){
-					diffValues = dateDiffResponse.getDateDiffValues();
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			diffValues = null;
-		}
-
-		return diffValues;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value="/product/getdata")
@@ -653,7 +466,6 @@ public class UtilsController
 
 		return response;
 	}
-
 
 	@RequestMapping(method = RequestMethod.GET, value = "/user/getPointsData/{userId}")
 	public Map<String, Object> getPointsHistory(@PathVariable("userId") String userId){
@@ -768,9 +580,8 @@ public class UtilsController
 		return response;
 	}
 
-
 	@RequestMapping(method = RequestMethod.GET, value = "/code/checkExpiration")
-	public Map<String, Object> getPointsHistory(){
+	public Map<String, Object> expireCodes(){
 
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
@@ -824,6 +635,216 @@ public class UtilsController
 		return response;
 
 	}
+
+
+
+	public boolean setUserPoints(User userObject)
+	{
+		boolean setUserPoint = false;
+
+		try
+		{
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<User> entity = new HttpEntity<User>(userObject , headers);
+			ResponseEntity<UserResponse> out = restTemplate.exchange(urlUser +"setPoints/" + userObject.getId(), HttpMethod.PUT, entity , UserResponse.class);
+			setUserPoint = true;
+		}
+		catch(Exception ex)
+		{
+			setUserPoint = false;
+		}
+
+		return setUserPoint;
+	}
+
+	public MerchantProfileInvoiceResponse setMerchantPoints(MerchantInvoiceHistory merchantInvoice)
+	{
+
+		MerchantProfileInvoiceResponse response  = null;
+
+		try{
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<MerchantInvoiceHistory> entity = new HttpEntity<MerchantInvoiceHistory>(merchantInvoice , headers);
+			ResponseEntity<MerchantProfileInvoiceResponse> out = restTemplate.exchange(urlMerchantInvoice, HttpMethod.POST, entity , MerchantProfileInvoiceResponse.class);
+
+			response = out.getBody();
+
+		}
+		catch (Exception ex){
+
+		}
+
+		return response;
+	}
+
+	public PointsResponse generateCodeCall(String userId, int points)
+	{
+		PointsResponse pointsModel =  null;
+		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
+
+		try
+		{
+			mainEntity.put("userId", userId);
+			mainEntity.put("points", points);
+			mainEntity.put("type", "");
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
+			ResponseEntity<PointsResponse> out = restTemplate.exchange(urlPoints, HttpMethod.POST, entity , PointsResponse.class);
+			pointsModel =  out.getBody();
+		}
+		catch(Exception ex)
+		{
+
+		}
+
+		return pointsModel;
+	}
+
+	public PointsResponse redeemPointsCall(String userId, String code, String status)
+	{
+		PointsResponse pointsModel =  null;
+		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
+
+		try
+		{
+			mainEntity.put("code", code);
+			mainEntity.put("redeemedByUserId", userId);
+			mainEntity.put("status", status);
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
+			ResponseEntity<PointsResponse> out = restTemplate.exchange(urlPoints, HttpMethod.PUT, entity , PointsResponse.class);
+			pointsModel =  out.getBody();
+		}
+		catch(Exception ex)
+		{
+
+		}
+
+		return pointsModel;
+	}
+
+	public boolean setUserPromoOffer(String userId, String promoId)
+	{
+		boolean setPromoOffer = false;
+
+		try
+		{
+			format.setTimeZone(TimeZone.getTimeZone("UTC"));
+			OfferHistory historyOffer = new OfferHistory();
+			String strDate =  format.format(new Date().getTime());
+			Date scanDate =  format.parse(strDate);
+			historyOffer.setPromoId(promoId);
+			historyOffer.setUserId(userId);
+			historyOffer.setMerchantId("");
+			historyOffer.setShopZoneId("");
+			historyOffer.setScanDate(scanDate);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<OfferHistory> entity = new HttpEntity<OfferHistory>(historyOffer , headers);
+			ResponseEntity<OfferHistory> out = restTemplate.exchange("http://bofferhistorydevel.cfapps.io/offerhistory/", HttpMethod.POST, entity , OfferHistory.class);
+
+			setPromoOffer = true;
+		}
+		catch(Exception ex)
+		{
+			setPromoOffer = false;
+		}
+
+		return setPromoOffer;
+	}
+
+	public DateDiffValues getDateDiffCall (String initialDate, String finalDate)
+	{
+		Map<String, Object> parameters = new LinkedHashMap<String, Object>();
+		Map<String, Object> responseObject = new LinkedHashMap<String, Object>();
+		DateDiffValues diffValues = new DateDiffValues();
+		DateDiffResponse dateDiffResponse = null;
+
+		try
+		{
+			if((!initialDate.isEmpty() || initialDate != null)  && (!initialDate.isEmpty() || initialDate != null))
+			{
+				parameters.put("initialDate",initialDate);
+				parameters.put("finalDate", finalDate);
+				RestTemplate restTemplate = new RestTemplate();
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_JSON);
+				HttpEntity<DateDiffValues> entity = new HttpEntity(parameters , headers);
+				ResponseEntity<DateDiffResponse> out =  restTemplate.exchange("http://butilsdevel.cfapps.io/utils/getDateDiff", HttpMethod.POST, entity , DateDiffResponse.class);
+				dateDiffResponse = out.getBody();
+				if(dateDiffResponse.getStatus() == "200"){
+					diffValues = dateDiffResponse.getDateDiffValues();
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			diffValues = null;
+		}
+
+		return diffValues;
+	}
+
+	public DateDiffValues getDateDiff(String dateInit, String dateFinal){
+
+
+		DateDiffValues values = null;
+		Calendar d1 = Calendar.getInstance();
+		Calendar d2 = Calendar.getInstance();
+	    format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		long diff = 0;
+		long diffSeconds = 0;
+		long diffMinutes = 0;
+		long diffHours = 0;
+		long diffDays = 0;
+
+		try{
+
+			d1.setTime(format.parse(dateInit));
+			d2.setTime(format.parse(dateFinal));
+
+			//in seconds
+			diff = (d1.getTimeInMillis() / 1000) - (d2.getTimeInMillis() / 1000) ;
+
+			if( diff > 0 )
+			{
+				diffSeconds = diff / 1000 % 60;
+				diffMinutes = diff / (60 * 1000) % 60;
+				diffHours = (diff / (60 * 60) % 24) + (diff / (24 * 60 * 60)) * 24;;
+				diffDays = diff / (24 * 60 * 60 * 1000);
+
+				values = new DateDiffValues();
+				values.setSeconds((int) diffSeconds);
+				values.setHours((int) diffHours);
+				values.setMinutes((int) diffMinutes);
+				values.setDays((int) diffDays);
+			}
+		}
+
+		catch (ParseException ex){
+
+		}
+
+
+		return values;
+	}
+
+
+
+
+
 
 
 
