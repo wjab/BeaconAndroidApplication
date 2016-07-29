@@ -1,6 +1,7 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Centauro on 16/06/2016.
@@ -13,6 +14,8 @@ public class Store implements Serializable {
     private String merchantName;
     private String country;
     private String city;
+    private ArrayList<Department> departments;
+    private TotalGiftPoints totalGiftPoints;
 
     public int getPointToGive() {
         return pointToGive;
@@ -69,4 +72,13 @@ public class Store implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public ArrayList<Department> getDepartments() { return departments; }
+
+    public void setDepartments(ArrayList<Department> departments) { this.departments = departments; }
+
+    public TotalGiftPoints getTotalGiftPoints() { return totalGiftPoints; }
+
+    public void setTotalGiftPoints(TotalGiftPoints totalGiftPoints) { this.totalGiftPoints = totalGiftPoints; }
+
 }

@@ -94,7 +94,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         points.setText(promo.getPuntos() + " pts");
         tituloPromo.setText(promo.getTitulo());
         descripcionPromo.setText(promo.getDescripcion());
-        idMechantProfile= promo.getProfileId();
+        idMechantProfile= promo.getMerchantId();
         imageRequest.imageRequest(promo.getUrlImagen(), imagenPromo, 0, 0);
         final String description= descripcionPromo.getText().toString()+" "+promo.getUrlImagen();
         final String image=promo.getUrlImagen();

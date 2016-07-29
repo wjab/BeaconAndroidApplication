@@ -27,6 +27,8 @@ import controllers.ServiceController;
 
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterStore;
 
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Department;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
 
 
@@ -35,6 +37,8 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
     public CustomAdapterStore adapter;
     public ListView listviewShop;
     public ArrayList<Store> listStoreArray;
+    public ArrayList<Department> listDepartments;
+    public ArrayList<ProductStore> listProductStore;
     private View rootView;
 
     public ShopFragment() {
@@ -74,6 +78,8 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
         try {
             listStoreArray = new ArrayList<Store>();
+            listDepartments = new ArrayList<Department>();
+            listProductStore =  new ArrayList<ProductStore>();
             Gson gson= new Gson();
             JSONArray ranges= response.getJSONArray("merchantProfile");
             String range = "";
@@ -90,6 +96,25 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                 storeElement.setPointToGive(currRange.getInt("pointsToGive"));
                 storeElement.setAddress(currRange.getString("address"));
                 storeElement.setUrlImagen(currRange.getString("image"));
+                /*JSONArray departaments= currRange.getJSONArray("departaments");
+                for(int j=0; j < departaments.length(); j++ ){
+                    JSONObject currDepartament = ranges.getJSONObject(i);
+                    Department departmentElement = new Department();
+                    departmentElement.setName(currDepartament.getString("name"));
+                    JSONArray products= currDepartament.getJSONArray("products");
+                    for(int k=0; k < products.length(); k++ ){
+                        JSONObject currProduct = ranges.getJSONObject(i);
+                        ProductStore produtctElement = new ProductStore();
+                        produtctElement.setDetails(currDepartament.getString("details"));
+                        produtctElement.setPrice(currDepartament.getLong("price"));
+                        produtctElement.setProductId(currDepartament.getString("productid"));
+                        produtctElement.setProductName(currDepartament.getString("productname"));
+                        listProductStore.add(produtctElement);
+                    }
+                    departmentElement.setProducts(listProductStore);
+                    listDepartments.add(departmentElement);
+                }
+                storeElement.setDepartments(listDepartments);*/
 
                 listStoreArray.add(storeElement);
             }

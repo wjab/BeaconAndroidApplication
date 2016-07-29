@@ -11,7 +11,7 @@ public class Promociones implements Serializable {
     private String UrlImagen;
     private String Titulo;
     private String id;
-    private String profileId;
+    private String merchantId;
     private int Puntos;
 
     public String getDescripcion() {
@@ -54,11 +54,11 @@ public class Promociones implements Serializable {
         Titulo = titulo;
     }
 
-    public String getProfileId() {
-        return profileId;
+    public String getMerchantId() {
+        return merchantId;
     }
 
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
     }
 }
