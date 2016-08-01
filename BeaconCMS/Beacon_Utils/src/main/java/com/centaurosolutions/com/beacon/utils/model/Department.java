@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Department 
 {
+	String id;
 	private String name;
 	private ArrayList<Product> products;
 	
@@ -16,6 +17,10 @@ public class Department
 		this.name = name;
 		this.products = products;
 	}
+
+	public Department(){
+
+	}
 	
 	public String getName() { return name; }
 	public void setName(String name) { this.name = name; }
@@ -23,5 +28,11 @@ public class Department
 	public ArrayList<Product> getProducts() { return products; }
 	public void setProducts(ArrayList<Product> products) { this.products = products; }
 
-	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

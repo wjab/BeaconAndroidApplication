@@ -86,25 +86,21 @@ public class MerchantProfile {
 	}
 
 
+	public ArrayList<Department> getDepartments() {
+		return departments;
+	}
 
-
-
+	public void setDepartments(ArrayList<Department> departments) {
+		this.departments = departments;
+	}
 
 	public TotalGiftPoints getTotalGiftPoints() {
 		return totalGiftPoints;
 	}
 
-
-
-
-
 	public void setTotalGiftPoints(TotalGiftPoints totalGiftPoints) {
 		this.totalGiftPoints = totalGiftPoints;
 	}
-
-
-
-
 
 	/**
 	 * @return the id

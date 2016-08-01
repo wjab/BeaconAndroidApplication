@@ -202,6 +202,7 @@ public class UtilsController
 	public Map<String, Object> redeemPoints(@RequestBody Map<String, Object> customMap){
 
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		Map<String, Object> data = new LinkedHashMap<String, Object>();
 		Points pointsModel = new Points();
 		PointsResponse pointsResponse = new PointsResponse();
 		User userObject = null;
@@ -231,24 +232,27 @@ public class UtilsController
 						userObject.setTotalGiftPoints(userObject.getTotalGiftPoints() + points);
 
 						if (setUserPoints(userObject)){
-							response.put("user", userObject);
+
+							data.put("user", userObject);
+							data.put("points", points);
+							response.put("pointsData", data);
 							response.put("status", 200);
 							response.put("message", null);
 						}
 						else{
-							response.put("user", pointsModel);
+							response.put("pointsData", null);
 							response.put("status", 400);
 							response.put("message", "Error durante la actualización del usuario");
 						}
 					}
 					else{
-						response.put("user", null);
+						response.put("pointsData", null);
 						response.put("status", 400);
 						response.put("message", "Código invalido");
 					}
 				}
 				else{
-					response.put("user", null);
+					response.put("pointsData", null);
 					response.put("status", 400);
 					response.put("message", "El usuario no existe");
 				}
@@ -391,69 +395,22 @@ public class UtilsController
 
 		// Attributes
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		Map<String, Object> productData = new LinkedHashMap<String, Object>();
-		MerchantProductResponse merchantProductResponse =  null;
-		MerchantProfileResponse merchantProfileResponse = null;
-		Product product = null;
-
-		RestTemplate restTemplate = new RestTemplate();
+		Map<String, Object> response = new LinkedHashMap<>();
 
 		try
 		{
-			if( customMap.get("merchantProductId") != null && customMap.get("merchantId") != null &&  customMap.get("productId") != null  ){
-
-				merchantProductResponse = restTemplate.getForObject( urlProduct + "" + customMap.get("merchantProductId").toString(), MerchantProductResponse.class);
-
-				merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + customMap.get("merchantId").toString(), MerchantProfileResponse.class);
-
-				if(merchantProductResponse.getStatus() == 200 && merchantProfileResponse.getStatus() == 200){
-
-					if(merchantProductResponse.getMerchantProduct().getMerchantId().equals(merchantProfileResponse.getMerchantProfile().getId())){
-
-						if(merchantProductResponse.getMerchantProduct().getProductList() != null && merchantProductResponse.getMerchantProduct().getProductList().size() > 0){
-
-							for(Product listProduct : merchantProductResponse.getMerchantProduct().getProductList()) {
-								if (customMap.get("productId").toString().equals(listProduct.getProductId())) {
-									product = listProduct;
-								}
-							}
-
-							if(product != null) {
-								response.put("status", 200);
-								productData.put("product", product);
-								productData.put("storeName", merchantProfileResponse.getMerchantProfile().getMerchantName());
-								productData.put("shopZoneId", merchantProductResponse.getMerchantProduct().getShopZoneId());
-								response.put("productData", productData);
-								response.put("message", null);
-							}
-							else{
-								response.put("status", 404);
-								response.put("message", "Producto inexistente");
-								response.put("productData", null);
-							}
-						}
-						else{
-							response.put("status", 404);
-							response.put("message", "No hay un listado de productos");
-							response.put("productData", null);
-						}
-					}
-					else {
-						response.put("status", 404);
-						response.put("message", "El producto no pertenece a la tienda ingresada");
-						response.put("productData", null);
-					}
-				}
-				else{
-					response.put("status", 400);
-					response.put("message", "Error during request product and merchant");
-					response.put("productData", null);
-				}
+			if((customMap.get("merchantId") != null && !customMap.get("merchantId").toString().isEmpty()) &&  (customMap.get("productId") != null && !customMap.get("productId").toString().isEmpty()) ){
+				getMerchantInfo(customMap.get("merchantId").toString(), customMap.get("productId").toString(), "", false, response);
 			}
-			else{
+
+			else if(customMap.get("promoId") != null && !customMap.get("promoId").toString().isEmpty())
+			{
+				getMerchantInfo("", "", customMap.get("promoId").toString(), true, response);
+			}
+
+			else {
 				response.put("status", 400);
-				response.put("message", "Missing parameters");
+				response.put("message", "Missing paramenters");
 				response.put("productData", null);
 			}
 		}
@@ -734,6 +691,82 @@ public class UtilsController
 		return pointsModel;
 	}
 
+
+   public void getMerchantInfo(String merchantId, String productId, String promoId, boolean isPromo, Map<String, Object> response ){
+
+	   // Attributes
+	   format.setTimeZone(TimeZone.getTimeZone("UTC"));
+	   MerchantProductResponse merchantProductResponse =  null;
+	   MerchantProfileResponse merchantProfileResponse = null;
+	   PromoResponse promoResponse = null;
+	   Product product = null;
+	   String pId = null;
+	   Map<String, Object> productData = new LinkedHashMap<String, Object>();
+
+	   RestTemplate restTemplate = new RestTemplate();
+
+	   try{
+
+		   promoResponse = isPromo ? restTemplate.getForObject(urlPromo + "" + promoId, PromoResponse.class) : null;
+
+		   if(promoResponse != null && promoResponse.getStatus() == 200)
+		   {
+			   merchantProfileResponse = restTemplate.getForObject( urlMerchant  + "" + promoResponse.getPromo().getMerchantId(), MerchantProfileResponse.class);
+		   }
+		   else{
+			   merchantProfileResponse =  restTemplate.getForObject( urlMerchant  + "" + merchantId, MerchantProfileResponse.class);
+		   }
+
+		   if(merchantProfileResponse.getStatus() == 200){
+
+			   pId = isPromo ? promoResponse.getPromo().getIdProduct() : productId;
+
+			   if(merchantProfileResponse.getMerchantProfile().getDepartments() != null && merchantProfileResponse.getMerchantProfile().getDepartments().size() > 0){
+
+				   for(Department dep: merchantProfileResponse.getMerchantProfile().getDepartments())
+				   {
+					   if(pId != null && !pId.isEmpty())
+					   {
+						   for(Product listProduct : dep.getProducts()) {
+							   if (pId.equals(listProduct.getProductId())) {
+								   product = listProduct;
+								   break;
+							   }
+						   }
+					   }
+				   }
+			   }
+
+			   if(product != null){
+				   response.put("status", 200);
+				   productData.put("product", product);
+				   productData.put("storeName", merchantProfileResponse.getMerchantProfile().getMerchantName());
+				   response.put("productData", productData);
+				   response.put("message", null);
+			   }
+			   else{
+				   response.put("status", 404);
+				   response.put("message", "Producto inexistente");
+				   response.put("productData", null);
+			   }
+		   }
+
+		   else{
+			   response.put("status", 400);
+			   response.put("message", "Error durante la obtención de datos");
+			   response.put("productData", null);
+		   }
+	   }
+	   catch (Exception ex)
+	   {
+		   response.put("productData", null);
+		   response.put("status", 500);
+		   response.put("message", ex.getMessage());
+	   }
+
+   }
+
+
 	public boolean setUserPromoOffer(String userId, String promoId)
 	{
 		boolean setPromoOffer = false;
@@ -837,13 +870,6 @@ public class UtilsController
 		}
 		return values;
 	}
-
-
-
-
-
-
-
 
 }
 
