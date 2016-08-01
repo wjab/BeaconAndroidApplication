@@ -26,6 +26,8 @@ public class Promo {
 	private Boolean isAutomatic;
 	private String image;
 	private String title;
+	private String idProduct;
+	private String departamentId;
 
 	
 	
@@ -56,7 +58,7 @@ public class Promo {
 	 */
 	public Promo(boolean enable, String merchantId, String code, int giftPoints, int attempt, Date startDate,
 			Date endDate, String type, int availability, Date creationDate, Date modifiedDate, String updatedby, String title,
-			String description, Boolean isAutomatic, String image, int interval) {
+			String description, Boolean isAutomatic, String image, int interval,String idProduct,String departamentId) {
 		super();
 		this.enable = enable;
 		this.merchantId = merchantId;
@@ -75,7 +77,33 @@ public class Promo {
 		this.isAutomatic = isAutomatic;
 		this.image = image;
 		this.interval = interval;
+		this.idProduct = idProduct;
+		this.departamentId = departamentId;
 	}
+
+
+	public String getIdProduct() {
+		return idProduct;
+	}
+
+
+
+	public void setIdProduct(String idProduct) {
+		this.idProduct = idProduct;
+	}
+
+
+
+	public String getDepartamentId() {
+		return departamentId;
+	}
+
+
+
+	public void setDepartamentId(String departamentId) {
+		this.departamentId = departamentId;
+	}
+
 
 
 	public String getMerchantId() {
