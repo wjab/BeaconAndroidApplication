@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Product 
 {
-	private String productId;
+	private String id;
 	private String productName;
 	private float price;
 	private ArrayList<String> imageUrlList;
@@ -13,19 +13,17 @@ public class Product
 	public Product(){}
 	
 	/**
-	 * @param productid
 	 * @param productname
 	 * @param price
 	 * @param imageurlList
 	 * @param details
 	 */
-	public Product(String productid, 
+	public Product(
 			String productname, 
 			float price, 
 			ArrayList<String> imageurlList, 
 			String details)
 	{
-		this.productId = productid;
 		this.productName = productname;
 		this.price = price;
 		this.imageUrlList = imageurlList;
@@ -36,17 +34,17 @@ public class Product
 	/**
 	 * @return productid
 	 */
-	public String getProductId()
+	public String getId()
 	{
-		return this.productId;
+		return this.id;
 	}
 	
 	/**
-	 *  @param productid
+	 *  @param id
 	 */
-	public void setProductId (String productid)
+	public void setId (String id)
 	{
-		this.productId = productid;
+		this.id = id;
 	}
 	
 	/**
