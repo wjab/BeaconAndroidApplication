@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -136,7 +137,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
-
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";

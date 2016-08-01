@@ -11,26 +11,26 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import controllers.ServiceController;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Department;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
 /**
- * Created by Centauro on 16/06/2016.
+ * Created by Centauro on 01/08/2016.
  */
-public class CustomAdapterStore extends ArrayAdapter<Store> {
+public class CustomAdapterDepartments extends ArrayAdapter<Department> {
 
     public Activity contexto;
     //la lista de todos los elementos
-    public ArrayList<Store> storeList;
+    public ArrayList<Department> storeList;
     // la lista de los elementos filtrados
-    public ArrayList<Store> mStringFilterList;
+    public ArrayList<Department> mStringFilterList;
 
 
 
     // private final Integer[] imgid;
 /// constructor que recive el contexto y la lista de los elementos
-    public CustomAdapterStore(Activity contexto, ArrayList<Store> lista) {
-        super(contexto, R.layout.store_element_list, lista);
+    public CustomAdapterDepartments(Activity contexto, ArrayList<Department> lista) {
+        super(contexto, R.layout.element_department, lista);
         // TODO Auto-generated constructor stub
 
         this.contexto = contexto;
@@ -40,7 +40,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
     }
 
     // setea el array
-    public void setArray(ArrayList<Store> storeList) {
+    public void setArray(ArrayList<Department> storeList) {
         this.storeList = storeList;
 
     }
@@ -48,20 +48,16 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
     /// adapta los elementos al layout de los element view
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = contexto.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.store_element_list, null, true);
+        View rowView = inflater.inflate(R.layout.element_department, null, true);
 
         TextView walkin = (TextView) rowView.findViewById(R.id.walkin);
-        TextView scan = (TextView) rowView.findViewById(R.id.scan);
-        TextView purchase = (TextView) rowView.findViewById(R.id.purchase);
 
-        walkin.setText(storeList.get(position).getTotalGiftPoints().getWalkin() + "");
-        scan.setText(storeList.get(position).getTotalGiftPoints().getScan() + "");
-       purchase.setText(storeList.get(position).getTotalGiftPoints().getPurchase() + "");
+        //walkin.setText(storeList.get(position).getTotalGiftPoints().getWalkin() + "");
 
         ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
         ServiceController imageRequest =  new ServiceController();
 
-       imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
+        //imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
 
 
 
@@ -79,7 +75,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
 
     // Obtiene los items especificos del indice
     @Override
-    public Store getItem(int position) {
+    public Department getItem(int position) {
         return storeList.get(position);
     }
 
@@ -88,9 +84,5 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
     public long getItemId(int position) {
         return storeList.indexOf(getItem(position));
     }
-
-
-
-
 
 }

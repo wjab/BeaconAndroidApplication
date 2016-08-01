@@ -6,9 +6,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/linearLayout"
+
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout4">
+        android:id="@+id/linearLayout4"
+        android:weightSum="1">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -18,20 +19,40 @@
             android:id="@+id/store_image"
             android:src="@drawable/promo"
             android:layout_alignParentStart="true" />
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="81dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="15dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="2km"
+                android:layout_marginRight="20dp"
+                android:id="@+id/textView"
+                android:layout_gravity="right"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="right">
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
                     android:scaleType="fitXY"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="35dp"
                     android:id="@+id/imageView2"
                     android:src="@drawable/purchase_blue"
                     android:layout_centerVertical="true"
@@ -39,10 +60,10 @@
                     android:layout_gravity="center_vertical" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
                     android:scaleType="fitXY"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="35dp"
                     android:id="@+id/imageView3"
                     android:src="@drawable/walk_in_blue"
                     android:layout_below="@+id/imageView2"
@@ -50,26 +71,16 @@
                     android:layout_gravity="center_vertical" />
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
                     android:scaleType="fitXY"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="25dp"
                     android:id="@+id/imageView4"
                     android:src="@drawable/scan_blue"
                     android:layout_alignTop="@+id/imageView5"
                     android:layout_toStartOf="@+id/imageView5"
                     android:layout_gravity="center_vertical" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:scaleType="fitXY"
-                    android:layout_marginRight="15dp"
-                    android:id="@+id/imageView5"
-                    android:src="@drawable/receipt_blue"
-                    android:layout_alignTop="@+id/imageView3"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center_vertical" />
             </LinearLayout>
 
 
@@ -82,31 +93,33 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="100"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="25dp"
                     android:layout_width="50dp"
-                    android:id="@+id/textView" />
+                    android:id="@+id/purchase"
+                    android:textColor="@color/darkBlue"
+                    android:textStyle="bold"/>
                 <TextView
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="50"
-                    android:layout_marginRight="15dp"
-                    android:id="@+id/textView1" />
+                    android:layout_marginRight="25dp"
+                    android:id="@+id/walkin"
+                    android:textColor="@color/darkBlue"
+                    android:textStyle="bold"/>
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="25dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="80"
-                    android:id="@+id/textView2" />
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="40"
-                    android:id="@+id/textView3" />
+                    android:textColor="@color/darkBlue"
+                    android:textStyle="bold"
+                    android:id="@+id/scan" />
             </LinearLayout>
         </LinearLayout>
+
+
 
     </LinearLayout>
 

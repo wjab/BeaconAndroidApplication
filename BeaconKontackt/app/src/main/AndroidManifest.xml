@@ -119,8 +119,9 @@
         <activity android:name=".FaqActivity" />
         <activity android:name=".WishListActivity" />
         <activity android:name=".DetailShopActivity" />
-        <activity android:name=".PointsActivity"></activity>
-        <activity android:name=".RedimirRegalarActivity"></activity>
+        <activity android:name=".PointsActivity" />
+        <activity android:name=".RedimirRegalarActivity" />
+        <activity android:name=".ObtainPointsActivity"></activity>
     </application>
 
 </manifest>

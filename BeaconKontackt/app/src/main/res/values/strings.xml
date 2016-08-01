@@ -132,7 +132,7 @@
         <item>@drawable/ic_preferencias1</item>
         <item>@drawable/ic_deseos1</item>
         <item>@drawable/ic_invitar1</item>
-        <item>@drawable/ic_deseos1</item>
+        <item>@drawable/icon_manage_points</item>
         <item>@drawable/ic_faq1</item>
         <item>@drawable/ic_log_out</item>
     </array>

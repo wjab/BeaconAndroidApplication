@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/transparent" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="170dp"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/imagenPromo"
+        android:src="@drawable/promo"
+        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:baselineAligned="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/imagenPromo"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:gravity="center_horizontal|bottom"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="52dp"
+            android:background="@drawable/promo"
+            android:id="@+id/tituloPromo"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.05" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_add"
+            android:layout_gravity="bottom" />
+
+        <TextView
+            android:text="10000"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:id="@+id/puntosPromo"
+            android:textIsSelectable="false"
+            android:layout_marginRight="23dp"
+            android:layout_marginTop="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="11dp"
+            android:layout_gravity="bottom" />
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+

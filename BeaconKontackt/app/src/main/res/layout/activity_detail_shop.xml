@@ -22,7 +22,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="5dp"
 
                 >
                 <ImageView
@@ -32,6 +32,7 @@
                     android:scaleType="fitXY"
                     android:background="@drawable/space_rounded"
                     android:src="@drawable/promo"
+                    android:layout_alignParentEnd="true"
                     />
 
                 <View
@@ -39,25 +40,40 @@
                     android:layout_height="1dp"
                     android:background="@color/com_facebook_likeview_text_color"
                     android:id="@+id/view"
-                    android:layout_above="@+id/linearLayout4"
+                    android:layout_alignBottom="@+id/linearLayout6"
                     android:layout_alignParentStart="true" />
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="64dp"
-                    android:id="@+id/imageShopDetail"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignTop="@+id/merchantNameStoreDetail" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayout6"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
 
+                    android:layout_below="@+id/imagenDetail"
+                    android:weightSum="1">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="64dp"
+                        android:id="@+id/imageShopDetail"
+                      android:layout_marginBottom="20dp"
+                        android:layout_alignParentStart="true" />
+                    <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayout5"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.76">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Detalles de la tienda"
                     android:id="@+id/detailMerchantStoreDetail"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_toEndOf="@+id/imageShopDetail"
-                    android:layout_below="@+id/merchantNameStoreDetail" />
+                   />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,27 +81,28 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="merchantName"
                     android:id="@+id/merchantNameStoreDetail"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/imagenDetail"
-                    android:layout_toEndOf="@+id/imageShopDetail" />
+                    />
+                </LinearLayout>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="81dp"
                     android:orientation="vertical"
                     android:id="@+id/linearLayout4"
-                    android:layout_below="@+id/imageShopDetail"
-                    android:layout_alignParentStart="true">
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/view">
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
                             android:scaleType="fitXY"
-                            android:layout_marginRight="35dp"
-                            android:layout_marginLeft="35dp"
+                            android:layout_marginRight="55dp"
                             android:id="@+id/imageView2"
                             android:src="@drawable/purchase_blue"
                             android:layout_centerVertical="true"
@@ -93,10 +110,10 @@
                             android:layout_gravity="center_vertical" />
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="50dp"
+                            android:layout_width="30dp"
+                            android:layout_height="40dp"
                             android:scaleType="fitXY"
-                            android:layout_marginRight="35dp"
+                            android:layout_marginRight="55dp"
                             android:id="@+id/imageView3"
                             android:src="@drawable/walk_in_blue"
                             android:layout_below="@+id/imageView2"
@@ -104,26 +121,16 @@
                             android:layout_gravity="center_vertical" />
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
                             android:scaleType="fitXY"
-                            android:layout_marginRight="35dp"
+                            android:layout_marginRight="55dp"
                             android:id="@+id/imageView4"
                             android:src="@drawable/scan_blue"
                             android:layout_alignTop="@+id/imageView5"
                             android:layout_toStartOf="@+id/imageView5"
                             android:layout_gravity="center_vertical" />
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="50dp"
-                            android:scaleType="fitXY"
-                            android:layout_marginRight="35dp"
-                            android:id="@+id/imageView5"
-                            android:src="@drawable/receipt_blue"
-                            android:layout_alignTop="@+id/imageView3"
-                            android:layout_alignParentEnd="true"
-                            android:layout_gravity="center_vertical" />
                     </LinearLayout>
 
 
@@ -135,31 +142,30 @@
                         <TextView
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Text"
-                            android:layout_marginRight="35dp"
-                            android:layout_marginLeft="35dp"
+                            android:text="100"
+                            android:layout_marginRight="50dp"
                             android:layout_width="50dp"
-                            android:id="@+id/textView" />
+                            android:id="@+id/purchaseDetail"
+                            android:textColor="@color/darkBlue"
+                            android:textStyle="bold"/>
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Text"
-                            android:layout_marginRight="35dp"
-                            android:id="@+id/textView1" />
+                            android:text="50"
+                            android:layout_marginRight="45dp"
+                            android:id="@+id/walkinDetail"
+                            android:textColor="@color/darkBlue"
+                            android:textStyle="bold"/>
                         <TextView
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="35dp"
+                            android:layout_marginRight="55dp"
+                            android:textColor="@color/darkBlue"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Text"
-                            android:id="@+id/textView2" />
-                        <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Text"
-                            android:id="@+id/textView3" />
+                            android:text="80"
+                            android:id="@+id/scanDetail"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                 </LinearLayout>
                 <View
@@ -170,7 +176,15 @@
                     android:id="@+id/view2"
                     android:layout_below="@+id/linearLayout4"
                     android:layout_alignParentStart="true" />
-            </RelativeLayout> <!-- The navigation drawer -->
+
+
+            </RelativeLayout>
+
+            <GridView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/departments" />
+            <!-- The navigation drawer -->
 
 
 

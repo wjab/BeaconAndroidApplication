@@ -10,7 +10,7 @@ public class ProductStore  implements Serializable {
     private String productName;
     private float price;
     //private ArrayList<String> imageUrlList;
-    private String details;
+
 
     public String getProductId() {
         return productId;
@@ -36,11 +36,4 @@ public class ProductStore  implements Serializable {
         this.price = price;
     }
 
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
 }

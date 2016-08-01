@@ -83,7 +83,9 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                     else
                     {
                         Toast.makeText(getContext(), "Procesando Solicitud", Toast.LENGTH_SHORT).show();
+                        messageToSend=message.getText().toString();
                         service();
+
 
                     }
                 }
@@ -106,27 +108,34 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("userId",idUser);
         mapParams.put("points",pointsIntGift);
-        mapParams.put("type","regalar");
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebServicePoints)+"points";
-        Log.e("URL", url);
+        String url = getString(R.string.WebService_Utils)+"utils/exchangePoints";
+        Log.e("URL",url);
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 
+    public void serviceUpdatePoints(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_User)+"user/id/"+idUser;
+        Log.e("URL",url);
+        serviceController.jsonObjectRequest(url, Request.Method.GET,null, map, response, responseError);
+
+    }
     @Override
     public void onResponse(JSONObject response) {
 
         try {
-
-
-            if(response.getString("message")=="null"){
+            if(response.get("message").equals("Saldo flotante creado")) {
                 JSONObject object = response.getJSONObject("points");
-                code=object.getString("code");
+                code = object.getString("code");
                 serviceUpdatePoints();
             }
-            if(response.getString("message").equals("User updated"))
-            {
+            else {
                 response = response.getJSONObject("user");
                 if (response.getBoolean("enable")) {
                     nonStaticUtils.saveLogin(getContext(),
@@ -138,34 +147,22 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                             response.getString("socialNetworkType"),
                             response.getString("socialNetworkId"),
                             response.getString("pathImage"));
-                    messageToSend=message.getText().toString();
                     Intent intent = new Intent(getContext(), RedimirRegalarActivity.class);
                     intent.putExtra("type", "regalar");
+                    intent.putExtra("message",messageToSend);
                     intent.putExtra("code", code);
-                    intent.putExtra("message", messageToSend);
                     startActivity(intent);
                 }
-
             }
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-    }
-    public void serviceUpdatePoints(){
-        serviceController = new ServiceController();
-        responseError = this;
-        response = this;
-        pointsUser=pointsUser-pointsIntGift;
-        Map<String, Object> mapParams = new HashMap<>();
-        mapParams.put("totalGiftPoints",pointsUser);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_User)+"user/setPoints/"+idUser;
-        Log.e("URL",url);
-        serviceController.jsonObjectRequest(url, Request.Method.PUT, mapParams, map, response, responseError);
 
     }
+
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.d("Error Dialog Error", error.toString());
