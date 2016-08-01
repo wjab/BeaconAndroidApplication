@@ -407,7 +407,9 @@ public class UserController {
 		return sb.toString();
 
 	}
-//----------------------------------------------Add Product to wishList-------------------------------------------------------
+
+	//----------------------------------------------Add Product to wishList-------------------------------------------------------
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/wishlist/add")
 	public Map<String, Object> addProductToWishlist(@RequestBody Map<String, Object> userMap) 
 	{
@@ -619,218 +621,224 @@ public class UserController {
 
 		return response;
 	}
+	
 	//---------------------------------Delete preference-------------------------------------------------
-		@RequestMapping(method = RequestMethod.POST,  value = "/preference/delete")
-		public Map<String, Object> deletePreference(@RequestBody Map<String, Object> userMap) {
+	@RequestMapping(method = RequestMethod.POST,  value = "/preference/delete")
+	public Map<String, Object> deletePreference(@RequestBody Map<String, Object> userMap) {
 
-			Map<String, Object> response = new LinkedHashMap<String, Object>();
-			User userExist = null;
-			Boolean preferenceExist = false;
-			String userId=userMap.get("userId").toString();
-			 Preferences preferenceList = null;
-			try
-			{
-				  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User userExist = null;
+		Boolean preferenceExist = false;
+		String userId=userMap.get("userId").toString();
+		 Preferences preferenceList = null;
+		try
+		{
+			  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
 
-					userExist =  userRepository.findOne( userMap.get("userId").toString());
+				userExist =  userRepository.findOne( userMap.get("userId").toString());
 
-					if(userExist != null){
+				if(userExist != null){
 
-	                    if(userExist.getProductWishList() != null){
-	                    	 for(Preferences preference : userExist.getPreference()){
-	   						  if( userMap.get("preference").toString().equals(preference.getPreference())){
-	   							preferenceExist = true;
-	   							preferenceList=preference;
-	   							  break;
-	   						  }
-	                        }
-	                    }
+                    if(userExist.getProductWishList() != null){
+                    	 for(Preferences preference : userExist.getPreference()){
+   						  if( userMap.get("preference").toString().equals(preference.getPreference())){
+   							preferenceExist = true;
+   							preferenceList=preference;
+   							  break;
+   						  }
+                        }
+                    }
 
-						if(preferenceExist){
-							
-							 
-							userExist.getPreference().remove(preferenceList);
-							userRepository.save(userExist);
+					if(preferenceExist){
+						
+						 
+						userExist.getPreference().remove(preferenceList);
+						userRepository.save(userExist);
 
-							response.put("message","User updated");
-							response.put("user",  userExist);
-							response.put("status", 200);
-						}
-						else{
-							response.put("message", "Preference not found");
-							response.put("user", userExist);
-							response.put("status", 404);
-						}
+						response.put("message","User updated");
+						response.put("user",  userExist);
+						response.put("status", 200);
 					}
 					else{
+						response.put("message", "Preference not found");
+						response.put("user", userExist);
 						response.put("status", 404);
-						response.put("message", "User not found");
-						response.put("user", null);
 					}
-
-				}else{
-					response.put("status", 400);
-					response.put("message", "Missing parameters");
+				}
+				else{
+					response.put("status", 404);
+					response.put("message", "User not found");
 					response.put("user", null);
 				}
-			}
-			catch(Exception ex)
-			{
-				response.put("status", 500);
-				response.put("message", "Error deletePreference");
+
+			}else{
+				response.put("status", 400);
+				response.put("message", "Missing parameters");
 				response.put("user", null);
 			}
-
-			return response;
 		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error deletePreference");
+			response.put("user", null);
+		}
+
+		return response;
+	}
+	
 	//-------->PathImage update--------------------------------------------------------------------------------
-		@RequestMapping(method = RequestMethod.PUT, value = "/editPathImage/{userId}")
-		public Map<String, Object> editPathImage(
-				@PathVariable("userId") String UserId,
-				@RequestBody Map<String, Object> userMap) 
-		{
-			Map<String, Object> response = new LinkedHashMap<String, Object>();
-			User user;
-			
-			try
-			{
-				user = userRepository.findById(UserId);
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/editPathImage/{userId}")
+	public Map<String, Object> editPathImage(
+			@PathVariable("userId") String UserId,
+			@RequestBody Map<String, Object> userMap) 
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User user;
 		
-				if (user != null) 
-				{
-					user.setPathImage(userMap.get("pathImage").toString());
-					user.setId(UserId);
-					response.put("message", "PathImage updated");
-					response.put("user", userRepository.save(user));
-					response.put("status",200);
-				} 
-				else 
-				{
-					response.put("status", 404);
-					response.put("message", "User not found, PathImage not changed");
-					response.put("user", null);
-				}
-			}
-			catch(Exception ex)
+		try
+		{
+			user = userRepository.findById(UserId);
+	
+			if (user != null) 
 			{
-				response.put("status", 500);
-				response.put("message", "Error editPathImage");
+				user.setPathImage(userMap.get("pathImage").toString());
+				user.setId(UserId);
+				response.put("message", "PathImage updated");
+				response.put("user", userRepository.save(user));
+				response.put("status",200);
+			} 
+			else 
+			{
+				response.put("status", 404);
+				response.put("message", "User not found, PathImage not changed");
 				response.put("user", null);
 			}
-
-			return response;
 		}
-		//-------------------------------Update Preference espefica---------------------------------------------
-		@RequestMapping(method = RequestMethod.POST,  value = "/preference/editState")
-		public Map<String, Object> editStatePreference(@RequestBody Map<String, Object> userMap) {
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error editPathImage");
+			response.put("user", null);
+		}
 
-			Map<String, Object> response = new LinkedHashMap<String, Object>();
-			User userExist = null;
-			Boolean preferenceExist = false;
-			String userId=userMap.get("userId").toString();
-			 Preferences preferenceList = null;
-			 Preferences newPreference=null;
-			try
-			{
-				  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
+		return response;
+	}
+		
+	//-------------------------------Update Preference espefica---------------------------------------------
+	@RequestMapping(method = RequestMethod.POST,  value = "/preference/editState")
+	public Map<String, Object> editStatePreference(@RequestBody Map<String, Object> userMap) {
 
-					userExist =  userRepository.findOne( userMap.get("userId").toString());
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User userExist = null;
+		Boolean preferenceExist = false;
+		String userId=userMap.get("userId").toString();
+		 Preferences preferenceList = null;
+		 Preferences newPreference=null;
+		try
+		{
+			  if( userMap.get("preference") != null && userId != null && userMap.get("state") != null){
 
-					if(userExist != null){
+				userExist =  userRepository.findOne( userMap.get("userId").toString());
 
-	                    if(userExist.getProductWishList() != null){
-	                    	 for(Preferences preference : userExist.getPreference()){
-	   						  if( userMap.get("preference").toString().equals(preference.getPreference())){
-	   							preferenceExist = true;
-	   							preferenceList=preference;
-	   							newPreference=preference;
-	   							newPreference.setState(userMap.get("state").toString());
-	   							  break;
-	   						  }
-	                        }
-	                    }
+				if(userExist != null){
 
-						if(preferenceExist){
-							
-							 
-							userExist.getPreference().remove(preferenceList);
-							userExist.getPreference().add(newPreference);
-							userRepository.save(userExist);
+                    if(userExist.getProductWishList() != null){
+                    	 for(Preferences preference : userExist.getPreference()){
+   						  if( userMap.get("preference").toString().equals(preference.getPreference())){
+   							preferenceExist = true;
+   							preferenceList=preference;
+   							newPreference=preference;
+   							newPreference.setState(userMap.get("state").toString());
+   							  break;
+   						  }
+                        }
+                    }
 
-							response.put("message","User updated");
-							response.put("user",  userExist);
-							response.put("status", 200);
-						}
-						else{
-							response.put("message", "Preference not found");
-							response.put("user", userExist);
-							response.put("status", 404);
-						}
+					if(preferenceExist){
+						
+						 
+						userExist.getPreference().remove(preferenceList);
+						userExist.getPreference().add(newPreference);
+						userRepository.save(userExist);
+
+						response.put("message","User updated");
+						response.put("user",  userExist);
+						response.put("status", 200);
 					}
 					else{
+						response.put("message", "Preference not found");
+						response.put("user", userExist);
 						response.put("status", 404);
-						response.put("message", "User not found");
-						response.put("user", null);
 					}
-
-				}else{
-					response.put("status", 400);
-					response.put("message", "Missing parameters");
-					response.put("user", null);
 				}
-			}
-			catch(Exception ex)
-			{
-				response.put("status", 500);
-				response.put("message", "Error editStatePreference");
-				response.put("user", null);
-			}
-
-			return response;
-		}
-		//------>Preferences Update------------------------------------------------------------------------------
-		@SuppressWarnings("unchecked")
-		@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{userId}")
-		public Map<String, Object> editPreferences(
-				@PathVariable("userId") String UserId,
-				@RequestBody Map<String, Object> userMap) 
-		{
-			Map<String, Object> response = new LinkedHashMap<String, Object>();
-			User user;
-			ArrayList<Preferences> preference = new ArrayList<Preferences>();
-			if(userMap.get("preference") != null)
-			{
-				preference = (ArrayList<Preferences>)userMap.get("preference");
-			}
-			
-			try
-			{
-				user = userRepository.findById(UserId);
-		
-				if (user != null) 
-				{
-					user.setPreference(preference);
-					user.setId(UserId);
-					response.put("message", "Preferences updated");
-					response.put("user", userRepository.save(user));
-					response.put("status",200);
-				} 
-				else 
-				{
+				else{
 					response.put("status", 404);
-					response.put("message", "User not found, Preferences not changed");
+					response.put("message", "User not found");
 					response.put("user", null);
 				}
-			}
-			catch(Exception ex)
-			{
-				response.put("status", 500);
-				response.put("message", "Error editPreferences");
+
+			}else{
+				response.put("status", 400);
+				response.put("message", "Missing parameters");
 				response.put("user", null);
 			}
-
-			return response;
 		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error editStatePreference");
+			response.put("user", null);
+		}
+
+		return response;
+	}
+	
+	//------>Preferences Update------------------------------------------------------------------------------
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(method = RequestMethod.PUT, value = "/editPreferences/{userId}")
+	public Map<String, Object> editPreferences(
+			@PathVariable("userId") String UserId,
+			@RequestBody Map<String, Object> userMap) 
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		User user;
+		ArrayList<Preferences> preference = new ArrayList<Preferences>();
+		if(userMap.get("preference") != null)
+		{
+			preference = (ArrayList<Preferences>)userMap.get("preference");
+		}
+		
+		try
+		{
+			user = userRepository.findById(UserId);
+	
+			if (user != null) 
+			{
+				user.setPreference(preference);
+				user.setId(UserId);
+				response.put("message", "Preferences updated");
+				response.put("user", userRepository.save(user));
+				response.put("status",200);
+			} 
+			else 
+			{
+				response.put("status", 404);
+				response.put("message", "User not found, Preferences not changed");
+				response.put("user", null);
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("status", 500);
+			response.put("message", "Error editPreferences");
+			response.put("user", null);
+		}
+
+		return response;
+	}
 		
 
 }

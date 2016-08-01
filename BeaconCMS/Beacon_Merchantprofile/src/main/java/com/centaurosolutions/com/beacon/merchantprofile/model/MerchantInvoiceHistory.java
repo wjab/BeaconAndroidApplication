@@ -9,6 +9,7 @@ public class MerchantInvoiceHistory
 	@Id
 	public String id;
 	private String merchantId;
+	private String userId;
 	private String invoiceId;
 	private float invoiceAmount;
 	private String securityCode;
@@ -16,10 +17,11 @@ public class MerchantInvoiceHistory
 	private float usedPoints;
 	private Date creationDate; 
 	
-	public MerchantInvoiceHistory(String merchantId, String invoiceId, float invoiceAmount, 
+	public MerchantInvoiceHistory(String userId, String merchantId, String invoiceId, float invoiceAmount, 
 			String securityCode, String paymentType, float usedPoints, Date creationDate)
 	{
 		this.setMerchantId(merchantId);
+		this.setUserId(userId);
 		this.setInvoiceId(invoiceId);
 		this.setInvoiceAmount(invoiceAmount);
 		this.setSecurityCode(securityCode);
@@ -33,6 +35,9 @@ public class MerchantInvoiceHistory
 	
 	public void setMerchantId(String merchantId) { this.merchantId = merchantId; }
 	public String getMerchantId() { return merchantId; }
+	
+	public void setUserId(String userId) { this.userId = userId; }
+	public String getUserId() { return userId; }
 	
 	public void setInvoiceId(String invoiceId) { this.invoiceId = invoiceId; }
 	public String getInvoiceId() { return invoiceId; }

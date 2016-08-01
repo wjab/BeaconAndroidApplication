@@ -797,9 +797,8 @@ public class UtilsController
 		return diffValues;
 	}
 
-	public DateDiffValues getDateDiff(String dateInit, String dateFinal){
-
-
+	public DateDiffValues getDateDiff(String dateInit, String dateFinal)
+	{
 		DateDiffValues values = null;
 		Calendar d1 = Calendar.getInstance();
 		Calendar d2 = Calendar.getInstance();
@@ -810,8 +809,8 @@ public class UtilsController
 		long diffHours = 0;
 		long diffDays = 0;
 
-		try{
-
+		try
+		{
 			d1.setTime(format.parse(dateInit));
 			d2.setTime(format.parse(dateFinal));
 
@@ -832,12 +831,10 @@ public class UtilsController
 				values.setDays((int) diffDays);
 			}
 		}
-
-		catch (ParseException ex){
+		catch (ParseException ex)
+		{
 
 		}
-
-
 		return values;
 	}
 

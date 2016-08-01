@@ -9,6 +9,6 @@ public interface OfferHistoryRepository extends MongoRepository<OfferHistory, St
 {	
 	OfferHistory findByUserId(String UserId);
 
-	@Query(value = "{ 'user_id': ?0}")
+	//@Query(value = "{ 'userid': ?0}")
 	ArrayList<OfferHistory> findAllByUserId(String userId);
 }
