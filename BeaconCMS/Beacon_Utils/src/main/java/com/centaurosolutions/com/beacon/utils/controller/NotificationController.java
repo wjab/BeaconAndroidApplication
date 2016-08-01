@@ -37,7 +37,7 @@ public class NotificationController
 		}
 		catch(Exception ex)
 		{
-			response.put("message", "Notificaciones sin leer"); 
+			response.put("message", "Error al obtener otificaciones"); 
 			response.put("notificationResult", null); 
 			response.put("status", "500");
 		}
@@ -60,7 +60,7 @@ public class NotificationController
 		}
 		catch(Exception ex)
 		{
-			response.put("message", "Notificaciones sin leer"); 
+			response.put("message", "Error al obtener  notificaciones"); 
 			response.put("notificationResult", null); 
 			response.put("status", "500");
 		}
@@ -78,6 +78,7 @@ public class NotificationController
 			Notification notification = new Notification(
 					notificationMap.get("userId").toString(),
 					notificationMap.get("message").toString(), 
+					notificationMap.get("type").toString(), 
 					false, 
 					new Date(), 
 					null);
@@ -89,7 +90,7 @@ public class NotificationController
 		}
 		catch(Exception ex)
 		{
-			response.put("message", "Notificaciones sin leer"); 
+			response.put("message", "Error al agregar notificación"); 
 			response.put("notificationResult", null); 
 			response.put("status", "500");
 		}
@@ -125,7 +126,7 @@ public class NotificationController
 		}
 		catch(Exception ex)
 		{
-			response.put("message", "Notificaciones sin leer"); 
+			response.put("message", "Error al actualizar notificación"); 
 			response.put("notificationResult", null); 
 			response.put("status", "500");
 		}

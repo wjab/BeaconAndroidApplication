@@ -9,14 +9,16 @@ public class Notification
 	private String id;
 	private String userId;
 	private String message;
+	private String type;
 	private boolean read;
 	private Date creationDate;
 	private Date readDate;
 	
-	public Notification(String userId, String message, boolean read, Date creationDate, Date readDate) 
+	public Notification(String userId, String message, String type, boolean read, Date creationDate, Date readDate) 
 	{
 		this.userId = userId;
 		this.message = message;
+		this.type = type;
 		this.read = read;
 		this.creationDate = creationDate;
 		this.readDate = readDate;
@@ -27,6 +29,9 @@ public class Notification
 	
 	public void setMessage(String message) { this.message = message; }
 	public String getMessage() { return message; }
+	
+	public void setType(String type) { this.type = type; }
+	public String getType() { return type; }
 	
 	public void setRead(boolean read) { this.read = read; }
 	public boolean getRead() { return read; }

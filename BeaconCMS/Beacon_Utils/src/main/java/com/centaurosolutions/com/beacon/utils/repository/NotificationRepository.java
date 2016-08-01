@@ -8,7 +8,7 @@ import com.centaurosolutions.com.beacon.utils.model.Notification;
 
 public interface NotificationRepository extends MongoRepository<Notification, String>
 {
-	@Query(value = "{ 'userid' : ?0, 'read' : ?1 }")
+	@Query(value = "{ 'userId' : ?0, 'read' : ?1 }")
 	ArrayList<Notification> findAllByUserIdAndRead(String userId, boolean read);
 	
 	ArrayList<Notification> findAllByUserId(String userId);
