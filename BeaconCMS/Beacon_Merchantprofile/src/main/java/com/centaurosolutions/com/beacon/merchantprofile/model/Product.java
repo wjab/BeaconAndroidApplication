@@ -1,10 +1,15 @@
 package com.centaurosolutions.com.beacon.merchantprofile.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
+import java.util.UUID;
+
 /**
  * @author Jairo
  *
  */
+@Document
 public class Product 
 {
 	private String productId;
@@ -12,38 +17,46 @@ public class Product
 	private float price;
 	private ArrayList<String> imageUrlList;
 	private String details;
-	
-	public Product(){}
+
+	public Product(){
+		this.productId = UUID.randomUUID().toString();
+	}
 	
 	/**
-	 * @param productid
 	 * @param productname
 	 * @param price
 	 * @param imageurlList
 	 * @param details
 	 */
-	public Product(String productid, 
+	public Product(
 			String productname, 
 			float price, 
 			ArrayList<String> imageurlList, 
 			String details)
 	{
-		this.productId = productid;
 		this.productName = productname;
 		this.price = price;
 		this.imageUrlList = imageurlList;
 		this.details = details;
 	}
+
+
 	
 	
 	/**
 	 * @return productid
 	 */
-	public String getProductId() { return this.productId; }
+	public String getProductId()
+	{
+		return  this.productId;
+	}
 	/**
 	 *  @param productid
 	 */
-	public void setProductId (String productid)	{ this.productId = productid; }
+	public void setProductId(String productid)
+	{
+		this.productId = productid;
+	}
 	
 	/**
 	 * @return productName
@@ -75,9 +88,9 @@ public class Product
 	/**
 	 * @return details
 	 */
-	public String get()	{ return this.details;	}
+	public String getDetails()	{ return this.details;	}
 	/**
 	 * @param details
 	 */
-	public void set (String details) { this.details = details; }
+	public void setDetails (String details) { this.details = details; }
 }

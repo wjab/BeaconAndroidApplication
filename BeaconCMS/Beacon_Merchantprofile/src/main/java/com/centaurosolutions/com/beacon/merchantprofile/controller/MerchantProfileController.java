@@ -1,15 +1,10 @@
 package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
 
-import com.centaurosolutions.com.beacon.merchantprofile.model.Department;
-import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantContactData;
-import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
-import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantUser;
-import com.centaurosolutions.com.beacon.merchantprofile.model.TotalGiftPoints;
-import com.centaurosolutions.com.beacon.merchantprofile.repository.*;
+import com.centaurosolutions.com.beacon.merchantprofile.model.*;
+import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantProfileRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +21,7 @@ public class MerchantProfileController
 	
 	@Autowired
 	private MerchantProfileRepository merchantProfileRepository;
-		
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createMerchantProfile(@RequestBody Map<String, Object> merchantProfileMap)
@@ -51,10 +46,12 @@ public class MerchantProfileController
 			}
 			if(merchantProfileMap.get("departments") != null)
 			{
-				departments = (ArrayList<Department>) merchantProfileMap.get("departments");
+				departments = mapper.convertValue(merchantProfileMap.get("departments"),
+						new TypeReference<ArrayList<Department>>() { });
 			}
 			if(merchantProfileMap.get("totalGiftPoints") != null)
-			{				
+			{
+				mapper = new ObjectMapper();
 				totalGiftPoints = mapper.convertValue(merchantProfileMap.get("totalGiftPoints"), new TypeReference<TotalGiftPoints>() { });
 			}
 			
@@ -70,8 +67,8 @@ public class MerchantProfileController
 				    users,
 				    Boolean.valueOf(merchantProfileMap.get("enable").toString()),
 				    Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
-				    DateFormatter(merchantProfileMap.get("creationDate").toString()),
-				    DateFormatter(merchantProfileMap.get("modifiedDate").toString()),
+				    new Date(),
+				    null,
 				    merchantProfileMap.get("updatedBy").toString(),
 				    merchantProfileMap.get("latitude").toString(),
 				    merchantProfileMap.get("longitude").toString(),
@@ -122,7 +119,96 @@ public class MerchantProfileController
 		  
 		  return response;
 	  }
-	  
+
+	@RequestMapping(method = RequestMethod.POST, value="/getDepartment")
+	public Map<String, Object> getMerchantProfileDepartment(@RequestBody Map<String, Object> merchantProfileMap){
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		MerchantProfile profile;
+		Department department = null;
+		Product product = null;
+
+		try
+		{
+
+			profile  = merchantProfileRepository.findOne(merchantProfileMap.get("merchantId").toString());
+
+			if(profile != null)
+			{
+
+				if(profile.departments.size() > 0 ){
+					for(Department depModel : profile.departments){
+						if(depModel.getName().equals(merchantProfileMap.get("departmentName").toString())){
+							department = depModel;
+							break;
+						}
+					}
+				}
+
+				if(department != null ){
+
+					if(!merchantProfileMap.get("productId").toString().isEmpty()){
+
+						if(department.getProducts().size() > 0){
+
+							for(Product productModel: department.getProducts()){
+
+								if(productModel.getProductId().equals(merchantProfileMap.get("productId").toString())){
+									product = productModel;
+									break;
+								}
+
+							}
+							if(product!=null){
+								response.put("message", "Producto encontrado");
+								response.put("merchantData", product);
+								response.put("status", "200");
+							}
+							else{
+								response.put("message", "No existe el producto para este departamento");
+								response.put("merchantData", null);
+								response.put("status", "404");
+							}
+
+						}
+						else{
+							response.put("message", "No existen productos para este departamento");
+							response.put("merchantData", null);
+							response.put("status", "404");
+						}
+					}
+					else{
+						response.put("message", "Departamento encontrado");
+						response.put("merchantData", department);
+						response.put("status", "200");
+					}
+
+				}
+				else {
+					response.put("message", "Departamento no encontrado");
+					response.put("merchantData", null);
+					response.put("status", "404");
+				}
+			}
+			else
+			{
+				response.put("message", "Departamento no encontrado");
+				response.put("merchantData", null);
+				response.put("status", "404");
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("merchantData", null);
+			response.put("status", "400");
+		}
+
+		return response;
+	}
+
+
+
 	  @RequestMapping(method = RequestMethod.GET)
 	  public Map<String, Object> getAllMerchantProfileDetails()
 	  {

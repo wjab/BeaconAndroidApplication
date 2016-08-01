@@ -1,6 +1,7 @@
 package com.centaurosolutions.com.beacon.merchantprofile.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * @author Jairo
@@ -8,13 +9,20 @@ import java.util.ArrayList;
  */
 public class Department 
 {
+
+	private String id;
 	private String name;
 	private ArrayList<Product> products;
-	
+
+	public Department()
+	{
+		this.id = UUID.randomUUID().toString();
+	}
+
 	public Department(String name, ArrayList<Product> products) 
 	{
 		this.name = name;
-		this.products = products;
+		setProducts(products);
 	}
 	
 	public String getName() { return name; }
@@ -23,5 +31,12 @@ public class Department
 	public ArrayList<Product> getProducts() { return products; }
 	public void setProducts(ArrayList<Product> products) { this.products = products; }
 
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

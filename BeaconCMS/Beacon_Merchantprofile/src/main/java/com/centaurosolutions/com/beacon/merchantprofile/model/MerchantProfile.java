@@ -1,8 +1,10 @@
 package com.centaurosolutions.com.beacon.merchantprofile.model;
-import java.util.ArrayList;
-import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MerchantProfile {
 	
@@ -24,6 +26,8 @@ public class MerchantProfile {
 	public String updatedBy;
 	public String latitude ;
 	public String longitude;
+
+	@DBRef
 	public ArrayList<Department> departments;
 	public TotalGiftPoints totalGiftPoints;
 	
