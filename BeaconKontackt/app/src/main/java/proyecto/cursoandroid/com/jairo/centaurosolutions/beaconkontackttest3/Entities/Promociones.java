@@ -13,6 +13,16 @@ public class Promociones implements Serializable {
     private String id;
     private String merchantId;
     private int Puntos;
+    private String idProduct;
+    private String departamentId;
+
+    public String getIdProduct() {  return idProduct;   }
+
+    public void setIdProduct(String idProduct) {  this.idProduct = idProduct; }
+
+    public String getDepartamentId() {  return departamentId;   }
+
+    public void setDepartamentId(String departamentId) {  this.departamentId = departamentId;   }
 
     public String getDescripcion() {
         return Descripcion;
@@ -38,9 +48,7 @@ public class Promociones implements Serializable {
         this.id = id;
     }
 
-    public int getPuntos() {
-        return Puntos;
-    }
+    public int getPuntos() { return Puntos;  }
 
     public void setPuntos(int puntos) {
         Puntos = puntos;
