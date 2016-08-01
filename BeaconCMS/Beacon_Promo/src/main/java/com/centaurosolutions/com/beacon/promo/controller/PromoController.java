@@ -223,8 +223,8 @@ public class PromoController {
                     promo.setIsAutomatic((Boolean)promoMap.get("isAutomatic"));
                     promo.setImages(promoMap.get("images").toString());
                     promo.setInterval(Integer.parseInt(promoMap.get("interval").toString()));
-                    promo.setDepartamentId(promoMap.get("idProduct").toString());
-                    promo.setIdProduct(promoMap.get("departamentId").toString());
+                    promo.setDepartamentId(promoMap.get("departamentId").toString());
+                    promo.setIdProduct(promoMap.get("idProduct").toString());
 					
 					response.put("message", "Promo updated");
 					response.put("promo", promoRepository.save(promo));
