@@ -37,7 +37,7 @@ public class OfferHistoryController {
                     new Date(),
                     new Date());
 
-         //   offerhistoryRepository.save(offerhistoryModel);
+            offerhistoryRepository.save(offerhistoryModel);
 
             response.put("message", "Historial de oferta creado correctamente");
             response.put("offerHistory", offerhistoryModel);
