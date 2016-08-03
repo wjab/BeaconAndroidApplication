@@ -91,6 +91,37 @@ public class PromoController {
 
           return response ;
       }
+
+    @RequestMapping(method = RequestMethod.POST, value="/product")
+    public Map<String, Object> getPromoByProductId(@RequestBody Map<String, Object> promoMap){
+
+        Map<String, Object> response =  new LinkedHashMap<String, Object>();
+        Promo promo = new Promo();
+
+        try{
+
+            promo = promoRepository.findMerchantDepartmentProductId(promoMap.get("merchantId").toString(), promoMap.get("departamentId").toString(), promoMap.get("idProduct").toString());
+
+            if(promo != null){
+
+                response.put("message","Promoción encontrada");
+                response.put("status", 200);
+                response.put("promo",promo);
+            }
+            else{
+                response.put("message","Promoción no encontrada");
+                response.put("status", 404);
+                response.put("promo",null);
+            }
+        }
+        catch (Exception ex){
+            response.put("message", ex.getMessage());
+            response.put("status", 500);
+            response.put("promo",null);
+        }
+
+        return response ;
+    }
       
       @RequestMapping(method = RequestMethod.GET)
       public Map<String, Object> getAllPromoDetails(){
