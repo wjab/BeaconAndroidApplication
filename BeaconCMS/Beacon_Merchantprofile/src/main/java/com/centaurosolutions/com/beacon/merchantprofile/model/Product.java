@@ -1,27 +1,23 @@
 package com.centaurosolutions.com.beacon.merchantprofile.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * @author Jairo
  *
  */
-@Document
-public class Product 
+
+public class Product
 {
 	private String productId;
 	private String productName;
 	private float price;
 	private ArrayList<String> imageUrlList;
 	private String details;
+	private String code;
 
-	public Product(){
-		this.productId = UUID.randomUUID().toString();
-	}
-	
+	public Product(){}
+
 	/**
 	 * @param productname
 	 * @param price
@@ -29,68 +25,112 @@ public class Product
 	 * @param details
 	 */
 	public Product(
-			String productname, 
-			float price, 
-			ArrayList<String> imageurlList, 
-			String details)
+			String productname,
+			float price,
+			ArrayList<String> imageurlList,
+			String details, String code)
 	{
 		this.productName = productname;
 		this.price = price;
 		this.imageUrlList = imageurlList;
 		this.details = details;
+		this.code = code;
 	}
 
 
-	
-	
 	/**
 	 * @return productid
 	 */
 	public String getProductId()
 	{
-		return  this.productId;
+		return this.productId;
 	}
+
 	/**
-	 *  @param productid
+	 *  @param productId
 	 */
-	public void setProductId(String productid)
+	public void setProductId (String productId)
 	{
-		this.productId = productid;
+		this.productId = productId;
 	}
-	
+
 	/**
 	 * @return productName
 	 */
-	public String getProductName() { return this.productName; }
+	public String getProductName()
+	{
+		return this.productName;
+	}
+
 	/**
 	 * @param productname
 	 */
-	public void setProductName (String productname){ this.productName = productname; }
-	
+	public void setProductName (String productname)
+	{
+		this.productName = productname;
+	}
+
 	/**
 	 * @return price
 	 */
-	public float getPrice() { return this.price; }	
+	public float getPrice()
+	{
+		return this.price;
+	}
+
 	/**
 	 * @param price
 	 */
-	public void setPrice(float price) {	this.price = price; }
-	
+	public void setPrice(float price)
+	{
+		this.price = price;
+	}
+
 	/**
 	 * @return imageUrlList
 	 */
-	public ArrayList<String> getImageUrlList() { return this.imageUrlList; 	}
+	public ArrayList<String> getImageUrlList()
+	{
+		return this.imageUrlList;
+	}
+
 	/**
 	 * @param imageUrlList
 	 */
-	public void setImageUrlList(ArrayList<String> imageUrlList) { this.imageUrlList = imageUrlList; }
-	
+	public void setImageUrlList(ArrayList<String> imageUrlList)
+	{
+		this.imageUrlList = imageUrlList;
+	}
+
 	/**
 	 * @return details
 	 */
-	public String getDetails()	{ return this.details;	}
+	public String get()
+	{
+		return this.details;
+	}
+
 	/**
 	 * @param details
 	 */
-	public void setDetails (String details) { this.details = details; }
+	public void set (String details)
+	{
+		this.details = details;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 }
