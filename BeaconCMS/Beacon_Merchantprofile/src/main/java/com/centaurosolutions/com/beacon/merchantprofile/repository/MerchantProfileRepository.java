@@ -3,6 +3,9 @@ package com.centaurosolutions.com.beacon.merchantprofile.repository;
 import com.centaurosolutions.com.beacon.merchantprofile.model.Department;
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
 import com.centaurosolutions.com.beacon.merchantprofile.model.Product;
+
+import java.util.ArrayList;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -16,5 +19,7 @@ public  interface MerchantProfileRepository extends MongoRepository<MerchantProf
 
     @Query(value = "{ 'id' : ?0, 'deparments.id' : ?1 }")
     Department  findDepartmentById(String merchantId, String departmentId);
+    
+    ArrayList<MerchantProfile> findByBusinessType(String businessType);
 
 }

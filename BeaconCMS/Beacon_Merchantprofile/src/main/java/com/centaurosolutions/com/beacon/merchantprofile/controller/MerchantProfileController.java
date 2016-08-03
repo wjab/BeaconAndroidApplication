@@ -89,36 +89,36 @@ public class MerchantProfileController
 	    return response;
 	}
 	
-	  @RequestMapping(method = RequestMethod.GET, value="/{MerchantProfileId}")
-	  public Map<String, Object> getMerchantProfileDetails(@PathVariable("MerchantProfileId") String merchantProfileId)
-	  {
-		  Map<String, Object> response = new LinkedHashMap<String, Object>();
+	@RequestMapping(method = RequestMethod.GET, value="/{MerchantProfileId}")
+	public Map<String, Object> getMerchantProfileDetails(@PathVariable("MerchantProfileId") String merchantProfileId)
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		  
-		  try
-		  {
-			  MerchantProfile merchant = merchantProfileRepository.findOne(merchantProfileId);
-		      if(merchant != null)
-		      {
-		    	  response.put("message", "Perfil de tiendaa encontrado");
-		    	  response.put("merchantProfile", merchant);
-		    	  response.put("status", "200");
-		      }
-		      else
-		      {
-		    	  response.put("message", "Perfil de tiendaa no encontrado");
-				  response.put("merchantProfile", null);
-				  response.put("status", "401");
-		      } 
-		  }
-		  catch(Exception ex)
-		  {
+		try
+		{
+			MerchantProfile merchant = merchantProfileRepository.findOne(merchantProfileId);
+			if(merchant != null)
+			{
+				response.put("message", "Perfil de tiendaa encontrado");
+				response.put("merchantProfile", merchant);
+				response.put("status", "200");
+			}
+			else
+			{
+				response.put("message", "Perfil de tiendaa no encontrado");
+				response.put("merchantProfile", null);
+				response.put("status", "401");
+			} 
+		}
+		catch(Exception ex)
+		{
 			  response.put("message", ex.getMessage());
 			  response.put("merchantProfile", null);
 			  response.put("status", "400");
-		  }
-		  
-		  return response;
-	  }
+		}
+  
+		return response;
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value="/getDepartment")
 	public Map<String, Object> getMerchantProfileDepartment(@RequestBody Map<String, Object> merchantProfileMap){
@@ -207,11 +207,9 @@ public class MerchantProfileController
 		return response;
 	}
 
-
-
-	  @RequestMapping(method = RequestMethod.GET)
-	  public Map<String, Object> getAllMerchantProfileDetails()
-	  {
+	@RequestMapping(method = RequestMethod.GET)
+	public Map<String, Object> getAllMerchantProfileDetails()
+	{
 		  Map<String, Object> response = new LinkedHashMap<String, Object>();
 		  
 		  try
@@ -228,13 +226,13 @@ public class MerchantProfileController
 			  response.put("status", "400");
 		  }
 		  return response;  
-	  }
+	}
 	  
-	  @SuppressWarnings("unchecked")
-	  @RequestMapping(method = RequestMethod.PUT, value="/{MerchantProfileId}")
-	  public Map<String, Object> editMerchantProfile(@PathVariable("MerchantProfileId") String MerchantProfileId,
+	@SuppressWarnings("unchecked")
+	@RequestMapping(method = RequestMethod.PUT, value="/{MerchantProfileId}")
+	public Map<String, Object> editMerchantProfile(@PathVariable("MerchantProfileId") String MerchantProfileId,
 	      @RequestBody Map<String, Object> merchantProfileMap)
-	  {
+	{
 	
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		
@@ -302,11 +300,11 @@ public class MerchantProfileController
 			response.put("status", "400");
 		}
 		return response;  
-	 }
+	}
 	  	  
-	  @RequestMapping(method = RequestMethod.DELETE, value="/{MerchantProfileId}")
-	  public Map<String, String> deleteMerchantProfile(@PathVariable("MerchantProfileId") String merchantProfileId)
-	  {
+	@RequestMapping(method = RequestMethod.DELETE, value="/{MerchantProfileId}")
+	public Map<String, String> deleteMerchantProfile(@PathVariable("MerchantProfileId") String merchantProfileId)
+	{
 		  Map<String, String> response = new HashMap<String, String>();
 		  		  
 		  try
@@ -322,8 +320,56 @@ public class MerchantProfileController
 			  response.put("status", "400");
 		  }
 		  return response; 
-	  }
+	}
 	  
+	@RequestMapping(method = RequestMethod.GET, value = "/allproducts/{businessType}")
+	public Map<String, Object> GetProductsByDepartment(@PathVariable("businessType") String businessType)
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		ArrayList<ExtendedProduct> extendedProductList = new ArrayList<>();
+		
+		try
+		{
+			// Obtener todas las tiendas que tengan cada departamento
+			List<MerchantProfile> merchantProfileModelList = merchantProfileRepository.findByBusinessType(businessType.toUpperCase());
+			
+			for (MerchantProfile merchantProfile : merchantProfileModelList) 
+			{
+				for (Department departmentItem : merchantProfile.departments) 
+				{
+					for (Product productItem : departmentItem.getProducts()) 
+					{
+						ExtendedProduct extendedProduct = new ExtendedProduct(
+								merchantProfile.getId(), 
+								merchantProfile.getBusinessType(), 
+								departmentItem.getId());
+						
+						extendedProduct.setProductId(productItem.getProductId());
+						extendedProduct.setProductName(productItem.getProductName());
+						extendedProduct.setCode(productItem.getCode());
+						extendedProduct.setDetails(productItem.getDetails());
+						extendedProduct.setImageUrlList(productItem.getImageUrlList());
+						extendedProduct.setPrice(productItem.getPrice());
+						
+						extendedProductList.add(extendedProduct);
+					}
+				}
+			}
+			
+			response.put("message", "Total de productos: " + extendedProductList.size());
+			response.put("merchantProfile", extendedProductList);
+			response.put("status", "200");			
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage()); 
+			response.put("merchantProfile", null); 
+			response.put("status", "400");
+		}
+		
+		return response;
+	}
+	
 	private Date DateFormatter(String pDate)
 	{			
 		Date finalDate = new Date();

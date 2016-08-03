@@ -2,6 +2,7 @@ package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantBusinessType;
+import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
 import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantBusinessTypeRepository;
 
 @RestController
@@ -98,7 +100,7 @@ public class MerchantBusinessTypeController
 		try
 		{
 			MerchantBusinessType merchantBusinessType = new MerchantBusinessType(
-					merchantBusinessTypeMap.get("type").toString(), 
+					merchantBusinessTypeMap.get("type").toString().toUpperCase(), 
 					merchantBusinessTypeMap.get("description").toString(), 
 					merchantBusinessTypeMap.get("imageUrl").toString());
 			
@@ -131,9 +133,14 @@ public class MerchantBusinessTypeController
 			if(merchantBusinessType != null)
 			{
 				merchantBusinessType.setDescription(merchantBusinessTypeMap.get("description").toString());
-				merchantBusinessType.setType(merchantBusinessTypeMap.get("type").toString());
+				merchantBusinessType.setType(merchantBusinessTypeMap.get("type").toString().toUpperCase());
+				merchantBusinessType.setType(merchantBusinessTypeMap.get("imageUrl").toString());
 				
 				merchantBusinessTypeRepository.save(merchantBusinessType);
+				
+				response.put("message", "MerchantBusinessType actualizado correctamente"); 
+				response.put("merchantBusinessTypeResult", merchantBusinessType); 
+				response.put("status", "200");
 			}
 			else
 			{
@@ -144,12 +151,12 @@ public class MerchantBusinessTypeController
 		}
 		catch(Exception ex)
 		{
-			response.put("message", "Error al actualizar notificación"); 
+			response.put("message", "Error al actualizar MerchantBusinessType"); 
 			response.put("notificationResult", null); 
 			response.put("status", "500");
 		}
 		
 		return response;
 	}	
-	
+	 	
 }
