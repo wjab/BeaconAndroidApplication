@@ -13,10 +13,11 @@ public class Department
 	private ArrayList<Product> products;
 	private String departmentUrl;
 	
-	public Department(String name, ArrayList<Product> products) 
+	public Department(String name, ArrayList<Product> products, String departmentUrl) 
 	{
 		this.name = name;
 		this.products = products;
+		this.departmentUrl = departmentUrl;
 	}
 
 	public Department(){

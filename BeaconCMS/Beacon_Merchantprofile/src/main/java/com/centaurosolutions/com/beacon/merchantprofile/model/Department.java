@@ -20,9 +20,10 @@ public class Department
 		this.id = UUID.randomUUID().toString();
 	}
 
-	public Department(String name, ArrayList<Product> products) 
+	public Department(String name, ArrayList<Product> products, String departmentUrl) 
 	{
 		this.name = name;
+		this.departmentUrl = departmentUrl;
 		setProducts(products);
 	}
 	
