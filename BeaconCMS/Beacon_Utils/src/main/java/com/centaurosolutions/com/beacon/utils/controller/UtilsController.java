@@ -258,13 +258,13 @@ public class UtilsController
 				}
 			}
 			else{
-				response.put("user", null);
+				response.put("pointsData", null);
 				response.put("status", 404);
 				response.put("message", "Faltan parámetros");
 			}
 		}
 		catch (Exception ex){
-			response.put("user", null);
+			response.put("pointsData", null);
 			response.put("status", 500);
 			response.put("message", ex.getMessage());
 		}
