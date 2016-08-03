@@ -17,7 +17,7 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 /**
  * Created by Centauro on 20/06/2016.
  */
-public class CustomAdapterProductStore extends ArrayAdapter<ProductStore> {
+public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
 
     public Activity contexto;
     //la lista de todos los elementos
@@ -29,8 +29,8 @@ public class CustomAdapterProductStore extends ArrayAdapter<ProductStore> {
 
     // private final Integer[] imgid;
 /// constructor que recive el contexto y la lista de los elementos
-    public CustomAdapterProductStore(Activity contexto, ArrayList<ProductStore> lista) {
-        super(contexto, R.layout.activity_elemento_lista_promo, lista);
+    public CustomAdapterProductDepartment(Activity contexto, ArrayList<ProductStore> lista) {
+        super(contexto, R.layout.element_product, lista);
         // TODO Auto-generated constructor stub
 
         this.contexto = contexto;
@@ -48,10 +48,10 @@ public class CustomAdapterProductStore extends ArrayAdapter<ProductStore> {
     /// adapta los elementos al layout de los element view
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = contexto.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.store_products_element_list, null, true);
+        View rowView = inflater.inflate(R.layout.element_product, null, true);
 
-        TextView name = (TextView) rowView.findViewById(R.id.name);
-        TextView points = (TextView) rowView.findViewById(R.id.points);
+        //TextView name = (TextView) rowView.findViewById(R.id.name);
+        //TextView points = (TextView) rowView.findViewById(R.id.points);
         //ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
         ServiceController imageRequest =  new ServiceController();
 
@@ -59,8 +59,8 @@ public class CustomAdapterProductStore extends ArrayAdapter<ProductStore> {
 
 
        // address.setText(storeList.get(position).getAddress());
-        name.setText(productList.get(position).getProductName());
-        points.setText(productList.get(position).getPrice() + "");
+      //  name.setText(productList.get(position).getProductName());
+       // points.setText(productList.get(position).getPrice() + "");
 
         return rowView;
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class ObtainPointsActivity extends AppCompatActivity {
     private int points;
     private String idUser,userAcumulatedPoints;
     private TextView message;
+    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,15 @@ public class ObtainPointsActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(actionBarLayout);
         message.setText("Felicidades,has obtenido un total de"+points+" puntos para redimir en sus compras");
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        button=(Button)findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentB = new Intent(getApplicationContext(),BackgroundScanActivity.class);
+                startActivity(intentB);
+
+            }
+        });
         pointsAction.setText(userAcumulatedPoints.toString());
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override

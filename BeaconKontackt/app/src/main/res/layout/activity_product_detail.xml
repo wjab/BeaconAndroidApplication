@@ -1,0 +1,148 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/space_rounded">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="360dp"
+                android:background="@drawable/space_rounded"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:id="@+id/imagenDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/space_rounded"
+                    android:src="@drawable/product_one"
+                    android:layout_alignParentEnd="true"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/com_facebook_likeview_text_color"
+                    android:id="@+id/view"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_below="@+id/imagenDetail"
+                    android:layout_alignParentStart="true">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view2"
+                        android:layout_marginTop="30dp"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/linearLayout2">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Nombre"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="15dp"
+                            android:id="@+id/name"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Precio"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="15dp"
+                            android:id="@+id/price"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Detalles"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="5dp"
+                            android:id="@+id/details"
+                            />
+                    </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/linearLayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Nombre"
+                        android:layout_marginBottom="15dp"
+                        android:id="@+id/nameProductDetail"
+                         />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Precio"
+                        android:layout_marginBottom="15dp"
+                        android:id="@+id/priceProductDetail"
+                       />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Detalles"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/detailsProductDetail"
+                        android:lines="3"
+                        />
+                </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/com_facebook_likeview_text_color"
+                    android:id="@+id/view2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+
+
+            </RelativeLayout>
+
+            <!-- The navigation drawer -->
+
+
+
+        </RadioGroup>
+    </ScrollView>
+
+
+</LinearLayout> <!-- The navigation drawer -->

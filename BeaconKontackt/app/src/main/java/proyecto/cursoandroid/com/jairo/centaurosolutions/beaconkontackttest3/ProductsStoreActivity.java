@@ -25,15 +25,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductStore;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterStore;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
 import utils.NonStaticUtils;
 
 public class ProductsStoreActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
-public CustomAdapterProductStore adapter;
+public CustomAdapterProductDepartment adapter;
 public ListView listviewShopProduct;
 public ArrayList<ProductStore> listStoreProductArray;
 private View rootView;
@@ -129,7 +127,7 @@ private View rootView;
                 listStoreProductArray.add(storeProductElement);
             //}
 
-            adapter=new CustomAdapterProductStore(this, listStoreProductArray);
+            adapter=new CustomAdapterProductDepartment(this, listStoreProductArray);
             listviewShopProduct.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();

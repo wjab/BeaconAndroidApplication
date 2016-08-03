@@ -9,6 +9,7 @@ public class ProductStore  implements Serializable {
     private String productId;
     private String productName;
     private float price;
+    private String details;
     //private ArrayList<String> imageUrlList;
 
 
@@ -36,4 +37,11 @@ public class ProductStore  implements Serializable {
         this.price = price;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 }

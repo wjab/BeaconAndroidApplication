@@ -63,8 +63,6 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
 
        imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
 
-
-
         return rowView;
 
     }

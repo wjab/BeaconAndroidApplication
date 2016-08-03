@@ -16,14 +16,9 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="409dp"
+                android:layout_height="360dp"
                 android:background="@drawable/space_rounded"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="5dp"
-
                 >
                 <ImageView
                     android:id="@+id/imagenDetail"
@@ -48,15 +43,15 @@
                     android:orientation="horizontal"
                     android:id="@+id/linearLayout6"
                     android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
 
                     android:layout_below="@+id/imagenDetail"
                     android:weightSum="1">
                     <ImageView
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="64dp"
                         android:id="@+id/imageShopDetail"
-                      android:layout_marginBottom="20dp"
+                      android:layout_marginBottom="10dp"
                         android:layout_alignParentStart="true" />
                     <LinearLayout
                     android:layout_width="wrap_content"
@@ -64,36 +59,74 @@
                     android:orientation="vertical"
                     android:id="@+id/linearLayout5"
                         android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_weight="0.76">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Detalles de la tienda"
-                    android:id="@+id/detailMerchantStoreDetail"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center_horizontal"
-                   />
 
-                <TextView
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="2km"
+                            android:id="@+id/textView2"
+                            android:layout_gravity="right" />
+
+                        <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="merchantName"
                     android:id="@+id/merchantNameStoreDetail"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center_horizontal"
                     />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Detalles de la tienda"
+                            android:id="@+id/detailMerchantStoreDetail"
+                            />
                 </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="81dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/linearLayout4"
-                    android:layout_marginLeft="65dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_below="@+id/view">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Compras"
+                            android:layout_marginRight="40dp"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/purchaseDetailText"
+                            android:textColor="@color/grey"
+                           />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Walk-ins"
+                            android:layout_marginRight="40dp"
+                            android:id="@+id/walkinDetailText"
+                            android:textColor="@color/grey"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grey"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Escaneos"
+                            android:id="@+id/scanDetailText"
+                            />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,6 +136,7 @@
                             android:layout_height="30dp"
                             android:scaleType="fitXY"
                             android:layout_marginRight="55dp"
+                            android:layout_marginLeft="6dp"
                             android:id="@+id/imageView2"
                             android:src="@drawable/purchase_blue"
                             android:layout_centerVertical="true"
@@ -113,7 +147,7 @@
                             android:layout_width="30dp"
                             android:layout_height="40dp"
                             android:scaleType="fitXY"
-                            android:layout_marginRight="55dp"
+                            android:layout_marginRight="53dp"
                             android:id="@+id/imageView3"
                             android:src="@drawable/walk_in_blue"
                             android:layout_below="@+id/imageView2"
@@ -124,7 +158,6 @@
                             android:layout_width="40dp"
                             android:layout_height="30dp"
                             android:scaleType="fitXY"
-                            android:layout_marginRight="55dp"
                             android:id="@+id/imageView4"
                             android:src="@drawable/scan_blue"
                             android:layout_alignTop="@+id/imageView5"
@@ -143,7 +176,8 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="100"
-                            android:layout_marginRight="50dp"
+                            android:layout_marginRight="52dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="50dp"
                             android:id="@+id/purchaseDetail"
                             android:textColor="@color/darkBlue"
@@ -153,14 +187,13 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="50"
-                            android:layout_marginRight="45dp"
+                            android:layout_marginRight="43dp"
                             android:id="@+id/walkinDetail"
                             android:textColor="@color/darkBlue"
                             android:textStyle="bold"/>
                         <TextView
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="55dp"
                             android:textColor="@color/darkBlue"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="80"
@@ -181,9 +214,11 @@
             </RelativeLayout>
 
             <GridView
-                android:layout_width="170dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/departments" />
+                android:id="@+id/departments"
+                android:numColumns="2"
+                android:nestedScrollingEnabled="true" />
             <!-- The navigation drawer -->
 
 

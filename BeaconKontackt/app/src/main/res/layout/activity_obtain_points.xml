@@ -24,7 +24,7 @@
     <Button
 
         android:gravity="center"
-        android:text="Enviar"
+        android:text="Ir al menú principal"
         android:id="@+id/button"
         android:textSize="17dp"
         android:textAllCaps="false"

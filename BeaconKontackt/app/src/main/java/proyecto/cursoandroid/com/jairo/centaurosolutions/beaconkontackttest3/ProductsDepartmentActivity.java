@@ -15,26 +15,26 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import controllers.ServiceController;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterDepartments;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Department;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import utils.NonStaticUtils;
 
-public class DetailShopActivity extends AppCompatActivity {
+public class ProductsDepartmentActivity extends AppCompatActivity {
     Intent intent;
     String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
     GridView grid;
-    CustomAdapterDepartments adapter;
-    private ArrayList<Department> arrayDepartment, ranges;
-    TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin;
-    ImageView imageStore, openHistoryPoints,imageStoreName;
+    CustomAdapterProductDepartment adapter;
+    private ArrayList<ProductStore> ranges;
+    TextView pointsAction, name;
+    ImageView openHistoryPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_shop);
+        setContentView(R.layout.activity_products_department);
 
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -47,40 +47,26 @@ public class DetailShopActivity extends AppCompatActivity {
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
-        Store store = (Store)intent.getSerializableExtra("detailShop");
+        Department department = (Department)intent.getSerializableExtra("department");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
-
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        descriptionMerchant=(TextView)findViewById(R.id.detailMerchantStoreDetail);
-        nameMerchant=(TextView)findViewById(R.id.merchantNameStoreDetail);
-        scan=(TextView)findViewById(R.id.scanDetail);
-        purchase=(TextView)findViewById(R.id.purchaseDetail);
-        walkin=(TextView)findViewById(R.id.walkinDetail);
-
-        imageStoreName = (ImageView) findViewById(R.id.imageShopDetail);
-        imageRequest.imageRequest(store.getUrlImagen(), imageStoreName, 0, 0);
-        imageStore = (ImageView) findViewById(R.id.imagenDetail);
-        imageRequest.imageRequest(store.getUrlImagen(), imageStore, 0, 0);
+        name = (TextView)findViewById(R.id.nameDepartment);
+        name.setText(department.getName());
         pointsAction.setText(userAcumulatedPoints.toString());
-        nameMerchant.setText(store.getMerchantName());
-        scan.setText(store.getTotalGiftPoints().getScan());
-        walkin.setText(store.getTotalGiftPoints().getWalkin());
-        purchase.setText(store.getTotalGiftPoints().getPurchase());
-        descriptionMerchant.setText(store.getAddress());
-        ranges=store.getDepartments();
-        grid= (GridView)findViewById(R.id.departments);
+        ranges=department.getProducts();
+        grid= (GridView)findViewById(R.id.products);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Department department = new Department();
-                department = ranges.get(position);
-                Intent intentSuccess = new Intent(getBaseContext(),ProductsDepartmentActivity.class);
-                intentSuccess.putExtra("department", department);
+                ProductStore product = new ProductStore();
+                product = ranges.get(position);
+                Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
+                intentSuccess.putExtra("product", product);
                 startActivity(intentSuccess);
 
             }
@@ -125,7 +111,7 @@ public class DetailShopActivity extends AppCompatActivity {
     }
     public void chargeDepartments(){
 
-        adapter=new CustomAdapterDepartments(this, ranges);
+        adapter=new CustomAdapterProductDepartment(this, ranges);
         grid.setAdapter(adapter);
     }
 

@@ -121,7 +121,9 @@
         <activity android:name=".DetailShopActivity" />
         <activity android:name=".PointsActivity" />
         <activity android:name=".RedimirRegalarActivity" />
-        <activity android:name=".ObtainPointsActivity"></activity>
+        <activity android:name=".ObtainPointsActivity" />
+        <activity android:name=".ProductsDepartmentActivity" />
+        <activity android:name=".ProductDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -79,8 +79,8 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
         try {
             listStoreArray = new ArrayList<Store>();
-            listDepartments = new ArrayList<Department>();
-            listProductStore =  new ArrayList<ProductStore>();
+
+
             Gson gson= new Gson();
             JSONArray ranges= response.getJSONArray("merchantProfile");
             String range = "";
@@ -90,7 +90,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
             for(int i=0; i < ranges.length(); i++ ){
                 JSONObject currRange = ranges.getJSONObject(i);
-
+                listDepartments = new ArrayList<Department>();
                Store storeElement = new Store();
                 TotalGiftPoints points= new TotalGiftPoints();
                 storeElement.setMerchantName(currRange.getString("merchantName"));
@@ -107,17 +107,21 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
                 JSONArray departaments= currRange.getJSONArray("departments");
                 for(int j=0; j < departaments.length(); j++ ){
-                    JSONObject currDepartament = departaments.getJSONObject(i);
-
+                    JSONObject currDepartament = departaments.getJSONObject(j);
                     Department departmentElement = new Department();
                     departmentElement.setName(currDepartament.getString("name"));
+                    departmentElement.setId(currDepartament.getString("id"));
+                    departmentElement.setUrlDepartment(currDepartament.getString("departmentUrl"));
+                    departmentElement.setUrlImageShop(currRange.getString("image"));
                     JSONArray products= currDepartament.getJSONArray("products");
+                    listProductStore =  new ArrayList<ProductStore>();
                     for(int k=0; k < products.length(); k++ ){
-                        JSONObject currProduct = products.getJSONObject(i);
+                        JSONObject currProduct = products.getJSONObject(k);
                         ProductStore produtctElement = new ProductStore();
                         produtctElement.setPrice(currProduct.getLong("price"));
                         produtctElement.setProductId(currProduct.getString("productId"));
                         produtctElement.setProductName(currProduct.getString("productName"));
+                        produtctElement.setDetails(currProduct.getString("details"));
                         listProductStore.add(produtctElement);
                     }
                     departmentElement.setProducts(listProductStore);

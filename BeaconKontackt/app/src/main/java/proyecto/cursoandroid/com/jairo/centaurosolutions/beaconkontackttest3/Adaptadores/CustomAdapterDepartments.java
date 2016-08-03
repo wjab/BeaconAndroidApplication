@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import controllers.ServiceController;
@@ -50,17 +52,14 @@ public class CustomAdapterDepartments extends ArrayAdapter<Department> {
         LayoutInflater inflater = contexto.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.element_department, null, true);
 
-        TextView walkin = (TextView) rowView.findViewById(R.id.walkin);
+        TextView id = (TextView) rowView.findViewById(R.id.idDepartment);
 
-        //walkin.setText(storeList.get(position).getTotalGiftPoints().getWalkin() + "");
+        id.setText(storeList.get(position).getId());
 
-        ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
-        ServiceController imageRequest =  new ServiceController();
-
-        //imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
-
-
-
+        ImageView image = (ImageView) rowView.findViewById(R.id.shopImage);
+        ImageView imageD = (ImageView) rowView.findViewById(R.id.imageDepartment);
+        Picasso.with(contexto).load(storeList.get(position).getUrlDepartment()).error(R.drawable.product_one).into(imageD);
+        Picasso.with(contexto).load(storeList.get(position).getUrlImageShop()).error(R.drawable.promo).into(image);
         return rowView;
 
     }

@@ -307,7 +307,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
        // setUpActionBarTitle(getString(R.string.foreground_background_scan));
 
 
-
     }
 
       @Override
