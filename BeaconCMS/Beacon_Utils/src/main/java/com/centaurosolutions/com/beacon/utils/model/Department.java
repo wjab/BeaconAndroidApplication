@@ -11,6 +11,7 @@ public class Department
 	String id;
 	private String name;
 	private ArrayList<Product> products;
+	private String departmentUrl;
 	
 	public Department(String name, ArrayList<Product> products) 
 	{
@@ -28,11 +29,10 @@ public class Department
 	public ArrayList<Product> getProducts() { return products; }
 	public void setProducts(ArrayList<Product> products) { this.products = products; }
 
-	public String getId() {
-		return id;
-	}
+	public String getId() {	return id;	}
+	public void setId(String id) { this.id = id; }
+	
+	public String getDepartmentUrl() { return departmentUrl; }
+	public void setDepartmentUrl(String departmentUrl) { this.departmentUrl = departmentUrl; }
 
-	public void setId(String id) {
-		this.id = id;
-	}
 }
