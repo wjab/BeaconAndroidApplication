@@ -9,6 +9,7 @@ public class Product
 	private float price;
 	private ArrayList<String> imageUrlList;
 	private String details;
+	private String code;
 	
 	public Product(){}
 	
@@ -22,12 +23,13 @@ public class Product
 			String productname, 
 			float price, 
 			ArrayList<String> imageurlList, 
-			String details)
+			String details, String code)
 	{
 		this.productName = productname;
 		this.price = price;
 		this.imageUrlList = imageurlList;
 		this.details = details;
+		this.code = code;
 	}
 	
 	
@@ -109,5 +111,21 @@ public class Product
 	public void set (String details)
 	{
 		this.details = details;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }
