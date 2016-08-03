@@ -1,6 +1,5 @@
 package com.centaurosolutions.com.beacon.merchantprofile.model;
 
-import java.util.ArrayList;
 /**
  * @author Jairo
  *

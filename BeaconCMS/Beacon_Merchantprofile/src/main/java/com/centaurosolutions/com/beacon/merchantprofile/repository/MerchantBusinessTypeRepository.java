@@ -7,6 +7,5 @@ import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantBusinessTy
 
 public interface MerchantBusinessTypeRepository extends MongoRepository<MerchantBusinessType, String>
 {	
-	@Query(value = "{ 'type' : ?0")
-	MerchantBusinessType findByMerchantBusinessTypeByName(String type);
+	MerchantBusinessType findByType(String type);
 }

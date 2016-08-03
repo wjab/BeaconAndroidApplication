@@ -51,7 +51,7 @@ public class MerchantBusinessTypeController
 		
 		try
 		{
-			MerchantBusinessType merchantBusinessType = merchantBusinessTypeRepository.findByMerchantBusinessTypeByName(type);
+			MerchantBusinessType merchantBusinessType = merchantBusinessTypeRepository.findByType(type);
 			
 			response.put("message", "MerchantBusinessType"); 
 			response.put("merchantBusinessTypeResult", merchantBusinessType); 
