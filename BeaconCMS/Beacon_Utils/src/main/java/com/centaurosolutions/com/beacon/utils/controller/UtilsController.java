@@ -36,11 +36,11 @@ public class UtilsController
     private final String PROMO_WALKIN = "WALKIN";
     private final String PROMO_PURCHASE = "PURCHASE";
 	private final String NOTIFICATION_PUSH = "PUSH";
-	private NotificationController notificationController = new NotificationController();
+
 
 
 	@Autowired
-	private NotificationRepository notificationRepository;
+	private NotificationController notificationController = new NotificationController();
 
 	@RequestMapping(method = RequestMethod.POST, value="/savePoints")
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> customMap){
@@ -53,7 +53,7 @@ public class UtilsController
 
             if((customMap.get("userId") != null && !customMap.get("userId").toString().isEmpty()) && (customMap.get("promoId") != null && !customMap.get("promoId").toString().isEmpty())){
 
-                setPointsToUser(customMap.get("userId").toString(), customMap.get("promoId").toString(), response );
+                setPointsToUser(customMap.get("userId").toString(), customMap.get("promoId").toString(), response, false );
             }
             else{
 
@@ -613,7 +613,7 @@ public class UtilsController
 		return setUserPoint;
 	}
 
-	public void setPointsToUser(String userId, String promoId, Map<String, Object> response){
+	public void setPointsToUser(String userId, String promoId, Map<String, Object> response, boolean isScan){
 
 		DateDiffValues dateDiffInfo = null;
 		Date dateNow = new Date();
@@ -668,7 +668,14 @@ public class UtilsController
                             response.put("status", 200);
                             response.put("message", "Puntos asignados correctamente");
 
-							 notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ points +" puntos", NOTIFICATION_PUSH);
+							if(isScan){
+
+								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() +" puntos por visitar a nuestros clientes", NOTIFICATION_PUSH);
+							}
+							else{
+
+								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() +" puntos", NOTIFICATION_PUSH);
+							}
 						}
 					}
                     else
@@ -754,7 +761,7 @@ public class UtilsController
 
                 if(promo != null) {
 
-                    setPointsToUser(userId, promo.getId(), response);
+                    setPointsToUser(userId, promo.getId(), response, true);
                 }
                 else {
 

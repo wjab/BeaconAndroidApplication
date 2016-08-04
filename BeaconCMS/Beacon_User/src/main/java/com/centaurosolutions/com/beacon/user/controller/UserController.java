@@ -333,7 +333,7 @@ public class UserController {
 				response.put("user", userRepository.save(user));
 				response.put("status",200);
 
-				notificationResponse = createUserNotification(user.getId(), NOTIFICATION_INFO, "Cambio de contraseña exitoso");
+                createUserNotification(user.getId(), NOTIFICATION_INFO, "Cambio de contraseña exitoso");
 
 
 			} 
