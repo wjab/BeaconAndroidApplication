@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -19,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.User;
 import utils.NonStaticUtils;
 
 public class WelcomeScreen extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
@@ -32,6 +35,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     TextView info;
     String usuario;
     NonStaticUtils nonStaticUtils;
+
 
 
     @Override
@@ -76,6 +80,7 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     }
 
 
+
     @Override
     public void onResponse(JSONObject response) {
 
@@ -104,6 +109,13 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                         currRange.getString("socialNetworkType"),
                         currRange.getString("socialNetworkId"),
                         currRange.getString("pathImage"));
+                SharedPreferences  mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                Gson gson = new Gson();
+                User user = new User( (currRange.getString("name") != null ? currRange.getString("name").toString() : ""), (currRange.getString("lastName") != null ? currRange.getString("lastName").toString() : ""), (currRange.getString("phone") != null ? currRange.getString("phone").toString() : ""), (currRange.getString("email") != null ? currRange.getString("email").toString() : ""), (currRange.getString("gender") != null ? currRange.getString("gender").toString() : ""),"" );
+                String json = gson.toJson(user);
+                prefsEditor.putString("User", json);
+                prefsEditor.commit();
 
                 startActivity(intent);
             }

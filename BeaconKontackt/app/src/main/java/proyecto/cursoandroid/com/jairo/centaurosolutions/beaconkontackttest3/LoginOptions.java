@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -47,6 +48,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import controllers.ServiceController;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.User;
 import utils.NonStaticUtils;
 import utils.Utils;
 
@@ -64,7 +66,8 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
     SharedPreferences prefs;
     NonStaticUtils nonStaticUtils;
     Collection<String> arraysPreferences = new ArrayList<String>(Arrays.asList("email", "user_photos", "public_profile", "user_friends"));
-
+    //Creating a shared preference
+    SharedPreferences  mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     Gson gson = new Gson();
     Type stringStringMap = new TypeToken<Map<String, Object>>(){}.getType();
     Map<String,Object> map;
@@ -355,9 +358,14 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
         mapParams.put("gender",(jsonMap.get("gender") != null ? jsonMap.get("gender").toString() : ""));
         mapParams.put("productWishList", "");
         mapParams.put("pathImage", "");
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        User user = new User( (jsonMap.get("first_name") != null ? jsonMap.get("first_name").toString() : ""), (jsonMap.get("last_name") != null ? jsonMap.get("last_name").toString() : ""), (jsonMap.get("phone") != null ? jsonMap.get("phone").toString() : ""), (jsonMap.get("email") != null ? jsonMap.get("email").toString() : ""), (jsonMap.get("gender") != null ? jsonMap.get("gender").toString() : ""),(jsonMap.get("birthday") != null ? jsonMap.get("birthday").toString() : "") );
+        String json = gson.toJson(user);
+        prefsEditor.putString("User", json);
+        prefsEditor.commit();
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 

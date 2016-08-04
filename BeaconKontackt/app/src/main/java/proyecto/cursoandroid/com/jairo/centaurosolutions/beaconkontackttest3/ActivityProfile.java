@@ -3,10 +3,12 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 
 import controllers.ServiceController;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.User;
 
 
 public class ActivityProfile extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -211,83 +214,37 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     @SuppressWarnings("deprecation")
     public void getinfo() {
 
-        callbackmanager = CallbackManager.Factory.create();
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-
-        // Set permissions
-        LoginManager.getInstance().logInWithReadPermissions(this, permissionNeeds);
-
-
-        LoginManager.getInstance().registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-                System.out.println("------- Success -------");
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "email,gender,first_name,last_name,name,id,birthday");
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject json, GraphResponse response) {
-                                if (response.getError() != null) {
-                                    // handle error
-
-                                } else {
-                                    try {
-                                        String jsonresult = String.valueOf(json);
-                                        System.out.println("JSON Result" + jsonresult);
-                                        map = gson.fromJson(jsonresult, stringStringMap);
-                                        if (map.get("first_name") != null) {
-                                            editName.setText(json.getString("first_name"));
-                                        }
-                                        if (map.get("last_name") != null) {
-                                            editLastName.setText(json.getString("last_name"));
-                                        }
-                                        if (map.get("email") != null) {
-                                            editEmail.setText(json.getString("email"));
-                                        }
-                                        if (map.get("gender") != null) {
-                                            String gender = json.getString("gender");
-                                            if (gender.equals("male")) {
-                                                male.setChecked(true);
-                                                female.setChecked(false);
-                                            } else {
-                                                male.setChecked(false);
-                                                female.setChecked(true);
-                                            }
-                                        }
-                                        editPhone.setText("No disponible");
-                                        if (map.get("birthday") != null) {
-                                            String gender = json.getString("birthday");
-                                            String[] array = gender.split("/");
-                                            showDate(formatDate(Integer.parseInt(array[1]), Integer.parseInt(array[0]), Integer.parseInt(array[2])));
-
-                                        }
-                                        enableForm();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-
-                        });
-                request.setParameters(parameters);
-                request.executeAsync();
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Gson gson = new Gson();
+        String json = mPrefs.getString("User", "");
+        User user = gson.fromJson(json, User.class);
+        if (!user.getName().equals("")) {
+            editName.setText(user.getName());
+        }
+        if (!user.getLastName().equals("")) {
+            editName.setText(user.getLastName());
+        }
+        if (!user.getEmail().equals("")) {
+            editName.setText(user.getEmail());
+        }
+        if (!user.getGender().equals("")) {
+            String gender = user.getGender();
+            if (gender.equals("male")) {
+                male.setChecked(true);
+                female.setChecked(false);
+            } else {
+                male.setChecked(false);
+                female.setChecked(true);
             }
+        }
+        editPhone.setText("No disponible");
+        if (!user.getBirthday().equals("")) {
+            String gender = user.getBirthday();
+            String[] array = gender.split("/");
+            showDate(formatDate(Integer.parseInt(array[1]), Integer.parseInt(array[0]), Integer.parseInt(array[2])));
 
-            @Override
-            public void onCancel() {
-                Log.d("onCancel", "On cancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("onError", error.toString());
-            }
-        });
-
-
+        }
+        enableForm();
     }
 
     public void enableForm() {
