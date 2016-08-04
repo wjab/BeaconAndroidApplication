@@ -75,7 +75,11 @@ public class NotificationController
 		
 		try
 		{
-			Notification notification = CreateNotification(notificationMap);
+			Notification notification = CreateNotification(
+					notificationMap.get("userId").toString(),
+					notificationMap.get("message").toString(), 
+					notificationMap.get("type").toString()
+					);
 			
 			response.put("message", "Notificación guardada correctamente"); 
 			response.put("notificationResult", notification); 
@@ -91,12 +95,12 @@ public class NotificationController
 		return response;
 	}
 
-	public Notification CreateNotification(Map<String, Object> notificationMap) 
+	public Notification CreateNotification(String userId, String message, String type) 
 	{
 		Notification notification = new Notification(
-				notificationMap.get("userId").toString(),
-				notificationMap.get("message").toString(), 
-				notificationMap.get("type").toString(), 
+				userId,
+				message,
+				type,
 				false, 
 				new Date(), 
 				null);
