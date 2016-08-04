@@ -27,7 +27,7 @@ public class MerchantProfile {
 	public String latitude ;
 	public String longitude;
 
-	@DBRef
+	
 	public ArrayList<Department> departments;
 	public TotalGiftPoints totalGiftPoints;
 	

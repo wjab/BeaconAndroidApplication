@@ -1,6 +1,7 @@
 package com.centaurosolutions.com.beacon.merchantprofile.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * @author Jairo
@@ -16,7 +17,9 @@ public class Product
 	private String details;
 	private String code;
 
-	public Product(){}
+	public Product(){
+		this.productId = UUID.randomUUID().toString();
+	}
 
 	/**
 	 * @param productname

@@ -35,14 +35,17 @@ public class MerchantProfileController
 			ArrayList<Department> departments = new ArrayList<Department>();
 			TotalGiftPoints totalGiftPoints = new TotalGiftPoints();
 			ObjectMapper mapper = new ObjectMapper();
-			if(merchantProfileMap.get("contacts") != null)
+			if(merchantProfileMap.get("contactNumbers") != null)
 			{
-				contacts = (ArrayList<MerchantContactData>) merchantProfileMap.get("contacts");
+				contacts = mapper.convertValue(merchantProfileMap.get("contactNumbers"),
+						new TypeReference<ArrayList<MerchantContactData>>() { });
 			}
 			
 			if(merchantProfileMap.get("users") != null)
 			{
-				users = (ArrayList<MerchantUser>) merchantProfileMap.get("users");
+				users = mapper.convertValue(merchantProfileMap.get("users"),
+						new TypeReference<ArrayList<MerchantUser>>() { });
+						
 			}
 			if(merchantProfileMap.get("departments") != null)
 			{
@@ -51,7 +54,7 @@ public class MerchantProfileController
 			}
 			if(merchantProfileMap.get("totalGiftPoints") != null)
 			{
-				mapper = new ObjectMapper();
+				
 				totalGiftPoints = mapper.convertValue(merchantProfileMap.get("totalGiftPoints"), new TypeReference<TotalGiftPoints>() { });
 			}
 			
@@ -67,8 +70,8 @@ public class MerchantProfileController
 				    users,
 				    Boolean.valueOf(merchantProfileMap.get("enable").toString()),
 				    Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
-				    new Date(),
-				    null,
+				    DateFormatter(merchantProfileMap.get("creationDate").toString()),
+					DateFormatter(merchantProfileMap.get("modifiedDate").toString()), 
 				    merchantProfileMap.get("updatedBy").toString(),
 				    merchantProfileMap.get("latitude").toString(),
 				    merchantProfileMap.get("longitude").toString(),
