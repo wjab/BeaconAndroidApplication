@@ -2,7 +2,6 @@ package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantBusinessType;
-import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantProfile;
 import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantBusinessTypeRepository;
 
 @RestController
