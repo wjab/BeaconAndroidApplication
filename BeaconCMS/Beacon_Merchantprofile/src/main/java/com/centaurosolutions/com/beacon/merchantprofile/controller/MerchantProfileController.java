@@ -70,13 +70,14 @@ public class MerchantProfileController
 				    users,
 				    Boolean.valueOf(merchantProfileMap.get("enable").toString()),
 				    Integer.parseInt(merchantProfileMap.get("pointsToGive").toString()),
-				    DateFormatter(merchantProfileMap.get("creationDate").toString()),
-					DateFormatter(merchantProfileMap.get("modifiedDate").toString()), 
-				    merchantProfileMap.get("updatedBy").toString(),
+			        new Date(),
+			        null,
+			        merchantProfileMap.get("updatedBy").toString(),
 				    merchantProfileMap.get("latitude").toString(),
 				    merchantProfileMap.get("longitude").toString(),
 				    departments,
 				    totalGiftPoints);
+			
 			
 			merchantProfileRepository.save(merchantProfileModel);
 			response.put("message", "Perfil de Tiendas creado correctamente");
