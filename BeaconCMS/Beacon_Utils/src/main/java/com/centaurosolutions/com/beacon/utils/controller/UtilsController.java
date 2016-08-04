@@ -942,7 +942,7 @@ public class UtilsController
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
-            ResponseEntity<PromoResponse> out = restTemplate.exchange(urlPromo+"/promo/product", HttpMethod.POST, entity , PromoResponse.class);
+            ResponseEntity<PromoResponse> out = restTemplate.exchange(urlPromo+"/product", HttpMethod.POST, entity , PromoResponse.class);
             promoResponse =  out.getBody();
         }
         catch(Exception ex)
