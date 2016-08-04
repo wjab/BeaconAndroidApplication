@@ -96,6 +96,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                 storeElement.setMerchantName(currRange.getString("merchantName"));
                 storeElement.setAddress(currRange.getString("address"));
                 storeElement.setPointToGive(currRange.getInt("pointsToGive"));
+                storeElement.setCity(currRange.getString("city"));
                 storeElement.setAddress(currRange.getString("address"));
                JSONObject elementPoints=currRange.getJSONObject("totalGiftPoints");
                 points.setWalkin(elementPoints.getString("walkin"));

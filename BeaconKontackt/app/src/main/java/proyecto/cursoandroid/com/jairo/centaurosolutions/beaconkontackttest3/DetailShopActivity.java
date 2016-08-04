@@ -67,7 +67,7 @@ public class DetailShopActivity extends AppCompatActivity {
         imageStore = (ImageView) findViewById(R.id.imagenDetail);
         imageRequest.imageRequest(store.getUrlImagen(), imageStore, 0, 0);
         pointsAction.setText(userAcumulatedPoints.toString());
-        nameMerchant.setText(store.getMerchantName());
+        nameMerchant.setText(store.getCity());
         scan.setText(store.getTotalGiftPoints().getScan());
         walkin.setText(store.getTotalGiftPoints().getWalkin());
         purchase.setText(store.getTotalGiftPoints().getPurchase());

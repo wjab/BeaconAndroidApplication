@@ -8,10 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.ProductsDepartmentActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
 /**
@@ -46,21 +49,25 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
     }
 
     /// adapta los elementos al layout de los element view
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         LayoutInflater inflater = contexto.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.element_product, null, true);
-
-        //TextView name = (TextView) rowView.findViewById(R.id.name);
-        //TextView points = (TextView) rowView.findViewById(R.id.points);
-        //ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
         ServiceController imageRequest =  new ServiceController();
+        final ImageView imageHeard=(ImageView)rowView.findViewById(R.id.addProduct);
+        //Bucar en la lista de productos si se encuentra alguno añadido cambiar el corazon
+        imageHeard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            String productId=productList.get(position).getProductId();
+            String productName=productList.get(position).getProductName();
+            float price=productList.get(position).getPrice();
+                ProductsDepartmentActivity productDepartmentActivity= new ProductsDepartmentActivity();
+                productDepartmentActivity.service(productId, productName, price);
+            }
+        });
 
-        //imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);
 
 
-       // address.setText(storeList.get(position).getAddress());
-      //  name.setText(productList.get(position).getProductName());
-       // points.setText(productList.get(position).getPrice() + "");
 
         return rowView;
 

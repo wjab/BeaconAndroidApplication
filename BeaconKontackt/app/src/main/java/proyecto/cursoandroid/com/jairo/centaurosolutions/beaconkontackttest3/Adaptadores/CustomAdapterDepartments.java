@@ -1,9 +1,11 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +60,8 @@ public class CustomAdapterDepartments extends ArrayAdapter<Department> {
 
         ImageView image = (ImageView) rowView.findViewById(R.id.shopImage);
         ImageView imageD = (ImageView) rowView.findViewById(R.id.imageDepartment);
+
+
         Picasso.with(contexto).load(storeList.get(position).getUrlDepartment()).error(R.drawable.product_one).into(imageD);
         Picasso.with(contexto).load(storeList.get(position).getUrlImageShop()).error(R.drawable.promo).into(image);
         return rowView;
