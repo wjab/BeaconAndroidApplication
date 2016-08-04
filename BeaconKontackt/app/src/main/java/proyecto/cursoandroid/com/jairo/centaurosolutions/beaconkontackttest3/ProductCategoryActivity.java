@@ -50,7 +50,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_category);
-
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -87,7 +86,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
                 startActivity(intentSuccess);
-
             }
         });
         pointsAction.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +132,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         serviceController = new ServiceController();
         responseError = this;
         response = this;
-
         Map<String, String> nullMap = new HashMap<String, String>();
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = getString(R.string.WebService_MerchantProfile)+"merchantprofile/allproducts/"+nameCategory;
@@ -144,25 +140,22 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
 
     }
 
-
-
     public void service(String productId,String productName,float price){
         serviceController = new ServiceController();
         responseError = this;
         response = this;
-
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("userId",idUser);
         mapParams.put("productId", productId);
         mapParams.put("productName",productName);
         mapParams.put("price",price);
         mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = webServiceUser+"user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
+
     @Override
     public void onErrorResponse(VolleyError error) {
 
@@ -184,10 +177,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 listArray = new ArrayList<ProductStore>();
                 Gson gson = new Gson();
                 JSONArray ranges = response.getJSONArray("merchantProfile");
-
                 for (int i = 0; i < ranges.length(); i++) {
                     JSONObject currRange = ranges.getJSONObject(i);
-
                     ProductStore element = new ProductStore();
                     element.setProductId(currRange.getString("productId"));
                     element.setProductName(currRange.getString("productName"));
@@ -198,9 +189,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 adapter=new CustomAdapterProductDepartment(context, listArray,2);
                 grid.setAdapter(adapter);
             }
-
         } catch (JSONException e) {
-
             Toast.makeText(context, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }

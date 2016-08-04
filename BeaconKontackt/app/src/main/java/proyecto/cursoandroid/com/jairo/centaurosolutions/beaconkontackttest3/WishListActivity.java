@@ -74,8 +74,6 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             }
                 response=response.getJSONObject("user");
                 JSONArray ranges= response.getJSONArray("productWishList");
-
-
                 listArray= new ArrayList<Wish>();
                 for(int i=0; i < ranges.length(); i++ ){
                     Wish element = new Wish();
@@ -93,9 +91,6 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             if(ranges.length()==0)
             {
               Toast.makeText(context, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
-                
-
-                Log.d("TAG", "ELSEEEEE");
             }
         }
         catch (JSONException e)
