@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.ProductCategoryActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.ProductsDepartmentActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
@@ -27,18 +28,20 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
     public ArrayList<ProductStore> productList;
     // la lista de los elementos filtrados
     public ArrayList<ProductStore> mStringFilterList;
+    public int activity;
 
 
 
     // private final Integer[] imgid;
 /// constructor que recive el contexto y la lista de los elementos
-    public CustomAdapterProductDepartment(Activity contexto, ArrayList<ProductStore> lista) {
+    public CustomAdapterProductDepartment(Activity contexto, ArrayList<ProductStore> lista, int activity) {
         super(contexto, R.layout.element_product, lista);
         // TODO Auto-generated constructor stub
 
         this.contexto = contexto;
         this.productList = lista;
         this.mStringFilterList = lista;
+        this.activity=activity;
 
     }
 
@@ -61,8 +64,15 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
             String productId=productList.get(position).getProductId();
             String productName=productList.get(position).getProductName();
             float price=productList.get(position).getPrice();
-                ProductsDepartmentActivity productDepartmentActivity= new ProductsDepartmentActivity();
-                productDepartmentActivity.service(productId, productName, price);
+                if(activity==1) {
+                    ProductsDepartmentActivity productDepartmentActivity = new ProductsDepartmentActivity();
+                    productDepartmentActivity.service(productId, productName, price);
+                }
+                else
+                {
+                    ProductCategoryActivity productDepartmentActivity = new ProductCategoryActivity();
+                    productDepartmentActivity.service(productId, productName, price);
+                }
             }
         });
 

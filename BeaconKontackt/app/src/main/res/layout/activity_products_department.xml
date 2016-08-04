@@ -30,24 +30,57 @@
         android:src="@drawable/department"
         android:layout_alignParentEnd="true"
         />
-
-    </RelativeLayout>
-
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="15dp">
+            android:background="@drawable/gradient"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@+id/imagenDetail"
+            android:layout_alignParentStart="true">
+
+
             <TextView
+                android:text="@string/promo_description"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:gravity="center_horizontal|bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameDepartment"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="10000"
+                android:textSize="15dp"
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:id="@+id/puntosPromo"
+                android:textIsSelectable="false"
+                android:layout_marginRight="23dp"
+                android:layout_marginTop="25dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="11dp"
+                android:layout_gravity="end|center" />
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Nombre departamento"
-                android:id="@+id/nameDepartment"
-                android:layout_gravity="center_horizontal" />
+                android:layout_marginTop="42dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_add"
+                />
+
+
         </LinearLayout>
+    </RelativeLayout>
+
 
         <GridView
         android:layout_width="match_parent"

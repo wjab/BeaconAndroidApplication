@@ -33,7 +33,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
     public ListView listView;
     public ArrayList<Category> listArray;
     private View rootView;
-
+    private String nameCategory,urlImage;
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -54,15 +54,16 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              /*  Category promo = new Category();
-                promo = listArray.get(position);
-                Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
-                intentSuccess.putExtra("Detail", promo);
+                nameCategory = listArray.get(position).getType();
+                urlImage = listArray.get(position).getUrlImage();
+                Intent intentSuccess = new Intent(getActivity().getBaseContext(), ProductCategoryActivity.class);
+                intentSuccess.putExtra("name", nameCategory);
+                intentSuccess.putExtra("urlImage", urlImage);
                 startActivity(intentSuccess);
-                */
+
             }
         });
-        promoService();
+        service();
         return rootView;
 
     }
@@ -107,7 +108,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
     Response.ErrorListener responseError;
 
 
-    public void promoService(){
+    public void service(){
         serviceController = new ServiceController();
         responseError = this;
         response = this;

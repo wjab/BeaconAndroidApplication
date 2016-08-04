@@ -1,5 +1,6 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +17,10 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,29 +30,27 @@ import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Department;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import utils.NonStaticUtils;
 
-public class ProductsDepartmentActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class ProductCategoryActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
     Intent intent;
-    String mpoints, userAcumulatedPoints;
+    String mpoints, userAcumulatedPoints,nameCategory,urlImage;
     private static String webServiceUser;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     private static String idUser;
     GridView grid;
+    public ArrayList<ProductStore> listArray;
     CustomAdapterProductDepartment adapter;
-    private ArrayList<ProductStore> ranges;
     TextView pointsAction, name;
-    ImageView openHistoryPoints;
-    private static Context context;
-    private int activity;
+    ImageView openHistoryPoints,imageCategory;
+    private static Activity context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products_department);
-        activity=1;
+        setContentView(R.layout.activity_product_category);
+
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,24 +63,27 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         idUser = preferences.getString("userId", "");
         intent = getIntent();
         context=this;
-        Department department = (Department)intent.getSerializableExtra("department");
+        nameCategory=intent.getStringExtra("name");
+        name = (TextView)findViewById(R.id.nameCategory);
+        name.setText(nameCategory);
+        urlImage=intent.getStringExtra("urlImage");
+        nameCategory=nameCategory.toLowerCase();
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        imageCategory=(ImageView)findViewById(R.id.imageCategory);
+        Picasso.with(context).load(urlImage).error(R.drawable.department).into(imageCategory);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        name = (TextView)findViewById(R.id.nameDepartment);
-        name.setText(department.getName());
         pointsAction.setText(userAcumulatedPoints.toString());
-        ranges=department.getProducts();
-        grid= (GridView)findViewById(R.id.products);
+        grid= (GridView)findViewById(R.id.productsCategory);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ProductStore product = new ProductStore();
-                product = ranges.get(position);
+                product =listArray.get(position);
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
                 startActivity(intentSuccess);
@@ -122,15 +126,25 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
-    public void chargeDepartments(){
-
-        adapter=new CustomAdapterProductDepartment(this, ranges,activity);
-        grid.setAdapter(adapter);
-    }
-
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
+
+    public void chargeDepartments(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
+        Map<String, String> nullMap = new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_MerchantProfile)+"merchantprofile/allproducts/"+nameCategory;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+
+    }
+
+
 
     public void service(String productId,String productName,float price){
         serviceController = new ServiceController();
@@ -158,19 +172,37 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     public void onResponse(JSONObject response) {
         try {
 
-                if (response.getString("message").toString().equals("User updated"))
-                {
-                    Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
+            if (response.getString("message").toString().equals("User updated"))
+            {
+                Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
+            }
+            else if (response.getString("message").toString().equals("Product already added to wishlist"))
+            {
+                Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                listArray = new ArrayList<ProductStore>();
+                Gson gson = new Gson();
+                JSONArray ranges = response.getJSONArray("merchantProfile");
+
+                for (int i = 0; i < ranges.length(); i++) {
+                    JSONObject currRange = ranges.getJSONObject(i);
+
+                    ProductStore element = new ProductStore();
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setDetails(currRange.getString("details"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArray.add(element);
                 }
-                if (response.getString("message").toString().equals("Product already added to wishlist"))
-                {
-                    Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
-                }
+                adapter=new CustomAdapterProductDepartment(context, listArray,2);
+                grid.setAdapter(adapter);
+            }
+
         } catch (JSONException e) {
 
             Toast.makeText(context, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
-
 }

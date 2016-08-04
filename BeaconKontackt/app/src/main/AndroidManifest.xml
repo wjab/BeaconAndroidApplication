@@ -123,7 +123,8 @@
         <activity android:name=".RedimirRegalarActivity" />
         <activity android:name=".ObtainPointsActivity" />
         <activity android:name=".ProductsDepartmentActivity" />
-        <activity android:name=".ProductDetailActivity"></activity>
+        <activity android:name=".ProductDetailActivity" />
+        <activity android:name=".ProductCategoryActivity"></activity>
     </application>
 
 </manifest>

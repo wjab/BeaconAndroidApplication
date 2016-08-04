@@ -127,7 +127,7 @@ private View rootView;
                 listStoreProductArray.add(storeProductElement);
             //}
 
-            adapter=new CustomAdapterProductDepartment(this, listStoreProductArray);
+            adapter=new CustomAdapterProductDepartment(this, listStoreProductArray,0);
             listviewShopProduct.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
