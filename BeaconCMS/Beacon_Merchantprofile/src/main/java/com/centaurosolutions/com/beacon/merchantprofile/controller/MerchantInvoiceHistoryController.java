@@ -1,16 +1,11 @@
 package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
+import com.centaurosolutions.com.beacon.merchantprofile.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.centaurosolutions.com.beacon.merchantprofile.model.MerchantInvoiceHistory;
 import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantInvoiceHistoryRepository;
 
 @RestController
@@ -57,6 +52,60 @@ public class MerchantInvoiceHistoryController
 			response.put("status", "500");
 		}		  
   
+		return response;
+	}
+
+
+	@RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
+	public Map<String, Object> GetHistoryByUserId(@PathVariable("userId") String userId)
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+
+		try
+		{
+			List<MerchantInvoiceHistory> merchantInvoiceModelList =  merchantInvoiceHistoryRepository.findByUserId(userId);
+
+			if(merchantInvoiceModelList.size() > 0) {
+
+				response.put("message", "Total de registros: " + merchantInvoiceModelList.size());
+				response.put("invoiceHistory", merchantInvoiceModelList);
+				response.put("status", "200");
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("invoiceHistory", null);
+			response.put("status", "500");
+		}
+
+		return response;
+	}
+
+
+	@RequestMapping(method = RequestMethod.GET, value = "/merchant/{merchantId}")
+	public Map<String, Object> GetHistoryByMerchantId(@PathVariable("merchantId") String userId)
+	{
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+
+		try
+		{
+			List<MerchantInvoiceHistory> merchantInvoiceModelList =  merchantInvoiceHistoryRepository.findByMerchantId(userId);
+
+			if(merchantInvoiceModelList.size() > 0){
+
+				response.put("message", "Total de registros: " + merchantInvoiceModelList.size());
+				response.put("invoiceHistory", merchantInvoiceModelList);
+				response.put("status", "500");
+			}
+		}
+		catch(Exception ex)
+		{
+			response.put("message", ex.getMessage());
+			response.put("invoiceHistory", null);
+			response.put("status", "400");
+		}
+
 		return response;
 	}
 	  
