@@ -182,5 +182,7 @@
     <string name="obtainPoints">Obtén aquí tus puntos, ingresando el código!</string>
     <string name="redimirPuntos">Muestra este código en cajas, a la hora de realizar tu pago, para redimir puntos !</string>
 
+    <string name="textoIntentScan">Código de Barras</string>
+    <string name="codigoNoEscaneado">Código no escaneado</string>
 
 </resources>
