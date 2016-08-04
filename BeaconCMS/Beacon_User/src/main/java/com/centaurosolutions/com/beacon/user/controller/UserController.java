@@ -1,12 +1,13 @@
 package com.centaurosolutions.com.beacon.user.controller;
 
-import com.centaurosolutions.com.beacon.user.model.User;
-import com.centaurosolutions.com.beacon.user.model.Wish;
+import com.centaurosolutions.com.beacon.user.model.*;
 import com.centaurosolutions.com.beacon.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.centaurosolutions.com.beacon.user.model.Preferences;
+import org.springframework.web.client.RestTemplate;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -22,6 +23,9 @@ public class UserController {
 	private UserRepository userRepository;
 
 	private String LOCAL_USER = "localuser";
+
+	private final String urlNotification = "http://butilsdevel.cfapps.io/notification";
+    private final String NOTIFICATION_INFO = "INFO";
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> userMap) {
@@ -315,6 +319,7 @@ public class UserController {
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		User user;
+		NotificationResponse notificationResponse;
 		
 		try
 		{
@@ -327,6 +332,10 @@ public class UserController {
 				response.put("message", "Password updated");
 				response.put("user", userRepository.save(user));
 				response.put("status",200);
+
+				notificationResponse = createUserNotification(user.getId(), NOTIFICATION_INFO, "Cambio de contraseña exitoso");
+
+
 			} 
 			else 
 			{
@@ -839,6 +848,36 @@ public class UserController {
 
 		return response;
 	}
+
+
+	public NotificationResponse createUserNotification(String userId, String type, String message){
+
+		NotificationResponse notificationResponse =  null;
+		Map<String, Object> mainEntity = new LinkedHashMap<String, Object>();
+
+		try
+		{
+
+			mainEntity.put("userId", userId);
+			mainEntity.put("message", message);
+			mainEntity.put("type", type);
+
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<LinkedHashMap<String, Object>> entity = new HttpEntity(mainEntity , headers);
+			ResponseEntity<NotificationResponse> out = restTemplate.exchange(urlNotification , HttpMethod.POST, entity , NotificationResponse.class);
+			notificationResponse =  out.getBody();
+		}
+		catch(Exception ex)
+		{
+
+		}
+
+		return notificationResponse;
+
+	}
+
 		
 
 }
