@@ -75,14 +75,7 @@ public class NotificationController
 		
 		try
 		{
-			Notification notification = new Notification(
-					notificationMap.get("userId").toString(),
-					notificationMap.get("message").toString(), 
-					notificationMap.get("type").toString(), 
-					false, 
-					new Date(), 
-					null);
-			notificationRepository.save(notification);
+			Notification notification = CreateNotification(notificationMap);
 			
 			response.put("message", "Notificación guardada correctamente"); 
 			response.put("notificationResult", notification); 
@@ -96,6 +89,19 @@ public class NotificationController
 		}
 		
 		return response;
+	}
+
+	public Notification CreateNotification(Map<String, Object> notificationMap) 
+	{
+		Notification notification = new Notification(
+				notificationMap.get("userId").toString(),
+				notificationMap.get("message").toString(), 
+				notificationMap.get("type").toString(), 
+				false, 
+				new Date(), 
+				null);
+		notificationRepository.save(notification);
+		return notification;
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{notificationId}" )
