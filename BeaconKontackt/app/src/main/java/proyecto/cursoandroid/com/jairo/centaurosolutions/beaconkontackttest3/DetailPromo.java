@@ -2,34 +2,25 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import controllers.ServiceController;
 import model.cache.BeaconCache;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterWish;
@@ -48,11 +39,11 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     String idMechantProfile;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-
     public CustomAdapterWish adapter;
     public ListView listView;
     public ArrayList<Wish> listArray;
     String idUser;
+    Promociones promo;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -89,7 +80,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         share=(ImageView)findViewById(R.id.share);
         wish=(Button)findViewById(R.id.wishButton);
-        Promociones promo = (Promociones)intent.getSerializableExtra("Detail");
+        promo= (Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
         points.setText(promo.getPuntos() + " pts");
         tituloPromo.setText(promo.getTitulo());
@@ -98,7 +89,6 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         imageRequest.imageRequest(promo.getUrlImagen(), imagenPromo, 0, 0);
         final String description= descripcionPromo.getText().toString()+" "+promo.getUrlImagen();
         final String image=promo.getUrlImagen();
-
         openHistoryPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,10 +118,9 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         wish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                service();
+               searchProductPromo();
             }
         });
-
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +129,6 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 intent.putExtra(Intent.EXTRA_TEXT, description);
 
                 startActivity(Intent.createChooser(intent, "Share with"));
-
             }
         });
 
@@ -209,7 +197,17 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     @Override
     public void onResponse(JSONObject response) {
         try {
-            if(response.getString("message").toString().equals("Perfil de tiendaa encontrado")) {
+            if(response.getString("message").equals("null")){
+                response=response.getJSONObject("productData");
+                response=response.getJSONObject("product");
+                String id,name;
+                int price;
+                id=response.getString("productId");
+                name=response.getString("productName");
+                price=response.getInt("price");
+                service(id,name,price);
+            }
+            else if(response.getString("message").toString().equals("Perfil de tiendaa encontrado")) {
               response=response.getJSONObject("merchantProfile");
                 descriptionMerchant.setText(response.getString("address"));
                 nameMerchant.setText(response.getString("merchantName"));
@@ -234,30 +232,39 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
-    public void service(){
+    public void service(String productId, String productName,int price){
         serviceController = new ServiceController();
         responseError = this;
         response = this;
-
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("userId",idUser);
-        mapParams.put("productId", "evga0001");
-        mapParams.put("productName", "EVGA GeForce GTX 950 FTW GAMING ACX 2.0");
-        mapParams.put("price", 230000);
+        mapParams.put("productId",productId);
+        mapParams.put("productName", productName);
+        mapParams.put("price",price);
         mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = getString(R.string.WebService_User)+"user/wishlist/add";
+        serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
+    }
+    public void searchProductPromo(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+        Map<String, Object> mapParams = new HashMap<>();
+        mapParams.put("merchantId","");
+        mapParams.put("productId", "");
+        mapParams.put("promoId",promo.getId());
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_Utils)+"utils/product/getdata";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
     public void dataMerchant(){
         serviceController = new ServiceController();
         responseError = this;
         response = this;
-
         Map<String, String> nullMap = new HashMap<String, String>();
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = getString(R.string.WebService_MerchantProfile)+"merchantprofile/"+idMechantProfile;
