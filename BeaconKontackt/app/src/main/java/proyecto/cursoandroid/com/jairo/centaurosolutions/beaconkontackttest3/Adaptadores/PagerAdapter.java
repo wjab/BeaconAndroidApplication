@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.CategoryFragment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PromoFragment;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.ProductsFragment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.ShopFragment;
 
 /**
@@ -28,7 +28,7 @@ public class PagerAdapter  extends FragmentStatePagerAdapter {
                 frag=new ShopFragment();
                 break;
             case 2:
-                frag=new ProductsFragment();
+                frag=new CategoryFragment();
                 break;
         }
         return frag;

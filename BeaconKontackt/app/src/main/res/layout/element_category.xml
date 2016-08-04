@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/transparent" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="170dp"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/imageCategory"
+        android:src="@drawable/department"
+        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:baselineAligned="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/imageCategory"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:text="@string/promo_description"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:gravity="center_horizontal|bottom"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/descriptionCategory"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
