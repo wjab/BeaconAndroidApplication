@@ -2,6 +2,7 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,28 +25,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapterImage;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import utils.NonStaticUtils;
 
 public class ProductDetailActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
     Intent intent;
-    String mpoints, userAcumulatedPoints;
+    private String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    String idUser;
+    private String idUser;
     CustomAdapterProductDepartment adapter;
-    TextView pointsAction,name,price,details;
-    ImageView openHistoryPoints;
-    Button addImage;
+    private TextView pointsAction,name,price,details;
+    private ImageView openHistoryPoints;
+    private Button addImage;
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
-    ProductStore product;
+    private ProductStore product;
+    private ViewPager pager;
+    private ImageView photo;
+    private ArrayList<String> images;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +80,14 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         name=(TextView)findViewById(R.id.nameProductDetail);
         price=(TextView)findViewById(R.id.priceProductDetail);
         details=(TextView)findViewById(R.id.detailsProductDetail);
+        photo = (ImageView) findViewById(R.id.photo);
+        pager = (ViewPager) findViewById(R.id.pager);
         pointsAction.setText(userAcumulatedPoints.toString());
         name.setText(product.getProductName());
         price.setText(Float.toString(product.getPrice()));
         details.setText(product.getDetails());
-
+        images=product.getImageUrlList();
+        pager.setAdapter(new PagerAdapterImage(this, images));
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,10 +111,11 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               service();
+                service();
             }
         });
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();

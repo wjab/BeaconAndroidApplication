@@ -1,6 +1,7 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Centauro on 20/06/2016.
@@ -10,7 +11,7 @@ public class ProductStore  implements Serializable {
     private String productName;
     private float price;
     private String details;
-    //private ArrayList<String> imageUrlList;
+    private ArrayList<String> imageUrlList;
 
 
     public String getProductId() {
@@ -43,5 +44,13 @@ public class ProductStore  implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public ArrayList<String> getImageUrlList() {
+        return imageUrlList;
+    }
+
+    public void setImageUrlList(ArrayList<String> imageUrlList) {
+        this.imageUrlList = imageUrlList;
     }
 }

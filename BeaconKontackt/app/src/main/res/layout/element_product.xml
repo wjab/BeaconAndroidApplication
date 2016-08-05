@@ -40,13 +40,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
             android:layout_marginBottom="9dp"
-            android:layout_marginLeft="80dp"
             android:background="@drawable/ic_add"
-            android:layout_gravity="bottom"
+            android:layout_marginLeft="80dp"
             android:id="@+id/addProduct"/>
     </LinearLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Precio"
+        android:id="@+id/price"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        android:layout_alignEnd="@+id/imagenPromo" />
 
 
 </RelativeLayout>
