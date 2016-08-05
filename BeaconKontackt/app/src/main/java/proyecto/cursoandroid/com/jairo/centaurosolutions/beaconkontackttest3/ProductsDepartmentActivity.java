@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -45,11 +47,12 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     ImageView openHistoryPoints;
     private static Context context;
     private int activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_department);
-        activity=1;
+        activity = 1;
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,20 +64,20 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
-        context=this;
+        context = this;
         Department department = (Department)intent.getSerializableExtra("department");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         name = (TextView)findViewById(R.id.nameDepartment);
         name.setText(department.getName());
         pointsAction.setText(userAcumulatedPoints.toString());
-        ranges=department.getProducts();
-        grid= (GridView)findViewById(R.id.products);
+        ranges = department.getProducts();
+        grid = (GridView)findViewById(R.id.products);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -124,7 +127,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     }
     public void chargeDepartments(){
 
-        adapter=new CustomAdapterProductDepartment(this, ranges,activity);
+        adapter = new CustomAdapterProductDepartment(this, ranges,activity);
         grid.setAdapter(adapter);
     }
 
@@ -138,7 +141,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         response = this;
 
         Map<String, Object> mapParams = new HashMap<>();
-        mapParams.put("userId",idUser);
+        mapParams.put("userId", idUser);
         mapParams.put("productId", productId);
         mapParams.put("productName",productName);
         mapParams.put("price",price);
@@ -156,20 +159,57 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
 
     @Override
     public void onResponse(JSONObject response) {
-        try {
-
-                if (response.getString("message").toString().equals("User updated"))
-                {
-                    Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
-                }
-                if (response.getString("message").toString().equals("Product already added to wishlist"))
-                {
-                    Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
-                }
+        try
+        {
+            if (response.getString("message").toString().equals("User updated"))
+            {
+                Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
+            }
+            if (response.getString("message").toString().equals("Product already added to wishlist"))
+            {
+                Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
+            }
         } catch (JSONException e) {
 
             Toast.makeText(context, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+        }
+    }
+
+
+    /************ Metodos para el escaneo ***************/
+    public void ActivateScan()
+    {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+        integrator.setPrompt( context.getString(R.string.textoIntentScan));
+        IntentIntegrator intentIntegrator = integrator.setResultDisplayDuration(0);
+        integrator.setWide();  // Wide scanning rectangle, may work better for 1D barcodes
+        integrator.setCameraId(0);  // Use a specific camera of the device
+        integrator.initiateScan();
+    }
+
+    /**
+     * function handle scan result
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+
+        if (scanningResult != null)
+        {
+            String scanContent = scanningResult.getContents();
+            String scanFormat = scanningResult.getFormatName();
+
+
+        }
+        else
+        {
+            Toast toast = Toast.makeText(this.getApplicationContext(),this.getText(R.string.codigoNoEscaneado), Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

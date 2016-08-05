@@ -292,7 +292,7 @@ public class MerchantProfileController
 		    }
 		    else
 		    {
-		    	response.put("message", "El id de la tiendaa no fue encontrado");
+		    	response.put("message", "El id de la tienda no fue encontrado");
 				response.put("merchantProfile", null);
 				response.put("status", "401");
 		    } 
