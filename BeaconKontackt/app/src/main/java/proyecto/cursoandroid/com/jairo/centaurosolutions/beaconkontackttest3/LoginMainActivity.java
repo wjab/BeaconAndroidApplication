@@ -1,6 +1,5 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -8,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -16,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,27 +29,22 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
-import model.cache.BeaconCache;
 import utils.NonStaticUtils;
 import utils.Utils;
 
@@ -186,12 +178,13 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
     public void sendUserRequestByName(String username)
     {
         serviceController = new ServiceController();
-        String url = getString(R.string.WebService_User) + "user/" + username;
-        Map<String,String> nullMap =  new HashMap<String, String>();
+        String url = getString(R.string.WebService_User) + "user/username";
+        Map<String, Object> mapParams = new HashMap<>();
+        mapParams.put("username", username);
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");
 
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+        serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 
     @Override
