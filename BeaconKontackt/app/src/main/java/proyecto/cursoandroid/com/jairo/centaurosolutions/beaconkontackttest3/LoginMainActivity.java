@@ -231,7 +231,13 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                                 isAuthenticated,
                                 currRange.getString("socialNetworkType"),
                                 currRange.getString("socialNetworkId"),
-                                currRange.getString("pathImage"));
+                                currRange.getString("pathImage"),
+                                (currRange.getString("name") != null ? currRange.getString("name").toString() : ""),
+                                (currRange.getString("lastName") != null ? currRange.getString("lastName").toString() : ""),
+                                (currRange.getString("phone") != null ? currRange.getString("phone").toString() : ""),
+                                (currRange.getString("email") != null ? currRange.getString("email").toString() : ""),
+                                (currRange.getString("gender") != null ? currRange.getString("gender").toString() : ""),
+                                "");
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                         startActivity(intent);
                     } else {

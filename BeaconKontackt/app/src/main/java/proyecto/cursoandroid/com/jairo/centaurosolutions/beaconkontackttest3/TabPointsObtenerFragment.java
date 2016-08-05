@@ -125,7 +125,13 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
                             true,
                             responseUser.getString("socialNetworkType"),
                             responseUser.getString("socialNetworkId"),
-                            preferences.getString("pathImage", ""));
+                            preferences.getString("pathImage", ""),
+                            (responseUser.getString("name") != null ? responseUser.getString("name").toString() : ""),
+                            (responseUser.getString("lastName") != null ? responseUser.getString("lastName").toString() : ""),
+                            (responseUser.getString("phone") != null ? responseUser.getString("phone").toString() : ""),
+                            (responseUser.getString("email") != null ? responseUser.getString("email").toString() : ""),
+                            (responseUser.getString("gender") != null ? responseUser.getString("gender").toString() : ""),
+                            "");
                     Intent intent = new Intent(getContext(), ObtainPointsActivity.class);
                     int points=response.getInt("points");
                     intent.putExtra("points", points);

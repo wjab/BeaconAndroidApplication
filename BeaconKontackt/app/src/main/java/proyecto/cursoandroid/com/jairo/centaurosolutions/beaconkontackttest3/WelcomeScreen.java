@@ -108,15 +108,13 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                         true,
                         currRange.getString("socialNetworkType"),
                         currRange.getString("socialNetworkId"),
-                        currRange.getString("pathImage"));
-                SharedPreferences  mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor prefsEditor = mPrefs.edit();
-                Gson gson = new Gson();
-                User user = new User( (currRange.getString("name") != null ? currRange.getString("name").toString() : ""), (currRange.getString("lastName") != null ? currRange.getString("lastName").toString() : ""), (currRange.getString("phone") != null ? currRange.getString("phone").toString() : ""), (currRange.getString("email") != null ? currRange.getString("email").toString() : ""), (currRange.getString("gender") != null ? currRange.getString("gender").toString() : ""),"" );
-                String json = gson.toJson(user);
-                prefsEditor.putString("User", json);
-                prefsEditor.commit();
-
+                        currRange.getString("pathImage"),
+                        (currRange.getString("name") != null ? currRange.getString("name").toString() : ""),
+                        (currRange.getString("lastName") != null ? currRange.getString("lastName").toString() : ""),
+                        (currRange.getString("phone") != null ? currRange.getString("phone").toString() : ""),
+                        (currRange.getString("email") != null ? currRange.getString("email").toString() : ""),
+                        (currRange.getString("gender") != null ? currRange.getString("gender").toString() : ""),
+                        "");
                 startActivity(intent);
             }
 

@@ -47,6 +47,7 @@ import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.User;
+import utils.NonStaticUtils;
 
 
 public class ActivityProfile extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -69,12 +70,14 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     RadioButton male;
     RadioButton female;
     LinearLayout form;
+    NonStaticUtils nonStaticUtils;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        nonStaticUtils = new NonStaticUtils();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -213,22 +216,19 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
 
     @SuppressWarnings("deprecation")
     public void getinfo() {
+        preferences = nonStaticUtils.loadLoginInfo(this);
 
-        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        Gson gson = new Gson();
-        String json = mPrefs.getString("User", "");
-        User user = gson.fromJson(json, User.class);
-        if (!user.getName().equals("")) {
-            editName.setText(user.getName());
+        if (!preferences.getString("name", "").equals("")) {
+            editName.setText(preferences.getString("name", ""));
         }
-        if (!user.getLastName().equals("")) {
-            editName.setText(user.getLastName());
+        if (!preferences.getString("lastName", "").equals("")) {
+            editLastName.setText(preferences.getString("lastName", ""));
         }
-        if (!user.getEmail().equals("")) {
-            editName.setText(user.getEmail());
+        if (!preferences.getString("email", "").equals("")) {
+            editEmail.setText(preferences.getString("email", ""));
         }
-        if (!user.getGender().equals("")) {
-            String gender = user.getGender();
+        if (!preferences.getString("gender", "").equals("")) {
+            String gender = preferences.getString("gender", "");
             if (gender.equals("male")) {
                 male.setChecked(true);
                 female.setChecked(false);
@@ -238,9 +238,9 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
             }
         }
         editPhone.setText("No disponible");
-        if (!user.getBirthday().equals("")) {
-            String gender = user.getBirthday();
-            String[] array = gender.split("/");
+        if (!preferences.getString("birthday", "").equals("")) {
+            String birthday = preferences.getString("birthday", "");
+            String[] array = birthday.split("/");
             showDate(formatDate(Integer.parseInt(array[1]), Integer.parseInt(array[0]), Integer.parseInt(array[2])));
 
         }

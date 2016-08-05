@@ -146,7 +146,13 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                             true,
                             response.getString("socialNetworkType"),
                             response.getString("socialNetworkId"),
-                            response.getString("pathImage"));
+                            response.getString("pathImage"),
+                            (response.getString("name") != null ? response.getString("name").toString() : ""),
+                            (response.getString("lastName") != null ? response.getString("lastName").toString() : ""),
+                            (response.getString("phone") != null ? response.getString("phone").toString() : ""),
+                            (response.getString("email") != null ? response.getString("email").toString() : ""),
+                            (response.getString("gender") != null ? response.getString("gender").toString() : ""),
+                            "");
                     Intent intent = new Intent(getContext(), RedimirRegalarActivity.class);
                     intent.putExtra("type", "regalar");
                     intent.putExtra("message",messageToSend);
