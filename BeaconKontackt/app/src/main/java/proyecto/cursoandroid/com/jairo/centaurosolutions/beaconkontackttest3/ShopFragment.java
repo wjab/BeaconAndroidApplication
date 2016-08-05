@@ -123,6 +123,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                         produtctElement.setProductId(currProduct.getString("productId"));
                         produtctElement.setProductName(currProduct.getString("productName"));
                         produtctElement.setDetails(currProduct.getString("details"));
+                        produtctElement.setStateWishList(0);
                         ArrayList<String> images= new ArrayList<String>();
                         JSONArray imagesArray= currProduct.getJSONArray("imageUrlList");
                         if (imagesArray != null) {

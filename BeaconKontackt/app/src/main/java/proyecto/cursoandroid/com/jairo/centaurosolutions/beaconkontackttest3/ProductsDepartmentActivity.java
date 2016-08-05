@@ -1,5 +1,6 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +33,7 @@ import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Department;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 
 public class ProductsDepartmentActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
@@ -46,8 +49,9 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     TextView pointsAction, name;
     ImageView openHistoryPoints;
     private static Context context;
+    private static Activity thisActivity;
     private int activity;
-
+    public ArrayList<Wish> listArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         idUser = preferences.getString("userId", "");
         intent = getIntent();
         context = this;
+        thisActivity = this;
         Department department = (Department)intent.getSerializableExtra("department");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -113,7 +118,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             }
         });
         webServiceUser=getString(R.string.WebService_User);
-        chargeDepartments();
+        productWishList();
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -126,10 +131,20 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         startActivity(intent);
     }
     public void chargeDepartments(){
-
-        adapter = new CustomAdapterProductDepartment(this, ranges,activity);
+        String idProductWishList, idProduct;
+        for(int i=0; i < listArray.size(); i++ ) {
+            idProductWishList=listArray.get(i).getProductId();
+            for(int j=0; j < ranges.size(); j++ ) {
+                idProduct=ranges.get(j).getProductId();
+                if(idProductWishList==idProduct){
+                    ranges.get(j).setStateWishList(1);
+                }
+            }
+        }
+        adapter=new CustomAdapterProductDepartment(thisActivity, ranges,activity);
         grid.setAdapter(adapter);
     }
+
 
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
@@ -152,6 +167,20 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         String url = webServiceUser+"user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
+
+    public void productWishList(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
+        Map<String, String> nullMap = new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = webServiceUser+"user/id/"+idUser;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
 
@@ -161,11 +190,27 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     public void onResponse(JSONObject response) {
         try
         {
-            if (response.getString("message").toString().equals("User updated"))
+            if(response.getString("message").toString().equals(""))
+            {
+            response=response.getJSONObject("user");
+            JSONArray ranges1= response.getJSONArray("productWishList");
+            listArray= new ArrayList<Wish>();
+            for(int i=0; i < ranges1.length(); i++ ){
+                Wish element = new Wish();
+                JSONObject currRange=ranges1.getJSONObject(i);
+                element.setProductId(currRange.getString("productId"));
+                element.setProductName(currRange.getString("productName"));
+                element.setImageUrlList(currRange.getString("imageUrlList"));
+                element.setPrice(currRange.getInt("price"));
+                listArray.add(element);
+            }
+            chargeDepartments();
+            }
+            else if (response.getString("message").toString().equals("User updated"))
             {
                 Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
             }
-            if (response.getString("message").toString().equals("Product already added to wishlist"))
+            else if (response.getString("message").toString().equals("Product already added to wishlist"))
             {
                 Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
             }
@@ -180,14 +225,16 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     /************ Metodos para el escaneo ***************/
     public void ActivateScan()
     {
-        IntentIntegrator integrator = new IntentIntegrator(this);
+        IntentIntegrator integrator = new IntentIntegrator(thisActivity);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
-        integrator.setPrompt( context.getString(R.string.textoIntentScan));
-        IntentIntegrator intentIntegrator = integrator.setResultDisplayDuration(0);
+        integrator.setPrompt(context.getString(R.string.textoIntentScan));
+        //IntentIntegrator intentIntegrator =  integrator.setResultDisplayDuration(0);
+        integrator.setResultDisplayDuration(0);
         integrator.setWide();  // Wide scanning rectangle, may work better for 1D barcodes
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.initiateScan();
     }
+
 
     /**
      * function handle scan result

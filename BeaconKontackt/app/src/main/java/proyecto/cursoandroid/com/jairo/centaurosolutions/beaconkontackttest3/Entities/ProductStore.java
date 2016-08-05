@@ -12,6 +12,7 @@ public class ProductStore  implements Serializable {
     private float price;
     private String details;
     private ArrayList<String> imageUrlList;
+    private int stateWishList;
 
 
     public String getProductId() {
@@ -52,5 +53,13 @@ public class ProductStore  implements Serializable {
 
     public void setImageUrlList(ArrayList<String> imageUrlList) {
         this.imageUrlList = imageUrlList;
+    }
+
+    public int getStateWishList() {
+        return stateWishList;
+    }
+
+    public void setStateWishList(int stateWishList) {
+        this.stateWishList = stateWishList;
     }
 }
