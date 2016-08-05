@@ -1,11 +1,13 @@
 package com.centaurosolutions.com.beacon.user.controller;
 
-import com.centaurosolutions.com.beacon.user.model.*;
+import com.centaurosolutions.com.beacon.user.model.NotificationResponse;
+import com.centaurosolutions.com.beacon.user.model.Preferences;
+import com.centaurosolutions.com.beacon.user.model.User;
+import com.centaurosolutions.com.beacon.user.model.Wish;
 import com.centaurosolutions.com.beacon.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.client.RestTemplate;
 
 import java.security.MessageDigest;
@@ -26,6 +28,7 @@ public class UserController {
 
 	private final String urlNotification = "http://butilsdevel.cfapps.io/notification";
     private final String NOTIFICATION_INFO = "INFO";
+	private final String DEFAULT_ENCODE = "utf-8";
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<String, Object> createUser(@RequestBody Map<String, Object> userMap) {
@@ -162,23 +165,24 @@ public class UserController {
 			return response;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{username}")
-	public Map<String, Object> getUserByNameDetails(@PathVariable("username") String username)
+	@RequestMapping(method = RequestMethod.POST, value = "/username")
+	public Map<String, Object> getUserByNameDetails(@RequestBody  Map<String, Object> userMap)
 	{
 		User user = null;
-
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		List<User> users;
 
 		try
 		{
-			user = userRepository.findByUser(username);
-			if(user!=null){
+			user = userRepository.findByUser(userMap.get("username").toString());
+
+			if(user != null){
+
 				response.put("status", 200);
 				response.put("message", "");
 				response.put("user", user);
 			}
 			else{
+
 				response.put("status", 404);
 				response.put("message", "");
 				response.put("user", null);
