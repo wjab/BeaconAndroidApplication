@@ -32,7 +32,7 @@
             android:layout_marginBottom="3dp"
             android:id="@+id/imageView4"
             android:layout_marginLeft="9dp"
-            android:src="@drawable/scan_blue"
+            android:src="@drawable/scan_white"
             />
 
         <ImageView
