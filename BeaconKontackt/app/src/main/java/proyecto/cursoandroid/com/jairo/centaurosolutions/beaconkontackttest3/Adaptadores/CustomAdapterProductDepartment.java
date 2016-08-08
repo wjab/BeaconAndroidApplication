@@ -107,6 +107,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                 }});
 
             // Metodo de escaneo
+            barcodeImage.setVisibility(View.GONE);
             barcodeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
