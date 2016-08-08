@@ -41,8 +41,8 @@
 
 
     <Button
-        android:layout_width="20dp"
-        android:layout_height="15dp"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
         android:background="@drawable/ic_added"
         android:id="@+id/button"
         android:layout_centerVertical="true"
