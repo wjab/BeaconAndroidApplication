@@ -17,14 +17,14 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 public class PagerAdapterImage  extends android.support.v4.view.PagerAdapter {
 
 
-    private ArrayList<String> IMAGES;
+    private ArrayList<String> images;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public PagerAdapterImage(Context context,ArrayList<String> IMAGES) {
+    public PagerAdapterImage(Context context,ArrayList<String> images) {
         this.context = context;
-        this.IMAGES=IMAGES;
+        this.images=images;
         inflater = LayoutInflater.from(context);
     }
 
@@ -35,14 +35,14 @@ public class PagerAdapterImage  extends android.support.v4.view.PagerAdapter {
 
     @Override
     public int getCount() {
-        return IMAGES.size();
+        return images.size();
     }
 
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
         View imageLayout = inflater.inflate(R.layout.element_image_list, view, false);
         final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imgDisplay);
-        String url=IMAGES.get(position);
+        String url=images.get(position);
         Picasso.with(context).load(url).error(R.drawable.product_one).into(imageView);
         view.addView(imageLayout, 0);
         return imageLayout;

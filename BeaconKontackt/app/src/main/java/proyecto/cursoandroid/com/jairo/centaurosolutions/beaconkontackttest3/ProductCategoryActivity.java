@@ -183,6 +183,19 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setProductId(currRange.getString("productId"));
                     element.setProductName(currRange.getString("productName"));
                     element.setDetails(currRange.getString("details"));
+                    ArrayList<String> images= new ArrayList<String>();
+                    JSONArray imagesArray= currRange.getJSONArray("imageUrlList");
+                    if (imagesArray != null && imagesArray.length()>0) {
+                        int len = imagesArray.length();
+                        for (int l=0;l<len;l++){
+                            images.add(imagesArray.get(l).toString());
+                        }
+                    }
+                    else
+                    {
+                        images.add("images");
+                    }
+                    element.setImageUrlList(images);
                     element.setPrice(currRange.getInt("price"));
                     listArray.add(element);
                 }

@@ -126,11 +126,15 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                         produtctElement.setStateWishList(0);
                         ArrayList<String> images= new ArrayList<String>();
                         JSONArray imagesArray= currProduct.getJSONArray("imageUrlList");
-                        if (imagesArray != null) {
+                        if (imagesArray != null && imagesArray.length()>0)  {
                             int len = imagesArray.length();
                             for (int l=0;l<len;l++){
                                 images.add(imagesArray.get(l).toString());
                             }
+                        }
+                        else
+                        {
+                            images.add("images");
                         }
                         produtctElement.setImageUrlList(images);
                         listProductStore.add(produtctElement);

@@ -43,15 +43,16 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     private static String idUser;
-    GridView grid;
+    private static GridView grid;
     CustomAdapterProductDepartment adapter;
-    private ArrayList<ProductStore> ranges;
+    private static ArrayList<ProductStore> ranges;
     TextView pointsAction, name;
     ImageView openHistoryPoints;
+    private static ImageView add;
     private static Context context;
     private static Activity thisActivity;
     private int activity;
-    public ArrayList<Wish> listArray;
+    public static ArrayList<Wish> listArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +137,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             idProductWishList=listArray.get(i).getProductId();
             for(int j=0; j < ranges.size(); j++ ) {
                 idProduct=ranges.get(j).getProductId();
-                if(idProductWishList==idProduct){
+                if(idProductWishList.equals(idProduct)){
                     ranges.get(j).setStateWishList(1);
                 }
             }
@@ -208,7 +209,20 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             }
             else if (response.getString("message").toString().equals("User updated"))
             {
+                response=response.getJSONObject("user");
+                JSONArray ranges1= response.getJSONArray("productWishList");
+                listArray= new ArrayList<Wish>();
+                for(int i=0; i < ranges1.length(); i++ ){
+                    Wish element = new Wish();
+                    JSONObject currRange=ranges1.getJSONObject(i);
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setImageUrlList(currRange.getString("imageUrlList"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArray.add(element);
+                }
                 Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
+                chargeDepartments();
             }
             else if (response.getString("message").toString().equals("Product already added to wishlist"))
             {
@@ -220,7 +234,6 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             e.printStackTrace();
         }
     }
-
 
     /************ Metodos para el escaneo ***************/
     public void ActivateScan()

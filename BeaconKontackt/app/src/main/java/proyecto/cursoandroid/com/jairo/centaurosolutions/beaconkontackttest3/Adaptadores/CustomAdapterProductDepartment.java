@@ -1,7 +1,9 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
     public ArrayList<ProductStore> mStringFilterList;
     public int activity;
     private ProductsDepartmentActivity productDepartmentActivity = new ProductsDepartmentActivity();
+    private ProductCategoryActivity productCategoryActivity = new ProductCategoryActivity();
 
 
     // private final Integer[] imgid;
@@ -55,6 +58,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
     }
 
     /// adapta los elementos al layout de los element view
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public View getView(final int position, View view, ViewGroup parent)
     {
         LayoutInflater inflater = contexto.getLayoutInflater();
@@ -62,38 +66,55 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         ServiceController imageRequest =  new ServiceController();
         final ImageView imageHeard = (ImageView)rowView.findViewById(R.id.addProduct);
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
-
-        // Bucar en la lista de productos si se encuentra alguno añadido cambiar el corazon
-        imageHeard.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                String productId = productList.get(position).getProductId();
-                String productName = productList.get(position).getProductName();
-                float price = productList.get(position).getPrice();
-
-                if(activity == 1)
-                {
-                    productDepartmentActivity.service(productId, productName, price);
-                }
-                else
-                {
-                    productDepartmentActivity.service(productId, productName, price);
-                }
+        if(activity == 1) {
+            // Bucar en la lista de productos si se encuentra alguno añadido cambiar el corazon
+            if (productList.get(position).getStateWishList() == 1) {
+                imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
+            } else {
+                imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_add));
             }
-        });
+            imageHeard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String productId = productList.get(position).getProductId();
+                    String productName = productList.get(position).getProductName();
+                    float price = productList.get(position).getPrice();
+                    productDepartmentActivity.service(productId, productName, price);
 
-        // Metodo de escaneo
-        barcodeImage.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                productDepartmentActivity.ActivateScan();
+                }});
+
+            // Metodo de escaneo
+            barcodeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productDepartmentActivity.ActivateScan();
+                }
+            });
+        }
+        else {
+            // Bucar en la lista de productos si se encuentra alguno añadido cambiar el corazon
+            if (productList.get(position).getStateWishList() == 1) {
+                imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
+            } else {
+                imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_add));
             }
-        });
+            imageHeard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String productId = productList.get(position).getProductId();
+                    String productName = productList.get(position).getProductName();
+                    float price = productList.get(position).getPrice();
+                    productCategoryActivity.service(productId, productName, price);
+                }});
 
+            // Metodo de escaneo
+            barcodeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productDepartmentActivity.ActivateScan();
+                }
+            });
+        }
         return rowView;
     }
 
