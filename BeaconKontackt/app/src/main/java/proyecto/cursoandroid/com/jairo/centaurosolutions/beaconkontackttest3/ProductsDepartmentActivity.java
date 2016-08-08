@@ -51,7 +51,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     private static ImageView add;
     private static Context context;
     private static Activity thisActivity;
-    private int activity;
+    private int activity=1;
     public static ArrayList<Wish> listArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +142,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 }
             }
         }
-        adapter=new CustomAdapterProductDepartment(thisActivity, ranges,activity);
+        adapter=new CustomAdapterProductDepartment(thisActivity, ranges,1);
         grid.setAdapter(adapter);
     }
 
