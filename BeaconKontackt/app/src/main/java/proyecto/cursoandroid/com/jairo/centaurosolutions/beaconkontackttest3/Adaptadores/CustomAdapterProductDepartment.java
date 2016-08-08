@@ -67,7 +67,6 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         final ImageView imageHeard = (ImageView)rowView.findViewById(R.id.addProduct);
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
         if(activity == 1) {
-            // Bucar en la lista de productos si se encuentra alguno añadido cambiar el corazon
             if (productList.get(position).getStateWishList() == 1) {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
             } else {

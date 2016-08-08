@@ -31,6 +31,7 @@ import java.util.Map;
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 
 public class ProductCategoryActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
@@ -40,12 +41,15 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     private static String idUser;
-    GridView grid;
-    public ArrayList<ProductStore> listArray;
+    private static GridView grid;
+    public static ArrayList<ProductStore> listArray;
     CustomAdapterProductDepartment adapter;
     TextView pointsAction, name;
     ImageView openHistoryPoints,imageCategory;
+    public static ArrayList<Wish> listArrayWish;
     private static Activity context;
+    private static Activity thisActivity;
+    private int activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         idUser = preferences.getString("userId", "");
         intent = getIntent();
         context=this;
+        thisActivity = this;
+        activity=2;
         nameCategory=intent.getStringExtra("name");
         name = (TextView)findViewById(R.id.nameCategory);
         name.setText(nameCategory);
@@ -112,7 +118,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
             }
         });
         webServiceUser=getString(R.string.WebService_User);
-        chargeDepartments();
+        obtainProducts();
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -129,17 +135,19 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     Response.ErrorListener responseError;
 
     public void chargeDepartments(){
-        serviceController = new ServiceController();
-        responseError = this;
-        response = this;
-        Map<String, String> nullMap = new HashMap<String, String>();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_MerchantProfile)+"merchantprofile/allproducts/"+nameCategory;
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-
+        String idProductWishList, idProduct;
+        for(int i=0; i < listArrayWish.size(); i++ ) {
+            idProductWishList=listArrayWish.get(i).getProductId();
+            for(int j=0; j < listArray.size(); j++ ) {
+                idProduct=listArray.get(j).getProductId();
+                if(idProductWishList.equals(idProduct)){
+                    listArray.get(j).setStateWishList(1);
+                }
+            }
+        }
+        adapter=new CustomAdapterProductDepartment(thisActivity, listArray,activity);
+        grid.setAdapter(adapter);
     }
-
     public void service(String productId,String productName,float price){
         serviceController = new ServiceController();
         responseError = this;
@@ -155,7 +163,29 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         String url = webServiceUser+"user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
+    public void productWishList(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
 
+        Map<String, String> nullMap = new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = webServiceUser+"user/id/"+idUser;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+
+    }
+    public void obtainProducts(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+        Map<String, String> nullMap = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_MerchantProfile)+"merchantprofile/allproducts/"+nameCategory;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
 
@@ -165,9 +195,38 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     public void onResponse(JSONObject response) {
         try {
 
-            if (response.getString("message").toString().equals("User updated"))
+            if(response.getString("message").toString().equals(""))
             {
+                response=response.getJSONObject("user");
+                JSONArray ranges1= response.getJSONArray("productWishList");
+                listArrayWish= new ArrayList<Wish>();
+                for(int i=0; i < ranges1.length(); i++ ){
+                    Wish element = new Wish();
+                    JSONObject currRange=ranges1.getJSONObject(i);
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setImageUrlList(currRange.getString("imageUrlList"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArrayWish.add(element);
+                }
+                chargeDepartments();
+            }
+            else if (response.getString("message").toString().equals("User updated"))
+            {
+                response=response.getJSONObject("user");
+                JSONArray ranges1= response.getJSONArray("productWishList");
+                listArrayWish= new ArrayList<Wish>();
+                for(int i=0; i < ranges1.length(); i++ ){
+                    Wish element = new Wish();
+                    JSONObject currRange=ranges1.getJSONObject(i);
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setImageUrlList(currRange.getString("imageUrlList"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArrayWish.add(element);
+                }
                 Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
+                chargeDepartments();
             }
             else if (response.getString("message").toString().equals("Product already added to wishlist"))
             {
@@ -199,8 +258,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setPrice(currRange.getInt("price"));
                     listArray.add(element);
                 }
-                adapter=new CustomAdapterProductDepartment(context, listArray,2);
-                grid.setAdapter(adapter);
+                productWishList();
             }
         } catch (JSONException e) {
             Toast.makeText(context, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
