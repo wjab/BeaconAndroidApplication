@@ -39,7 +39,7 @@ import utils.NonStaticUtils;
 public class ProductsDepartmentActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
     Intent intent;
     String mpoints, userAcumulatedPoints;
-    private static String webServiceUser;
+    private static String webServiceUser, webServiceUtils;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     private static String idUser;
@@ -51,10 +51,16 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     private static ImageView add;
     private static Context context;
     private static Activity thisActivity;
-    private int activity=1;
+    private int activity = 1;
     public static ArrayList<Wish> listArray;
+
+    ServiceController serviceController;
+    Response.Listener<JSONObject> response;
+    Response.ErrorListener responseError;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_department);
         activity = 1;
@@ -86,6 +92,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         pointsAction.setText(userAcumulatedPoints.toString());
         ranges = department.getProducts();
         grid = (GridView)findViewById(R.id.products);
+
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,19 +104,26 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
 
             }
         });
-        pointsAction.setOnClickListener(new View.OnClickListener() {
+
+        pointsAction.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                if (mpoints.toString().equals("0")) {
+            public void onClick(View view)
+            {
+                if (mpoints.toString().equals("0"))
+                {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
                 } else {
                     openHistory();
                 }
             }
         });
-        openHistoryPoints.setOnClickListener(new View.OnClickListener() {
+
+        openHistoryPoints.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 if(mpoints.toString().equals("0"))
                 {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
@@ -120,40 +134,45 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 }
             }
         });
-        webServiceUser=getString(R.string.WebService_User);
+
+        webServiceUser = getString(R.string.WebService_User);
+        webServiceUtils = getString(R.string.WebService_Utils);
         productWishList();
     }
     @Override
-    public boolean onSupportNavigateUp() {
+    public boolean onSupportNavigateUp()
+    {
         finish();
         return super.onSupportNavigateUp();
     }
-    public void openHistory(){
+    public void openHistory()
+    {
         Intent intent = new Intent(context, HistotyPointsActivity.class);
         intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
-    public void chargeDepartments(){
+    public void chargeDepartments()
+    {
         String idProductWishList, idProduct;
-        for(int i=0; i < listArray.size(); i++ ) {
+
+        for(int i = 0; i < listArray.size(); i++ )
+        {
             idProductWishList=listArray.get(i).getProductId();
-            for(int j=0; j < ranges.size(); j++ ) {
-                idProduct=ranges.get(j).getProductId();
-                if(idProductWishList.equals(idProduct)){
+            for(int j = 0; j < ranges.size(); j++ )
+            {
+                idProduct = ranges.get(j).getProductId();
+                if(idProductWishList.equals(idProduct))
+                {
                     ranges.get(j).setStateWishList(1);
                 }
             }
         }
-        adapter=new CustomAdapterProductDepartment(thisActivity, ranges,1);
+        adapter = new CustomAdapterProductDepartment(thisActivity, ranges, 1);
         grid.setAdapter(adapter);
     }
 
-
-    ServiceController serviceController;
-    Response.Listener<JSONObject> response;
-    Response.ErrorListener responseError;
-
-    public void service(String productId,String productName,float price){
+    public void service(String productId, String productName, float price)
+    {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -161,62 +180,67 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("userId", idUser);
         mapParams.put("productId", productId);
-        mapParams.put("productName",productName);
-        mapParams.put("price",price);
+        mapParams.put("productName", productName);
+        mapParams.put("price", price);
         mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
+
         String url = webServiceUser+"user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 
-    public void productWishList(){
+    public void productWishList()
+    {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
 
-        Map<String, String> nullMap = new HashMap<String, String>();
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = webServiceUser+"user/id/"+idUser;
+        String url = webServiceUser + "user/id/" + idUser;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
-
     }
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onErrorResponse(VolleyError error)
+    {
 
     }
 
     @Override
-    public void onResponse(JSONObject response) {
+    public void onResponse(JSONObject response)
+    {
         try
         {
             if(response.getString("message").toString().equals(""))
             {
-            response=response.getJSONObject("user");
-            JSONArray ranges1= response.getJSONArray("productWishList");
-            listArray= new ArrayList<Wish>();
-            for(int i=0; i < ranges1.length(); i++ ){
-                Wish element = new Wish();
-                JSONObject currRange=ranges1.getJSONObject(i);
-                element.setProductId(currRange.getString("productId"));
-                element.setProductName(currRange.getString("productName"));
-                element.setImageUrlList(currRange.getString("imageUrlList"));
-                element.setPrice(currRange.getInt("price"));
-                listArray.add(element);
-            }
-            chargeDepartments();
+                response=response.getJSONObject("user");
+                JSONArray ranges1= response.getJSONArray("productWishList");
+                listArray= new ArrayList<Wish>();
+
+                for(int i=0; i < ranges1.length(); i++ )
+                {
+                    Wish element = new Wish();
+                    JSONObject currRange=ranges1.getJSONObject(i);
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setImageUrlList(currRange.getString("imageUrlList"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArray.add(element);
+                }
+                chargeDepartments();
             }
             else if (response.getString("message").toString().equals("User updated"))
             {
                 response=response.getJSONObject("user");
                 JSONArray ranges1= response.getJSONArray("productWishList");
                 listArray= new ArrayList<Wish>();
-                for(int i=0; i < ranges1.length(); i++ ){
+
+                for(int i=0; i < ranges1.length(); i++ )
+                {
                     Wish element = new Wish();
-                    JSONObject currRange=ranges1.getJSONObject(i);
+                    JSONObject currRange = ranges1.getJSONObject(i);
                     element.setProductId(currRange.getString("productId"));
                     element.setProductName(currRange.getString("productName"));
                     element.setImageUrlList(currRange.getString("imageUrlList"));
@@ -230,8 +254,13 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             {
                 Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
             }
-        } catch (JSONException e) {
-
+            else if(response.getString("message").toString().equals("Puntos asignados correctamente"))
+            {
+                Toast.makeText(context, "Puntos asignados por escaneo", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch (JSONException e)
+        {
             Toast.makeText(context, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
@@ -243,13 +272,11 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         IntentIntegrator integrator = new IntentIntegrator(thisActivity);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
         integrator.setPrompt(context.getString(R.string.textoIntentScan));
-        //IntentIntegrator intentIntegrator =  integrator.setResultDisplayDuration(0);
         integrator.setResultDisplayDuration(0);
         integrator.setWide();  // Wide scanning rectangle, may work better for 1D barcodes
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.initiateScan();
     }
-
 
     /**
      * function handle scan result
@@ -266,7 +293,20 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
 
+            serviceController = new ServiceController();
+            responseError = this;
+            response = this;
 
+            Map<String, String> headers = new HashMap<String, String>();
+            headers.put("Content-Type", "application/json");
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("userId", idUser);
+            params.put("code", scanContent);
+            params.put("merchantId", "579f5acd6b0b62432016dd86");
+
+            String url = webServiceUtils + "utils/savePointsByCode";
+            serviceController.jsonObjectRequest(url, Request.Method.POST, params, headers, response, responseError);
         }
         else
         {
