@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import controllers.ServiceController;
@@ -53,12 +55,48 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
         TextView walkin = (TextView) rowView.findViewById(R.id.walkin);
         TextView scan = (TextView) rowView.findViewById(R.id.scan);
         TextView purchase = (TextView) rowView.findViewById(R.id.purchase);
-
-        walkin.setText(storeList.get(position).getTotalGiftPoints().getWalkin() + "");
-        scan.setText(storeList.get(position).getTotalGiftPoints().getScan() + "");
-       purchase.setText(storeList.get(position).getTotalGiftPoints().getPurchase() + "");
-
         ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
+        ImageView walkinImage = (ImageView) rowView.findViewById(R.id.walkinImage);
+        ImageView scanImage = (ImageView) rowView.findViewById(R.id.scanImage);
+        ImageView purchaseImage = (ImageView) rowView.findViewById(R.id.purchaseImage);
+
+        String walkinText = storeList.get(position).getTotalGiftPoints().getWalkin();
+        String scanText = storeList.get(position).getTotalGiftPoints().getScan();
+        String purchaseText = storeList.get(position).getTotalGiftPoints().getPurchase();
+        String url = storeList.get(position).getUrlImagen();
+
+        walkin.setText(walkinText);
+        scan.setText(scanText);
+        purchase.setText(purchaseText);
+
+        if(walkinText.equals("0")){
+            walkinImage.setBackground(contexto.getResources().getDrawable(R.drawable.walk_in_gray));
+            walkin.setTextColor(contexto.getResources().getColor(R.color.mediumGrey));
+        }
+        else {
+            walkinImage.setBackground(contexto.getResources().getDrawable(R.drawable.walk_in_blue));
+            walkin.setTextColor(contexto.getResources().getColor(R.color.darkBlue));
+        }
+
+        if(scanText.equals("0")){
+           scanImage.setBackground(contexto.getResources().getDrawable(R.drawable.scan_gray));
+            scan.setTextColor(contexto.getResources().getColor(R.color.mediumGrey));
+        }
+        else{
+            scanImage.setBackground(contexto.getResources().getDrawable(R.drawable.scan_blue));
+            scan.setTextColor(contexto.getResources().getColor(R.color.darkBlue));
+        }
+
+        if(purchaseText.equals("0")){
+           purchaseImage.setBackground(contexto.getResources().getDrawable(R.drawable.purchase_gray));
+            purchase.setTextColor(contexto.getResources().getColor(R.color.mediumGrey));
+        }
+        else{
+            purchaseImage.setBackground(contexto.getResources().getDrawable(R.drawable.purchase_blue));
+            purchase.setTextColor(contexto.getResources().getColor(R.color.darkBlue));
+        }
+        Picasso.with(contexto).load(url).error(R.drawable.department).into(image);
+
         ServiceController imageRequest =  new ServiceController();
 
        imageRequest.imageRequest(storeList.get(position).getUrlImagen(), image, 0,0);

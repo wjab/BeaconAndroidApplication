@@ -63,8 +63,7 @@
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:scaleType="fitXY"
-                android:id="@+id/imageView2"
-                android:src="@drawable/purchase_blue"
+                android:id="@+id/purchaseImage"
                 android:layout_gravity="center"
                 android:layout_alignStart="@+id/distance" />
             <TextView
@@ -74,7 +73,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/purchase"
-                android:textColor="@color/darkBlue"
                 android:layout_gravity="center"
                 android:textStyle="bold" />
 
@@ -90,8 +88,7 @@
                 android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:scaleType="fitXY"
-                android:id="@+id/imageView3"
-                android:src="@drawable/walk_in_blue"
+                android:id="@+id/walkinImage"
                 android:layout_below="@+id/imageView2"
                 android:layout_toEndOf="@+id/imageView2"
                 android:layout_gravity="center" />
@@ -101,7 +98,6 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="50"
                 android:id="@+id/walkin"
-                android:textColor="@color/darkBlue"
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -117,15 +113,11 @@
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:scaleType="fitXY"
-                android:id="@+id/imageView4"
-                android:src="@drawable/scan_blue"
-                android:layout_alignTop="@+id/imageView5"
-                android:layout_toStartOf="@+id/imageView5"
+                android:id="@+id/scanImage"
                 android:layout_gravity="center" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/darkBlue"
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="80"
