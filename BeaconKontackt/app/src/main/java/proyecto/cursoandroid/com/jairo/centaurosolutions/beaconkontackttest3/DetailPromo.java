@@ -232,7 +232,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 }
                 service(id,name,price,url);
             }
-            else if(response.getString("message").toString().equals("Perfil de tiendaa encontrado")) {
+            else if(response.getString("message").toString().equals("Perfil de tienda encontrado")) {
               response=response.getJSONObject("merchantProfile");
                 descriptionMerchant.setText(response.getString("address"));
                 nameMerchant.setText(response.getString("merchantName"));
@@ -246,7 +246,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                  else if (response.getString("message").toString().equals("Product already added to wishlist")) {
                     Toast.makeText(getApplication(), "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
                 }
-                else if(response.getString("message").toString().equals("Perfil de tiendaa no encontrado")){
+                else if(response.getString("message").toString().equals("Perfil de tienda no encontrado")){
                     Toast.makeText(getApplication(), "Esta promocion no se encuentra asociada a una tienda", Toast.LENGTH_SHORT).show();
                 }
                 else
