@@ -10,6 +10,8 @@ public class Product
 	private ArrayList<String> imageUrlList;
 	private String details;
 	private String code;
+	private Boolean allowScan;
+	private int pointsByScan;
 	
 	public Product(){}
 	
@@ -23,13 +25,15 @@ public class Product
 			String productname, 
 			float price, 
 			ArrayList<String> imageurlList, 
-			String details, String code)
+			String details, String code, Boolean allowScan, int pointsByScan)
 	{
 		this.productName = productname;
 		this.price = price;
 		this.imageUrlList = imageurlList;
 		this.details = details;
 		this.code = code;
+		this.allowScan = allowScan;
+		this.pointsByScan = pointsByScan;
 	}
 	
 	
@@ -128,4 +132,22 @@ public class Product
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	public Boolean getAllowScan() {
+		return allowScan;
+	}
+
+	public void setAllowScan(Boolean allowScan) {
+		this.allowScan = allowScan;
+	}
+	
+	public int getPointsByScan() {
+		return pointsByScan;
+	}
+
+	public void setPointsByScan(int pointsByScan) {
+		this.pointsByScan = pointsByScan;
+	}
+	
+	
 }

@@ -54,7 +54,7 @@ public class NotificationController
 		{
 			ArrayList<Notification> notificationList = notificationRepository.findAllByUserId(userId);
 			
-			response.put("message", "Notificaciones sin leer"); 
+			response.put("message", "Todas las Notificaciones"); 
 			response.put("notificationResult", notificationList); 
 			response.put("status", "200");
 		}

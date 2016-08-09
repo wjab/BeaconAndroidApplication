@@ -103,13 +103,13 @@ public class MerchantProfileController
 			MerchantProfile merchant = merchantProfileRepository.findOne(merchantProfileId);
 			if(merchant != null)
 			{
-				response.put("message", "Perfil de tiendaa encontrado");
+				response.put("message", "Perfil de tienda encontrado");
 				response.put("merchantProfile", merchant);
 				response.put("status", "200");
 			}
 			else
 			{
-				response.put("message", "Perfil de tiendaa no encontrado");
+				response.put("message", "Perfil de tienda no encontrado");
 				response.put("merchantProfile", null);
 				response.put("status", "401");
 			} 
@@ -163,7 +163,7 @@ public class MerchantProfileController
 								}
 
 							}
-							if(product!=null){
+							if(product != null){
 								response.put("message", "Producto encontrado");
 								response.put("merchantData", product);
 								response.put("status", "200");
