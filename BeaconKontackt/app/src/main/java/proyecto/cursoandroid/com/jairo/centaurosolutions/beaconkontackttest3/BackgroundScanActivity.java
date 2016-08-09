@@ -202,8 +202,10 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mPlanetTitles.add(new ElementMenu(titulos[4], NavIcons.getResourceId(4, -1)));
         //FAQ
         mPlanetTitles.add(new ElementMenu(titulos[5], NavIcons.getResourceId(5, -1)));
-        //Logout
+
         mPlanetTitles.add(new ElementMenu(titulos[6], NavIcons.getResourceId(6, -1)));
+        //Logout
+        mPlanetTitles.add(new ElementMenu(titulos[7], NavIcons.getResourceId(8, -1)));
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(new MenuAdapter(this, mPlanetTitles));
@@ -599,6 +601,12 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             }
             if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.points))){
                 Intent intent= new Intent(getBaseContext(),PointsActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
+
+            }
+            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.notificaciones))){
+                Intent intent= new Intent(getBaseContext(),NotificationActivity.class);
                 intent.putExtra("idUser",idUser);
                 startActivity(intent);
 

@@ -113,6 +113,7 @@
     <string name="send_invitation">Invitar mediante</string>
     <string name="profile">Perfil</string>
     <string name="invitation">Invitar</string>
+    <string name="notificaciones">Notificaciones</string>
     <string name="close_session">Cerrar Session</string>
 
     <string name="drawer_open">Open</string>
@@ -124,6 +125,7 @@
         <item>Invitar</item>
         <item>Puntos</item>
         <item>FAQ</item>
+        <item>Notificaciones</item>
         <item>Cerrar Session</item>
     </string-array>
     <!-- Lista de iconos de navegacion-->
@@ -134,6 +136,8 @@
         <item>@drawable/ic_invitar1</item>
         <item>@drawable/icon_manage_points</item>
         <item>@drawable/ic_faq1</item>
+        <item>@drawable/ic_not1</item>
+        <item>@drawable/ic_not2</item>
         <item>@drawable/ic_log_out</item>
     </array>
     <string name="title_activity_welcome_screen">WelcomeScreen</string>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.NotificationActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.TabLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/tab_layout_notification"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:tabBackground="@drawable/tab_color_selector"
+            android:textAllCaps="false"
+            app:tabSelectedTextColor="@color/com_facebook_likeview_text_color"
+            >
+
+        </android.support.design.widget.TabLayout>
+        <android.support.v4.view.ViewPager
+            android:layout_below="@id/tab_layout_notification"
+            android:id="@+id/view_pager_notication"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+</RelativeLayout>
