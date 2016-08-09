@@ -30,7 +30,7 @@ public class DetailShopActivity extends AppCompatActivity {
     CustomAdapterDepartments adapter;
     private ArrayList<Department> arrayDepartment, ranges;
     TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin;
-    ImageView imageStore, openHistoryPoints,imageStoreName,purchaseImage,scanImage,walkinImage;
+    ImageView imageStore, openHistoryPoints,imageStoreName,purchaseImage,scanImage,walkinImage, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +40,7 @@ public class DetailShopActivity extends AppCompatActivity {
 
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -56,7 +56,15 @@ public class DetailShopActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                startActivity(intent);
 
+            }
+        });
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         descriptionMerchant = (TextView)findViewById(R.id.detailMerchantStoreDetail);
         nameMerchant = (TextView)findViewById(R.id.merchantNameStoreDetail);

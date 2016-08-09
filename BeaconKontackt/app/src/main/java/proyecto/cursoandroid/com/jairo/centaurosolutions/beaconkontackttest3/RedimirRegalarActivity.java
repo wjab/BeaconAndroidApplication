@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ public class RedimirRegalarActivity extends AppCompatActivity {
     private Button sendData;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
+    ImageView back;
     private CharSequence mpoints;
     private String idUser,userAcumulatedPoints;
     @Override
@@ -59,12 +61,20 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
         idUser = preferences.getString("userId", "");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+
+            }
+        });
         pointsAction.setText(userAcumulatedPoints.toString());
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override

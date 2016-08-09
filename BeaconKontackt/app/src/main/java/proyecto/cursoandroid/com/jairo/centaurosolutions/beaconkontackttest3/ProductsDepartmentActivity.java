@@ -48,7 +48,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     CustomAdapterProductDepartment adapter;
     private static ArrayList<ProductStore> ranges;
     TextView pointsAction, name;
-    ImageView openHistoryPoints, departmentImage;
+    ImageView openHistoryPoints, departmentImage, back;
 
     private static Context context;
     private static Activity thisActivity;
@@ -67,7 +67,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         activity = 1;
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -88,6 +88,14 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         departmentImage = (ImageView) findViewById(R.id.departmentImageDetail);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+
+            }
+        });
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         name = (TextView)findViewById(R.id.nameDepartment);
         Picasso.with(thisActivity).load(department.getUrlDepartment()).error(R.drawable.department).into(departmentImage);

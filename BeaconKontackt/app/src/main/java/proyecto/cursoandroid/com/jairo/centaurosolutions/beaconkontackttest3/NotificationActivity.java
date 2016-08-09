@@ -24,7 +24,7 @@ public class NotificationActivity extends AppCompatActivity {
     TabLayout tabLayout;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    ImageView open_history_points;
+    ImageView back;
     private CharSequence mpoints,mTitle;
     private String idUser,userAcumulatedPoints;
     private ServiceController serviceController;
@@ -51,12 +51,21 @@ public class NotificationActivity extends AppCompatActivity {
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
         idUser = preferences.getString("userId", "");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                startActivity(intent);
+
+            }
+        });
         pointsAction.setText(userAcumulatedPoints.toString());
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,13 +40,14 @@ private View rootView;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
+    ImageView back;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_products_store);
     nonStaticUtils = new NonStaticUtils();
     preferences = nonStaticUtils.loadLoginInfo(this);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
             R.layout.action_bar_promodetail,
             null);
@@ -53,13 +55,20 @@ private View rootView;
     mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
     userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
     idUser = preferences.getString("userId", "");
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     getSupportActionBar().setDisplayShowHomeEnabled(false);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
     getSupportActionBar().setDisplayShowCustomEnabled(true);
     getSupportActionBar().setCustomView(actionBarLayout);
     listviewShopProduct= (ListView)findViewById(R.id.listviewStoresProducts);
+    back = (ImageView) actionBarLayout.findViewById(R.id.back);
+    back.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            onSupportNavigateUp();
 
+        }
+    });
     listviewShopProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

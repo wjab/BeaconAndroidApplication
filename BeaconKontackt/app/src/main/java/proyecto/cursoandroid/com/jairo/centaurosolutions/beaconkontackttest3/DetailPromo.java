@@ -33,7 +33,7 @@ import utils.NonStaticUtils;
 public class DetailPromo extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
 {
     TextView tituloPromo, descripcionPromo, points, pointsAction,descriptionMerchant,nameMerchant,pointsToGiveMerchant;
-    ImageView imagenPromo, openHistoryPoints,share,imageMerchant;
+    ImageView imagenPromo, openHistoryPoints,share,imageMerchant, back;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
     Button wish;
@@ -53,7 +53,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         setContentView(R.layout.activity_detail__promo);
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -65,7 +65,15 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                startActivity(intent);
 
+            }
+        });
 
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(userAcumulatedPoints.toString());

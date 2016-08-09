@@ -7,6 +7,9 @@ import android.support.annotation.StyleableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,13 +40,25 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
     private static String webServiceUser;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
         setTitle("Lista de deseos");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.action_bar_promodetail,
+                null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+
+            }
+        });
         Intent intent1 = getIntent();
         idUser = intent1.getStringExtra("idUser");
         webServiceUser = getString(R.string.WebService_User);

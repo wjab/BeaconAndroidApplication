@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import utils.NonStaticUtils;
 public class ObtainPointsActivity extends AppCompatActivity {
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
+    ImageView back;
     private CharSequence mpoints;
     private int points;
     private String idUser,userAcumulatedPoints;
@@ -37,11 +39,19 @@ public class ObtainPointsActivity extends AppCompatActivity {
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         message=(TextView)findViewById(R.id.messageToShow);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+
+            }
+        });
         message.setText("Felicidades,has obtenido un total de"+points+" puntos para redimir en sus compras");
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         button=(Button)findViewById(R.id.button);

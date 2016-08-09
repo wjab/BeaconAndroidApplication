@@ -51,7 +51,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
     Response.ErrorListener responseError;
     private ProductStore product;
     private ViewPager pager;
-    private ImageView photo;
+    private ImageView photo, back;
     private ArrayList<String> images;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         setContentView(R.layout.activity_product_detail);
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -73,6 +73,14 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+
+            }
+        });
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         addImage=(Button) actionBarLayout.findViewById(R.id.buttonAdd);

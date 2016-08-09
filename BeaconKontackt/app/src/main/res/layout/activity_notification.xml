@@ -19,7 +19,7 @@
             android:layout_height="48dp"
             app:tabBackground="@drawable/tab_color_selector"
             android:textAllCaps="false"
-            app:tabSelectedTextColor="@color/com_facebook_likeview_text_color"
+            app:tabSelectedTextColor="@color/white"
             >
 
         </android.support.design.widget.TabLayout>
