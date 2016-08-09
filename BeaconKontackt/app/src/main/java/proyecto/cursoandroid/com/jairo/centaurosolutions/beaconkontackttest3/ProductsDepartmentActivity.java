@@ -47,7 +47,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     CustomAdapterProductDepartment adapter;
     private static ArrayList<ProductStore> ranges;
     TextView pointsAction, name;
-    ImageView openHistoryPoints;
+    ImageView openHistoryPoints,departmentImage;
     private static ImageView add;
     private static Context context;
     private static Activity thisActivity;
@@ -78,8 +78,10 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        departmentImage= (ImageView) findViewById(R.id.departmentImageDetail);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         name = (TextView)findViewById(R.id.nameDepartment);
+        Picasso.with(thisActivity).load(department.getUrlDepartment()).error(R.drawable.department).into(departmentImage);
         name.setText(department.getName());
         pointsAction.setText(userAcumulatedPoints.toString());
         ranges = department.getProducts();
