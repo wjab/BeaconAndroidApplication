@@ -13,6 +13,7 @@ public class ProductStore  implements Serializable {
     private String details;
     private ArrayList<String> imageUrlList;
     private int stateWishList;
+    private String urlImageShow;
 
 
     public String getProductId() {
@@ -61,5 +62,13 @@ public class ProductStore  implements Serializable {
 
     public void setStateWishList(int stateWishList) {
         this.stateWishList = stateWishList;
+    }
+
+    public String getUrlImageShow() {
+        return urlImageShow;
+    }
+
+    public void setUrlImageShow(String urlImageShow) {
+        this.urlImageShow = urlImageShow;
     }
 }

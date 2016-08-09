@@ -130,6 +130,9 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                             int len = imagesArray.length();
                             for (int l=0;l<len;l++){
                                 images.add(imagesArray.get(l).toString());
+                                if(images.size()==1) {
+                                    produtctElement.setUrlImageShow(imagesArray.get(l).toString());
+                                }
                             }
                         }
                         else

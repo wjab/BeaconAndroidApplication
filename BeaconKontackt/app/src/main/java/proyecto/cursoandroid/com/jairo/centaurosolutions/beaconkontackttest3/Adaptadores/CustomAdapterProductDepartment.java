@@ -65,7 +65,9 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         View rowView = inflater.inflate(R.layout.element_product, null, true);
         ServiceController imageRequest =  new ServiceController();
         final ImageView imageHeard = (ImageView)rowView.findViewById(R.id.addProduct);
+        final ImageView imageDepartment = (ImageView)rowView.findViewById(R.id.imagenDepartment);
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
+
         if(activity == 1) {
             if (productList.get(position).getStateWishList() == 1) {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
@@ -115,6 +117,8 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                 }
             });
         }
+        String url=productList.get(position).getUrlImageShow();
+        Picasso.with(contexto).load(url).error(R.drawable.department).into(imageDepartment);
         return rowView;
     }
 

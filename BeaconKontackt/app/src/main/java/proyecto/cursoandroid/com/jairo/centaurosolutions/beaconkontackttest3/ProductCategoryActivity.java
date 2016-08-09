@@ -248,6 +248,9 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                         int len = imagesArray.length();
                         for (int l=0;l<len;l++){
                             images.add(imagesArray.get(l).toString());
+                            if(images.size()==1) {
+                                element.setUrlImageShow(imagesArray.get(l).toString());
+                            }
                         }
                     }
                     else
