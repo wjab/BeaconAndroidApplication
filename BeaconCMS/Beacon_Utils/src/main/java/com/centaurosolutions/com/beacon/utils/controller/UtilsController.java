@@ -1,7 +1,6 @@
 package com.centaurosolutions.com.beacon.utils.controller;
 
 import com.centaurosolutions.com.beacon.utils.model.*;
-import com.centaurosolutions.com.beacon.utils.repository.NotificationRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,7 +176,7 @@ public class UtilsController
 			if((customMap.get("userId") != null && !customMap.get("userId").toString().isEmpty()) &&
 					(customMap.get("code") != null && !customMap.get("code").toString().isEmpty()))
 			{
-				String x = urlUser + "id/" + customMap.get("userId").toString();
+
 				userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
 
 				if(userResponse.getStatus() == 200)
@@ -194,6 +193,7 @@ public class UtilsController
 
 						if (setUserPoints(userObject))
 						{
+							nullUserObject(userObject);
 							data.put("user", userObject);
 							data.put("points", points);
 							response.put("pointsData", data);
@@ -678,6 +678,8 @@ public class UtilsController
 
 						if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId()))
 						{
+
+							nullUserObject(userObject);
                             response.put("user", userObject);
                             response.put("status", 200);
                             response.put("message", "Puntos asignados correctamente");
@@ -1077,6 +1079,23 @@ public class UtilsController
 
 		}
 		return values;
+	}
+
+
+	public void nullUserObject(User user){
+
+		user.setPassword(null);
+		user.setEmail(null);
+		user.setLastName(null);
+		user.setName(null);
+		user.setPhone(null);
+		user.setUser(null);
+		user.setSocialNetworkId(null);
+		user.setSocialNetworkJson(null);
+		user.setSocialNetworkType(null);
+		user.setProductWishList(null);
+		user.setGender(null);
+
 	}
 
 }
