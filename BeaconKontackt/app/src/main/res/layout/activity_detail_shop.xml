@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="@color/white"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:weightSum="1">
     <ScrollView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
         <RadioGroup
@@ -15,8 +15,8 @@
             android:background="@drawable/space_rounded">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="360dp"
+                android:layout_width="wrap_content"
+                android:layout_height="900dp"
                 android:background="@drawable/space_rounded"
                 android:orientation="vertical"
                 >
@@ -220,21 +220,17 @@
                     android:id="@+id/view2"
                     android:layout_below="@+id/linearLayout4"
                     android:layout_alignParentStart="true" />
-
+                <GridView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/departments"
+                    android:numColumns="2"
+                    android:layout_below="@+id/view2"
+                    android:layout_alignParentStart="true" />
 
             </RelativeLayout>
-
-            <GridView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/departments"
-                android:numColumns="2"
-                android:nestedScrollingEnabled="true" />
-            <!-- The navigation drawer -->
-
-
-
         </RadioGroup>
+
     </ScrollView>
 
 
