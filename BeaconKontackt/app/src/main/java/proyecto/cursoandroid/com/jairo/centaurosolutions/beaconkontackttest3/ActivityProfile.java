@@ -268,19 +268,27 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     }
 
     @Override
-    public void onResponse(JSONObject response) {
-        try {
+    public void onResponse(JSONObject response)
+    {
+        try
+        {
             Log.d("Response", response.toString());
             response = response.getJSONObject("user");
-            if (response.getBoolean("enable")) {
-                try {
+            if (response.getBoolean("enable"))
+            {
+                try
+                {
                     String socialNetworkType = response.getString("socialNetworkType");
-                    if (socialNetworkType.equals("facebook")) {
+
+                    if (socialNetworkType.equals("facebook"))
+                    {
                         isFacebook = true;
                         idFacebook = response.getString("socialNetworkId");
                         getinfo();
                         updateInfo.setText("Ir a Perfil");
-                    } else {
+                    }
+                    else
+                    {
                         isFacebook = false;
                         idFacebook = "";
                         updateInfo.setText("Actualizar Información");
@@ -288,8 +296,10 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                         editLastName.setText(response.getString("lastName"));
                         editEmail.setText(response.getString("email"));
                         editPhone.setText(response.getString("phone"));
-                        try {
-                            if (!response.getString("creationDate").isEmpty()) {
+                        try
+                        {
+                            if (!response.getString("creationDate").isEmpty())
+                            {
                                 Date date = new Date(Long.parseLong(response.getString("creationDate")));
                                 Calendar calendar = new GregorianCalendar();
                                 calendar.setTime(date);
@@ -298,7 +308,9 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                                 showDate(formatDate(year, month, day));
                             }
-                        } catch (Exception e) {
+                        }
+                        catch (Exception e)
+                        {
                             calendar = Calendar.getInstance();
                             year = calendar.get(Calendar.YEAR);
                             month = calendar.get(Calendar.MONTH) + 1;
@@ -306,20 +318,25 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                             showDate(formatDate(year, month, day));
                         }
                     }
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     isFacebook = false;
                     idFacebook = "";
                     updateInfo.setText("Actualizar Información");
                 }
 
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onErrorResponse(VolleyError error)
+    {
         Log.d("Login Error", error.toString());
     }
 

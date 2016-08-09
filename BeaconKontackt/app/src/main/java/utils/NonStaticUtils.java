@@ -11,10 +11,8 @@ import service.GivePointToUserService;
 /**
  * Created by Administrador on 12/18/2015.
  */
-public class NonStaticUtils extends Activity {
-
-
-
+public class NonStaticUtils extends Activity
+{
     public void StartPromoService(Context context, BeaconCache beaconCache)
     {
         try
@@ -31,8 +29,8 @@ public class NonStaticUtils extends Activity {
 
     }
 
-    public SharedPreferences loadLoginInfo(Context context){
-
+    public SharedPreferences loadLoginInfo(Context context)
+    {
         SharedPreferences prefs =  null;
 
         try
@@ -103,9 +101,17 @@ public class NonStaticUtils extends Activity {
             ex.printStackTrace();
             ex.getMessage();
         }
-
     }
 
+    public void UpdateUserPoints(Context context,int points)
+    {
+        SharedPreferences prefs = null;
+        SharedPreferences.Editor editor = null;
 
+        prefs = context.getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
+        editor = prefs.edit();
+        editor.putInt("points",points);
+        editor.commit();
+    }
 
 }

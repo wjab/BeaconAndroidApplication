@@ -65,11 +65,10 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_department);
         activity = 1;
-        nonStaticUtils = new NonStaticUtils();
-        preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
+
         preferences = nonStaticUtils.loadLoginInfo(this);
         mpoints = preferences.getInt("points", 0) + "";
         ServiceController imageRequest =  new ServiceController();
@@ -226,14 +225,14 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         {
             if(response.getString("message").toString().equals(""))
             {
-                response=response.getJSONObject("user");
-                JSONArray ranges1= response.getJSONArray("productWishList");
+                response = response.getJSONObject("user");
+                JSONArray ranges1 = response.getJSONArray("productWishList");
                 listArray= new ArrayList<Wish>();
 
-                for(int i=0; i < ranges1.length(); i++ )
+                for(int i = 0; i < ranges1.length(); i++ )
                 {
                     Wish element = new Wish();
-                    JSONObject currRange=ranges1.getJSONObject(i);
+                    JSONObject currRange = ranges1.getJSONObject(i);
                     element.setProductId(currRange.getString("productId"));
                     element.setProductName(currRange.getString("productName"));
                     element.setImageUrlList(currRange.getString("imageUrlList"));
@@ -244,11 +243,11 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             }
             else if (response.getString("message").toString().equals("User updated"))
             {
-                response=response.getJSONObject("user");
-                JSONArray ranges1= response.getJSONArray("productWishList");
-                listArray= new ArrayList<Wish>();
+                response = response.getJSONObject("user");
+                JSONArray ranges1 = response.getJSONArray("productWishList");
+                listArray = new ArrayList<Wish>();
 
-                for(int i=0; i < ranges1.length(); i++ )
+                for(int i = 0; i < ranges1.length(); i++ )
                 {
                     Wish element = new Wish();
                     JSONObject currRange = ranges1.getJSONObject(i);
@@ -258,6 +257,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                     element.setPrice(currRange.getInt("price"));
                     listArray.add(element);
                 }
+
                 Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
                 chargeDepartments();
             }
@@ -267,6 +267,10 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             }
             else if(response.getString("message").toString().equals("Puntos asignados correctamente"))
             {
+                response = response.getJSONObject("user");
+
+                // Actualiza los puntos del del usuario en sharedPreferences
+                nonStaticUtils.UpdateUserPoints(thisActivity, response.getInt("totalGiftPoints"));
                 Toast.makeText(context, "Puntos asignados por escaneo", Toast.LENGTH_SHORT).show();
             }
         }

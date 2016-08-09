@@ -20,12 +20,13 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ent
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
 import utils.NonStaticUtils;
 
-public class DetailShopActivity extends AppCompatActivity {
+public class DetailShopActivity extends AppCompatActivity
+{
     Intent intent;
     String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    String idUser;
+    String idUser, merchantId;
     GridView grid;
     CustomAdapterDepartments adapter;
     private ArrayList<Department> arrayDepartment, ranges;
@@ -84,6 +85,7 @@ public class DetailShopActivity extends AppCompatActivity {
         nameMerchant.setText(store.getCity());
         descriptionMerchant.setText(store.getAddress());
         ranges = store.getDepartments();
+        merchantId = store.getId();
         grid = (GridView)findViewById(R.id.departments);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -93,7 +95,7 @@ public class DetailShopActivity extends AppCompatActivity {
                 department = ranges.get(position);
                 Intent intentSuccess = new Intent(getBaseContext(),ProductsDepartmentActivity.class);
                 intentSuccess.putExtra("department", department);
-                intentSuccess.putExtra("merchantId", store.getId());
+                intentSuccess.putExtra("merchantId", merchantId);
                 startActivity(intentSuccess);
 
             }

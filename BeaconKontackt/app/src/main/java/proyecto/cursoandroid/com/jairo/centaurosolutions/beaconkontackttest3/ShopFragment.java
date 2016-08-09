@@ -89,36 +89,40 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
             for(int i=0; i < ranges.length(); i++ )
             {
-                JSONObject currRange = ranges.getJSONObject(i);
+                JSONObject merchantObject = ranges.getJSONObject(i);
                 listDepartments = new ArrayList<Department>();
-               Store storeElement = new Store();
+                Store storeElement = new Store();
                 TotalGiftPoints points= new TotalGiftPoints();
-                storeElement.setMerchantName(currRange.getString("merchantName"));
-                storeElement.setAddress(currRange.getString("address"));
-                storeElement.setPointToGive(currRange.getInt("pointsToGive"));
-                storeElement.setCity(currRange.getString("city"));
-                storeElement.setAddress(currRange.getString("address"));
-               JSONObject elementPoints = currRange.getJSONObject("totalGiftPoints");
+                storeElement.setId(merchantObject.getString("id"));
+                storeElement.setMerchantName(merchantObject.getString("merchantName"));
+                storeElement.setAddress(merchantObject.getString("address"));
+                storeElement.setPointToGive(merchantObject.getInt("pointsToGive"));
+                storeElement.setCity(merchantObject.getString("city"));
+                storeElement.setAddress(merchantObject.getString("address"));
+
+                JSONObject elementPoints = merchantObject.getJSONObject("totalGiftPoints");
                 points.setWalkin(elementPoints.getString("walkin"));
                 points.setScan(elementPoints.getString("scan"));
                 points.setPurchase(elementPoints.getString("purchase"));
                 points.setBill(elementPoints.getString("bill"));
                 storeElement.setTotalGiftPoints(points);
-                storeElement.setUrlImagen(currRange.getString("image"));
+                storeElement.setUrlImagen(merchantObject.getString("image"));
 
-                JSONArray departaments= currRange.getJSONArray("departments");
+                JSONArray departaments = merchantObject.getJSONArray("departments");
 
-                for(int j=0; j < departaments.length(); j++ )
+                for(int j = 0; j < departaments.length(); j++ )
                 {
                     JSONObject currDepartament = departaments.getJSONObject(j);
                     Department departmentElement = new Department();
                     departmentElement.setName(currDepartament.getString("name"));
                     departmentElement.setId(currDepartament.getString("id"));
                     departmentElement.setUrlDepartment(currDepartament.getString("departmentUrl"));
-                    departmentElement.setUrlImageShop(currRange.getString("image"));
+                    departmentElement.setUrlImageShop(merchantObject.getString("image"));
                     JSONArray products= currDepartament.getJSONArray("products");
                     listProductStore =  new ArrayList<ProductStore>();
-                    for(int k=0; k < products.length(); k++ ){
+
+                    for(int k = 0; k < products.length(); k++ )
+                    {
                         JSONObject currProduct = products.getJSONObject(k);
                         ProductStore produtctElement = new ProductStore();
                         produtctElement.setPrice(currProduct.getLong("price"));
@@ -128,7 +132,9 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                         produtctElement.setStateWishList(0);
                         ArrayList<String> images= new ArrayList<String>();
                         JSONArray imagesArray= currProduct.getJSONArray("imageUrlList");
-                        if (imagesArray != null && imagesArray.length()>0)  {
+
+                        if (imagesArray != null && imagesArray.length()>0)
+                        {
                             int len = imagesArray.length();
                             for (int l=0;l<len;l++){
                                 images.add(imagesArray.get(l).toString());
