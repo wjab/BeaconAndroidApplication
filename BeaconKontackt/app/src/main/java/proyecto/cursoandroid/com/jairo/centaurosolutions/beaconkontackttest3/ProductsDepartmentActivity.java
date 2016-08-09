@@ -174,7 +174,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         grid.setAdapter(adapter);
     }
 
-    public void service(String productId, String productName, float price)
+    public void service(String productId, String productName, float price,String urlImage)
     {
         serviceController = new ServiceController();
         responseError = this;
@@ -185,12 +185,12 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         mapParams.put("productId", productId);
         mapParams.put("productName", productName);
         mapParams.put("price", price);
-        mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
+        mapParams.put("imageUrlList", urlImage);
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
 
-        String url = webServiceUser + "user/wishlist/add";
+        String url = webServiceUser+"user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 

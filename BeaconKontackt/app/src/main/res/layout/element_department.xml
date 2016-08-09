@@ -9,7 +9,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:id="@+id/imageDepartment"
-        android:src="@drawable/department"
         />
     <LinearLayout
         android:layout_width="fill_parent"
@@ -28,7 +27,6 @@
             android:gravity="center_horizontal|bottom"
             android:layout_marginLeft="5dp"
             android:layout_height="40dp"
-            android:background="@drawable/promo"
             android:id="@+id/shopImage"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="5dp"

@@ -79,8 +79,17 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                 public void onClick(View view) {
                     String productId = productList.get(position).getProductId();
                     String productName = productList.get(position).getProductName();
+                    String url=null;
                     float price = productList.get(position).getPrice();
-                    productDepartmentActivity.service(productId, productName, price);
+                    ArrayList<String> imagesArray= new ArrayList<String>();
+                    imagesArray=productList.get(position).getImageUrlList();
+                    int len = imagesArray.size();
+                    for (int l=0;l<len;l++){
+                        if(l==0) {
+                            url =imagesArray.get(l);
+                        }
+                    }
+                    productDepartmentActivity.service(productId, productName, price,url);
 
                 }});
 
@@ -104,8 +113,18 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                 public void onClick(View view) {
                     String productId = productList.get(position).getProductId();
                     String productName = productList.get(position).getProductName();
+                    String url=null;
                     float price = productList.get(position).getPrice();
-                    productCategoryActivity.service(productId, productName, price);
+                    ArrayList<String> imagesArray= new ArrayList<String>();
+                    imagesArray=productList.get(position).getImageUrlList();
+                    int len = imagesArray.size();
+                    for (int l=0;l<len;l++){
+                        if(l==0) {
+                            url =imagesArray.get(l);
+                        }
+                    }
+
+                    productCategoryActivity.service(productId, productName, price, url);
                 }});
 
             // Metodo de escaneo

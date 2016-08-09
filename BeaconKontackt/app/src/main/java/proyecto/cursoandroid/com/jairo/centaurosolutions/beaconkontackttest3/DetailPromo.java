@@ -16,6 +16,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -200,12 +202,27 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
             if(response.getString("message").equals("null")){
                 response=response.getJSONObject("productData");
                 response=response.getJSONObject("product");
-                String id,name;
+                String id,name,url = null;
                 int price;
                 id=response.getString("productId");
                 name=response.getString("productName");
                 price=response.getInt("price");
-                service(id,name,price);
+                ArrayList<String> images= new ArrayList<String>();
+                JSONArray imagesArray= response.getJSONArray("imageUrlList");
+                if (imagesArray != null && imagesArray.length()>0)  {
+                    int len = imagesArray.length();
+                    for (int l=0;l<len;l++){
+                        images.add(imagesArray.get(l).toString());
+                        if(images.size()==1) {
+                           url=imagesArray.get(l).toString();
+                        }
+                    }
+                }
+                else
+                {
+                    images.add("images");
+                }
+                service(id,name,price,url);
             }
             else if(response.getString("message").toString().equals("Perfil de tiendaa encontrado")) {
               response=response.getJSONObject("merchantProfile");
@@ -239,7 +256,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
-    public void service(String productId, String productName,int price){
+    public void service(String productId, String productName,int price, String urlImage){
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -248,7 +265,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         mapParams.put("productId",productId);
         mapParams.put("productName", productName);
         mapParams.put("price",price);
-        mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
+        mapParams.put("imageUrlList", urlImage);
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = getString(R.string.WebService_User)+"user/wishlist/add";
