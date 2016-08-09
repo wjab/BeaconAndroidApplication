@@ -63,7 +63,7 @@ public class FaqActivity extends  AppCompatActivity{
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
-
+        tabLayout.setTabTextColors(Color.parseColor("#717171"), Color.parseColor("#ffffff"));
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
         idUser = preferences.getString("userId", "");

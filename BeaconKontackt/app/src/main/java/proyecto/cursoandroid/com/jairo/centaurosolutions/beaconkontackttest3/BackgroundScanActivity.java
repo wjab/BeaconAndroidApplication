@@ -34,6 +34,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -128,7 +129,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.action_bar_layout, null);
         pager= (ViewPager) findViewById(R.id.view_pager);
         tabLayout= (TabLayout) findViewById(R.id.tab_layout);
-
         FragmentManager manager=getSupportFragmentManager();
         PagerAdapter adapter=new PagerAdapter(manager);
         pager.setAdapter(adapter);
@@ -137,6 +137,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
+        tabLayout.setTabTextColors(Color.parseColor("#717171"), Color.parseColor("#ffffff"));
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
         mpoints = preferences.getInt("points", 0) + "";
