@@ -132,7 +132,7 @@ public class MerchantBusinessTypeController
 			{
 				merchantBusinessType.setDescription(merchantBusinessTypeMap.get("description").toString());
 				merchantBusinessType.setType(merchantBusinessTypeMap.get("type").toString().toUpperCase());
-				merchantBusinessType.setType(merchantBusinessTypeMap.get("imageUrl").toString());
+				merchantBusinessType.setImageUrl(merchantBusinessTypeMap.get("imageUrl").toString());
 				
 				merchantBusinessTypeRepository.save(merchantBusinessType);
 				
