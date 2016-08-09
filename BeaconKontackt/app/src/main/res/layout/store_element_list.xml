@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="2km"
+        android:textStyle="bold"
         android:layout_marginRight="5dp"
         android:id="@+id/textView"
         android:layout_gravity="right" />
@@ -73,6 +74,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/purchase"
+                android:textColor="@color/darkBlue"
                 android:layout_gravity="center"
                 android:textStyle="bold" />
 
@@ -97,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="50"
+                android:textColor="@color/darkBlue"
                 android:id="@+id/walkin"
                 android:textStyle="bold"
                 android:layout_gravity="center" />
@@ -121,6 +124,7 @@
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="80"
+                android:textColor="@color/darkBlue"
                 android:id="@+id/scan"
                 android:textStyle="bold"
                 android:layout_gravity="center" />

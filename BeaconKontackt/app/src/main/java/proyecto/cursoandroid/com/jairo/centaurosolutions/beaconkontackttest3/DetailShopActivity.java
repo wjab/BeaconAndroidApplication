@@ -30,7 +30,7 @@ public class DetailShopActivity extends AppCompatActivity
     GridView grid;
     CustomAdapterDepartments adapter;
     private ArrayList<Department> arrayDepartment, ranges;
-    TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin;
+    TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin, scanDetails, purchaseDetails, walkingDetails;
     ImageView imageStore, openHistoryPoints,imageStoreName,purchaseImage,scanImage,walkinImage, back;
 
     @Override
@@ -72,6 +72,9 @@ public class DetailShopActivity extends AppCompatActivity
         scan = (TextView)findViewById(R.id.scanDetail);
         purchase = (TextView)findViewById(R.id.purchaseDetail);
         walkin = (TextView)findViewById(R.id.walkinDetail);
+        scanDetails = (TextView)findViewById(R.id.scanDetailText);
+        purchaseDetails =(TextView)findViewById(R.id.purchaseDetailText);
+        walkingDetails=(TextView)findViewById(R.id.walkinDetailText);
 
         imageStoreName = (ImageView) findViewById(R.id.imageShopDetail);
         walkinImage = (ImageView) findViewById(R.id.imageView3);
@@ -151,28 +154,36 @@ public class DetailShopActivity extends AppCompatActivity
         purchaseText=store.getTotalGiftPoints().getPurchase();
         scan.setText(scanText);
         if(scanText.equals("0")){
+           scanDetails.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
            scan.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
-            scanImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.scan_gray));
+           scanImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.scan_gray));
         }
         else {
+            scanDetails.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
             scan.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
             scanImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.scan_blue));
         }
         walkin.setText(walkinText);
         if(walkinText.equals("0")){
+            walkingDetails.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
             walkin.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
             walkinImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.walk_in_gray));
         }
         else {
+            walkingDetails.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
             walkin.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
             walkinImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.walk_in_blue));
         }
         purchase.setText(purchaseText);
         if(purchaseText.equals("0")){
+
+            purchaseDetails.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
             purchase.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
             purchaseImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.purchase_gray));
         }
         else {
+
+            purchaseDetails.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
             purchase.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
             purchaseImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.purchase_blue));
         }
