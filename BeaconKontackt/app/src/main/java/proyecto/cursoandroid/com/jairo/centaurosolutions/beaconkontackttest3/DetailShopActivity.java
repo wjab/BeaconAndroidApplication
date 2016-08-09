@@ -30,7 +30,7 @@ public class DetailShopActivity extends AppCompatActivity {
     CustomAdapterDepartments adapter;
     private ArrayList<Department> arrayDepartment, ranges;
     TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin;
-    ImageView imageStore, openHistoryPoints,imageStoreName;
+    ImageView imageStore, openHistoryPoints,imageStoreName,purchaseImage,scanImage,walkinImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +63,15 @@ public class DetailShopActivity extends AppCompatActivity {
         walkin=(TextView)findViewById(R.id.walkinDetail);
 
         imageStoreName = (ImageView) findViewById(R.id.imageShopDetail);
+        walkinImage = (ImageView) findViewById(R.id.imageView3);
+        scanImage = (ImageView) findViewById(R.id.imageView4);
+        purchaseImage = (ImageView) findViewById(R.id.imageView2);
+
         imageRequest.imageRequest(store.getUrlImagen(), imageStoreName, 0, 0);
         imageStore = (ImageView) findViewById(R.id.imagenDetail);
         imageRequest.imageRequest(store.getUrlImagen(), imageStore, 0, 0);
         pointsAction.setText(userAcumulatedPoints.toString());
         nameMerchant.setText(store.getCity());
-        scan.setText(store.getTotalGiftPoints().getScan());
-        walkin.setText(store.getTotalGiftPoints().getWalkin());
-        purchase.setText(store.getTotalGiftPoints().getPurchase());
         descriptionMerchant.setText(store.getAddress());
         ranges=store.getDepartments();
         grid= (GridView)findViewById(R.id.departments);
@@ -111,6 +112,7 @@ public class DetailShopActivity extends AppCompatActivity {
                 }
             }
         });
+        setImgeTextColor(store);
         chargeDepartments();
     }
     @Override
@@ -128,5 +130,38 @@ public class DetailShopActivity extends AppCompatActivity {
         adapter=new CustomAdapterDepartments(this, ranges);
         grid.setAdapter(adapter);
     }
+    public void setImgeTextColor(Store store){
+        String walkinText,purchaseText,scanText;
+        walkinText=store.getTotalGiftPoints().getWalkin();
+        scanText=store.getTotalGiftPoints().getScan();
+        purchaseText=store.getTotalGiftPoints().getPurchase();
+        scan.setText(scanText);
+        if(scanText.equals("0")){
+           scan.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
+            scanImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.scan_gray));
+        }
+        else {
+            scan.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
+            scanImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.scan_blue));
+        }
+        walkin.setText(walkinText);
+        if(walkinText.equals("0")){
+            walkin.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
+            walkinImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.walk_in_gray));
+        }
+        else {
+            walkin.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
+            walkinImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.walk_in_blue));
+        }
+        purchase.setText(purchaseText);
+        if(purchaseText.equals("0")){
+            purchase.setTextColor(getBaseContext().getResources().getColor(R.color.mediumGrey));
+            purchaseImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.purchase_gray));
+        }
+        else {
+            purchase.setTextColor(getBaseContext().getResources().getColor(R.color.darkBlue));
+            purchaseImage.setBackground(getBaseContext().getResources().getDrawable(R.drawable.purchase_blue));
+        }
 
+    }
 }
