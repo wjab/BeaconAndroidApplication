@@ -31,8 +31,10 @@ public class DetailShopActivity extends AppCompatActivity {
     private ArrayList<Department> arrayDepartment, ranges;
     TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin;
     ImageView imageStore, openHistoryPoints,imageStoreName,purchaseImage,scanImage,walkinImage;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_shop);
 
@@ -47,20 +49,20 @@ public class DetailShopActivity extends AppCompatActivity {
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
-        Store store = (Store)intent.getSerializableExtra("detailShop");
+        final Store store = (Store)intent.getSerializableExtra("detailShop");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
 
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        descriptionMerchant=(TextView)findViewById(R.id.detailMerchantStoreDetail);
-        nameMerchant=(TextView)findViewById(R.id.merchantNameStoreDetail);
-        scan=(TextView)findViewById(R.id.scanDetail);
-        purchase=(TextView)findViewById(R.id.purchaseDetail);
-        walkin=(TextView)findViewById(R.id.walkinDetail);
+        descriptionMerchant = (TextView)findViewById(R.id.detailMerchantStoreDetail);
+        nameMerchant = (TextView)findViewById(R.id.merchantNameStoreDetail);
+        scan = (TextView)findViewById(R.id.scanDetail);
+        purchase = (TextView)findViewById(R.id.purchaseDetail);
+        walkin = (TextView)findViewById(R.id.walkinDetail);
 
         imageStoreName = (ImageView) findViewById(R.id.imageShopDetail);
         walkinImage = (ImageView) findViewById(R.id.imageView3);
@@ -73,8 +75,9 @@ public class DetailShopActivity extends AppCompatActivity {
         pointsAction.setText(userAcumulatedPoints.toString());
         nameMerchant.setText(store.getCity());
         descriptionMerchant.setText(store.getAddress());
-        ranges=store.getDepartments();
-        grid= (GridView)findViewById(R.id.departments);
+        ranges = store.getDepartments();
+        grid = (GridView)findViewById(R.id.departments);
+
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,6 +85,7 @@ public class DetailShopActivity extends AppCompatActivity {
                 department = ranges.get(position);
                 Intent intentSuccess = new Intent(getBaseContext(),ProductsDepartmentActivity.class);
                 intentSuccess.putExtra("department", department);
+                intentSuccess.putExtra("merchantId", store.getId());
                 startActivity(intentSuccess);
 
             }

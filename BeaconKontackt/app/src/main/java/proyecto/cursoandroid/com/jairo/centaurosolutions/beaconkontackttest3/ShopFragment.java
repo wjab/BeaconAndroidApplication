@@ -74,12 +74,11 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
     }
     @Override
-    public void onResponse(JSONObject response) {
-
-
-        try {
+    public void onResponse(JSONObject response)
+    {
+        try
+        {
             listStoreArray = new ArrayList<Store>();
-
 
             Gson gson= new Gson();
             JSONArray ranges= response.getJSONArray("merchantProfile");
@@ -88,7 +87,8 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
             String messageType = "";
             String store = "";
 
-            for(int i=0; i < ranges.length(); i++ ){
+            for(int i=0; i < ranges.length(); i++ )
+            {
                 JSONObject currRange = ranges.getJSONObject(i);
                 listDepartments = new ArrayList<Department>();
                Store storeElement = new Store();
@@ -98,7 +98,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                 storeElement.setPointToGive(currRange.getInt("pointsToGive"));
                 storeElement.setCity(currRange.getString("city"));
                 storeElement.setAddress(currRange.getString("address"));
-               JSONObject elementPoints=currRange.getJSONObject("totalGiftPoints");
+               JSONObject elementPoints = currRange.getJSONObject("totalGiftPoints");
                 points.setWalkin(elementPoints.getString("walkin"));
                 points.setScan(elementPoints.getString("scan"));
                 points.setPurchase(elementPoints.getString("purchase"));
@@ -107,7 +107,9 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                 storeElement.setUrlImagen(currRange.getString("image"));
 
                 JSONArray departaments= currRange.getJSONArray("departments");
-                for(int j=0; j < departaments.length(); j++ ){
+
+                for(int j=0; j < departaments.length(); j++ )
+                {
                     JSONObject currDepartament = departaments.getJSONObject(j);
                     Department departmentElement = new Department();
                     departmentElement.setName(currDepartament.getString("name"));

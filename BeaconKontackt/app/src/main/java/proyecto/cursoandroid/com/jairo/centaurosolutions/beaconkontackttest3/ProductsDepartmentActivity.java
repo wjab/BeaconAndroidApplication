@@ -36,19 +36,20 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ent
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 
-public class ProductsDepartmentActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class ProductsDepartmentActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
+{
     Intent intent;
     String mpoints, userAcumulatedPoints;
     private static String webServiceUser, webServiceUtils;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    private static String idUser;
+    private static String idUser, merchantId;
     private static GridView grid;
     CustomAdapterProductDepartment adapter;
     private static ArrayList<ProductStore> ranges;
     TextView pointsAction, name;
-    ImageView openHistoryPoints,departmentImage;
-    private static ImageView add;
+    ImageView openHistoryPoints, departmentImage;
+
     private static Context context;
     private static Activity thisActivity;
     private int activity = 1;
@@ -78,13 +79,15 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         context = this;
         thisActivity = this;
         Department department = (Department)intent.getSerializableExtra("department");
+        merchantId = intent.getStringExtra("merchantId");
+
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
-        departmentImage= (ImageView) findViewById(R.id.departmentImageDetail);
+        departmentImage = (ImageView) findViewById(R.id.departmentImageDetail);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         name = (TextView)findViewById(R.id.nameDepartment);
         Picasso.with(thisActivity).load(department.getUrlDepartment()).error(R.drawable.department).into(departmentImage);
@@ -187,7 +190,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
 
-        String url = webServiceUser+"user/wishlist/add";
+        String url = webServiceUser + "user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 
@@ -303,7 +306,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("userId", idUser);
             params.put("code", scanContent);
-            params.put("merchantId", "579f5acd6b0b62432016dd86");
+            params.put("merchantId", merchantId);
 
             String url = webServiceUtils + "utils/savePointsByCode";
             serviceController.jsonObjectRequest(url, Request.Method.POST, params, headers, response, responseError);
