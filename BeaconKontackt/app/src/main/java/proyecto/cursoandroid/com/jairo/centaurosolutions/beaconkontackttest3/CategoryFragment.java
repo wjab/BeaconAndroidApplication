@@ -80,7 +80,8 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
             String messageType = "";
             String promo = "";
 
-            for(int i=0; i < ranges.length(); i++ ){
+            for(int i = 0; i < ranges.length(); i++ )
+            {
                 JSONObject currRange = ranges.getJSONObject(i);
 
                 Category element = new Category();
@@ -91,9 +92,11 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
                 listArray.add(element);
             }
 
-            adapter=new CustomAdapterCategory(getActivity(), listArray);
+            adapter = new CustomAdapterCategory(getActivity(), listArray);
             listView.setAdapter(adapter);
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
 

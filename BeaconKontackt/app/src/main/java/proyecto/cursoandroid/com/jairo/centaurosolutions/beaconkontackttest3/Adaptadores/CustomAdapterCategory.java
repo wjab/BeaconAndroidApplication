@@ -17,41 +17,40 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 /**
  * Created by Centauro on 04/08/2016.
  */
-public class CustomAdapterCategory extends ArrayAdapter<Category> {
-
+public class CustomAdapterCategory extends ArrayAdapter<Category>
+{
     public Activity contexto;
     //la lista de todos los elementos
     public ArrayList<Category> list;
     // la lista de los elementos filtrados
     public ArrayList<Category> mStringFilterList;
 
-
-
     // private final Integer[] imgid;
-/// constructor que recive el contexto y la lista de los elementos
-    public CustomAdapterCategory(Activity contexto, ArrayList<Category> list) {
+    /// constructor que recive el contexto y la lista de los elementos
+    public CustomAdapterCategory(Activity contexto, ArrayList<Category> list)
+    {
         super(contexto, R.layout.element_category, list);
         // TODO Auto-generated constructor stub
 
         this.contexto = contexto;
         this.list = list;
         this.mStringFilterList = list;
-
     }
 
     // setea el array
-    public void setArray(ArrayList<Category> list) {
+    public void setArray(ArrayList<Category> list)
+    {
         this.list = list;
-
     }
 
     /// adapta los elementos al layout de los element view
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent)
+    {
         LayoutInflater inflater = contexto.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.element_category, null, true);
 
         TextView walkin = (TextView) rowView.findViewById(R.id.descriptionCategory);
-        walkin.setText(list.get(position).getType());
+        walkin.setText(list.get(position).getDescription());
 
         ImageView image = (ImageView) rowView.findViewById(R.id.imageCategory);
         ServiceController imageRequest =  new ServiceController();
@@ -59,7 +58,6 @@ public class CustomAdapterCategory extends ArrayAdapter<Category> {
         imageRequest.imageRequest(list.get(position).getUrlImage(), image, 0,0);
 
         return rowView;
-
     }
 
 
