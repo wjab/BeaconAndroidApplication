@@ -88,17 +88,18 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         departmentImage = (ImageView) findViewById(R.id.departmentImageDetail);
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSupportNavigateUp();
-
             }
         });
+
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         name = (TextView)findViewById(R.id.nameDepartment);
         Picasso.with(thisActivity).load(department.getUrlDepartment()).error(R.drawable.department).into(departmentImage);
-        name.setText(department.getName());
+        name.setText(department.getName().toUpperCase());
         pointsAction.setText(userAcumulatedPoints.toString());
         ranges = department.getProducts();
         grid = (GridView)findViewById(R.id.products);
@@ -111,7 +112,6 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
                 startActivity(intentSuccess);
-
             }
         });
 

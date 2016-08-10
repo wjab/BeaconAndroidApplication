@@ -83,7 +83,6 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
             @Override
             public void onClick(View view) {
                 onSupportNavigateUp();
-
             }
         });
 
