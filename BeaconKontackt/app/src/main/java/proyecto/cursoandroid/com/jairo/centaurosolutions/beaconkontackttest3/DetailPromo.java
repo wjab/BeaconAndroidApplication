@@ -36,7 +36,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     ImageView imagenPromo, openHistoryPoints,share,imageMerchant, back;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
-    Button wish;
+    Button wish,addImage;
     Intent intent;
     String idMechantProfile;
     SharedPreferences preferences;
@@ -90,6 +90,15 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         share=(ImageView)findViewById(R.id.share);
         wish=(Button)findViewById(R.id.wishButton);
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),WishListActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
+            }
+        });
         promo= (Promociones)intent.getSerializableExtra("Detail");
         ServiceController imageRequest =  new ServiceController();
         points.setText(promo.getPuntos() + " pts");

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class DetailShopActivity extends AppCompatActivity
     private ArrayList<Department> arrayDepartment, ranges;
     TextView pointsAction,descriptionMerchant, nameMerchant, scan, purchase, walkin, scanDetails, purchaseDetails, walkingDetails;
     ImageView imageStore, openHistoryPoints, imageStoreName, purchaseImage, scanImage, walkinImage, back;
-
+    Button addImage;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,7 +60,15 @@ public class DetailShopActivity extends AppCompatActivity
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
-
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),WishListActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +77,7 @@ public class DetailShopActivity extends AppCompatActivity
 
             }
         });
+
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         descriptionMerchant = (TextView)findViewById(R.id.detailMerchantStoreDetail);
         nameMerchant = (TextView)findViewById(R.id.merchantNameStoreDetail);

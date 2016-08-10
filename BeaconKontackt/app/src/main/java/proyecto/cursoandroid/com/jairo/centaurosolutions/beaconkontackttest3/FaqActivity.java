@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class FaqActivity extends  AppCompatActivity{
     String idUser;
     ViewPager pager;
     TabLayout tabLayout;
+    Button addImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,15 @@ public class FaqActivity extends  AppCompatActivity{
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
+            }
+        });
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {

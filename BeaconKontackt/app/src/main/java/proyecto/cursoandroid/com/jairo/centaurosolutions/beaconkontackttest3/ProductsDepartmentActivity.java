@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
+    Button addImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -102,6 +104,15 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         name.setText(department.getName().toUpperCase());
         pointsAction.setText(userAcumulatedPoints.toString());
         ranges = department.getProducts();
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),WishListActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
+            }
+        });
         grid = (GridView)findViewById(R.id.products);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {

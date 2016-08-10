@@ -62,38 +62,35 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="0.76">
-
-                        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="merchantName"
-                            android:layout_marginBottom="5dp"
-                    android:id="@+id/merchantNameStoreDetail"
-                    />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Detalles de la tienda"
-                            android:id="@+id/detailMerchantStoreDetail"
-                            />
-                </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="2km"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             android:id="@+id/textView2"
                             android:layout_gravity="right" />
+                        <TextView
+                        android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="merchantName"
+                            android:textSize="18sp"
+                            android:layout_marginBottom="5dp"
+                    android:id="@+id/merchantNameStoreDetail"
+                    />
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Detalles de la tienda"
+                            android:textSize="15sp"
+                            android:lines="3"
+                            android:id="@+id/detailMerchantStoreDetail"
+                            />
+                </LinearLayout>
 
-                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"

@@ -39,7 +39,7 @@ import utils.NonStaticUtils;
 public class ProductDetailActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
 {
     Intent intent;
-    private String mpoints, userAcumulatedPoints;
+    private String mpoints, userAcumulatedPoints,urlImage;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     private String idUser;
@@ -101,6 +101,15 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         price.setText(Float.toString(product.getPrice()));
         details.setText(product.getDetails());
         images = product.getImageUrlList();
+
+        images=product.getImageUrlList();
+        int len = images.size();
+            for (int l=0;l<len;l++){
+                if(l==0) {
+                    urlImage=images.get(l).toString();
+                }
+            }
+
         pager.setAdapter(new PagerAdapterImage(this, images));
 
         pointsAction.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +145,6 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
             }
         });
     }
-
     @Override
     public boolean onSupportNavigateUp()
     {
@@ -159,7 +167,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         mapParams.put("productId", product.getProductId());
         mapParams.put("productName", product.getProductName());
         mapParams.put("price", product.getPrice());
-        mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
+        mapParams.put("imageUrlList", urlImage);
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
         String url = getString(R.string.WebService_User)+"user/wishlist/add";

@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -31,6 +34,8 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     public ListView listviewHistory;
     public ArrayList<History> listHistoryArray;
     String idUser;
+    Button addImage;
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,10 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         setTitle("Historial de puntos");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent1 = getIntent();
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.action_bar_promodetail,
+                null);
+        getSupportActionBar().setCustomView(actionBarLayout);
         idUser = intent1.getStringExtra("idUser");
         listviewHistory= (ListView)findViewById(R.id.listviewHistory);
         listviewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -48,6 +57,24 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                 //Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
                 //intentSuccess.putExtra("Detail", store);
                 //startActivity(intentSuccess);
+            }
+        });
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
+                intent.putExtra("idUser",idUser);
+                startActivity(intent);
             }
         });
         shopProductService();

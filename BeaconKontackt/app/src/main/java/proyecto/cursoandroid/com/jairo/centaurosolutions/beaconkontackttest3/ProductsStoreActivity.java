@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
     NonStaticUtils nonStaticUtils;
     String idUser;
     ImageView back;
+    Button addImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -85,7 +87,15 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
                 //startActivity(intentSuccess);
             }
         });
-
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
+                intent.putExtra("idUser", idUser);
+                startActivity(intent);
+            }
+        });
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(userAcumulatedPoints.toString());
 
