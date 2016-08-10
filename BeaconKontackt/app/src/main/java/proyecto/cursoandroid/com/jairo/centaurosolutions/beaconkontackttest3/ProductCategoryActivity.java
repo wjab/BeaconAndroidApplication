@@ -50,35 +50,40 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     private static Activity context;
     private static Activity thisActivity;
     private int activity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_category);
-        nonStaticUtils = new NonStaticUtils();
-        preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
+
         preferences = nonStaticUtils.loadLoginInfo(this);
-        mpoints = preferences.getInt("points", 0) + "";
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mpoints = String.valueOf(preferences.getInt("points", 0));
         ServiceController imageRequest =  new ServiceController();
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
-        context=this;
+        context = this;
         thisActivity = this;
-        activity=2;
-        nameCategory=intent.getStringExtra("name");
+        activity = 2;
+        nameCategory = intent.getStringExtra("name");
         name = (TextView)findViewById(R.id.nameCategory);
         name.setText(nameCategory);
-        urlImage=intent.getStringExtra("urlImage");
+        urlImage = intent.getStringExtra("urlImage");
         nameCategory=nameCategory.toLowerCase();
+
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+
+        openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +92,13 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
 
             }
         });
-        imageCategory=(ImageView)findViewById(R.id.imageCategory);
+
+        imageCategory = (ImageView)findViewById(R.id.imageCategory);
         Picasso.with(context).load(urlImage).error(R.drawable.department).into(imageCategory);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(userAcumulatedPoints.toString());
-        grid= (GridView)findViewById(R.id.productsCategory);
+        grid = (GridView)findViewById(R.id.productsCategory);
+
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,20 +109,24 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 startActivity(intentSuccess);
             }
         });
+
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mpoints.toString().equals("0")) {
+                if (mpoints.equals("0"))
+                {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
-                } else {
+                } else
+                {
                     openHistory();
                 }
             }
         });
+
         openHistoryPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
+                if(mpoints.equals("0"))
                 {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
                 }
@@ -125,6 +136,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 }
             }
         });
+
         webServiceUser=getString(R.string.WebService_User);
         obtainProducts();
     }

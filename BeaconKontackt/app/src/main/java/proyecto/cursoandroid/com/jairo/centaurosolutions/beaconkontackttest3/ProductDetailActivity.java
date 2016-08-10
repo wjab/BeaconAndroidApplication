@@ -36,7 +36,8 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ada
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import utils.NonStaticUtils;
 
-public class ProductDetailActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class ProductDetailActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
+{
     Intent intent;
     private String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
@@ -53,17 +54,20 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
     private ViewPager pager;
     private ImageView photo, back;
     private ArrayList<String> images;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-        nonStaticUtils = new NonStaticUtils();
-        preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
-        mpoints = preferences.getInt("points", 0) + "";
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mpoints = String.valueOf(preferences.getInt("points", 0));
+
         ServiceController imageRequest =  new ServiceController();
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
@@ -74,6 +78,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,27 +86,33 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
 
             }
         });
+
         getSupportActionBar().setCustomView(actionBarLayout);
-        openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
-        addImage=(Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        name=(TextView)findViewById(R.id.nameProductDetail);
-        price=(TextView)findViewById(R.id.priceProductDetail);
-        details=(TextView)findViewById(R.id.detailsProductDetail);
+        name = (TextView)findViewById(R.id.nameProductDetail);
+        price = (TextView)findViewById(R.id.priceProductDetail);
+        details = (TextView)findViewById(R.id.detailsProductDetail);
         photo = (ImageView) findViewById(R.id.photo);
         pager = (ViewPager) findViewById(R.id.pager);
+
         pointsAction.setText(userAcumulatedPoints.toString());
         name.setText(product.getProductName());
         price.setText(Float.toString(product.getPrice()));
         details.setText(product.getDetails());
-        images=product.getImageUrlList();
+        images = product.getImageUrlList();
         pager.setAdapter(new PagerAdapterImage(this, images));
+
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mpoints.toString().equals("0")) {
+                if (mpoints.equals("0"))
+                {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else
+                {
                     openHistory();
                 }
             }
@@ -109,9 +120,12 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         openHistoryPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mpoints.toString().equals("0")) {
+                if (mpoints.equals("0"))
+                {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else
+                {
                     openHistory();
                 }
             }
@@ -125,24 +139,27 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
+    public boolean onSupportNavigateUp()
+    {
         finish();
         return super.onSupportNavigateUp();
     }
-    public void openHistory(){
+    public void openHistory()
+    {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
-        intent.putExtra("idUser",idUser);
+        intent.putExtra("idUser", idUser);
         startActivity(intent);
     }
-    public void service(){
+    public void service()
+    {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
         Map<String, Object> mapParams = new HashMap<>();
-        mapParams.put("userId",idUser);
+        mapParams.put("userId", idUser);
         mapParams.put("productId", product.getProductId());
-        mapParams.put("productName",product.getProductName());
-        mapParams.put("price",product.getPrice());
+        mapParams.put("productName", product.getProductName());
+        mapParams.put("price", product.getPrice());
         mapParams.put("imageUrlList", "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg");
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
@@ -150,14 +167,16 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onErrorResponse(VolleyError error)
+    {
 
     }
 
     @Override
-    public void onResponse(JSONObject response) {
-        try {
-
+    public void onResponse(JSONObject response)
+    {
+        try
+        {
             if (response.getString("message").toString().equals("User updated"))
             {
                 Toast.makeText(this, "Añadido correctamente", Toast.LENGTH_SHORT).show();
@@ -167,7 +186,9 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
                 Toast.makeText(this, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
             }
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             Toast.makeText(this, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
