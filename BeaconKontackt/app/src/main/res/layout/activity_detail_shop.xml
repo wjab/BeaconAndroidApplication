@@ -149,7 +149,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Walk-ins"
+                            android:text="@string/walkinText"
                             android:textSize="14dp"
                             android:id="@+id/walkinDetailText"
                             android:textColor="@color/grey"

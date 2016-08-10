@@ -185,6 +185,7 @@
     <string name="changePoints">Usted tiene un total de %s pts disponibles para redimir</string>
     <string name="obtainPoints">Obtén aquí tus puntos, ingresando el código!</string>
     <string name="redimirPuntos">Muestra este código en cajas, a la hora de realizar tu pago, para redimir puntos !</string>
+    <string name="walkinText">Visitas</string>
 
     <string name="textoIntentScan">Código de Barras</string>
     <string name="codigoNoEscaneado">Código no escaneado</string>
