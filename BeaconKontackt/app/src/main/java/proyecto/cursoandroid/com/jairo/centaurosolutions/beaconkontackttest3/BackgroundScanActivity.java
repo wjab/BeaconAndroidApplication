@@ -127,8 +127,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
         // Inflate your custom layout
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.action_bar_layout, null);
-        pager= (ViewPager) findViewById(R.id.view_pager);
-        tabLayout= (TabLayout) findViewById(R.id.tab_layout);
+        pager = (ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         FragmentManager manager=getSupportFragmentManager();
         PagerAdapter adapter=new PagerAdapter(manager);
         pager.setAdapter(adapter);
@@ -189,7 +189,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        mPlanetTitles= new ArrayList<ElementMenu>();
+        mPlanetTitles = new ArrayList<ElementMenu>();
         //Perfil
         mPlanetTitles.add(new ElementMenu(titulos[0], NavIcons.getResourceId(0, -1)));
         //Preferencias
