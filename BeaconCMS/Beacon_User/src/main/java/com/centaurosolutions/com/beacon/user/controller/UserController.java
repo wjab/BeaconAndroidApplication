@@ -43,6 +43,11 @@ public class UserController {
 		{
 			preference = (ArrayList<Preferences>)userMap.get("preference");
 		}
+		ArrayList<Wish> wishList = new ArrayList<Wish>();
+		if(userMap.get("productWishList") != null)
+		{
+			wishList = (ArrayList<Wish>)userMap.get("productWishList");
+		}
 			User user = new User(
 				userMap.get("user").toString(), 
 					setEncryptedPassword(userMap.get("password").toString()),
@@ -59,7 +64,7 @@ public class UserController {
 					userMap.get("socialNetworkType").toString(),
 					userMap.get("socialNetworkJson").toString(),
 					userMap.get("gender").toString(),
-					null,
+					wishList,
 					userMap.get("pathImage").toString(),
 					preference);
 			
@@ -239,13 +244,18 @@ public class UserController {
 		try
 		{
 			User user = userRepository.findById(UserId);
-			ArrayList<Preferences> preference = new ArrayList<Preferences>();
-			if(userMap.get("preference") != null)
-			{
-				preference = (ArrayList<Preferences>)userMap.get("preference");
-			}
+		
 			if (user != null) 
 			{
+				if(userMap.get("productWishList") != null)
+				{
+					user.setProductWishList((ArrayList<Wish>)userMap.get("productWishList"));
+				}
+				if(userMap.get("preference") != null)
+				{
+					user.setPreference((ArrayList<Preferences>)userMap.get("preference"));
+				}
+				
 				user.setUser(userMap.get("user").toString());
 				user.setEnable(Boolean.valueOf(userMap.get("enable").toString()));
 				user.setCategoryId(Integer.parseInt(userMap.get("categoryId").toString()));
@@ -257,7 +267,6 @@ public class UserController {
 				user.setPhone(userMap.get("phone").toString());
 				user.setGender(userMap.get("gender").toString());
 				user.setPathImage(userMap.get("pathImage").toString());
-				user.setPreference(preference);
 				user.setId(UserId);
 				response.put("status", 200);
 				response.put("message", "User updated");
