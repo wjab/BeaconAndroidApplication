@@ -8,7 +8,7 @@
         android:scaleType="fitXY"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/imageDepartment"
         />
     <LinearLayout
@@ -41,13 +41,14 @@
             android:visibility="gone" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="112dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
+            android:text="Electrodomesticos"
             android:layout_marginTop="59dp"
             android:textColor="@color/white"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="4dp"
+            android:lines="2"
             android:layout_marginBottom="5dp"
             android:id="@+id/nameDepartment"
             android:layout_weight="0.05" />

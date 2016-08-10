@@ -24,7 +24,7 @@
     <ImageView
         android:id="@+id/departmentImageDetail"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="200dp"
         android:scaleType="fitXY"
         android:background="@drawable/space_rounded"
         android:src="@drawable/department"
@@ -64,7 +64,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/products"
         android:numColumns="2"
-        android:nestedScrollingEnabled="true" />
+        android:nestedScrollingEnabled="true"
+            android:layout_marginTop="10dp" />
     </RadioGroup>
     </ScrollView>
 

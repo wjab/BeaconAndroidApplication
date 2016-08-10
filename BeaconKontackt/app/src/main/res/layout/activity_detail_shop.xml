@@ -49,9 +49,9 @@
                     android:weightSum="1">
                     <ImageView
                         android:layout_width="110dp"
-                        android:layout_height="64dp"
+                        android:layout_height="80dp"
                         android:id="@+id/imageShopDetail"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="13dp"
                         android:layout_marginRight="13dp"
                         android:layout_alignParentStart="true" />
                     <LinearLayout
@@ -86,7 +86,7 @@
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:text="Detalles de la tienda"
                             android:textSize="15sp"
-                            android:lines="3"
+                            android:lines="2"
                             android:id="@+id/detailMerchantStoreDetail"
                             />
                 </LinearLayout>
