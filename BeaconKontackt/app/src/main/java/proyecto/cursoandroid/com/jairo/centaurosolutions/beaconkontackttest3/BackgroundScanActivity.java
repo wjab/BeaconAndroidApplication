@@ -138,9 +138,10 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         tabLayout.setTabsFromPagerAdapter(adapter);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#a1d940"));
         tabLayout.setTabTextColors(Color.parseColor("#717171"), Color.parseColor("#ffffff"));
+
         // Set up your ActionBar
         mTitle = preferences.getString("username", "");
-        mpoints = preferences.getInt("points", 0) + "";
+        mpoints = String.valueOf(preferences.getInt("points", 0));
         idUser = preferences.getString("userId", "");
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
 

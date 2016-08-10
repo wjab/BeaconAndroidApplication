@@ -30,8 +30,8 @@ public class DetailShopActivity extends AppCompatActivity
     GridView grid;
     CustomAdapterDepartments adapter;
     private ArrayList<Department> arrayDepartment, ranges;
-    TextView pointsAction,descriptionMerchant, nameMerchant,scan,purchase,walkin, scanDetails, purchaseDetails, walkingDetails;
-    ImageView imageStore, openHistoryPoints,imageStoreName,purchaseImage,scanImage,walkinImage, back;
+    TextView pointsAction,descriptionMerchant, nameMerchant, scan, purchase, walkin, scanDetails, purchaseDetails, walkingDetails;
+    ImageView imageStore, openHistoryPoints, imageStoreName, purchaseImage, scanImage, walkinImage, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,16 +39,17 @@ public class DetailShopActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_shop);
 
-        nonStaticUtils = new NonStaticUtils();
-        preferences = nonStaticUtils.loadLoginInfo(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
+
         preferences = nonStaticUtils.loadLoginInfo(this);
-        mpoints = preferences.getInt("points", 0) + "";
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mpoints = String.valueOf(preferences.getInt("points", 0));
         ServiceController imageRequest =  new ServiceController();
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
+
         intent = getIntent();
         final Store store = (Store)intent.getSerializableExtra("detailShop");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
@@ -58,6 +59,7 @@ public class DetailShopActivity extends AppCompatActivity
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,10 +105,11 @@ public class DetailShopActivity extends AppCompatActivity
 
             }
         });
+
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
+                if(mpoints.equals("0"))
                 {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
                 }
@@ -116,10 +119,11 @@ public class DetailShopActivity extends AppCompatActivity
                 }
             }
         });
+
         openHistoryPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
+                if(mpoints.equals("0"))
                 {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
                 }
@@ -129,6 +133,7 @@ public class DetailShopActivity extends AppCompatActivity
                 }
             }
         });
+
         setImgeTextColor(store);
         chargeDepartments();
     }

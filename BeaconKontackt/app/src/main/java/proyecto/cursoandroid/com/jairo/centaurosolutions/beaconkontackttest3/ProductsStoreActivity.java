@@ -56,7 +56,7 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
                 R.layout.action_bar_promodetail,
                 null);
 
-        mpoints = preferences.getString("points", "");
+        mpoints = String.valueOf(preferences.getInt("points", 0));
 
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
