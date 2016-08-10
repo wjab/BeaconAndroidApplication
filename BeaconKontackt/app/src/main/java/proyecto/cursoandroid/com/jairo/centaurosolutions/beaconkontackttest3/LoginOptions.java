@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 import utils.Utils;
 
@@ -361,7 +362,6 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
         mapParams.put("socialNetworkType", "facebook");
         mapParams.put("socialNetworkJson", jsonMap.toString());
         mapParams.put("gender",(jsonMap.get("gender") != null ? jsonMap.get("gender").toString() : ""));
-        mapParams.put("productWishList", "");
         mapParams.put("pathImage", "");
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type","application/json");

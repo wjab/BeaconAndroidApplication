@@ -27,6 +27,7 @@ import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Preference;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.InputValidatorHelper;
 import utils.Utils;
 
@@ -115,8 +116,6 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User) + "user";
         ArrayList<Preference> preferenceList = new  ArrayList<Preference>();
-
-
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("user", email.getText().toString());
         mapParams.put("password", password.getText().toString());
@@ -133,7 +132,6 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("socialNetworkType","localuser");
         mapParams.put("socialNetworkJson","");
         mapParams.put("gender","");
-        mapParams.put("productWishList","");
         mapParams.put("pathImage","");
         mapParams.put("preference",preferenceList );
 
