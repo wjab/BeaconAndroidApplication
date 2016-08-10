@@ -55,9 +55,10 @@ public class CustomAdapterDepartments extends ArrayAdapter<Department> {
         View rowView = inflater.inflate(R.layout.element_department, null, true);
 
         TextView id = (TextView) rowView.findViewById(R.id.idDepartment);
+        TextView name = (TextView) rowView.findViewById(R.id.nameDepartment);
 
         id.setText(storeList.get(position).getId());
-
+        name.setText(storeList.get(position).getName());
         ImageView image = (ImageView) rowView.findViewById(R.id.shopImage);
         ImageView imageD = (ImageView) rowView.findViewById(R.id.imageDepartment);
 
