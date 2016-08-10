@@ -30,73 +30,82 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ada
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import utils.NonStaticUtils;
 
-public class ProductsStoreActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
-
-public CustomAdapterProductDepartment adapter;
-public ListView listviewShopProduct;
-public ArrayList<ProductStore> listStoreProductArray;
-private View rootView;
-    String mpoints,userAcumulatedPoints;
+public class ProductsStoreActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
+{
+    public CustomAdapterProductDepartment adapter;
+    public ListView listviewShopProduct;
+    public ArrayList<ProductStore> listStoreProductArray;
+    private View rootView;
+    String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
     ImageView back;
-@Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_products_store);
-    nonStaticUtils = new NonStaticUtils();
-    preferences = nonStaticUtils.loadLoginInfo(this);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-            R.layout.action_bar_promodetail,
-            null);
+        setContentView(R.layout.activity_products_store);
+        nonStaticUtils = new NonStaticUtils();
 
-    mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
-    userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
-    idUser = preferences.getString("userId", "");
-    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    getSupportActionBar().setDisplayShowHomeEnabled(false);
-    getSupportActionBar().setDisplayShowTitleEnabled(false);
-    getSupportActionBar().setDisplayShowCustomEnabled(true);
-    getSupportActionBar().setCustomView(actionBarLayout);
-    listviewShopProduct= (ListView)findViewById(R.id.listviewStoresProducts);
-    back = (ImageView) actionBarLayout.findViewById(R.id.back);
-    back.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            onSupportNavigateUp();
+        preferences = nonStaticUtils.loadLoginInfo(this);
 
-        }
-    });
-    listviewShopProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            ProductStore storeProduct = new ProductStore();
-            storeProduct = listStoreProductArray.get(position);
-            //Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
-            //intentSuccess.putExtra("Detail", store);
-            //startActivity(intentSuccess);
-        }
-    });
-    TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-    pointsAction.setText(userAcumulatedPoints.toString());
-    pointsAction.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if(mpoints.toString().equals("0"))
-            {
-                Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
+                R.layout.action_bar_promodetail,
+                null);
+
+        mpoints = preferences.getString("points", "");
+
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
+        idUser = preferences.getString("userId", "");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
+        listviewShopProduct = (ListView)findViewById(R.id.listviewStoresProducts);
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+
             }
-            else
-            {
-                openHistory();
+        });
+
+        listviewShopProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductStore storeProduct = new ProductStore();
+                storeProduct = listStoreProductArray.get(position);
+                //Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
+                //intentSuccess.putExtra("Detail", store);
+                //startActivity(intentSuccess);
             }
-        }
-    });
-    shopProductService();
-    return;
+        });
+
+        TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        pointsAction.setText(userAcumulatedPoints.toString());
+
+        pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mpoints.equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
+            }
+        });
+        shopProductService();
+        return;
     }
+
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser",idUser);
@@ -114,7 +123,8 @@ private View rootView;
 
     @Override
     public void onResponse(JSONObject response) {
-        try {
+        try
+        {
             listStoreProductArray = new ArrayList<ProductStore>();
             Gson gson= new Gson();
             JSONArray ranges= response.getJSONArray("merchantProduct");
@@ -138,7 +148,9 @@ private View rootView;
 
             adapter=new CustomAdapterProductDepartment(this, listStoreProductArray,0);
             listviewShopProduct.setAdapter(adapter);
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
     }
