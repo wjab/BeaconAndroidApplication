@@ -63,7 +63,7 @@ public class UserController {
 					userMap.get("pathImage").toString(),
 					preference);
 			
-			if(LOCAL_USER == user.getSocialNetworkType())
+			if(LOCAL_USER.equals(user.getSocialNetworkType()))
 			{
 				/* Se aplican las validaciones para ver que el usuario no
 				 * exista caso: Usuario con mismo telefono o Correo */
