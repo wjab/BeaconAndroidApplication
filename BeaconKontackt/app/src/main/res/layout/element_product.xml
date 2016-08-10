@@ -8,6 +8,7 @@
         android:scaleType="fitXY"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/imagenDepartment"
         />
     <LinearLayout
@@ -34,13 +35,23 @@
             android:src="@drawable/scan_white"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Points"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="55dp"
+            android:id="@+id/pointsScan" />
+
         <ImageView
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_marginTop="42dp"
             android:layout_marginBottom="9dp"
             android:background="@drawable/ic_add"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/addProduct"/>
     </LinearLayout>
 
