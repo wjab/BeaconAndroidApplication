@@ -59,6 +59,11 @@ public class WishListActivity extends AppCompatActivity implements Response.List
 
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
         Intent intent1 = getIntent();
         idUser = intent1.getStringExtra("idUser");
         webServiceUser = getString(R.string.WebService_User);

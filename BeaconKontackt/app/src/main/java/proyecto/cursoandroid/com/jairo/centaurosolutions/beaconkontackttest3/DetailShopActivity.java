@@ -72,9 +72,7 @@ public class DetailShopActivity extends AppCompatActivity
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                startActivity(intent);
-
+           onSupportNavigateUp();
             }
         });
 

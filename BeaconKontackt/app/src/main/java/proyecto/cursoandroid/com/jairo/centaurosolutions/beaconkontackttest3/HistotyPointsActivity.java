@@ -41,7 +41,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histoty_points);
         setTitle("Historial de puntos");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         Intent intent1 = getIntent();
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
@@ -63,11 +63,15 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                startActivity(intent);
+                onSupportNavigateUp();
 
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
         addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
