@@ -223,6 +223,18 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
 
                     if (currRange.getBoolean("enable")) {
                         isAuthenticated = true;
+                        Map<String,String> map = new HashMap<>();
+                        if (!currRange.getString("socialNetworkJson").isEmpty()){
+                            String jsonFace= currRange.getString("socialNetworkJson");
+                            jsonFace = jsonFace.substring(1, jsonFace.length()-1);           //remove curly brackets
+                            String[] keyValuePairs = jsonFace.split(",");              //split the string to creat key-value pairs
+
+                            for(String pair : keyValuePairs)                        //iterate over the pairs
+                            {
+                                String[] entry = pair.split("=");                   //split the pairs to get key and value
+                                map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+                            }
+                        }
                         nonStaticUtils.saveLogin(this,
                                 currRange.getString("user"),
                                 currRange.getString("password"),
@@ -237,7 +249,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                                 (currRange.getString("phone") != null ? currRange.getString("phone").toString() : ""),
                                 (currRange.getString("email") != null ? currRange.getString("email").toString() : ""),
                                 (currRange.getString("gender") != null ? currRange.getString("gender").toString() : ""),
-                                "");
+                                (map.get("birthday") != null ? map.get("birthday").toString() : ""));
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                         startActivity(intent);
                     } else {

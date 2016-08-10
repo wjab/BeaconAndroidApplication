@@ -138,6 +138,18 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
             else {
                 response = response.getJSONObject("user");
                 if (response.getBoolean("enable")) {
+                    Map<String,String> map = new HashMap<>();
+                    if (!response.getString("socialNetworkJson").isEmpty()){
+                        String jsonFace= response.getString("socialNetworkJson");
+                        jsonFace = jsonFace.substring(1, jsonFace.length()-1);           //remove curly brackets
+                        String[] keyValuePairs = jsonFace.split(",");              //split the string to creat key-value pairs
+
+                        for(String pair : keyValuePairs)                        //iterate over the pairs
+                        {
+                            String[] entry = pair.split("=");                   //split the pairs to get key and value
+                            map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+                        }
+                    }
                     nonStaticUtils.saveLogin(getContext(),
                             response.getString("user"),
                             response.getString("password"),
@@ -152,7 +164,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                             (response.getString("phone") != null ? response.getString("phone").toString() : ""),
                             (response.getString("email") != null ? response.getString("email").toString() : ""),
                             (response.getString("gender") != null ? response.getString("gender").toString() : ""),
-                            "");
+                            (map.get("birthday") != null ? map.get("birthday").toString() : ""));
                     Intent intent = new Intent(getContext(), RedimirRegalarActivity.class);
                     intent.putExtra("type", "regalar");
                     intent.putExtra("message",messageToSend);

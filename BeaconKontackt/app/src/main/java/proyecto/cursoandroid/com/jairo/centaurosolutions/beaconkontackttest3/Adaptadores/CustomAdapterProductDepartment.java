@@ -67,8 +67,11 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         final ImageView imageHeard = (ImageView)rowView.findViewById(R.id.addProduct);
         final ImageView imageDepartment = (ImageView)rowView.findViewById(R.id.imagenDepartment);
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
+        final TextView price = (TextView)rowView.findViewById(R.id.price);
+
 
         if(activity == 1) {
+            price.setText(String.valueOf(productList.get(position).getPrice()));
             if (productList.get(position).getStateWishList() == 1) {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
             } else {

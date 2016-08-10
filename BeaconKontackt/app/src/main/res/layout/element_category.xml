@@ -34,10 +34,9 @@
             android:id="@+id/descriptionCategory"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="15dp"
+            android:textAllCaps="true"
             android:layout_alignParentStart="true"
             android:layout_weight="1" />
-
     </LinearLayout>
-
 </RelativeLayout>
 

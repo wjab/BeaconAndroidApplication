@@ -241,7 +241,7 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
         if (!preferences.getString("birthday", "").equals("")) {
             String birthday = preferences.getString("birthday", "");
             String[] array = birthday.split("/");
-            showDate(formatDate(Integer.parseInt(array[1]), Integer.parseInt(array[0]), Integer.parseInt(array[2])));
+            showDate(formatDate(Integer.parseInt(array[2]), Integer.parseInt(array[0]), Integer.parseInt(array[1])));
 
         }
         enableForm();

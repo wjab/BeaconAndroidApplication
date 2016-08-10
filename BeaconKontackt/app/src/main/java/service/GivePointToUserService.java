@@ -146,6 +146,7 @@ public class GivePointToUserService extends Service implements Response.Listener
                 sharedPreferences = nonStaticUtils.loadLoginInfo(context);
                 giftPoints = userObject.getInt("totalGiftPoints");
 
+
                 nonStaticUtils.saveLogin(getApplicationContext(),
                         sharedPreferences.getString("username", null),
                         sharedPreferences.getString("password", null),
@@ -160,7 +161,7 @@ public class GivePointToUserService extends Service implements Response.Listener
                         sharedPreferences.getString("phone", null),
                         sharedPreferences.getString("email",null),
                         sharedPreferences.getString("gender",null),
-                        "");
+                        sharedPreferences.getString("birthday",null));
 
                 ShowPromoNotification(context);
             }

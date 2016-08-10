@@ -109,11 +109,12 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Detalles de la tienda"
+                    android:textSize="20dp"
                     android:id="@+id/detailMerchant"
-                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/pointsToGive"
-                    android:layout_alignStart="@+id/merchantName" />
+                    android:layout_below="@+id/merchantName"
+                    android:layout_alignStart="@+id/merchantName"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,6 +124,7 @@
                     android:id="@+id/descriptionPromoDetai"
                     android:layout_below="@+id/imageMerchant"
                     android:layout_alignStart="@+id/imageMerchant"
+                    android:textSize="20dp"
                     android:layout_marginTop="38dp"
                     android:layout_alignEnd="@+id/linearLayout2"
                     android:layout_alignParentBottom="true" />
@@ -134,9 +136,11 @@
                     android:text="merchantName"
                     android:id="@+id/merchantName"
                     android:layout_marginLeft="15dp"
+                    android:textSize="20dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/imageMerchant" />
+                    android:layout_toEndOf="@+id/imageMerchant"
+                    android:layout_marginStart="36dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,10 +148,12 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="pointsToGive"
                     android:id="@+id/pointsToGive"
-                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/merchantName"
-                    android:layout_alignStart="@+id/merchantName" />
+                    android:layout_below="@+id/detailMerchant"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_alignStart="@+id/merchantName"
+                    />
             </RelativeLayout> <!-- The navigation drawer -->
 
 
@@ -157,20 +163,7 @@
 
 
 
-        <Button
-            android:id="@+id/wishButton"
-            android:layout_width="331dp"
-            android:layout_height="32dp"
-            android:gravity="center_horizontal"
-            android:drawableRight="@drawable/ic_added"
-            android:text="Añadir a la lista"
-            android:textAllCaps="false"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
-            android:background="@color/darkBlue"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_horizontal" />
+
 
 
     </LinearLayout> <!-- The navigation drawer -->

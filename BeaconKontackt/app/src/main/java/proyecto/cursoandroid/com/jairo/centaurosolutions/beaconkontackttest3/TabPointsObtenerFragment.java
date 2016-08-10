@@ -117,6 +117,18 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
                 response = response.getJSONObject("pointsData");
                 JSONObject responseUser = response.getJSONObject("user");
                 if (responseUser.getBoolean("enable")) {
+                    Map<String,String> map = new HashMap<>();
+                    if (!responseUser.getString("socialNetworkJson").isEmpty()){
+                        String jsonFace= responseUser.getString("socialNetworkJson");
+                        jsonFace = jsonFace.substring(1, jsonFace.length()-1);           //remove curly brackets
+                        String[] keyValuePairs = jsonFace.split(",");              //split the string to creat key-value pairs
+
+                        for(String pair : keyValuePairs)                        //iterate over the pairs
+                        {
+                            String[] entry = pair.split("=");                   //split the pairs to get key and value
+                            map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+                        }
+                    }
                     nonStaticUtils.saveLogin(getContext(),
                             responseUser.getString("user"),
                             responseUser.getString("password"),
@@ -131,7 +143,7 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
                             (responseUser.getString("phone") != null ? responseUser.getString("phone").toString() : ""),
                             (responseUser.getString("email") != null ? responseUser.getString("email").toString() : ""),
                             (responseUser.getString("gender") != null ? responseUser.getString("gender").toString() : ""),
-                            "");
+                            (map.get("birthday") != null ? map.get("birthday").toString() : ""));
                     Intent intent = new Intent(getContext(), ObtainPointsActivity.class);
                     int points=response.getInt("points");
                     intent.putExtra("points", points);

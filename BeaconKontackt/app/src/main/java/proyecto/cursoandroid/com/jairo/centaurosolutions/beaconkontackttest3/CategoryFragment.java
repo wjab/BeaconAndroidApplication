@@ -55,7 +55,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                nameCategory = listArray.get(position).getType();
+                nameCategory = listArray.get(position).getDescription();
                 urlImage = listArray.get(position).getUrlImage();
                 Intent intentSuccess = new Intent(getActivity().getBaseContext(), ProductCategoryActivity.class);
                 intentSuccess.putExtra("name", nameCategory);

@@ -36,7 +36,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     ImageView imagenPromo, openHistoryPoints,share,imageMerchant, back;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
-    Button wish,addImage;
+    Button addImage;
     Intent intent;
     String idMechantProfile;
     SharedPreferences preferences;
@@ -89,7 +89,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         intent = getIntent();
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         share=(ImageView)findViewById(R.id.share);
-        wish=(Button)findViewById(R.id.wishButton);
+       // wish=(Button)findViewById(R.id.wishButton);
         addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,12 +134,12 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 }
         }
         });
-        wish.setOnClickListener(new View.OnClickListener() {
+        /*wish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                searchProductPromo();
             }
-        });
+        });*/
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
