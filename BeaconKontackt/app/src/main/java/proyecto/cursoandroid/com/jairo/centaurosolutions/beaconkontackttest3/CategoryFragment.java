@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -97,6 +98,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
         }
         catch (JSONException e)
         {
+            Toast.makeText(getActivity().getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 

@@ -115,6 +115,7 @@ public class PreferencesDialogFragment extends DialogFragment implements Respons
             listView.setAdapter(adapter);
 
         } catch (JSONException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 

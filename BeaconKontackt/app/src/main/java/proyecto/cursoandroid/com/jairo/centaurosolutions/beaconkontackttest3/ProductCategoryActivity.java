@@ -314,7 +314,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         }
         catch (JSONException e)
         {
-            Toast.makeText(context, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

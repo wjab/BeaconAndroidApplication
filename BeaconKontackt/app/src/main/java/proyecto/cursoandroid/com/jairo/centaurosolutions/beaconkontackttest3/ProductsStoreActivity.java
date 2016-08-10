@@ -161,6 +161,7 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
         }
         catch (JSONException e)
         {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

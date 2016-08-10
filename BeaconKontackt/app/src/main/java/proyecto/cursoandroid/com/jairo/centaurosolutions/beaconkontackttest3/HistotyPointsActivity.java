@@ -1,6 +1,7 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,16 +29,21 @@ import java.util.Map;
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterHistoryPoints;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.History;
+import utils.NonStaticUtils;
 
 
 public class HistotyPointsActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     public CustomAdapterHistoryPoints adapter;
     public ListView listviewHistory;
+    SharedPreferences preferences;
+    NonStaticUtils nonStaticUtils;
+    private String mpoints, userAcumulatedPoints;
     public ArrayList<History> listHistoryArray;
     String idUser;
     Button addImage;
     ImageView back;
+    TextView pointsAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +55,13 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                 R.layout.action_bar_promodetail,
                 null);
         getSupportActionBar().setCustomView(actionBarLayout);
+        nonStaticUtils = new NonStaticUtils();
+        preferences = nonStaticUtils.loadLoginInfo(this);
+        mpoints = String.valueOf(preferences.getInt("points", 0));
+        pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = intent1.getStringExtra("idUser");
+        pointsAction.setText(userAcumulatedPoints.toString());
         listviewHistory= (ListView)findViewById(R.id.listviewHistory);
         listviewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,6 +139,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
             adapter=new CustomAdapterHistoryPoints(this, listHistoryArray);
             listviewHistory.setAdapter(adapter);
         } catch (JSONException e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

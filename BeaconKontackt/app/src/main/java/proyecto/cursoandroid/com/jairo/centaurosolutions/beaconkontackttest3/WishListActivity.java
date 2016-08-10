@@ -3,6 +3,7 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.StyleableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,6 +30,7 @@ import java.util.Map;
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterWish;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
+import utils.NonStaticUtils;
 
 public class WishListActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -40,8 +43,11 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
     private static String webServiceUser;
-    ImageView back;
-
+    ImageView back,openHistoryPoints;
+    SharedPreferences preferences;
+    NonStaticUtils nonStaticUtils;
+    private String mpoints, userAcumulatedPoints;
+    TextView pointsAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +57,14 @@ public class WishListActivity extends AppCompatActivity implements Response.List
                 R.layout.action_bar_promodetail,
                 null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        nonStaticUtils = new NonStaticUtils();
+        preferences = nonStaticUtils.loadLoginInfo(this);
+        mpoints = String.valueOf(preferences.getInt("points", 0));
+        pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
+        pointsAction.setText(userAcumulatedPoints.toString());
         back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,10 +82,41 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         webServiceUser = getString(R.string.WebService_User);
         listView= (ListView)findViewById(R.id.listviewWish);
         context=this;
+        pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mpoints.equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
+            }
+        });
+        openHistoryPoints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mpoints.equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
+            }
+        });
         shopProductService();
         return;
         }
-
+    public void openHistory()
+    {
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        intent.putExtra("idUser", idUser);
+        startActivity(intent);
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
 

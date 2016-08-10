@@ -196,7 +196,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         }
         catch (JSONException e)
         {
-            Toast.makeText(this, "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
