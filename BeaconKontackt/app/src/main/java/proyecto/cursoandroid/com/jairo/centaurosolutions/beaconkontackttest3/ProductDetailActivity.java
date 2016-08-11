@@ -98,7 +98,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         addImage.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_add));
         pointsAction.setText(userAcumulatedPoints.toString());
         name.setText(product.getProductName());
-        price.setText(Float.toString(product.getPrice()));
+        price.setText( String.format(getString(R.string.colonSymbol), Float.toString(product.getPrice()) ));
         details.setText(product.getDetails());
         images = product.getImageUrlList();
         idProduct=product.getProductId();

@@ -68,8 +68,9 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
         final TextView price = (TextView)rowView.findViewById(R.id.price);
         final TextView pointsByScan = (TextView)rowView.findViewById(R.id.pointsScan);
-        price.setText(String.valueOf(productList.get(position).getPrice()));
+        price.setText( String.format(contexto.getString(R.string.colonSymbol), String.valueOf(productList.get(position).getPrice())) );
         pointsByScan.setText(String.valueOf(productList.get(position).getPointsByScan()));
+
         if(activity == 1) {
             if (productList.get(position).getStateWishList() == 1) {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
