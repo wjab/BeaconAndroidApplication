@@ -90,7 +90,7 @@ public class UserController {
 						response.put("message", "User created");
 						response.put("user", user);
 
-						createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
+						createUserNotification(user.getId(), NOTIFICATION_INFO, "Ganaste "+ user.getTotalGiftPoints() + " puntos  por instalar QuickShop");
 					}
 				}
 				else
@@ -101,7 +101,7 @@ public class UserController {
 					response.put("message", "User created");
 					response.put("user", user);
 
-					createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
+					createUserNotification(user.getId(), NOTIFICATION_INFO, "Ganaste "+ user.getTotalGiftPoints() + " puntos  por instalar QuickShop");
 				}
 			}
 			else
@@ -126,7 +126,7 @@ public class UserController {
 						response.put("message", "User created");
 						response.put("user", user);
 
-						createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
+						createUserNotification(user.getId(), NOTIFICATION_INFO, "Ganaste "+ user.getTotalGiftPoints() + " puntos  por instalar QuickShop");
 					}
 				}
 				else
@@ -137,7 +137,7 @@ public class UserController {
 					response.put("message", "User created");
 					response.put("user", user);
 
-					createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
+					createUserNotification(user.getId(), NOTIFICATION_INFO, "Ganaste "+ user.getTotalGiftPoints() + " puntos  por instalar QuickShop");
 				}
 			}			
 		}
