@@ -33,13 +33,13 @@ import utils.NonStaticUtils;
 
 public class DetailPromo extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
 {
-    TextView tituloPromo, descripcionPromo, points, pointsAction,descriptionMerchant,nameMerchant,pointsToGiveMerchant;
+    TextView tituloPromo, descripcionPromo, points, pointsAction,descriptionMerchant,nameMerchant;
     ImageView imagenPromo, openHistoryPoints,share,imageMerchant;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
     Button addImage;
     Intent intent;
-    String idMechantProfile;
+    String idMechantProfile, idPromo, idProduct;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     public CustomAdapterWish adapter;
@@ -71,8 +71,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                startActivity(intent);
+                onSupportNavigateUp();
 
             }
         });
@@ -87,7 +86,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         imageMerchant=(ImageView)findViewById(R.id.imageMerchant);
         descriptionMerchant=(TextView)findViewById(R.id.detailMerchant);
         nameMerchant=(TextView)findViewById(R.id.merchantName);
-        pointsToGiveMerchant=(TextView)findViewById(R.id.pointsToGive);
+
         intent = getIntent();
         openHistoryPoints=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         share=(ImageView)findViewById(R.id.share);
@@ -247,7 +246,6 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
               response=response.getJSONObject("merchantProfile");
                 descriptionMerchant.setText(response.getString("address"));
                 nameMerchant.setText(response.getString("merchantName"));
-                pointsToGiveMerchant.setText(response.getString("pointsToGive"));
                 Picasso.with(this).load(response.getString("image")).into(imageMerchant);
             }
             else {
