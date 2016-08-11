@@ -69,7 +69,6 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
-
         product = (ProductStore)intent.getSerializableExtra("product");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -80,7 +79,10 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                Intent intent=new Intent();
+                intent.putExtra("code",1);
+                setResult(2,intent);
+                finish();
             }
         });
 

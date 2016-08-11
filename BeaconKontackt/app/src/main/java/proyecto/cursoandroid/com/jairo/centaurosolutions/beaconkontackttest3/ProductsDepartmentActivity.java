@@ -124,7 +124,8 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
                 intentSuccess.putExtra("activity", activity);
-                startActivity(intentSuccess);
+                intentSuccess.putExtra("code", 1);
+                startActivityForResult(intentSuccess, 2);
             }
         });
 
@@ -311,34 +312,36 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
      * @param resultCode
      * @param intent
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent intent)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        int code = intent.getIntExtra("code", 0);
+        if (code!=1) {
+            if (scanningResult != null) {
+                String scanContent = scanningResult.getContents();
+                String scanFormat = scanningResult.getFormatName();
 
-        if (scanningResult != null)
-        {
-            String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
+                serviceController = new ServiceController();
+                responseError = this;
+                response = this;
 
-            serviceController = new ServiceController();
-            responseError = this;
-            response = this;
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
 
-            Map<String, String> headers = new HashMap<String, String>();
-            headers.put("Content-Type", "application/json");
+                Map<String, Object> params = new HashMap<String, Object>();
+                params.put("userId", idUser);
+                params.put("code", scanContent);
+                params.put("merchantId", merchantId);
 
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("userId", idUser);
-            params.put("code", scanContent);
-            params.put("merchantId", merchantId);
-
-            String url = webServiceUtils + "utils/savePointsByCode";
-            serviceController.jsonObjectRequest(url, Request.Method.POST, params, headers, response, responseError);
+                String url = webServiceUtils + "utils/savePointsByCode";
+                serviceController.jsonObjectRequest(url, Request.Method.POST, params, headers, response, responseError);
+            } else {
+                Toast toast = Toast.makeText(this.getApplicationContext(), this.getText(R.string.codigoNoEscaneado), Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
-        else
-        {
-            Toast toast = Toast.makeText(this.getApplicationContext(),this.getText(R.string.codigoNoEscaneado), Toast.LENGTH_SHORT);
-            toast.show();
+        else {
+            super.onActivityResult(requestCode, resultCode, intent);
+            productWishList();
         }
     }
 

@@ -122,7 +122,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
                 intentSuccess.putExtra("activity", activity);
-                startActivity(intentSuccess);
+                intentSuccess.putExtra("code", 1);
+                startActivityForResult(intentSuccess, 2);
             }
         });
 
@@ -241,7 +242,13 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     public void onErrorResponse(VolleyError error) {
 
     }
-
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code==1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            obtainProducts();
+        }
+    }
     @Override
     public void onResponse(JSONObject response) {
         try
