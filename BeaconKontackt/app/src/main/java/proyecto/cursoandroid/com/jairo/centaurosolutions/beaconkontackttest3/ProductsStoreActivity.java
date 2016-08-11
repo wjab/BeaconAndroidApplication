@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
-    ImageView back;
+    LinearLayout back;
     Button addImage;
 
     @Override
@@ -68,7 +69,7 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         listviewShopProduct = (ListView)findViewById(R.id.listviewStoresProducts);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

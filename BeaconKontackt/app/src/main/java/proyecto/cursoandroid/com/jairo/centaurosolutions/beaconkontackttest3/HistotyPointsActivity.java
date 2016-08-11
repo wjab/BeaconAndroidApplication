@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     public ArrayList<History> listHistoryArray;
     String idUser;
     Button addImage;
-    ImageView back;
+    LinearLayout back;
     TextView pointsAction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                 //startActivity(intentSuccess);
             }
         });
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

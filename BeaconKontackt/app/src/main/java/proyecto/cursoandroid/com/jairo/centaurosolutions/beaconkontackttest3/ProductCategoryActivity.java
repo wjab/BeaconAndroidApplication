@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,12 +48,13 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     public static ArrayList<ProductStore> listArray;
     CustomAdapterProductDepartment adapter;
     TextView pointsAction, name;
-    ImageView openHistoryPoints,imageCategory, back;
+    ImageView openHistoryPoints,imageCategory;
     public static ArrayList<Wish> listArrayWish;
     private static Activity context;
     private static Activity thisActivity;
     private int activity;
     private Button addImage;
+    LinearLayout back;
 
 
     @Override
@@ -88,7 +90,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         getSupportActionBar().setCustomView(actionBarLayout);
 
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
     ListView listviewPromo;
 
     private String idUser,userAcumulatedPoints;
-    ImageView back;
+    LinearLayout back;
     ArrayList<Promociones> promociones;
     ArrayList<BeaconCache> myBeaconCacheList;
     private CharSequence mpoints;
@@ -55,7 +56,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

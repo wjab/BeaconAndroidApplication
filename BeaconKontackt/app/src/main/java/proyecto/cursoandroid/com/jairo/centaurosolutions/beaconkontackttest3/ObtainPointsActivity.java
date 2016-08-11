@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ import utils.NonStaticUtils;
 public class ObtainPointsActivity extends AppCompatActivity {
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    ImageView back;
+    LinearLayout back;
     private CharSequence mpoints;
     private int points;
     private String idUser,userAcumulatedPoints;
@@ -44,7 +45,7 @@ public class ObtainPointsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

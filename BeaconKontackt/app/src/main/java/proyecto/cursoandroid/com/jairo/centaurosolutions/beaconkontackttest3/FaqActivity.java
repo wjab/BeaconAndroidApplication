@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class FaqActivity extends  AppCompatActivity{
     String mpoints,userAcumulatedPoints;;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    ImageView back;
+    LinearLayout back;
     String idUser;
     ViewPager pager;
     TabLayout tabLayout;
@@ -80,13 +81,11 @@ public class FaqActivity extends  AppCompatActivity{
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
-                intent.putExtra("idUser",idUser);
-                startActivity(intent);
+               onSupportNavigateUp();
             }
         });
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

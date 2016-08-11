@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +33,9 @@ public class DetailShopActivity extends AppCompatActivity
     CustomAdapterDepartments adapter;
     private ArrayList<Department> arrayDepartment, ranges;
     TextView pointsAction,descriptionMerchant, nameMerchant, scan, purchase, walkin, scanDetails, purchaseDetails, walkingDetails;
-    ImageView imageStore, openHistoryPoints, imageStoreName, purchaseImage, scanImage, walkinImage, back;
+    ImageView imageStore, openHistoryPoints, imageStoreName, purchaseImage, scanImage, walkinImage;
     Button addImage;
+    LinearLayout back;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,7 +61,7 @@ public class DetailShopActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override

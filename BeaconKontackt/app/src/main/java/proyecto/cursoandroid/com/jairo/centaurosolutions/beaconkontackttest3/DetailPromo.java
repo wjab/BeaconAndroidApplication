@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ import utils.NonStaticUtils;
 public class DetailPromo extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
 {
     TextView tituloPromo, descripcionPromo, points, pointsAction,descriptionMerchant,nameMerchant,pointsToGiveMerchant;
-    ImageView imagenPromo, openHistoryPoints,share,imageMerchant, back;
+    ImageView imagenPromo, openHistoryPoints,share,imageMerchant;
     String mpoints, userAcumulatedPoints;
     ArrayList<BeaconCache> myBeaconCacheList;
     Button addImage;
@@ -46,6 +47,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     public ArrayList<Wish> listArray;
     String idUser;
     Promociones promo;
+    LinearLayout back;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,7 +67,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

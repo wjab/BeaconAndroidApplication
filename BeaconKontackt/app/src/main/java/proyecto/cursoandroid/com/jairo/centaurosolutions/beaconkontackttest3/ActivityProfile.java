@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -69,7 +70,7 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     private int year, month, day;
     RadioButton male;
     RadioButton female;
-    LinearLayout form;
+    LinearLayout form, back;
     NonStaticUtils nonStaticUtils;
     SharedPreferences preferences;
 
@@ -78,11 +79,12 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         nonStaticUtils = new NonStaticUtils();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        //getSupportActionBar().setCustomView(actionBarLayout);
+
+
         Intent intent1 = getIntent();
         idUser = intent1.getStringExtra("idUser");
         serviceController = new ServiceController();
@@ -117,7 +119,15 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
 
             }
         });
-
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+            }
+        });
+        getSupportActionBar().setCustomView(actionBarLayout);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);

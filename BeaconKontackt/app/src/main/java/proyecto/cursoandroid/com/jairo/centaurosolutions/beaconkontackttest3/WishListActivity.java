@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,8 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
     private static String webServiceUser;
-    ImageView back,openHistoryPoints;
+    ImageView openHistoryPoints;
+    LinearLayout back;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     private String mpoints, userAcumulatedPoints;
@@ -63,7 +65,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         pointsAction.setText(userAcumulatedPoints.toString());
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

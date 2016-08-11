@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,8 +50,8 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     CustomAdapterProductDepartment adapter;
     private static ArrayList<ProductStore> ranges;
     TextView pointsAction, name;
-    ImageView openHistoryPoints, departmentImage, back;
-
+    ImageView openHistoryPoints, departmentImage;
+    LinearLayout back;
     private static Context context;
     private static Activity thisActivity;
     private int activity = 1;
@@ -89,7 +90,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         getSupportActionBar().setCustomView(actionBarLayout);
         openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
         departmentImage = (ImageView) findViewById(R.id.departmentImageDetail);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

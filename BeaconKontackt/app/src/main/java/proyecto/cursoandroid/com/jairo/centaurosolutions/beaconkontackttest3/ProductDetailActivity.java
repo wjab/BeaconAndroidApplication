@@ -54,7 +54,8 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
     Response.ErrorListener responseError;
     private ProductStore product;
     private ViewPager pager;
-    private ImageView photo, back;
+    private ImageView photo;
+    LinearLayout back;
     private ArrayList<String> images;
 
     @Override
@@ -77,7 +78,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

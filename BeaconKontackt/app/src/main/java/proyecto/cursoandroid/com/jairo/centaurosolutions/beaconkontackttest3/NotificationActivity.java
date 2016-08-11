@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class NotificationActivity extends AppCompatActivity {
     TabLayout tabLayout;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    ImageView back;
+    LinearLayout back;
     private CharSequence mpoints,mTitle;
     private String idUser,userAcumulatedPoints;
     private ServiceController serviceController;
@@ -57,12 +58,11 @@ public class NotificationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-                startActivity(intent);
+                onSupportNavigateUp();
 
             }
         });
