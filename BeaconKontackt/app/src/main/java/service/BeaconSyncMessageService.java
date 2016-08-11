@@ -102,18 +102,23 @@ public class BeaconSyncMessageService extends Service implements Response.Listen
 
         try
         {
-            DatabaseManager.init(this);
-            beaconCacheRef.giftPoints = response.getInt("gift_points");
-            beaconCacheRef.descrition = Utils.StringEncode64(response.getString("description"));
-            beaconCacheRef.title = response.getString("title");
-            beaconCacheRef.attempt = response.getInt("attempt");
-            beaconCacheRef.isautomatic = response.getBoolean("isAutomatic");
-            beaconCacheRef.picturePath = response.getString("images");
+            if(response.getInt("status") == 200){
 
-            // Se hace la actualizacion de los datos de cache con la informacion recibida por el web service de promociones
-            DatabaseManager.getInstance().updateBeaconCache(beaconCacheRef);
+                JSONObject promoJson= response.getJSONObject("promo");
+                DatabaseManager.init(this);
+                beaconCacheRef.giftPoints = promoJson.getInt("giftPoints");
+                beaconCacheRef.descrition = Utils.StringEncode64(promoJson.getString("description"));
+                beaconCacheRef.title = promoJson.getString("title");
+                beaconCacheRef.attempt = promoJson.getInt("attempt");
+                beaconCacheRef.isautomatic = promoJson.getBoolean("isAutomatic");
+                beaconCacheRef.picturePath = promoJson.getString("images");
 
-            nonStaticUtils.StartGiftpointService(getApplicationContext(), beaconCacheRef.promoId);
+                // Se hace la actualizacion de los datos de cache con la informacion recibida por el web service de promociones
+                DatabaseManager.getInstance().updateBeaconCache(beaconCacheRef);
+
+                nonStaticUtils.StartGiftpointService(getApplicationContext(), beaconCacheRef.promoId);
+            }
+
 
         }
         catch (JSONException e) {

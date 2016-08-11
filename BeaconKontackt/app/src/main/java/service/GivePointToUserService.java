@@ -27,7 +27,6 @@ import java.util.Map;
 import controllers.ServiceController;
 import database.DatabaseManager;
 import model.cache.BeaconCache;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PromoDetailActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.PullNotificationsActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 import utils.CustomNotificationManager;
@@ -195,7 +194,7 @@ public class GivePointToUserService extends Service implements Response.Listener
             redirectIntent.putExtra("promoDetail", beaconCaches);
             cNotificationManager.setRedirectIntent(redirectIntent);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-            stackBuilder.addParentStack(PromoDetailActivity.class);
+            stackBuilder.addParentStack(PullNotificationsActivity.class);
             stackBuilder.addNextIntent(redirectIntent);
 
 

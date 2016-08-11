@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +30,8 @@ public class PullNotificationsActivity extends AppCompatActivity {
     Adaptador_Promo adapter;
     ListView listviewPromo;
 
-
+    private String idUser,userAcumulatedPoints;
+    ImageView back;
     ArrayList<Promociones> promociones;
     ArrayList<BeaconCache> myBeaconCacheList;
     private CharSequence mpoints;
@@ -44,25 +45,41 @@ public class PullNotificationsActivity extends AppCompatActivity {
         // Inflate your custom layout
 
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-                R.layout.action_bar_notification_layout,
+                R.layout.action_bar_promodetail,
                 null);
         mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
-
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        ImageButton imageButton= (ImageButton) actionBarLayout.findViewById(R.id.back_action);
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        back = (ImageView) actionBarLayout.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent redirectIntent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 myBeaconCacheList = new ArrayList<BeaconCache>();
                 redirectIntent.putExtra("promoDetail", myBeaconCacheList);
                 startActivity(redirectIntent);
                 finish();
+
+            }
+        });
+
+        pointsAction.setText(userAcumulatedPoints.toString());
+        pointsAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mpoints.toString().equals("0"))
+                {
+                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
             }
         });
         pointsAction.setText(mpoints + " pts");
@@ -96,6 +113,11 @@ public class PullNotificationsActivity extends AppCompatActivity {
         NotificationManagerCompat notifManager= NotificationManagerCompat.from(this);
         notifManager.cancelAll();
 
+    }
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        intent.putExtra("idUser",idUser);
+        startActivity(intent);
     }
     private Boolean exit = false;
     @Override
