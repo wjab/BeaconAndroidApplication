@@ -68,16 +68,21 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         final ImageView imageDepartment = (ImageView)rowView.findViewById(R.id.imagenDepartment);
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
         final TextView price = (TextView)rowView.findViewById(R.id.price);
-
-
+        final TextView pointsByScan = (TextView)rowView.findViewById(R.id.pointsScan);
         if(activity == 1) {
             price.setText(String.valueOf(productList.get(position).getPrice()));
+            pointsByScan.setText(String.valueOf(productList.get(position).getPointsByScan()));
             if (productList.get(position).getStateWishList() == 1) {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
             } else {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_add));
             }
-            imageHeard.setOnClickListener(new View.OnClickListener() {
+            if (productList.get(position).getAllowScan()==false)
+            {
+                barcodeImage.setVisibility(View.GONE);
+                pointsByScan.setVisibility(View.GONE);
+            }
+                    imageHeard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String productId = productList.get(position).getProductId();
@@ -132,6 +137,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
 
             // Metodo de escaneo
             barcodeImage.setVisibility(View.GONE);
+            pointsByScan.setVisibility(View.GONE);
             barcodeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

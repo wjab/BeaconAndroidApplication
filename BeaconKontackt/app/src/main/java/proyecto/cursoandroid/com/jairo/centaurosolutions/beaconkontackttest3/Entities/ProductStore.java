@@ -14,6 +14,8 @@ public class ProductStore  implements Serializable {
     private ArrayList<String> imageUrlList;
     private int stateWishList;
     private String urlImageShow;
+    private boolean allowScan;
+    private float pointsByScan;
 
 
     public String getProductId() {
@@ -70,5 +72,21 @@ public class ProductStore  implements Serializable {
 
     public void setUrlImageShow(String urlImageShow) {
         this.urlImageShow = urlImageShow;
+    }
+
+    public boolean getAllowScan() {
+        return allowScan;
+    }
+
+    public void setAllowScan(boolean allowScan) {
+        this.allowScan = allowScan;
+    }
+
+    public float getPointsByScan() {
+        return pointsByScan;
+    }
+
+    public void setPointsByScan(float pointsByScan) {
+        this.pointsByScan = pointsByScan;
     }
 }
