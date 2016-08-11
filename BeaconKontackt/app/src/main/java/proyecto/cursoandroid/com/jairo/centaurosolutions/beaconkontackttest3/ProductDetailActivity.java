@@ -34,6 +34,7 @@ import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterProductDepartment;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapterImage;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 
 public class ProductDetailActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener
@@ -42,13 +43,14 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
     private String mpoints, userAcumulatedPoints,urlImage;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    private String idUser;
+    private static String idUser,idProduct;
     CustomAdapterProductDepartment adapter;
     private TextView pointsAction,name,price,details;
     private ImageView openHistoryPoints;
     private Button addImage;
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
+    public static ArrayList<Wish> listArrayWish;
     Response.ErrorListener responseError;
     private ProductStore product;
     private ViewPager pager;
@@ -67,8 +69,6 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         mpoints = String.valueOf(preferences.getInt("points", 0));
-
-        ServiceController imageRequest =  new ServiceController();
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
@@ -95,13 +95,13 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         details = (TextView)findViewById(R.id.detailsProductDetail);
         photo = (ImageView) findViewById(R.id.photo);
         pager = (ViewPager) findViewById(R.id.pager);
-
+        addImage.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_add));
         pointsAction.setText(userAcumulatedPoints.toString());
         name.setText(product.getProductName());
         price.setText(Float.toString(product.getPrice()));
         details.setText(product.getDetails());
         images = product.getImageUrlList();
-
+        idProduct=product.getProductId();
         images=product.getImageUrlList();
         int len = images.size();
             for (int l=0;l<len;l++){
@@ -115,12 +115,9 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mpoints.equals("0"))
-                {
+                if (mpoints.equals("0")) {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     openHistory();
                 }
             }
@@ -144,6 +141,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
                 service();
             }
         });
+        productWishList();
     }
     @Override
     public boolean onSupportNavigateUp()
@@ -173,22 +171,81 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         String url = getString(R.string.WebService_User)+"user/wishlist/add";
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
+    public void productWishList()
+    {
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+
+        Map<String, String> nullMap = new HashMap<String, String>();
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_User)+"user/id/"+idUser;
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
+
+    }
     @Override
     public void onErrorResponse(VolleyError error)
     {
 
     }
+    private void searchProductInWishList(){
+        String idProductWishList;
 
+        for(int i=0; i < listArrayWish.size(); i++ )
+        {
+            idProductWishList=listArrayWish.get(i).getProductId();
+
+                if(idProductWishList.equals(idProduct))
+                {
+                    addImage.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_added));
+                }
+        }
+    }
     @Override
     public void onResponse(JSONObject response)
     {
         try
         {
-            if (response.getString("message").toString().equals("User updated"))
+            if(response.getString("message").toString().equals(""))
+            {
+                response=response.getJSONObject("user");
+                JSONArray ranges1= response.getJSONArray("productWishList");
+                listArrayWish= new ArrayList<Wish>();
+
+                for(int i = 0; i < ranges1.length(); i++ )
+                {
+                    Wish element = new Wish();
+                    JSONObject currRange=ranges1.getJSONObject(i);
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setImageUrlList(currRange.getString("imageUrlList"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArrayWish.add(element);
+                }
+               searchProductInWishList();
+            }
+           else if (response.getString("message").toString().equals("User updated"))
             {
                 Toast.makeText(this, "Añadido correctamente", Toast.LENGTH_SHORT).show();
+                response=response.getJSONObject("user");
+                JSONArray ranges1= response.getJSONArray("productWishList");
+                listArrayWish= new ArrayList<Wish>();
+
+                for(int i = 0; i < ranges1.length(); i++ )
+                {
+                    Wish element = new Wish();
+                    JSONObject currRange=ranges1.getJSONObject(i);
+                    element.setProductId(currRange.getString("productId"));
+                    element.setProductName(currRange.getString("productName"));
+                    element.setImageUrlList(currRange.getString("imageUrlList"));
+                    element.setPrice(currRange.getInt("price"));
+                    listArrayWish.add(element);
+                }
+                searchProductInWishList();
             }
-            if (response.getString("message").toString().equals("Product already added to wishlist"))
+            else if (response.getString("message").toString().equals("Product already added to wishlist"))
             {
                 Toast.makeText(this, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
             }
