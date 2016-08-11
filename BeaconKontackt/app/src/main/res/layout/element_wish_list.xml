@@ -42,7 +42,7 @@
         android:id="@+id/nameProduct"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="35dp"
         android:layout_toEndOf="@+id/imageViewProduct" />
 
     <TextView
@@ -55,8 +55,8 @@
         android:layout_toEndOf="@+id/imageViewProduct" />
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="17dp"
+        android:layout_width="27dp"
+        android:layout_height="23dp"
         android:id="@+id/deleteWish"
         android:background="@drawable/ic_deseos_azul"
         android:layout_alignTop="@+id/imageViewProduct"

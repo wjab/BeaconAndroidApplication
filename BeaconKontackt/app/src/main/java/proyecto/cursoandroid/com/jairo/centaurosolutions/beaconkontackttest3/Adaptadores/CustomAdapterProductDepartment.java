@@ -63,15 +63,14 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
     {
         LayoutInflater inflater = contexto.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.element_product, null, true);
-        ServiceController imageRequest =  new ServiceController();
         final ImageView imageHeard = (ImageView)rowView.findViewById(R.id.addProduct);
         final ImageView imageDepartment = (ImageView)rowView.findViewById(R.id.imagenDepartment);
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
         final TextView price = (TextView)rowView.findViewById(R.id.price);
         final TextView pointsByScan = (TextView)rowView.findViewById(R.id.pointsScan);
+        price.setText(String.valueOf(productList.get(position).getPrice()));
+        pointsByScan.setText(String.valueOf(productList.get(position).getPointsByScan()));
         if(activity == 1) {
-            price.setText(String.valueOf(productList.get(position).getPrice()));
-            pointsByScan.setText(String.valueOf(productList.get(position).getPointsByScan()));
             if (productList.get(position).getStateWishList() == 1) {
                 imageHeard.setBackground(contexto.getResources().getDrawable(R.drawable.ic_added));
             } else {
