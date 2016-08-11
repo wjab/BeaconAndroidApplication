@@ -12,6 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import utils.NonStaticUtils;
 
 public class RedimirRegalarActivity extends AppCompatActivity {
@@ -22,13 +28,15 @@ public class RedimirRegalarActivity extends AppCompatActivity {
     NonStaticUtils nonStaticUtils;
     LinearLayout back;
     private CharSequence mpoints;
-    private String idUser,userAcumulatedPoints;
+    private Date dateExpiration;
+    private String idUser,userAcumulatedPoints,date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redimir_regalar);
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
+        date = intent.getStringExtra("expiration");
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
@@ -38,7 +46,8 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         code=(TextView)findViewById(R.id.code);
         expiration=(TextView)findViewById(R.id.expiration);
         sendData=(Button)findViewById(R.id.button);
-        expiration.setText(getString(R.string.expiracionPuntos));
+        dateExpiration=dateFormatter(date);
+        expiration.setText(getString(R.string.expiracionPuntos)+dateExpiration.toString());
         if(type.equals("redimir")){
             sendData.setVisibility(View.GONE);
             message.setText(getString(R.string.redimirPuntos));
@@ -103,6 +112,23 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_TEXT,  messageToSend+" este es el código: "+ code.getText().toString());
 
         startActivity(Intent.createChooser(intent,"Enviar el código"));
+    }
+    private Date dateFormatter(String pDate)
+    {
+        Date finalDate = new Date();
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try
+        {
+            finalDate = format.parse(pDate);
+        }
+        catch (ParseException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return finalDate;
     }
     @Override
     public boolean onSupportNavigateUp() {

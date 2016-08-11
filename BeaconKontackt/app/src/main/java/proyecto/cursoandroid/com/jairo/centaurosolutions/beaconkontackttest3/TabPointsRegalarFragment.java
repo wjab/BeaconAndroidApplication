@@ -37,7 +37,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
     private TextView points ,pointsToGift,message;
     private Button sendData;
     private String idUser;
-    private String code, messageToSend = null;
+    private String code,dateExpiration, messageToSend = null;
     private int pointsIntGift,pointsUser;
     public TabPointsRegalarFragment() {
         // Required empty public constructor
@@ -133,6 +133,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
             if(response.get("message").equals("Saldo flotante creado")) {
                 JSONObject object = response.getJSONObject("points");
                 code = object.getString("code");
+                dateExpiration=object.getString("expirationDate");
                 serviceUpdatePoints();
             }
             else {
@@ -169,6 +170,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                     intent.putExtra("type", "regalar");
                     intent.putExtra("message",messageToSend);
                     intent.putExtra("code", code);
+                    intent.putExtra("expiration", dateExpiration);
                     startActivity(intent);
                 }
             }

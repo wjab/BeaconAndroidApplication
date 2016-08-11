@@ -121,6 +121,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 product = listArray.get(position);
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
+                intentSuccess.putExtra("activity", activity);
                 startActivity(intentSuccess);
             }
         });

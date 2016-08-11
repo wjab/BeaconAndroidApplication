@@ -6,10 +6,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:weightSum="1">
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -67,7 +63,6 @@
         android:nestedScrollingEnabled="true"
             android:layout_marginTop="10dp" />
     </RadioGroup>
-    </ScrollView>
 
 
 </LinearLayout>

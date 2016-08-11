@@ -38,7 +38,7 @@ public class TabPointsRedimirFragment extends Fragment implements Response.Liste
     private TextView points ,pointsToGift;
     private Button sendData;
     private String idUser;
-    String code = null;
+    String code,dateExpiration = null;
     private int pointsIntGift,pointsUser;
     public TabPointsRedimirFragment() {
         // Required empty public constructor
@@ -129,6 +129,7 @@ public class TabPointsRedimirFragment extends Fragment implements Response.Liste
             if(response.get("message").equals("Saldo flotante creado")) {
                 JSONObject object = response.getJSONObject("points");
                 code = object.getString("code");
+                dateExpiration=object.getString("expirationDate");
                 serviceUpdatePoints();
             }
             else {
@@ -164,6 +165,7 @@ public class TabPointsRedimirFragment extends Fragment implements Response.Liste
                     Intent intent = new Intent(getContext(), RedimirRegalarActivity.class);
                     intent.putExtra("type", "redimir");
                     intent.putExtra("code", code);
+                    intent.putExtra("expiration", dateExpiration);
                     startActivity(intent);
                 }
             }

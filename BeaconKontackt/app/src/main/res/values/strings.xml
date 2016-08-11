@@ -164,7 +164,7 @@
     <string name="save">Guardar</string>
     <string name="regalarPuntos">Enviale este código a la persona que le queires regalar los puntos.</string>
     <string name="confirmacionPuntos">Felicidades, has obtenido un total de %s puntos para redimir en tus compras.</string>
-    <string name="expiracionPuntos">Este codigo expira en:</string>
+    <string name="expiracionPuntos">Este codigo expira en: </string>
     <string name="principalMenuButton">Ir al menú principal</string>
     <string name="sendMessageButton">Enviar mensaje</string>
 

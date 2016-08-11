@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
     private ImageView photo;
     LinearLayout back;
     private ArrayList<String> images;
+    private int activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         intent = getIntent();
+        activity=Integer.parseInt(intent.getStringExtra("activity"));
         product = (ProductStore)intent.getSerializableExtra("product");
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);

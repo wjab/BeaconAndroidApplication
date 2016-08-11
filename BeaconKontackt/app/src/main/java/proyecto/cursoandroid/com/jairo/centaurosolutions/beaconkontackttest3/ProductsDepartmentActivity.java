@@ -123,6 +123,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 product = ranges.get(position);
                 Intent intentSuccess = new Intent(getBaseContext(),ProductDetailActivity.class);
                 intentSuccess.putExtra("product", product);
+                intentSuccess.putExtra("activity", activity);
                 startActivity(intentSuccess);
             }
         });
