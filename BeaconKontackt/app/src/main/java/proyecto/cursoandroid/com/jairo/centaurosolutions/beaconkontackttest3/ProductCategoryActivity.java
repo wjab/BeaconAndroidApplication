@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     private static Activity context;
     private static Activity thisActivity;
     private int activity;
+    private Button addImage;
 
 
     @Override
@@ -98,6 +100,15 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         Picasso.with(context).load(urlImage).error(R.drawable.department).into(imageCategory);
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         pointsAction.setText(userAcumulatedPoints.toString());
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
+                intent.putExtra("idUser", idUser);
+                startActivity(intent);
+            }
+        });
         grid = (GridView)findViewById(R.id.productsCategory);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener()
