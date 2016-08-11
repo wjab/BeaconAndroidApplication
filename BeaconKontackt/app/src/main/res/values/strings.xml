@@ -189,6 +189,6 @@
 
     <string name="textoIntentScan">Código de Barras</string>
     <string name="codigoNoEscaneado">Código no escaneado</string>
-    <string name="colonSymbol">₡</string>
+    <string name="colonSymbol">₡%1$d</string>
 
 </resources>
