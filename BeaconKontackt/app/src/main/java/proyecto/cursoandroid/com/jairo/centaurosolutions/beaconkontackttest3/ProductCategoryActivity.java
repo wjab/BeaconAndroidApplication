@@ -42,7 +42,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     private static String webServiceUser;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    private static String idUser;
+    private static String idUser,type;
     private static GridView grid;
     public static ArrayList<ProductStore> listArray;
     CustomAdapterProductDepartment adapter;
@@ -79,7 +79,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         name = (TextView)findViewById(R.id.nameCategory);
         name.setText(nameCategory);
         urlImage = intent.getStringExtra("urlImage");
-        nameCategory=nameCategory.toLowerCase();
+        type = intent.getStringExtra("type");
 
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -232,7 +232,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         Map<String, String> nullMap = new HashMap<String, String>();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_MerchantProfile) + "merchantprofile/allproducts/" + nameCategory;
+        String url = getString(R.string.WebService_MerchantProfile) + "merchantprofile/allproducts/" + type;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
     }
     @Override

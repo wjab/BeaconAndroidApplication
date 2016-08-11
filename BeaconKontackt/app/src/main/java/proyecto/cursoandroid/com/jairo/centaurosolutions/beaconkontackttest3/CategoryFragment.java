@@ -34,7 +34,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
     public ListView listView;
     public ArrayList<Category> listArray;
     private View rootView;
-    private String nameCategory,urlImage;
+    private String nameCategory,urlImage,type;
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -57,9 +57,11 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nameCategory = listArray.get(position).getDescription();
                 urlImage = listArray.get(position).getUrlImage();
+                type=listArray.get(position).getType();
                 Intent intentSuccess = new Intent(getActivity().getBaseContext(), ProductCategoryActivity.class);
                 intentSuccess.putExtra("name", nameCategory);
                 intentSuccess.putExtra("urlImage", urlImage);
+                intentSuccess.putExtra("type", type);
                 startActivity(intentSuccess);
 
             }
