@@ -1,11 +1,10 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -327,7 +326,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         }
         catch (JSONException e)
         {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

@@ -101,13 +101,13 @@ public class ForegroundBroadcastInterceptor extends AbstractBroadcastInterceptor
     @Override
     protected void onRegionAbandoned(int info, IBeaconRegion region) {
         Context context = getContext();
-        Utils.showToast(context, context.getString(R.string.region_abandoned, beaconUniqueId + " " + region.getName()));
+       // Utils.showToast(context, context.getString(R.string.region_abandoned, beaconUniqueId + " " + region.getName()));
     }
 
     @Override
     protected void onRegionEntered(int info, IBeaconRegion region) {
         Context context = getContext();
-        Utils.showToast(context, context.getString(R.string.region_entered, beaconUniqueId + " " + region.getName()));
+        //Utils.showToast(context, context.getString(R.string.region_entered, beaconUniqueId + " " + region.getName()));
     }
 
     @Override

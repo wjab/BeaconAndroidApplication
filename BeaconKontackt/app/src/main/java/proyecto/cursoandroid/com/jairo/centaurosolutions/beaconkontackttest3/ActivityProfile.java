@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,23 +17,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -47,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 
 import controllers.ServiceController;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.User;
 import utils.NonStaticUtils;
 
 
@@ -104,9 +93,6 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
             @Override
             public void onClick(View v) {
                 showDialog(999);
-                Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT)
-                        .show();
-
             }
         });
         updateInfo.setOnClickListener(new View.OnClickListener() {

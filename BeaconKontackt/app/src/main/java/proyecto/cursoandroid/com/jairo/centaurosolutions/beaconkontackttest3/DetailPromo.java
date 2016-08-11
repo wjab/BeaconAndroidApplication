@@ -260,14 +260,9 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 else if(response.getString("message").toString().equals("Perfil de tienda no encontrado")){
                     Toast.makeText(getApplication(), "Esta promocion no se encuentra asociada a una tienda", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
-                    Toast.makeText(getApplication(), response.getString("message").toString(), Toast.LENGTH_SHORT).show();
-                }
             }
         } catch (JSONException e) {
 
-                Toast.makeText(getApplication(), "Hubo un problema al añadirlo", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

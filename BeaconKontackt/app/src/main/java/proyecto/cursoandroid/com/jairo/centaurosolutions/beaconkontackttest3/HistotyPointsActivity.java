@@ -2,8 +2,8 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -140,7 +139,6 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
             adapter=new CustomAdapterHistoryPoints(this, listHistoryArray);
             listviewHistory.setAdapter(adapter);
         } catch (JSONException e) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

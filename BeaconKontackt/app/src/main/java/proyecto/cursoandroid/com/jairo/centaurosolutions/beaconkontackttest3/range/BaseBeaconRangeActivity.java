@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 import com.kontakt.sdk.android.ble.broadcast.BluetoothStateChangeReceiver;
 import com.kontakt.sdk.android.ble.broadcast.OnBluetoothStateChangeListener;
 import com.kontakt.sdk.android.ble.configuration.ActivityCheckConfiguration;
@@ -30,7 +29,6 @@ import com.kontakt.sdk.android.ble.filter.eddystone.URLFilter;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 import com.kontakt.sdk.android.ble.rssi.RssiCalculators;
 import com.kontakt.sdk.android.ble.util.BluetoothUtils;
-import com.kontakt.sdk.android.http.KontaktApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +159,7 @@ public abstract class BaseBeaconRangeActivity extends BaseActivity implements Pr
 
             @Override
             public void onConnectionFailure() {
-                Utils.showToast(BaseBeaconRangeActivity.this, getString(R.string.unexpected_error_connection));
+
             }
         });
     }

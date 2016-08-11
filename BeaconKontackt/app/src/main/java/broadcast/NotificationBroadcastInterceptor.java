@@ -1,8 +1,6 @@
 package broadcast;
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
@@ -11,10 +9,8 @@ import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
 
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BackgroundScanActivity;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.LoginMainActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 import utils.CustomNotificationManager;
-import utils.Utils;
 
 public class NotificationBroadcastInterceptor extends AbstractBroadcastInterceptor {
 
@@ -87,13 +83,6 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         final Context context = getContext();
         final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
 
-        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
-        cNotificationManager.setContentTitle(context.getString(R.string.scan_started));
-        cNotificationManager.setIcon(R.drawable.logo);
-        cNotificationManager.setTicker(context.getString(R.string.scan_started));
-        cNotificationManager.setRedirectIntent(redirectIntent);
-        cNotificationManager.ShowInputNotification(context, info, notificationManager);
-
     }
 
     @Override
@@ -101,13 +90,6 @@ public class NotificationBroadcastInterceptor extends AbstractBroadcastIntercept
         final Context context = getContext();
         final Intent redirectIntent = new Intent(context, BackgroundScanActivity.class);
         redirectIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        CustomNotificationManager cNotificationManager = new CustomNotificationManager();
-        cNotificationManager.setContentTitle(context.getString(R.string.scan_stopped));
-        cNotificationManager.setIcon(R.drawable.logo);
-        cNotificationManager.setTicker(context.getString(R.string.scan_stopped));
-        cNotificationManager.setRedirectIntent(redirectIntent);
-        cNotificationManager.ShowInputNotification(context, info, notificationManager);
 
     }
 }

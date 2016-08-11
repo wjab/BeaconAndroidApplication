@@ -288,7 +288,6 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         }
         catch (JSONException e)
         {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

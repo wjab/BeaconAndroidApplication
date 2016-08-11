@@ -130,7 +130,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
             startActivity(redirectIntent);
             this.finish();
         } else {
-            Toast.makeText(this, "Press Back again to go to Main page.",
+            Toast.makeText(this, "Pulse el botón para volver a la página principal",
                     Toast.LENGTH_SHORT).show();
             exit = true;
             new Handler().postDelayed(new Runnable() {

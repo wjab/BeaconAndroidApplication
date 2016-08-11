@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,9 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
-
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterStore;
-
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Department;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.ProductStore;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
@@ -166,7 +163,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
             adapter=new CustomAdapterStore(getActivity(), listStoreArray);
             listviewShop.setAdapter(adapter);
         } catch (JSONException e) {
-            Toast.makeText(getActivity().getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
+
             e.printStackTrace();
         }
 
