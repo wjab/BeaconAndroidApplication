@@ -84,18 +84,24 @@ public class UserController {
 					}
 					else
 					{
+						user.setTotalGiftPoints(50);
 						userRepository.save(user);
 						response.put("status", 200);
 						response.put("message", "User created");
-						response.put("user", user);							
+						response.put("user", user);
+
+						createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
 					}
 				}
 				else
 				{
+					user.setTotalGiftPoints(50);
 					userRepository.save(user);
 					response.put("status", 200);
 					response.put("message", "User created");
-					response.put("user", user);	
+					response.put("user", user);
+
+					createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
 				}
 			}
 			else
@@ -114,18 +120,24 @@ public class UserController {
 					}
 					else
 					{
+						user.setTotalGiftPoints(100);
 						userRepository.save(user);
 						response.put("status", 200);
 						response.put("message", "User created");
-						response.put("user", user);							
+						response.put("user", user);
+
+						createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
 					}
 				}
 				else
 				{
+					user.setTotalGiftPoints(100);
 					userRepository.save(user);
 					response.put("status", 200);
 					response.put("message", "User created");
-					response.put("user", user);	
+					response.put("user", user);
+
+					createUserNotification(user.getId(), NOTIFICATION_INFO, "Has ganado "+ user.getTotalGiftPoints() + " por instalar QuickShop");
 				}
 			}			
 		}
