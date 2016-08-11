@@ -3,21 +3,20 @@ package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapterNotifications;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapterPoints;
 import utils.NonStaticUtils;
 
 public class NotificationActivity extends AppCompatActivity {
@@ -80,6 +79,9 @@ public class NotificationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        NotificationManagerCompat notifManager= NotificationManagerCompat.from(this);
+        notifManager.cancelAll();
 
     }
     public void openHistory(){
