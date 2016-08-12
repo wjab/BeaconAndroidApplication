@@ -30,7 +30,6 @@
         android:textIsSelectable="false"
         android:layout_marginEnd="18dp"
         android:layout_alignParentTop="true"
-        android:drawableRight="@drawable/ic_deseos_azul"
         android:layout_alignParentEnd="true" />
 
     <TextView

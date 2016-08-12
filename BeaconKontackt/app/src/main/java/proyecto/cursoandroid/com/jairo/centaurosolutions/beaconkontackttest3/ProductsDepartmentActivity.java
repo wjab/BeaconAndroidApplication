@@ -285,6 +285,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
 
                 // Actualiza los puntos del del usuario en sharedPreferences
                 nonStaticUtils.UpdateUserPoints(thisActivity, response.getInt("totalGiftPoints"));
+
                 Toast.makeText(context, "Puntos asignados por escaneo", Toast.LENGTH_SHORT).show();
             }
         }
@@ -312,11 +313,15 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
      * @param resultCode
      * @param intent
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         int code = intent.getIntExtra("code", 0);
-        if (code!=1) {
-            if (scanningResult != null) {
+
+        if (code != 1)
+        {
+            if (scanningResult != null)
+            {
                 String scanContent = scanningResult.getContents();
                 String scanFormat = scanningResult.getFormatName();
 
@@ -334,12 +339,15 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
 
                 String url = webServiceUtils + "utils/savePointsByCode";
                 serviceController.jsonObjectRequest(url, Request.Method.POST, params, headers, response, responseError);
-            } else {
+            }
+            else
+            {
                 Toast toast = Toast.makeText(this.getApplicationContext(), this.getText(R.string.codigoNoEscaneado), Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
-        else {
+        else
+        {
             super.onActivityResult(requestCode, resultCode, intent);
             productWishList();
         }
