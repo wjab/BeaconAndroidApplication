@@ -194,6 +194,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         adapter = new CustomAdapterProductDepartment(thisActivity, listArray, activity);
         grid.setAdapter(adapter);
     }
+    
     public void service(String productId, String productName, float price, String urlImage)
     {
         serviceController = new ServiceController();
