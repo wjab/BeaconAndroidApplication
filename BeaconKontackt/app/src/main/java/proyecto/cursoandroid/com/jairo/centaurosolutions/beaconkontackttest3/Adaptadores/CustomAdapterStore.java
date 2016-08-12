@@ -62,7 +62,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
 
         String walkinText = storeList.get(position).getTotalGiftPoints().getWalkin();
         String scanText = storeList.get(position).getTotalGiftPoints().getScan();
-        String purchaseText = "C / "+storeList.get(position).getTotalGiftPoints().getPurchase();
+        String purchaseText = String.format(contexto.getString(R.string.purchasePointsText), storeList.get(position).getTotalGiftPoints().getPurchase());
         String url = storeList.get(position).getUrlImagen();
 
         walkin.setText(walkinText);
@@ -87,7 +87,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
             scan.setTextColor(contexto.getResources().getColor(R.color.darkBlue));
         }
 
-        if(purchaseText.equals("0")){
+        if(purchaseText.equals(String.format(contexto.getString(R.string.purchasePointsText), "0"))){
            purchaseImage.setBackground(contexto.getResources().getDrawable(R.drawable.purchase_gray));
             purchase.setTextColor(contexto.getResources().getColor(R.color.mediumGrey));
         }

@@ -209,5 +209,6 @@
     <string name="process">Procesando la solicitud</string>
     <string name="pointsMount">Favor ingresar un monto de puntos</string>
     <string name="sendCode">Enviar el código</string>
+    <string name="purchasePointsText">C / %s</string>
 
 </resources>
