@@ -47,7 +47,7 @@
 
 
                     <TextView
-                        android:text="Nombre "
+                        android:text=""
                         android:textSize="15dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="11dp"
@@ -64,7 +64,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:text="10000"
+                        android:text=""
                         android:textSize="20dp"
                         android:layout_width="wrap_content"
                         android:textColor="@color/white"
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Detalles de la tienda"
+                    android:text=""
                     android:textSize="20dp"
                     android:id="@+id/detailMerchant"
                     android:layout_gravity="center_horizontal"
@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Detalles de la promocion"
+                    android:text=""
                     android:id="@+id/descriptionPromoDetai"
                     android:layout_below="@+id/imageMerchant"
                     android:layout_alignStart="@+id/imageMerchant"
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="merchantName"
+                    android:text=""
                     android:id="@+id/merchantName"
                     android:layout_marginLeft="15dp"
                     android:textSize="20dp"
