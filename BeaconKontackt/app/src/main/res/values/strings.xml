@@ -162,9 +162,9 @@
     <string name="title_activity_login__options">Login_Options</string>
     <string name="totalPointsLabel">%s</string>
     <string name="save">Guardar</string>
-    <string name="regalarPuntos">Enviale este código a la persona que le queires regalar los puntos.</string>
+    <string name="regalarPuntos">Enviale este código a la persona que le quieres regalar los puntos.</string>
     <string name="confirmacionPuntos">Felicidades, has obtenido un total de %s puntos para redimir en tus compras.</string>
-    <string name="expiracionPuntos">Este codigo expira en: </string>
+    <string name="expiracionPuntos">Este código expira en: </string>
     <string name="principalMenuButton">Ir al menú principal</string>
     <string name="sendMessageButton">Enviar mensaje</string>
 
@@ -190,5 +190,24 @@
     <string name="textoIntentScan">Código de Barras</string>
     <string name="codigoNoEscaneado">Código no escaneado</string>
     <string name="colonSymbol">₡%s</string>
+    <string name="facebookImage">Para actualizar su foto actualice la de su perfil de facebook</string>
+    <string name="selectedPicture">Imagen Seleccionada</string>
+    <string name="dontSelectedImage">No ha seleccionado ninguna imagen aún</string>
+    <string name="somethingWrong">Lo sentimos, algo salio mal.</string>
+    <string name="pressBackAgainToExit">Presione atrás de nuevo para salir</string>
+    <string name="messageShareApp">Has escuchado acerca de QuickShop?</string>
+    <string name="dontHavePoints">Aún no has obtenido puntos</string>
+    <string name="shareWith">Compartir mediante:</string>
+    <string name="correctlyAdd">Añadido correctamente</string>
+    <string name="productExist">El producto ya existe en la lista de deseos</string>
+    <string name="userData">Usuario y contraseña requeridos</string>
+    <string name="usuarioDesabilitado">Usuario desabilitado</string>
+    <string name="correctlyDelete">Eliminado correctamente</string>
+    <string name="emptyList">La lista se encuentra vacía</string>
+    <string name="correctlyCreateUser">Usuario creado correctamente</string>
+    <string name="dontHavePointsNecessary">No tiene la cantidad de puntos necesarios para enviar esa cantidad</string>
+    <string name="process">Procesando la solicitud</string>
+    <string name="pointsMount">Favor ingresar un monto de puntos</string>
+    <string name="sendCode">Enviar el código</string>
 
 </resources>

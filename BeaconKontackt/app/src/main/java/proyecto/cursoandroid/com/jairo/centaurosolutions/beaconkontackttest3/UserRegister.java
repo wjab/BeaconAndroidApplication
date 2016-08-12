@@ -149,7 +149,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         {
             if(response.getJSONObject("user") != null)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "Usuario creado correctamente",Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.correctlyCreateUser),Toast.LENGTH_LONG);
                 toast.show();
 
                 Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class );

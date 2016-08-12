@@ -78,11 +78,11 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                     pointsIntGift=Integer.parseInt(pointsToGift.getText().toString());
                     pointsUser=Integer.parseInt(mpoints.toString());
                     if(pointsIntGift>=pointsUser){
-                        Toast.makeText(getContext(), "No tiene la cantidad de puntos necesarios para enviar esa cantidad", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.dontHavePointsNecessary), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        Toast.makeText(getContext(), "Procesando Solicitud", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.process), Toast.LENGTH_SHORT).show();
                         messageToSend=message.getText().toString();
                         service();
 

@@ -91,7 +91,7 @@ public class RedimirRegalarActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(mpoints.toString().equals("0"))
                 {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(),  getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -111,7 +111,7 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT,  messageToSend+" este es el código: "+ code.getText().toString());
 
-        startActivity(Intent.createChooser(intent,"Enviar el código"));
+        startActivity(Intent.createChooser(intent,getString(R.string.sendCode)));
     }
     private Date dateFormatter(String pDate)
     {

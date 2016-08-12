@@ -225,13 +225,13 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             @Override
             public void onClick(View view) {
                 if (!preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal))) {
-                    Toast.makeText(getApplication(), "Para actualizar su foto actualice la de su perfil de facebook", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), getString(R.string.facebookImage), Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent();
                     intent.setType("image/*");
 
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                    startActivityForResult(Intent.createChooser(intent,getString(R.string.selectedPicture)), PICK_IMAGE_REQUEST);
 
                 }
             }
@@ -323,10 +323,10 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                service(pickedImage.toString());
 
            } else {
-               Toast.makeText(this, "No ha seleccionado una imagen aun.", Toast.LENGTH_LONG).show();
+               Toast.makeText(this, getString(R.string.dontSelectedImage), Toast.LENGTH_LONG).show();
            }
        } catch (Exception e) {
-           Toast.makeText(this, "Lo sentimos algo salio mal.", Toast.LENGTH_LONG).show();
+           Toast.makeText(this, getString(R.string.somethingWrong), Toast.LENGTH_LONG).show();
        }
 
    }
@@ -371,7 +371,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         }
         else
         {
-            Toast.makeText(this, "Press Back again to Exit.",
+            Toast.makeText(this,getString(R.string.pressBackAgainToExit),
                     Toast.LENGTH_SHORT).show();
             exit = true;
             new Handler().postDelayed(new Runnable()
@@ -575,7 +575,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Have you heard about" + getString(R.string.link));
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.messageShareApp) + getString(R.string.link));
 
                 startActivity(Intent.createChooser(intent,getString(R.string.send_invitation)));
 

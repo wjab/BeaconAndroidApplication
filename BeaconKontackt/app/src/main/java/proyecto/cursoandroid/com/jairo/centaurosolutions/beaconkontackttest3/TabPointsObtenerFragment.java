@@ -66,7 +66,7 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
             public void onClick(View view) {
 
                 if(codeToUse.getText().toString().equals("")){
-                    Toast.makeText(getContext(), "Favor ingresar un monto de puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getString(R.string.pointsMount), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -74,7 +74,7 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
 
                     pointsUser=Integer.parseInt(mpoints.toString());
 
-                        Toast.makeText(getContext(), "Procesando Solicitud", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),  getString(R.string.process), Toast.LENGTH_SHORT).show();
                         service();
                 }
             }

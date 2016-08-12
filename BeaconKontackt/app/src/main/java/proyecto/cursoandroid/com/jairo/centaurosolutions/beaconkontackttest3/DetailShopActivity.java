@@ -121,7 +121,7 @@ public class DetailShopActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(mpoints.equals("0"))
                 {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -135,7 +135,7 @@ public class DetailShopActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(mpoints.equals("0"))
                 {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

@@ -116,7 +116,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
             @Override
             public void onClick(View view) {
                 if (mpoints.equals("0")) {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
                 } else {
                     openHistory();
                 }
@@ -127,7 +127,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
             public void onClick(View view) {
                 if (mpoints.equals("0"))
                 {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -247,7 +247,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
             }
             else if (response.getString("message").toString().equals("Product already added to wishlist"))
             {
-                Toast.makeText(this, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.productExist), Toast.LENGTH_SHORT).show();
             }
 
         }

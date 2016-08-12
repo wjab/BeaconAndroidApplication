@@ -75,7 +75,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(mpoints.toString().equals("0"))
                 {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -130,7 +130,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
             startActivity(redirectIntent);
             this.finish();
         } else {
-            Toast.makeText(this, "Pulse el botón para volver a la página principal",
+            Toast.makeText(this, getString(R.string.pressBackAgainToExit),
                     Toast.LENGTH_SHORT).show();
             exit = true;
             new Handler().postDelayed(new Runnable() {

@@ -143,7 +143,7 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                 }
                 else{
 
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario y contraseña requeridos", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(),getString(R.string.userData), Toast.LENGTH_LONG);
                     toast.show();
                 }
             }
@@ -252,11 +252,15 @@ public class LoginMainActivity extends AppCompatActivity implements Response.Lis
                                 (map.get("birthday") != null ? map.get("birthday").toString() : ""));
                         Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                         startActivity(intent);
-                    } else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Usuario deshabilitado", Toast.LENGTH_SHORT);
+                    }
+                    else
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.usuarioDesabilitado), Toast.LENGTH_SHORT);
                         toast.show();
                     }
-                } else {
+                }
+                else
+                {
                     Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
                     toast.show();
                 }

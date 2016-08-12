@@ -38,7 +38,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     public CustomAdapterWish adapter;
     private static ListView listView;
     public ArrayList<Wish> listArray;
-    private static String idUser;
+    private static String idUser,toastDelete,toast;
     private static Activity context;
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
@@ -89,7 +89,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             public void onClick(View view) {
                 if (mpoints.equals("0"))
                 {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Aún no ha obtenido puntos", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
