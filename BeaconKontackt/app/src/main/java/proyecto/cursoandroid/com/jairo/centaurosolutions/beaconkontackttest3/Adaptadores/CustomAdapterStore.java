@@ -62,7 +62,7 @@ public class CustomAdapterStore extends ArrayAdapter<Store> {
 
         String walkinText = storeList.get(position).getTotalGiftPoints().getWalkin();
         String scanText = storeList.get(position).getTotalGiftPoints().getScan();
-        String purchaseText = storeList.get(position).getTotalGiftPoints().getPurchase();
+        String purchaseText = "C / "+storeList.get(position).getTotalGiftPoints().getPurchase();
         String url = storeList.get(position).getUrlImagen();
 
         walkin.setText(walkinText);
