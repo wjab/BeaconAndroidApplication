@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="15dp"
-        android:text="Fecha de obtencion"
+        android:text=""
         android:id="@+id/textView3"
         android:layout_marginLeft="13dp"
         android:layout_alignTop="@+id/pointsHistory"
