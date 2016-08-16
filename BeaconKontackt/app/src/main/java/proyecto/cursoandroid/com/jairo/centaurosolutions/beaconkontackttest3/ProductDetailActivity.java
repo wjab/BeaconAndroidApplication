@@ -149,6 +149,15 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         finish();
         return super.onSupportNavigateUp();
     }
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent();
+        intent.putExtra("code",1);
+        setResult(2,intent);
+        finish();
+        super.onBackPressed();
+    }
     public void openHistory()
     {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);

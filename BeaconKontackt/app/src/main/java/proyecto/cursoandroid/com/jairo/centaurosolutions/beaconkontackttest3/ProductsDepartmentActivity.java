@@ -172,6 +172,15 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         finish();
         return super.onSupportNavigateUp();
     }
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent();
+        intent.putExtra("code",1);
+        setResult(2,intent);
+        finish();
+        super.onBackPressed();
+    }
     public void openHistory()
     {
         Intent intent = new Intent(context, HistotyPointsActivity.class);

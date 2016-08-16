@@ -158,6 +158,15 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         finish();
         return super.onSupportNavigateUp();
     }
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent();
+        intent.putExtra("code",1);
+        setResult(2,intent);
+        finish();
+        super.onBackPressed();
+    }
 
     public void openHistory() {
         Intent intent = new Intent(context, HistotyPointsActivity.class);
