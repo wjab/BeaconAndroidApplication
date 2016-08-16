@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -45,6 +46,7 @@ import com.kontakt.sdk.android.common.log.Logger;
 import com.kontakt.sdk.android.common.util.SDKPreconditions;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,6 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import model.elementMenu.ElementMenu;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapter;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import receiver.AbstractScanBroadcastReceiver;
 import service.BackgroundScanService;
 import utils.NonStaticUtils;
@@ -85,7 +88,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private String idUser,imgDecodableString;
     private ActionBarDrawerToggle mDrawerToggle;
     public  ArrayList<Promociones> listPromoArray;
-
+    public  ArrayList<Wish> listArray;
+    public static int size;
     static {
         SCAN_INTENT_FILTER = new IntentFilter(BackgroundScanService.BROADCAST);
         SCAN_INTENT_FILTER.setPriority(2);
@@ -108,7 +112,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private TypedArray NavIcons;
     private final BroadcastReceiver scanReceiver = new ForegrondScanReceiver();
     private Boolean exit = false;
-
+    private Button addImage;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     ViewPager  pager;
@@ -129,6 +133,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.action_bar_layout, null);
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
         FragmentManager manager=getSupportFragmentManager();
         PagerAdapter adapter=new PagerAdapter(manager);
         pager.setAdapter(adapter);
@@ -307,9 +312,6 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                 }
             }
         });
-       //  setUpActionBar(toolbar);
-       // setUpActionBarTitle(getString(R.string.foreground_background_scan));
-
 
     }
 
@@ -338,6 +340,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         intent.putExtra("idUser",idUser);
         startActivity(intent);
     }
+
     public void logOut()
     {
         SharedPreferences prefs;
@@ -485,6 +488,9 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             response=response.getJSONObject("user");
                 String url= response.getString("pathImage");
                 Log.e("URI---->", url);
+            JSONArray ranges = response.getJSONArray("productWishList");
+            size=ranges.length();
+            addImage.setText(String.valueOf(size));
             if(url!=null && !url.isEmpty()) {
                 Picasso.with(this).load(url).error(R.drawable.profiledefault).into(profileImage);
                 Picasso.with(this).load(url).error(R.drawable.profiledefault).into(imageNavigation);

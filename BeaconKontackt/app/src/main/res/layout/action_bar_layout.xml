@@ -44,8 +44,10 @@
         android:layout_width="30dp"
         android:layout_height="25dp"
         android:background="@drawable/ic_added"
-        android:id="@+id/button"
+        android:id="@+id/buttonAdd"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/barraAccion"
+        android:textSize="10sp" />
 
 </RelativeLayout>

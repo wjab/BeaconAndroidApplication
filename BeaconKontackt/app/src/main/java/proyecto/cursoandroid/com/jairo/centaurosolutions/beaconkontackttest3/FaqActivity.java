@@ -49,6 +49,7 @@ public class FaqActivity extends  AppCompatActivity{
     ViewPager pager;
     TabLayout tabLayout;
     Button addImage;
+    private int size;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class FaqActivity extends  AppCompatActivity{
 
             }
         });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
         pointsAction.setText(userAcumulatedPoints.toString());
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override

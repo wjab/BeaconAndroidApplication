@@ -26,6 +26,7 @@ public class PointsActivity extends AppCompatActivity {
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     LinearLayout back;
+    private int size;
     private CharSequence mpoints,mTitle;
     private String idUser,userAcumulatedPoints;
     private ServiceController serviceController;
@@ -90,6 +91,7 @@ public class PointsActivity extends AppCompatActivity {
                 }
             }
         });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
 
     }
     public void openHistory(){

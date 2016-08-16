@@ -60,7 +60,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
-    Button addImage;
+   private static Button addImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -98,7 +98,6 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 onSupportNavigateUp();
             }
         });
-
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
         name = (TextView)findViewById(R.id.nameDepartment);
         Picasso.with(thisActivity).load(department.getUrlDepartment()).error(R.drawable.department).into(departmentImage);
@@ -114,6 +113,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                 startActivity(intent);
             }
         });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
         grid = (GridView)findViewById(R.id.products);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -271,7 +271,8 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
                     element.setPrice(currRange.getInt("price"));
                     listArray.add(element);
                 }
-
+                BackgroundScanActivity.size=listArray.size();
+                addImage.setText(String.valueOf(BackgroundScanActivity.size));
                 Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
                 chargeDepartments();
             }

@@ -102,6 +102,7 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 startActivity(intent);
             }
         });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
         promo = (Promociones) intent.getSerializableExtra("Detail");
         ServiceController imageRequest = new ServiceController();
         points.setText(promo.getPuntos() + " pts");
@@ -222,18 +223,21 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 pointsToGive.setText(String.format(getString(R.string.colonSymbol), Double.toString(price)));
                 ArrayList<String> images = new ArrayList<String>();
                 JSONArray imagesArray = response.getJSONArray("imageUrlList");
+
                 if (imagesArray != null && imagesArray.length() > 0) {
                     int len = imagesArray.length();
+
                     for (int l = 0; l < len; l++) {
                         images.add(imagesArray.get(l).toString());
                         if (images.size() == 1) {
                             url = imagesArray.get(l).toString();
                         }
                     }
+
                 } else {
                     images.add("images");
                 }
-                //service(id,name,price,url);
+
             } else if (response.getString("message").toString().equals("Perfil de tienda encontrado")) {
                 response = response.getJSONObject("merchantProfile");
                 descriptionMerchant.setText(response.getString("address"));

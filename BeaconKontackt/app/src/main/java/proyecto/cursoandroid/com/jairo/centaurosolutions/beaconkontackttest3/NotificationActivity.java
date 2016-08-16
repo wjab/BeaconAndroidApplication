@@ -26,6 +26,7 @@ public class NotificationActivity extends AppCompatActivity {
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     LinearLayout back;
+    private int size;
     private CharSequence mpoints,mTitle;
     private String idUser,userAcumulatedPoints;
     private ServiceController serviceController;
@@ -90,7 +91,7 @@ public class NotificationActivity extends AppCompatActivity {
                 }
             }
         });
-
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
         NotificationManagerCompat notifManager= NotificationManagerCompat.from(this);
         notifManager.cancelAll();
 
