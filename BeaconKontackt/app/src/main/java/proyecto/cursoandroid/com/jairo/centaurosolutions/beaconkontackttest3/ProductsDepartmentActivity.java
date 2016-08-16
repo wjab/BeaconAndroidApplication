@@ -95,7 +95,10 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                Intent intent=new Intent();
+                intent.putExtra("code",1);
+                setResult(2,intent);
+                finish();
             }
         });
         pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
@@ -350,6 +353,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         else
         {
             super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
             productWishList();
         }
     }

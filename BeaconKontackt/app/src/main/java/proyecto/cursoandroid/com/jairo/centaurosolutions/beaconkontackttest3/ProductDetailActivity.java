@@ -244,6 +244,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
                     listArrayWish.add(element);
                 }
                 searchProductInWishList();
+                BackgroundScanActivity.size=listArrayWish.size();
             }
             else if (response.getString("message").toString().equals("Product already added to wishlist"))
             {

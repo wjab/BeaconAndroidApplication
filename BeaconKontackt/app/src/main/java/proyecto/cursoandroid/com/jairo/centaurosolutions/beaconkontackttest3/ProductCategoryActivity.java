@@ -91,7 +91,10 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                Intent intent=new Intent();
+                intent.putExtra("code",1);
+                setResult(2,intent);
+                finish();
             }
         });
 
@@ -237,6 +240,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         if (code == 1) {
             super.onActivityResult(requestCode, resultCode, intent);
             obtainProducts();
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -34,6 +35,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
     public ArrayList<Category> listArray;
     private View rootView;
     private String nameCategory,urlImage,type;
+    private static Button addImage;
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -51,6 +53,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_category, container, false);
         listView= (ListView)rootView.findViewById(R.id.listViewCategory);
+        addImage = (Button) getActivity().findViewById(R.id.buttonAdd);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,13 +64,21 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
                 intentSuccess.putExtra("name", nameCategory);
                 intentSuccess.putExtra("urlImage", urlImage);
                 intentSuccess.putExtra("type", type);
-                startActivity(intentSuccess);
+                intentSuccess.putExtra("code", 1);
+                startActivityForResult(intentSuccess, 2);
 
             }
         });
         service();
         return rootView;
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
     }
     @Override
     public void onResponse(JSONObject response) {

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -37,6 +38,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
     public ListView listviewShop;
     public ArrayList<Store> listStoreArray;
     public ArrayList<Department> listDepartments;
+    private static Button addImage;
     public ArrayList<ProductStore> listProductStore;
     private View rootView;
 
@@ -57,6 +59,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_shops, container, false);
         listviewShop= (ListView)rootView.findViewById(R.id.listviewStores);
+        addImage = (Button) getActivity().findViewById(R.id.buttonAdd);
         listviewShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -64,12 +67,20 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                 store = listStoreArray.get(position);
                 Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailShopActivity.class);
                 intentSuccess.putExtra("detailShop", store);
-                startActivity(intentSuccess);
+                intentSuccess.putExtra("code", 1);
+                startActivityForResult(intentSuccess, 2);
             }
         });
         shopService();
         return rootView;
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
     }
     @Override
     public void onResponse(JSONObject response)

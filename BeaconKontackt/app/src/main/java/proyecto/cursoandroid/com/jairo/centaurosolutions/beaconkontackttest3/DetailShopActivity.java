@@ -73,7 +73,10 @@ public class DetailShopActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                Intent intent=new Intent();
+                intent.putExtra("code",1);
+                setResult(2,intent);
+                finish();
             }
         });
 
@@ -110,7 +113,8 @@ public class DetailShopActivity extends AppCompatActivity {
                 Intent intentSuccess = new Intent(getBaseContext(), ProductsDepartmentActivity.class);
                 intentSuccess.putExtra("department", department);
                 intentSuccess.putExtra("merchantId", merchantId);
-                startActivity(intentSuccess);
+                intentSuccess.putExtra("code", 1);
+                startActivityForResult(intentSuccess, 2);
 
             }
         });
@@ -153,6 +157,13 @@ public class DetailShopActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
+    }
     public void chargeDepartments() {
 
         adapter = new CustomAdapterDepartments(this, ranges);
