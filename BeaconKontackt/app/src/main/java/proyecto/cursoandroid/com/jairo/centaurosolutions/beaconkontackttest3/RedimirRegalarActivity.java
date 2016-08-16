@@ -1,7 +1,9 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import utils.NonStaticUtils;
@@ -30,6 +33,8 @@ public class RedimirRegalarActivity extends AppCompatActivity {
     private CharSequence mpoints;
     private Date dateExpiration;
     private String idUser,userAcumulatedPoints,date;
+    public static final Locale COSTARICA = new Locale("es", "CR");
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +47,18 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
                 null);
-        message=(TextView)findViewById(R.id.messageToShow);
-        code=(TextView)findViewById(R.id.code);
-        expiration=(TextView)findViewById(R.id.expiration);
-        sendData=(Button)findViewById(R.id.button);
-        dateExpiration=dateFormatter(date);
-        expiration.setText(getString(R.string.expiracionPuntos)+dateExpiration.toString());
+        message = (TextView)findViewById(R.id.messageToShow);
+        code = (TextView)findViewById(R.id.code);
+        expiration = (TextView)findViewById(R.id.expiration);
+        sendData = (Button)findViewById(R.id.button);
+
+        long unixSeconds = Long.parseLong(date);
+        Date date = new Date(unixSeconds*1000L);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d-MMM-yy K:mm a");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+        String formattedDate = sdf.format(date);
+
+        expiration.setText(getString(R.string.expiracionPuntos)+formattedDate);
         if(type.equals("redimir")){
             sendData.setVisibility(View.GONE);
             message.setText(getString(R.string.redimirPuntos));
@@ -113,23 +124,7 @@ public class RedimirRegalarActivity extends AppCompatActivity {
 
         startActivity(Intent.createChooser(intent,getString(R.string.sendCode)));
     }
-    private Date dateFormatter(String pDate)
-    {
-        Date finalDate = new Date();
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        try
-        {
-            finalDate = format.parse(pDate);
-        }
-        catch (ParseException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
-        return finalDate;
-    }
     @Override
     public boolean onSupportNavigateUp() {
         Intent intent = new Intent(this.getBaseContext(), PointsActivity.class);

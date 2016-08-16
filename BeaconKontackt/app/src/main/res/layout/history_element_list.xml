@@ -14,7 +14,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="13dp"
         android:id="@+id/nameHistory"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/lastScan"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="15dp"
         android:text=""
-        android:id="@+id/textView3"
+        android:id="@+id/lastScan"
         android:layout_marginLeft="13dp"
         android:layout_alignTop="@+id/pointsHistory"
         android:layout_alignParentStart="true" />

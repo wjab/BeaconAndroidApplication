@@ -9,11 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.History;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Store;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.HistotyPointsActivity;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.R;
 
 /**
@@ -28,6 +34,7 @@ public class CustomAdapterHistoryPoints extends ArrayAdapter<History> {
     // la lista de los elementos filtrados
     public ArrayList<History> mStringFilterList;
 
+    private HistotyPointsActivity histotyPointsActivity= new HistotyPointsActivity();
     public CustomAdapterHistoryPoints(Activity contexto, ArrayList<History> lista) {
         super(contexto, R.layout.history_element_list, lista);
         // TODO Auto-generated constructor stub
@@ -51,19 +58,21 @@ public class CustomAdapterHistoryPoints extends ArrayAdapter<History> {
 
         TextView name = (TextView) rowView.findViewById(R.id.nameHistory);
         TextView points = (TextView) rowView.findViewById(R.id.pointsHistory);
-       TextView address=(TextView)rowView.findViewById(R.id.addressHistory);
-       // ImageView image = (ImageView) rowView.findViewById(R.id.store_image);
-        ServiceController imageRequest =  new ServiceController();
+        TextView address=(TextView)rowView.findViewById(R.id.addressHistory);
+        TextView dateLastScan=(TextView)rowView.findViewById(R.id.lastScan);
+        String dateCurrent=listaPuntosObtenidos.get(position).getScanDate();
 
-        //imageRequest.imageRequest(listaPuntosObtenidos.get(position).getUrlImagen(), image, 0,0);
-
+        long unixSeconds = Long.parseLong(dateCurrent);
+        Date date = new Date(unixSeconds*1000L);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d-MMM-yy K:mm a");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+        String formattedDate = sdf.format(date);
+        dateLastScan.setText(formattedDate);
 
         address.setText(listaPuntosObtenidos.get(position).getAdressMerchant());
         name.setText(listaPuntosObtenidos.get(position).getPromoTitle() + "");
         points.setText(listaPuntosObtenidos.get(position).getPoints()+ "");
-
         return rowView;
-
     }
 
 

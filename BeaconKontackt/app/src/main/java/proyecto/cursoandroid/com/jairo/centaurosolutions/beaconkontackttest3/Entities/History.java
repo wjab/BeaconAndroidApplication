@@ -12,8 +12,7 @@ public class History  implements Serializable {
     private String merchantName;
     private String adressMerchant;
     private String promoTitle;
-
-    private Date scanDate;
+    private String scanDate;
 
     public String getId() {
         return id;
@@ -21,14 +20,6 @@ public class History  implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Date getScanDate() {
-        return scanDate;
-    }
-
-    public void setScanDate(Date scanDate) {
-        this.scanDate = scanDate;
     }
 
     public String getPoints() {
@@ -61,5 +52,13 @@ public class History  implements Serializable {
 
     public void setPromoTitle(String promoTitle) {
         this.promoTitle = promoTitle;
+    }
+
+    public String getScanDate() {
+        return scanDate;
+    }
+
+    public void setScanDate(String scanDate) {
+        this.scanDate = scanDate;
     }
 }

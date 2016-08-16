@@ -22,9 +22,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterHistoryPoints;
@@ -114,7 +119,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         try {
             listHistoryArray = new ArrayList<History>();
             Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("pointsData");
+            JSONArray ranges = response.getJSONArray("pointsData");
 
             String range = "";
             String message = "";
@@ -133,6 +138,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                 historyElement.setAdressMerchant(store.getString("address"));
                 historyElement.setPoints(currRange.getString("points"));
                 historyElement.setPromoTitle(promo.getString("title"));
+                historyElement.setScanDate(String.valueOf(currRange.getInt("lastScanDate")));
             listHistoryArray.add(historyElement);
             }
 
@@ -160,6 +166,5 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
 
     }
 
-  
 
 }

@@ -53,14 +53,14 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_tab_points_obtener, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_points_obtener, container, false);
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(getContext());
         idUser = preferences.getString("userId", "");
         mpoints = getContext().getSharedPreferences("SQ_UserLogin", getContext().MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.obtainPoints));
-        codeToUse=(TextView)view.findViewById(R.id.code);
-        sendData=(Button)view.findViewById(R.id.gift_points);
+        codeToUse = (TextView)view.findViewById(R.id.code);
+        sendData = (Button)view.findViewById(R.id.gift_points);
         sendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,9 +70,9 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
                 }
                 else
                 {
-                    code=codeToUse.getText().toString();
+                    code = codeToUse.getText().toString();
 
-                    pointsUser=Integer.parseInt(mpoints.toString());
+                    pointsUser = Integer.parseInt(mpoints.toString());
 
                         Toast.makeText(getContext(),  getString(R.string.process), Toast.LENGTH_SHORT).show();
                         service();
@@ -80,7 +80,7 @@ public class TabPointsObtenerFragment extends Fragment implements Response.Liste
             }
         });
 
-        points=(TextView)view.findViewById(R.id.messagePoints);
+        points = (TextView)view.findViewById(R.id.messagePoints);
         points.setText(userAcumulatedPoints);
         return view;
     }

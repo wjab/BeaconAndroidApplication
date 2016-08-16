@@ -285,7 +285,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
 
                 // Actualiza los puntos del del usuario en sharedPreferences
                 nonStaticUtils.UpdateUserPoints(thisActivity, response.getInt("totalGiftPoints"));
-
+                pointsAction.setText(String.valueOf(response.getInt("totalGiftPoints")));
                 Toast.makeText(context, "Puntos asignados por escaneo", Toast.LENGTH_SHORT).show();
             }
         }

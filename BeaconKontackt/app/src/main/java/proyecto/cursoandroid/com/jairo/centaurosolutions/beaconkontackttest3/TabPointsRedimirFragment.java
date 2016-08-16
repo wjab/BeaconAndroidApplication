@@ -55,15 +55,15 @@ public class TabPointsRedimirFragment extends Fragment implements Response.Liste
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_tab_points_redimir, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_points_redimir, container, false);
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(getContext());
         idUser = preferences.getString("userId", "");
         mpoints = getContext().getSharedPreferences("SQ_UserLogin", getContext().MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.changePoints), mpoints);
-        points=(TextView)view.findViewById(R.id.messagePoints);
+        points = (TextView)view.findViewById(R.id.messagePoints);
         points.setText(userAcumulatedPoints);
-        pointsToGift=(TextView)view.findViewById(R.id.points);
+        pointsToGift = (TextView)view.findViewById(R.id.points);
 
         sendData=(Button)view.findViewById(R.id.gift_pointsR);
         sendData.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class TabPointsRedimirFragment extends Fragment implements Response.Liste
              {
                  pointsIntGift=Integer.parseInt(pointsToGift.getText().toString());
                 pointsUser=Integer.parseInt(mpoints.toString());
-                 if(pointsIntGift>=pointsUser){
+                 if(pointsIntGift >= pointsUser){
                      Toast.makeText(getContext(), getString(R.string.dontHavePointsNecessary), Toast.LENGTH_SHORT).show();
                  }
                  else
@@ -136,7 +136,7 @@ public class TabPointsRedimirFragment extends Fragment implements Response.Liste
                 response = response.getJSONObject("user");
                 Map<String,String> map = new HashMap<>();
                 if (!response.getString("socialNetworkJson").isEmpty()){
-                    String jsonFace= response.getString("socialNetworkJson");
+                    String jsonFace = response.getString("socialNetworkJson");
                     jsonFace = jsonFace.substring(1, jsonFace.length()-1);           //remove curly brackets
                     String[] keyValuePairs = jsonFace.split(",");              //split the string to creat key-value pairs
 

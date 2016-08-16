@@ -82,8 +82,8 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         Intent intent1 = getIntent();
         idUser = intent1.getStringExtra("idUser");
         webServiceUser = getString(R.string.WebService_User);
-        listView= (ListView)findViewById(R.id.listviewWish);
-        context=this;
+        listView = (ListView)findViewById(R.id.listviewWish);
+        context = this;
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,8 +138,8 @@ public class WishListActivity extends AppCompatActivity implements Response.List
                 Toast.makeText(context, "Eliminado correctamente", Toast.LENGTH_SHORT).show();
 
             }
-                response=response.getJSONObject("user");
-                JSONArray ranges= response.getJSONArray("productWishList");
+                response = response.getJSONObject("user");
+                JSONArray ranges = response.getJSONArray("productWishList");
                 listArray= new ArrayList<Wish>();
                 for(int i=0; i < ranges.length(); i++ ){
                     Wish element = new Wish();
@@ -151,10 +151,10 @@ public class WishListActivity extends AppCompatActivity implements Response.List
                     listArray.add(element);
                 }
 
-                adapter=new CustomAdapterWish(context,  listArray);
+                adapter = new CustomAdapterWish(context,  listArray);
                 listView.setAdapter(adapter);
 
-            if(ranges.length()==0)
+            if(ranges.length() == 0)
             {
               Toast.makeText(context, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
             }

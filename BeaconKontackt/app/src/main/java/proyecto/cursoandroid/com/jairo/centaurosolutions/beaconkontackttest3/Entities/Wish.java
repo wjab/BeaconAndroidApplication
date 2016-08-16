@@ -10,6 +10,7 @@ public class Wish implements Serializable{
     private String productName;
     private int price;
     private String imageUrlList;
+    private String dateCreation;
 
     public String getProductId() {
         return productId;
@@ -41,5 +42,13 @@ public class Wish implements Serializable{
 
     public void setImageUrlList(String imageUrlList) {
         this.imageUrlList = imageUrlList;
+    }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }
