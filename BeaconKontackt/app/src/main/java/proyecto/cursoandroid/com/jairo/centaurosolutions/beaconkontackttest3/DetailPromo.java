@@ -73,7 +73,10 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                Intent intent=new Intent();
+                intent.putExtra("code",1);
+                setResult(2,intent);
+                finish();
 
             }
         });
@@ -99,7 +102,8 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
             }
         });
         addImage.setText(String.valueOf(BackgroundScanActivity.size));
@@ -185,6 +189,9 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
             redirectIntent.putExtra("promoDetail", myBeaconCacheList);
             startActivity(redirectIntent);
         } else {
+            Intent intent=new Intent();
+            intent.putExtra("code",1);
+            setResult(2,intent);
             this.finish();
         }
     }
@@ -194,7 +201,13 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
         intent.putExtra("idUser", idUser);
         startActivity(intent);
     }
-
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

@@ -75,8 +75,10 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
-
+                Intent intent=new Intent();
+                intent.putExtra("code",1);
+                setResult(2,intent);
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -198,5 +200,13 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 
-
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent();
+        intent.putExtra("code",1);
+        setResult(2,intent);
+        finish();
+        super.onBackPressed();
+    }
 }

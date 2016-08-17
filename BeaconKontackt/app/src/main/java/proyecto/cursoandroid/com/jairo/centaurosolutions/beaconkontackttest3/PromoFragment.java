@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -31,6 +32,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
 
     public Adaptador_Promo adapter;
     public ListView listviewPromo;
+    private static Button addImage;
     public ArrayList<Promociones> listPromoArray;
     private View rootView;
 
@@ -51,6 +53,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_promo, container, false);
         listviewPromo= (ListView)rootView.findViewById(R.id.listviewPromo);
+        addImage = (Button) getActivity().findViewById(R.id.buttonAdd);
         listviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,12 +61,20 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
                 promo = listPromoArray.get(position);
                 Intent intentSuccess = new Intent(getActivity().getBaseContext(), DetailPromo.class);
                 intentSuccess.putExtra("Detail", promo);
-                startActivity(intentSuccess);
+                intentSuccess.putExtra("code", 1);
+                startActivityForResult(intentSuccess, 2);
             }
         });
         promoService();
        return rootView;
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
     }
     @Override
     public void onResponse(JSONObject response) {

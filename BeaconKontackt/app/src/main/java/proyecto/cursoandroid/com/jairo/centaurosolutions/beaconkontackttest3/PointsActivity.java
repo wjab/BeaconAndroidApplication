@@ -66,7 +66,8 @@ public class PointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
             }
         });
         back = (LinearLayout) actionBarLayout.findViewById(R.id.back);

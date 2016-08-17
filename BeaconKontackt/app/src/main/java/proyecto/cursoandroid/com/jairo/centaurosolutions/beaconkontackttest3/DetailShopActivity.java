@@ -67,7 +67,8 @@ public class DetailShopActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +178,6 @@ public class DetailShopActivity extends AppCompatActivity {
         adapter = new CustomAdapterDepartments(this, ranges);
         grid.setAdapter(adapter);
     }
-
     public void setImgeTextColor(Store store) {
         String walkinText, purchaseText, scanText;
         walkinText = store.getTotalGiftPoints().getWalkin();
@@ -217,4 +217,5 @@ public class DetailShopActivity extends AppCompatActivity {
         }
 
     }
+
 }
