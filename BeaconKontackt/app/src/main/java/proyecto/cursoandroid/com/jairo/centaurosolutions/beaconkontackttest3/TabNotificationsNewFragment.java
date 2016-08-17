@@ -82,7 +82,7 @@ public class TabNotificationsNewFragment extends Fragment implements Response.Li
                 args.putString("id", notification.getId());
                 args.putString("message", notification.getMessage());
 
-                MessageNotificationDialogFragment p= new MessageNotificationDialogFragment();
+                MessageNotificationDialogFragment p = new MessageNotificationDialogFragment();
                 p.setArguments(args);
                 p.show(fm, "tag");
                 notifications.remove(position);
@@ -115,17 +115,17 @@ public class TabNotificationsNewFragment extends Fragment implements Response.Li
     public void onResponse(JSONObject response) {
 
         try {
-            if (response.getJSONArray("notificationResult").length()>0) {
+            if (response.getJSONArray("notificationResult").length() > 0) {
                 JSONArray notificationList = response.getJSONArray("notificationResult");
                 notifications = new ArrayList<Notification>();
-                for (int i=0; i < notificationList.length(); i++ ) {
+                for (int i = 0; i < notificationList.length(); i++) {
                     JSONObject row = notificationList.getJSONObject(i);
 
                     ArrayList<String> images = new ArrayList<String>();
                     String url = "";
 
                     Notification notification;
-                    notification= new Notification();
+                    notification = new Notification();
                     notification.setId(row.getString("id"));
                     notification.setMessage(row.getString("message"));
                     notification.setRead(row.getBoolean("read"));

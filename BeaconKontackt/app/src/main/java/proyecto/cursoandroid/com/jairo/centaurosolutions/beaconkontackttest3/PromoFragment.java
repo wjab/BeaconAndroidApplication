@@ -28,7 +28,7 @@ import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.Adaptador_Promo;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
 
-public class PromoFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class PromoFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     public Adaptador_Promo adapter;
     public ListView listviewPromo;
@@ -52,7 +52,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_promo, container, false);
-        listviewPromo= (ListView)rootView.findViewById(R.id.listviewPromo);
+        listviewPromo = (ListView) rootView.findViewById(R.id.listviewPromo);
         addImage = (Button) getActivity().findViewById(R.id.buttonAdd);
         listviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,9 +66,10 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
             }
         });
         promoService();
-       return rootView;
+        return rootView;
 
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         int code = intent.getIntExtra("code", 0);
         if (code == 1) {
@@ -76,20 +77,21 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
         }
     }
+
     @Override
     public void onResponse(JSONObject response) {
 
 
         try {
             listPromoArray = new ArrayList<Promociones>();
-            Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("listPromo");
+            Gson gson = new Gson();
+            JSONArray ranges = response.getJSONArray("listPromo");
             String range = "";
             String message = "";
             String messageType = "";
             String promo = "";
 
-            for(int i=0; i < ranges.length(); i++ ){
+            for (int i = 0; i < ranges.length(); i++) {
                 JSONObject currRange = ranges.getJSONObject(i);
 
                 Promociones promoelement = new Promociones();
@@ -104,7 +106,7 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
                 listPromoArray.add(promoelement);
             }
 
-            adapter=new Adaptador_Promo(getActivity(), listPromoArray);
+            adapter = new Adaptador_Promo(getActivity(), listPromoArray);
             listviewPromo.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -116,12 +118,13 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
     public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
     }
+
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
 
-    public void promoService(){
+    public void promoService() {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -130,11 +133,10 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_Promo)+"promo/";
+        String url = getString(R.string.WebService_Promo) + "promo/";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
-
 
 
 }

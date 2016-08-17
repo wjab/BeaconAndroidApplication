@@ -70,12 +70,12 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
 
         responseError = this;
         response = this;
-        serviceController =  new ServiceController();
+        serviceController = new ServiceController();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_Promo)+"promo";
+        String url = getString(R.string.WebService_Promo) + "promo";
 
-        serviceController.jsonObjectRequest(url, Request.Method.GET, null,map, response, responseError);
+        serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
     }
 
     @Override
@@ -103,24 +103,23 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
     @Override
     public void onResponse(JSONObject response) {
 
-        try{
+        try {
             JSONArray promoList = response.getJSONArray("Promo");
             promociones = new ArrayList<Promociones>();
 
-            for (int i=0; i < promoList.length(); i++ ) {
+            for (int i = 0; i < promoList.length(); i++) {
                 JSONObject row = promoList.getJSONObject(i);
 
                 ArrayList<String> images = new ArrayList<String>();
                 String url = "";
 
                 Promociones promo;
-                promo= new Promociones();
+                promo = new Promociones();
                 promo.setTitulo(row.getString("title"));
                 promo.setDescripcion(row.getString("description"));
                 promo.setPuntos(row.getInt("gift_points"));
                 promo.setId(row.getString("id"));
-                if(row.get("images") != null)
-                {
+                if (row.get("images") != null) {
                     url = row.getString("images");
                     promo.setUrlImagen(url);
                 }
@@ -129,15 +128,14 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
             }
 
             adapter = new Adaptador_Promo(this, promociones);
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
 
         }
 
         listviewPromo.setAdapter(adapter);
 
         Log.d("Response", response.toString());
-     }
+    }
 
     @Override
     public void onErrorResponse(VolleyError error) {

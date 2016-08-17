@@ -1,7 +1,6 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,12 +29,13 @@ public class PullNotificationsActivity extends AppCompatActivity {
     Adaptador_Promo adapter;
     ListView listviewPromo;
 
-    private String idUser,userAcumulatedPoints;
+    private String idUser, userAcumulatedPoints;
     LinearLayout back;
     ArrayList<Promociones> promociones;
     ArrayList<BeaconCache> myBeaconCacheList;
     private CharSequence mpoints;
     private CharSequence mTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +47,8 @@ public class PullNotificationsActivity extends AppCompatActivity {
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
                 null);
-        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
-        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0) + "";
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -73,20 +72,17 @@ public class PullNotificationsActivity extends AppCompatActivity {
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
-                {
+                if (mpoints.toString().equals("0")) {
                     Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     openHistory();
                 }
             }
         });
         pointsAction.setText(mpoints + " pts");
 
-        Intent intent1= getIntent();
-        myBeaconCacheList = (ArrayList<BeaconCache>)intent1.getSerializableExtra("promoDetail");
+        Intent intent1 = getIntent();
+        myBeaconCacheList = (ArrayList<BeaconCache>) intent1.getSerializableExtra("promoDetail");
         llenarNotificaciones(myBeaconCacheList);
 
         listviewPromo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,8 +94,7 @@ public class PullNotificationsActivity extends AppCompatActivity {
                 promo.setDescripcion(Utils.StringDecode64(listitem.descrition));
                 promo.setPuntos(listitem.giftPoints);
                 promo.setId(listitem.promoId);
-                if(listitem.picturePath != null)
-                {
+                if (listitem.picturePath != null) {
                     String url = listitem.picturePath;
                     promo.setUrlImagen(url);
                 }
@@ -111,21 +106,24 @@ public class PullNotificationsActivity extends AppCompatActivity {
             }
         });
 
-        NotificationManagerCompat notifManager= NotificationManagerCompat.from(this);
+        NotificationManagerCompat notifManager = NotificationManagerCompat.from(this);
         notifManager.cancelAll();
 
     }
-    public void openHistory(){
+
+    public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
-        intent.putExtra("idUser",idUser);
+        intent.putExtra("idUser", idUser);
         startActivity(intent);
     }
+
     private Boolean exit = false;
+
     @Override
     public void onBackPressed() {
         if (exit) {
             Intent redirectIntent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
-            myBeaconCacheList= new ArrayList<BeaconCache>();
+            myBeaconCacheList = new ArrayList<BeaconCache>();
             redirectIntent.putExtra("promoDetail", myBeaconCacheList);
             startActivity(redirectIntent);
             this.finish();
@@ -158,30 +156,30 @@ public class PullNotificationsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     //llenar notificaciones
     public void llenarNotificaciones(ArrayList<BeaconCache> myBeaconCacheList) {
 
-        try{
+        try {
             Log.d("PromoList", "Size:" + myBeaconCacheList.size());
 
-            if(myBeaconCacheList.size() > 0){
+            if (myBeaconCacheList.size() > 0) {
 
 
                 promociones = new ArrayList<Promociones>();
 
-                for(BeaconCache myCache : myBeaconCacheList){
+                for (BeaconCache myCache : myBeaconCacheList) {
 
                     ArrayList<String> images = new ArrayList<String>();
                     String url = "";
-                    if(myCache.descrition != null && myCache.title != null){
+                    if (myCache.descrition != null && myCache.title != null) {
                         Promociones promo;
-                        promo= new Promociones();
+                        promo = new Promociones();
                         promo.setTitulo(myCache.title);
                         promo.setDescripcion(Utils.StringDecode64(myCache.descrition));
                         promo.setPuntos(myCache.giftPoints);
                         promo.setId(myCache.promoId);
-                        if(myCache.picturePath != null)
-                        {
+                        if (myCache.picturePath != null) {
                             url = myCache.picturePath;
                             promo.setUrlImagen(url);
                         }
@@ -190,22 +188,19 @@ public class PullNotificationsActivity extends AppCompatActivity {
                     }
                 }
 
-                if(promociones.size() > 0){
+                if (promociones.size() > 0) {
 
                     adapter = new Adaptador_Promo(this, promociones);
                     listviewPromo.setAdapter(adapter);
-                }
-                else{
+                } else {
                     Intent i = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                     startActivity(i);
                 }
-            }
-            else {
+            } else {
                 Intent i = new Intent(getApplicationContext(), BackgroundScanActivity.class);
                 startActivity(i);
             }
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             Log.d("PromoList", ex.getMessage());
         }
     }

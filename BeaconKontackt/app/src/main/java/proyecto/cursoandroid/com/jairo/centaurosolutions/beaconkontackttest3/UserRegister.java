@@ -47,8 +47,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,7 +57,7 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         validator = new InputValidatorHelper();
 
 
-        register = (Button)findViewById(R.id.register);
+        register = (Button) findViewById(R.id.register);
         password = (TextView) findViewById(R.id.password);
         name = (TextView) findViewById(R.id.name);
         phone = (TextView) findViewById(R.id.phone);
@@ -67,55 +66,57 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
 
         responseError = this;
         response = this;
-        serviceController =  new ServiceController();
+        serviceController = new ServiceController();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                  if(validateFields()){
-                      sendCreateUserRequest();
-                  };
+                if (validateFields()) {
+                    sendCreateUserRequest();
+                }
+                ;
             }
         });
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
     }
-    public Boolean validateFields(){
+
+    public Boolean validateFields() {
         int error = 0;
 
-        if(!validator.isValidPassword(password.getText().toString())) {
+        if (!validator.isValidPassword(password.getText().toString())) {
             password.setError("La longitud mínima debe ser de al menos 6 caracteres");
             error++;
         }
-        if(!validator.isNumeric(phone.getText().toString())) {
+        if (!validator.isNumeric(phone.getText().toString())) {
             phone.setError("Número de teléfono inválido");
             error++;
         }
-        if(!validator.isValidWord(name.getText().toString())) {
+        if (!validator.isValidWord(name.getText().toString())) {
             name.setError("El campo debe estar compuesto por letras");
             error++;
         }
-        if(!validator.isValidWord(lastName.getText().toString())) {
+        if (!validator.isValidWord(lastName.getText().toString())) {
             lastName.setError("El campo debe estar compuesto por letras");
             error++;
         }
-        if(!validator.isValidEmail(email.getText().toString())){
+        if (!validator.isValidEmail(email.getText().toString())) {
             email.setError("Dirección de correo inválida");
             error++;
         }
 
-        return  error == 0;
+        return error == 0;
     }
 
-    public void sendCreateUserRequest()
-    {
+    public void sendCreateUserRequest() {
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User) + "user";
-        ArrayList<Preference> preferenceList = new  ArrayList<Preference>();
+        ArrayList<Preference> preferenceList = new ArrayList<Preference>();
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("user", email.getText().toString());
         mapParams.put("password", password.getText().toString());
@@ -128,51 +129,44 @@ public class UserRegister extends AppCompatActivity implements Response.Listener
         mapParams.put("creationDate", Utils.convertLongToDate(new Date().getTime()));
         mapParams.put("modifiedDate", Utils.convertLongToDate(new Date().getTime()));
         mapParams.put("email", email.getText().toString());
-        mapParams.put("socialNetworkId","");
-        mapParams.put("socialNetworkType","localuser");
-        mapParams.put("socialNetworkJson","");
-        mapParams.put("gender","");
-        mapParams.put("pathImage","");
-        mapParams.put("preference",preferenceList );
+        mapParams.put("socialNetworkId", "");
+        mapParams.put("socialNetworkType", "localuser");
+        mapParams.put("socialNetworkJson", "");
+        mapParams.put("gender", "");
+        mapParams.put("pathImage", "");
+        mapParams.put("preference", preferenceList);
 
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put("Content-Type","application/json");
+        map.put("Content-Type", "application/json");
 
         serviceController.jsonObjectRequest(url, Request.Method.POST, mapParams, map, response, responseError);
     }
 
     @Override
-    public void onResponse(JSONObject response)
-    {
-        try
-        {
-            if(response.getJSONObject("user") != null)
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.correctlyCreateUser),Toast.LENGTH_LONG);
+    public void onResponse(JSONObject response) {
+        try {
+            if (response.getJSONObject("user") != null) {
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.correctlyCreateUser), Toast.LENGTH_LONG);
                 toast.show();
 
-                Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class );
+                Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
                 startActivity(intent);
             }
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_LONG);
             toast.show();
-            Intent intent = new Intent(getApplicationContext(), UserRegister.class );
+            Intent intent = new Intent(getApplicationContext(), UserRegister.class);
             startActivity(intent);
         }
     }
+
     @Override
-    public void onErrorResponse(VolleyError error)
-    {
+    public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
         Toast toast = Toast.makeText(getApplicationContext(), "Error procesando la solicitud", Toast.LENGTH_SHORT);
         toast.show();
     }
-
-
 
 
     @Override

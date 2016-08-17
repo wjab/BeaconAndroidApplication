@@ -24,7 +24,7 @@ import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.User;
 import utils.NonStaticUtils;
 
-public class WelcomeScreen extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class WelcomeScreen extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
 
     ServiceController serviceController;
@@ -37,27 +37,23 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     NonStaticUtils nonStaticUtils;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_welcome_screen);
-        info= (TextView) findViewById(R.id.InfoLoading);
+        info = (TextView) findViewById(R.id.InfoLoading);
         info.setText("Comprobando Usuario");
         SystemClock.sleep(2000);
         responseError = this;
         response = this;
-        serviceController =  new ServiceController();
+        serviceController = new ServiceController();
         nonStaticUtils = new NonStaticUtils();
         prefs = nonStaticUtils.loadLoginInfo(this);
 
-        if(prefs.getString("userId", null) != null)
-        {
+        if (prefs.getString("userId", null) != null) {
             sendUserRequestById(prefs.getString("userId", null));
-        }
-        else
-        {
+        } else {
             info.setText("Redirigiendo al Login");
             SystemClock.sleep(2000);
             Intent intent = new Intent(getApplicationContext(), LoginOptions.class);
@@ -65,20 +61,19 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
         }
     }
 
-    public void sendUserRequestById(String userId){
+    public void sendUserRequestById(String userId) {
 
         info.setText("Cargando Aplicación");
         SystemClock.sleep(2000);
         serviceController = new ServiceController();
         String url = getString(R.string.WebService_User) + "user/id/" + userId;
-        Map<String,String> nullMap =  new HashMap<String, String>();
+        Map<String, String> nullMap = new HashMap<String, String>();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
 
 
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
     }
-
 
 
     @Override
@@ -88,29 +83,28 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
 
         //prefs = nonStaticUtils.loadLoginInfo(this);
 
-        try
-        {
-            JSONObject currRange= response.getJSONObject("user");
+        try {
+            JSONObject currRange = response.getJSONObject("user");
 
 
             if (currRange.getString("enable").equals("true") && prefs.getBoolean("isAuthenticated", false)) {
 
-                info.setText("Bienvenido "+ currRange.getString("user"));
+                info.setText("Bienvenido " + currRange.getString("user"));
                 SystemClock.sleep(2000);
                 Intent intent = new Intent(getApplicationContext(), BackgroundScanActivity.class);
 
-                intent.putExtra("totalPoints",currRange.getInt("totalGiftPoints"));
-                Map<String,String> map = new HashMap<>();
-                if (!currRange.getString("socialNetworkJson").isEmpty()){
-                String jsonFace= currRange.getString("socialNetworkJson");
-                jsonFace = jsonFace.substring(1, jsonFace.length()-1);           //remove curly brackets
-                String[] keyValuePairs = jsonFace.split(",");              //split the string to creat key-value pairs
+                intent.putExtra("totalPoints", currRange.getInt("totalGiftPoints"));
+                Map<String, String> map = new HashMap<>();
+                if (!currRange.getString("socialNetworkJson").isEmpty()) {
+                    String jsonFace = currRange.getString("socialNetworkJson");
+                    jsonFace = jsonFace.substring(1, jsonFace.length() - 1);           //remove curly brackets
+                    String[] keyValuePairs = jsonFace.split(",");              //split the string to creat key-value pairs
 
-                for(String pair : keyValuePairs)                        //iterate over the pairs
-                {
-                    String[] entry = pair.split("=");                   //split the pairs to get key and value
-                    map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
-                }
+                    for (String pair : keyValuePairs)                        //iterate over the pairs
+                    {
+                        String[] entry = pair.split("=");                   //split the pairs to get key and value
+                        map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+                    }
                 }
                 nonStaticUtils.saveLogin(this,
                         currRange.getString("user"),
@@ -128,15 +122,12 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
                         (currRange.getString("gender") != null ? currRange.getString("gender").toString() : ""),
                         (map.get("birthday") != null ? map.get("birthday").toString() : ""));
                 startActivity(intent);
-            }
-
-            else{
+            } else {
 
                 Intent intent = new Intent(getApplicationContext(), LoginOptions.class);
                 startActivity(intent);
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             Toast toast = Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_SHORT);
             toast.show();
         }
@@ -146,7 +137,6 @@ public class WelcomeScreen extends AppCompatActivity implements Response.Listene
     public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
     }
-
 
 
 }

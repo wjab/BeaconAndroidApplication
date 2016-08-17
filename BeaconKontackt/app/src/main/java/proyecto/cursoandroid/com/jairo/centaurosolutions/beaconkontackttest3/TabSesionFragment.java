@@ -31,16 +31,15 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ent
 import utils.NonStaticUtils;
 
 
-public class TabSesionFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class TabSesionFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     public CustomAdapterFaq adapter;
     public ListView listView;
     public ArrayList<Faq> listArray;
-    String mpoints,userAcumulatedPoints;;
+    String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
-
     Activity context;
 
     public TabSesionFragment() {
@@ -63,9 +62,9 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        context=getActivity();
-        View rootView= inflater.inflate(R.layout.fragment_tab_sesion, container, false);
-        listView= (ListView)rootView.findViewById(R.id.listviewFaqSesion);
+        context = getActivity();
+        View rootView = inflater.inflate(R.layout.fragment_tab_sesion, container, false);
+        listView = (ListView) rootView.findViewById(R.id.listviewFaqSesion);
         service();
         return rootView;
     }
@@ -73,7 +72,8 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
-    public void service(){
+
+    public void service() {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -82,22 +82,23 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebServiceFaq)+"faq/section/sesion/";
+        String url = getString(R.string.WebServiceFaq) + "faq/section/sesion/";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
+
     @Override
     public void onResponse(JSONObject response) {
 
 
         try {
             listArray = new ArrayList<Faq>();
-            Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("faq");
+            Gson gson = new Gson();
+            JSONArray ranges = response.getJSONArray("faq");
             String range = "";
             String message = "";
             String messageType = "";
-            for(int i=0; i < ranges.length(); i++ ){
+            for (int i = 0; i < ranges.length(); i++) {
                 JSONObject currRange = ranges.getJSONObject(i);
 
                 Faq element = new Faq();
@@ -108,7 +109,7 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
                 listArray.add(element);
             }
 
-            adapter=new CustomAdapterFaq(context, listArray);
+            adapter = new CustomAdapterFaq(context, listArray);
             listView.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();

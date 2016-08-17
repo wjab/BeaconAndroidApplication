@@ -32,7 +32,7 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ent
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.TotalGiftPoints;
 
 
-public class ShopFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class ShopFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     public CustomAdapterStore adapter;
     public ListView listviewShop;
@@ -58,7 +58,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_shops, container, false);
-        listviewShop= (ListView)rootView.findViewById(R.id.listviewStores);
+        listviewShop = (ListView) rootView.findViewById(R.id.listviewStores);
         addImage = (Button) getActivity().findViewById(R.id.buttonAdd);
         listviewShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,6 +75,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
         return rootView;
 
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         int code = intent.getIntExtra("code", 0);
         if (code == 1) {
@@ -82,26 +83,24 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
         }
     }
+
     @Override
-    public void onResponse(JSONObject response)
-    {
-        try
-        {
+    public void onResponse(JSONObject response) {
+        try {
             listStoreArray = new ArrayList<Store>();
 
-            Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("merchantProfile");
+            Gson gson = new Gson();
+            JSONArray ranges = response.getJSONArray("merchantProfile");
             String range = "";
             String message = "";
             String messageType = "";
             String store = "";
 
-            for(int i=0; i < ranges.length(); i++ )
-            {
+            for (int i = 0; i < ranges.length(); i++) {
                 JSONObject merchantObject = ranges.getJSONObject(i);
                 listDepartments = new ArrayList<Department>();
                 Store storeElement = new Store();
-                TotalGiftPoints points= new TotalGiftPoints();
+                TotalGiftPoints points = new TotalGiftPoints();
                 storeElement.setId(merchantObject.getString("id"));
                 storeElement.setMerchantName(merchantObject.getString("merchantName"));
                 storeElement.setAddress(merchantObject.getString("address"));
@@ -119,19 +118,17 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
                 JSONArray departaments = merchantObject.getJSONArray("departments");
 
-                for(int j = 0; j < departaments.length(); j++ )
-                {
+                for (int j = 0; j < departaments.length(); j++) {
                     JSONObject currDepartament = departaments.getJSONObject(j);
                     Department departmentElement = new Department();
                     departmentElement.setName(currDepartament.getString("name"));
                     departmentElement.setId(currDepartament.getString("id"));
                     departmentElement.setUrlDepartment(currDepartament.getString("departmentUrl"));
                     departmentElement.setUrlImageShop(merchantObject.getString("image"));
-                    JSONArray products= currDepartament.getJSONArray("products");
-                    listProductStore =  new ArrayList<ProductStore>();
+                    JSONArray products = currDepartament.getJSONArray("products");
+                    listProductStore = new ArrayList<ProductStore>();
 
-                    for(int k = 0; k < products.length(); k++ )
-                    {
+                    for (int k = 0; k < products.length(); k++) {
                         JSONObject currProduct = products.getJSONObject(k);
                         ProductStore produtctElement = new ProductStore();
                         produtctElement.setPrice(currProduct.getLong("price"));
@@ -143,21 +140,18 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                         //produtctElement.setPointsByScan(1000);
                         //produtctElement.setAllowScan(true);
                         produtctElement.setStateWishList(0);
-                        ArrayList<String> images= new ArrayList<String>();
-                        JSONArray imagesArray= currProduct.getJSONArray("imageUrlList");
+                        ArrayList<String> images = new ArrayList<String>();
+                        JSONArray imagesArray = currProduct.getJSONArray("imageUrlList");
 
-                        if (imagesArray != null && imagesArray.length()>0)
-                        {
+                        if (imagesArray != null && imagesArray.length() > 0) {
                             int len = imagesArray.length();
-                            for (int l=0;l<len;l++){
+                            for (int l = 0; l < len; l++) {
                                 images.add(imagesArray.get(l).toString());
-                                if(images.size()==1) {
+                                if (images.size() == 1) {
                                     produtctElement.setUrlImageShow(imagesArray.get(l).toString());
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             images.add("images");
                         }
                         produtctElement.setImageUrlList(images);
@@ -171,7 +165,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                 listStoreArray.add(storeElement);
             }
 
-            adapter=new CustomAdapterStore(getActivity(), listStoreArray);
+            adapter = new CustomAdapterStore(getActivity(), listStoreArray);
             listviewShop.setAdapter(adapter);
         } catch (JSONException e) {
 
@@ -184,12 +178,13 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
     public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
     }
+
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
 
-    public void shopService(){
+    public void shopService() {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -198,11 +193,10 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_MerchantProfile)+"merchantprofile/";
+        String url = getString(R.string.WebService_MerchantProfile) + "merchantprofile/";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
-
 
 
 }

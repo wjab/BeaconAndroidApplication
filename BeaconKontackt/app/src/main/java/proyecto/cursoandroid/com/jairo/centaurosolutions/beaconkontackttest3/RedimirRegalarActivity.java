@@ -25,15 +25,16 @@ import utils.NonStaticUtils;
 
 public class RedimirRegalarActivity extends AppCompatActivity {
     private String type, messageToSend;
-    private TextView message,code,expiration;
+    private TextView message, code, expiration;
     private Button sendData;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     LinearLayout back;
     private CharSequence mpoints;
     private Date dateExpiration;
-    private String idUser,userAcumulatedPoints,date;
+    private String idUser, userAcumulatedPoints, date;
     public static final Locale COSTARICA = new Locale("es", "CR");
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +48,23 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.action_bar_promodetail,
                 null);
-        message = (TextView)findViewById(R.id.messageToShow);
-        code = (TextView)findViewById(R.id.code);
-        expiration = (TextView)findViewById(R.id.expiration);
-        sendData = (Button)findViewById(R.id.button);
+        message = (TextView) findViewById(R.id.messageToShow);
+        code = (TextView) findViewById(R.id.code);
+        expiration = (TextView) findViewById(R.id.expiration);
+        sendData = (Button) findViewById(R.id.button);
 
         long unixSeconds = Long.parseLong(date);
-        Date date = new Date(unixSeconds*1000L);
+        Date date = new Date(unixSeconds * 1000L);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, d-MMM-yy K:mm a");
         //sdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
         String formattedDate = sdf.format(date);
 
-        expiration.setText(getString(R.string.expiracionPuntos)+formattedDate);
-        if(type.equals("redimir")){
+        expiration.setText(getString(R.string.expiracionPuntos) + formattedDate);
+        if (type.equals("redimir")) {
             sendData.setVisibility(View.GONE);
             message.setText(getString(R.string.redimirPuntos));
             code.setText(intent.getStringExtra("code"));
-        }
-        else
-        {
+        } else {
             message.setText(getString(R.string.regalarPuntos));
             sendData.setText(getString(R.string.sendMessageButton));
             messageToSend = intent.getStringExtra("message");
@@ -79,8 +78,8 @@ public class RedimirRegalarActivity extends AppCompatActivity {
 
         }
 
-        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0)+"";
-        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        mpoints = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getInt("points", 0) + "";
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -100,29 +99,28 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
-                {
-                    Toast.makeText(getApplication(),  getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                if (mpoints.toString().equals("0")) {
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
+                } else {
                     openHistory();
                 }
             }
         });
 
     }
-    public void openHistory(){
+
+    public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
-        intent.putExtra("idUser",idUser);
+        intent.putExtra("idUser", idUser);
         startActivity(intent);
     }
-    private void sendPoints(){
+
+    private void sendPoints() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,  messageToSend+" este es el código: "+ code.getText().toString());
+        intent.putExtra(Intent.EXTRA_TEXT, messageToSend + " este es el código: " + code.getText().toString());
 
-        startActivity(Intent.createChooser(intent,getString(R.string.sendCode)));
+        startActivity(Intent.createChooser(intent, getString(R.string.sendCode)));
     }
 
     @Override

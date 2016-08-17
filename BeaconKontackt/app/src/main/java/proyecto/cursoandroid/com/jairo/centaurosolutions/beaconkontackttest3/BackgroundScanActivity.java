@@ -311,8 +311,7 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             if (code == 1) {
                 super.onActivityResult(requestCode, resultCode, data);
                 addImage.setText(String.valueOf(BackgroundScanActivity.size));
-            }
-            else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
+            } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
                 Uri pickedImage = data.getData();
                 service(pickedImage.toString());
 

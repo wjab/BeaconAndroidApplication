@@ -75,9 +75,9 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent();
-                intent.putExtra("code",1);
-                setResult(2,intent);
+                Intent intent = new Intent();
+                intent.putExtra("code", 1);
+                setResult(2, intent);
                 finish();
             }
         });
@@ -201,11 +201,10 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     }
 
     @Override
-    public void onBackPressed()
-    {
-        Intent intent=new Intent();
-        intent.putExtra("code",1);
-        setResult(2,intent);
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("code", 1);
+        setResult(2, intent);
         finish();
         super.onBackPressed();
     }

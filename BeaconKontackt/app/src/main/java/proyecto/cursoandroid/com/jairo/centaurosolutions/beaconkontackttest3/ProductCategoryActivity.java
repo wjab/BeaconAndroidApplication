@@ -91,9 +91,9 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent();
-                intent.putExtra("code",1);
-                setResult(2,intent);
+                Intent intent = new Intent();
+                intent.putExtra("code", 1);
+                setResult(2, intent);
                 finish();
             }
         });
@@ -159,12 +159,12 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         finish();
         return super.onSupportNavigateUp();
     }
+
     @Override
-    public void onBackPressed()
-    {
-        Intent intent=new Intent();
-        intent.putExtra("code",1);
-        setResult(2,intent);
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("code", 1);
+        setResult(2, intent);
         finish();
         super.onBackPressed();
     }
@@ -286,7 +286,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setPrice(currRange.getInt("price"));
                     listArrayWish.add(element);
                 }
-                BackgroundScanActivity.size=listArrayWish.size();
+                BackgroundScanActivity.size = listArrayWish.size();
                 addImage.setText(String.valueOf(BackgroundScanActivity.size));
                 Toast.makeText(context, "Añadido correctamente", Toast.LENGTH_SHORT).show();
                 chargeDepartments();
