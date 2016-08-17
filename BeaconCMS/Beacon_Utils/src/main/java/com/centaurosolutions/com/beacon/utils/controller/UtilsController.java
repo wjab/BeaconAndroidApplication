@@ -740,7 +740,7 @@ public class UtilsController
                             }
 							if(isScan)
 							{
-								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() + " puntos por escanear el producto " + productName + " ,en " +merchantName, NOTIFICATION_PUSH);
+								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() + " puntos por escanear el producto " + productName + ", en " +merchantName, NOTIFICATION_PUSH);
 							}
 							else
 							{
