@@ -1,15 +1,19 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +43,7 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
     ArrayList<Promociones> promociones;
+    private int preLast;
 
 
     @Override
@@ -47,7 +52,41 @@ public class TabPromocionesActivity extends Activity implements Response.Listene
         setContentView(R.layout.activity_tab_promociones);
         listviewPromo = (ListView) findViewById(R.id.listPromo);
         listviewPromo.setAdapter(adapter);
+        listviewPromo.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                switch(listviewPromo.getId()) {
+                    case R.id.listPromo:
+
+                        // Make your calculation stuff here. You have all your
+                        // needed info from the parameters of this function.
+
+                        // Sample calculation to determine if the last
+                        // item is fully visible.
+                        final int lastItem = firstVisibleItem + visibleItemCount;
+                        if(lastItem == totalItemCount) {
+                            if(preLast!=lastItem){ //to avoid multiple calls for last item
+                                new AlertDialog.Builder(TabPromocionesActivity.this)
+                                        .setTitle("reload")
+                                        .setMessage("Your Message")
+                                        .setCancelable(false)
+                                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Whatever...
+                                            }
+                                        }).create().show();
+                                preLast = lastItem;
+                            }
+                        }
+                }
+            }
+        });
 
         search = (EditText) findViewById(R.id.search);
 

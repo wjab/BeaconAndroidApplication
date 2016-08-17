@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,7 +38,7 @@ import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Ent
 import utils.NonStaticUtils;
 
 
-public class HistotyPointsActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class HistotyPointsActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     public CustomAdapterHistoryPoints adapter;
     public ListView listviewHistory;
@@ -49,6 +50,9 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     Button addImage;
     LinearLayout back;
     TextView pointsAction;
+    private int preLast;
+    private int listCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +71,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = intent1.getStringExtra("idUser");
         pointsAction.setText(userAcumulatedPoints.toString());
-        listviewHistory= (ListView)findViewById(R.id.listviewHistory);
+        listviewHistory = (ListView) findViewById(R.id.listviewHistory);
         listviewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -78,6 +82,31 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                 //startActivity(intentSuccess);
             }
         });
+        listviewHistory.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) { //to avoid multiple calls for last item
+                        if (listHistoryArray == null) {
+                            listCount = 0;
+                        } else {
+                            listCount = listHistoryArray.size();
+                        }
+                        shopProductService();
+                        preLast = lastItem;
+                    }
+                } else {
+                    preLast = 0;
+                }
+            }
+        });
+
         back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +139,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     public void onErrorResponse(VolleyError error) {
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -119,42 +149,45 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
     @Override
     public void onResponse(JSONObject response) {
         try {
-            listHistoryArray = new ArrayList<History>();
-            Gson gson= new Gson();
+
+            Gson gson = new Gson();
             JSONArray ranges = response.getJSONArray("pointsData");
 
             String range = "";
             String message = "";
             String messageType = "";
             String storeProduct = "";
+            if (listCount != ranges.length()) {
+                listHistoryArray = new ArrayList<History>();
+                for (int i = 0; i < ranges.length(); i++) {
+                    History historyElement = new History();
+                    //Agarra el array que se encuentra en la posdicion i
+                    JSONObject currRange = ranges.getJSONObject(i);
+                    //Array de tiendas
+                    JSONObject store = currRange.getJSONObject("merchantProfile");
+                    //Array de ptomo
+                    JSONObject promo = currRange.getJSONObject("promo");
 
-            for(int i=0; i < ranges.length(); i++ ){
-                History historyElement = new History();
-                //Agarra el array que se encuentra en la posdicion i
-                JSONObject currRange=ranges.getJSONObject(i);
-                //Array de tiendas
-                JSONObject store= currRange.getJSONObject("merchantProfile");
-                //Array de ptomo
-                JSONObject promo= currRange.getJSONObject("promo");
+                    historyElement.setAdressMerchant(store.getString("address"));
+                    historyElement.setPoints(currRange.getString("points"));
+                    historyElement.setPromoTitle(promo.getString("title"));
+                    listHistoryArray.add(historyElement);
+                }
 
-                historyElement.setAdressMerchant(store.getString("address"));
-                historyElement.setPoints(currRange.getString("points"));
-                historyElement.setPromoTitle(promo.getString("title"));
-                historyElement.setScanDate(String.valueOf(currRange.getInt("lastScanDate")));
-            listHistoryArray.add(historyElement);
+                adapter = new CustomAdapterHistoryPoints(this, listHistoryArray);
+                listviewHistory.setAdapter(adapter);
+
             }
-
-            adapter=new CustomAdapterHistoryPoints(this, listHistoryArray);
-            listviewHistory.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
-    public void shopProductService(){
+    public void shopProductService() {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -163,7 +196,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebServiceHistoryPointsUser)+idUser;
+        String url = getString(R.string.WebServiceHistoryPointsUser) + idUser;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }

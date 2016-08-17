@@ -1,12 +1,15 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,6 +38,8 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
     private static Button addImage;
     public ArrayList<Promociones> listPromoArray;
     private View rootView;
+    private int preLast;
+    private int listCount = 0;
 
     public PromoFragment() {
         // Required empty public constructor
@@ -65,6 +70,31 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
                 startActivityForResult(intentSuccess, 2);
             }
         });
+        listviewPromo.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) { //to avoid multiple calls for last item
+                        if (listPromoArray == null) {
+                            listCount = 0;
+                        } else {
+                            listCount = listPromoArray.size();
+                        }
+                        promoService();
+                        preLast = lastItem;
+                    }
+                } else {
+                    preLast = 0;
+                }
+            }
+        });
+
         promoService();
         return rootView;
 
@@ -83,31 +113,32 @@ public class PromoFragment extends Fragment implements Response.Listener<JSONObj
 
 
         try {
-            listPromoArray = new ArrayList<Promociones>();
+
             Gson gson = new Gson();
             JSONArray ranges = response.getJSONArray("listPromo");
             String range = "";
             String message = "";
             String messageType = "";
             String promo = "";
-
-            for (int i = 0; i < ranges.length(); i++) {
-                JSONObject currRange = ranges.getJSONObject(i);
-
-                Promociones promoelement = new Promociones();
-                promoelement.setTitulo(currRange.getString("title"));
-                promoelement.setDescripcion(currRange.getString("description"));
-                promoelement.setPuntos(currRange.getInt("giftPoints"));
-                promoelement.setUrlImagen(currRange.getString("images"));
-                promoelement.setMerchantId(currRange.getString("merchantId"));
-                promoelement.setDepartamentId(currRange.getString("departamentId"));
-                promoelement.setIdProduct(currRange.getString("idProduct"));
-                promoelement.setId(currRange.getString("id"));
-                listPromoArray.add(promoelement);
+            if (listCount != ranges.length()) {
+                listPromoArray = new ArrayList<Promociones>();
+                for (int i = 0; i < ranges.length(); i++) {
+                    JSONObject currRange = ranges.getJSONObject(i);
+                    Promociones promoelement = new Promociones();
+                    promoelement.setTitulo(currRange.getString("title"));
+                    promoelement.setDescripcion(currRange.getString("description"));
+                    promoelement.setPuntos(currRange.getInt("giftPoints"));
+                    promoelement.setUrlImagen(currRange.getString("images"));
+                    promoelement.setMerchantId(currRange.getString("merchantId"));
+                    promoelement.setDepartamentId(currRange.getString("departamentId"));
+                    promoelement.setIdProduct(currRange.getString("idProduct"));
+                    promoelement.setId(currRange.getString("id"));
+                    listPromoArray.add(promoelement);
+                }
+                adapter = new Adaptador_Promo(getActivity(), listPromoArray);
+                listviewPromo.setAdapter(adapter);
+                listviewPromo.setSelection(preLast - 1);
             }
-
-            adapter = new Adaptador_Promo(getActivity(), listPromoArray);
-            listviewPromo.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -61,14 +61,15 @@ public class CustomAdapterHistoryPoints extends ArrayAdapter<History> {
         TextView address=(TextView)rowView.findViewById(R.id.addressHistory);
         TextView dateLastScan=(TextView)rowView.findViewById(R.id.lastScan);
         String dateCurrent=listaPuntosObtenidos.get(position).getScanDate();
-
-        long unixSeconds = Long.parseLong(dateCurrent);
-        Date date = new Date(unixSeconds*1000L);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d-MMM-yy K:mm a");
-        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
-        String formattedDate = sdf.format(date);
-        dateLastScan.setText(formattedDate);
-
+        if (dateCurrent != null)
+            {
+                long unixSeconds = Long.parseLong(dateCurrent);
+                Date date = new Date(unixSeconds * 1000L);
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, d-MMM-yy K:mm a");
+                //sdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+                String formattedDate = sdf.format(date);
+                dateLastScan.setText(formattedDate);
+            }
         address.setText(listaPuntosObtenidos.get(position).getAdressMerchant());
         name.setText(listaPuntosObtenidos.get(position).getPromoTitle() + "");
         points.setText(listaPuntosObtenidos.get(position).getPoints()+ "");

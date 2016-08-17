@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +32,7 @@ import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterWish;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Faq;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 
@@ -53,6 +55,8 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     private static Button addImage;
     private String mpoints, userAcumulatedPoints;
     TextView pointsAction;
+    private int preLast;
+    private int listCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,30 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         idUser = intent1.getStringExtra("idUser");
         webServiceUser = getString(R.string.WebService_User);
         listView = (ListView) findViewById(R.id.listviewWish);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) { //to avoid multiple calls for last item
+                        if (listArray == null) {
+                            listCount = 0;
+                        } else {
+                            listCount = listArray.size();
+                        }
+                        shopProductService();
+                        preLast = lastItem;
+                    }
+                } else {
+                    preLast = 0;
+                }
+            }
+        });
         context = this;
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +171,8 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             }
             response = response.getJSONObject("user");
             JSONArray ranges = response.getJSONArray("productWishList");
+
+            if (listCount != ranges.length()) {
             listArray = new ArrayList<Wish>();
             for (int i = 0; i < ranges.length(); i++) {
                 Wish element = new Wish();
@@ -156,7 +186,9 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             BackgroundScanActivity.size = ranges.length();
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
             adapter = new CustomAdapterWish(context, listArray);
+
             listView.setAdapter(adapter);
+            }
 
             if (ranges.length() == 0) {
                 Toast.makeText(context, "No hay productos en la lista", Toast.LENGTH_SHORT).show();

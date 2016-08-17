@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -53,6 +54,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     private int activity;
     private static Button addImage;
     LinearLayout back;
+    private int preLast;
+    private int listCount = 0;
 
 
     @Override
@@ -127,6 +130,32 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                 startActivityForResult(intentSuccess, 2);
             }
         });
+
+        grid.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) { //to avoid multiple calls for last item
+                        if (listArray == null) {
+                            listCount = 0;
+                        } else {
+                            listCount = listArray.size();
+                        }
+                        obtainProducts();
+                        preLast = lastItem;
+                    }
+                } else {
+                    preLast = -1;
+                }
+            }
+        });
+
 
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,21 +322,22 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
             } else if (response.getString("message").toString().equals("Product already added to wishlist")) {
                 Toast.makeText(context, "El producto ya existe en la lista de deseos", Toast.LENGTH_SHORT).show();
             } else {
-                listArray = new ArrayList<ProductStore>();
+
                 Gson gson = new Gson();
                 JSONArray ranges = response.getJSONArray("merchantProfile");
+                if (listCount != ranges.length()) {
+                    listArray = new ArrayList<ProductStore>();
+                    for (int i = 0; i < ranges.length(); i++) {
+                        JSONObject currRange = ranges.getJSONObject(i);
+                        ProductStore element = new ProductStore();
+                        element.setProductId(currRange.getString("productId"));
+                        element.setProductName(currRange.getString("productName"));
+                        element.setDetails(currRange.getString("details"));
+                        ArrayList<String> images = new ArrayList<String>();
+                        JSONArray imagesArray = currRange.getJSONArray("imageUrlList");
 
-                for (int i = 0; i < ranges.length(); i++) {
-                    JSONObject currRange = ranges.getJSONObject(i);
-                    ProductStore element = new ProductStore();
-                    element.setProductId(currRange.getString("productId"));
-                    element.setProductName(currRange.getString("productName"));
-                    element.setDetails(currRange.getString("details"));
-                    ArrayList<String> images = new ArrayList<String>();
-                    JSONArray imagesArray = currRange.getJSONArray("imageUrlList");
-
-                    if (imagesArray != null && imagesArray.length() > 0) {
-                        for (int l = 0; l < imagesArray.length(); l++) {
+                        if (imagesArray != null && imagesArray.length() > 0) {
+                            for (int l = 0; l < imagesArray.length(); l++) {
                             images.add(imagesArray.get(l).toString());
                             if (images.size() == 1) {
                                 element.setUrlImageShow(imagesArray.get(l).toString());
@@ -319,8 +349,11 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setImageUrlList(images);
                     element.setPrice(currRange.getInt("price"));
                     listArray.add(element);
+                    }
+                    productWishList();
+
                 }
-                productWishList();
+
             }
         } catch (JSONException e) {
             e.printStackTrace();

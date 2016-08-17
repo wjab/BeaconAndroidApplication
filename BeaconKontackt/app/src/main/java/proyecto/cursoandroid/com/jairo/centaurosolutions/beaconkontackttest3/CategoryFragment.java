@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,14 +29,17 @@ import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterCategory;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Category;
 
-public class CategoryFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class CategoryFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     public CustomAdapterCategory adapter;
     public ListView listView;
     public ArrayList<Category> listArray;
     private View rootView;
-    private String nameCategory,urlImage,type;
-    private static Button addImage;
+    private String nameCategory, urlImage, type;
+    private int preLast;
+    private int listCount = 0;
+    public Button addImage;
+
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -59,7 +63,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nameCategory = listArray.get(position).getDescription();
                 urlImage = listArray.get(position).getUrlImage();
-                type=listArray.get(position).getType();
+                type = listArray.get(position).getType();
                 Intent intentSuccess = new Intent(getActivity().getBaseContext(), ProductCategoryActivity.class);
                 intentSuccess.putExtra("name", nameCategory);
                 intentSuccess.putExtra("urlImage", urlImage);
@@ -69,6 +73,31 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
 
             }
         });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) {
+                        if (listArray == null) {
+                            listCount = 0;
+                        } else {
+                            listCount = listArray.size();
+                        }
+                        service();
+                        preLast = lastItem;
+                    }
+                } else {
+                    preLast = 0;
+                }
+            }
+        });
+
         service();
         return rootView;
 
@@ -82,34 +111,31 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
     }
     @Override
     public void onResponse(JSONObject response) {
-
-
         try {
-            listArray = new ArrayList<Category>();
-            Gson gson= new Gson();
-            JSONArray ranges= response.getJSONArray("merchantBusinessTypeResult");
+
+            Gson gson = new Gson();
+            JSONArray ranges = response.getJSONArray("merchantBusinessTypeResult");
             String range = "";
             String message = "";
             String messageType = "";
             String promo = "";
+            if (listCount != ranges.length()) {
+                listArray = new ArrayList<Category>();
+                for (int i = 0; i < ranges.length(); i++) {
+                    JSONObject currRange = ranges.getJSONObject(i);
 
-            for(int i = 0; i < ranges.length(); i++ )
-            {
-                JSONObject currRange = ranges.getJSONObject(i);
-
-                Category element = new Category();
-                element.setId(currRange.getString("id"));
-                element.setType(currRange.getString("type"));
-                element.setDescription(currRange.getString("description"));
-                element.setUrlImage(currRange.getString("imageUrl"));
-                listArray.add(element);
+                    Category element = new Category();
+                    element.setId(currRange.getString("id"));
+                    element.setType(currRange.getString("type"));
+                    element.setDescription(currRange.getString("description"));
+                    element.setUrlImage(currRange.getString("imageUrl"));
+                    listArray.add(element);
+                }
+                adapter = new CustomAdapterCategory(getActivity(), listArray);
+                listView.setAdapter(adapter);
+                listView.setSelection(preLast - 1);
             }
-
-            adapter = new CustomAdapterCategory(getActivity(), listArray);
-            listView.setAdapter(adapter);
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -119,12 +145,13 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
     public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
     }
+
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
 
 
-    public void service(){
+    public void service() {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -133,7 +160,7 @@ public class CategoryFragment extends Fragment implements Response.Listener<JSON
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_MerchantProfile)+"merchantbusinesstype/all";
+        String url = getString(R.string.WebService_MerchantProfile) + "merchantbusinesstype/all";
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }

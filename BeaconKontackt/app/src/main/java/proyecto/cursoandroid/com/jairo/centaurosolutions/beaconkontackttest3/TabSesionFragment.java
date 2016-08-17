@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -37,9 +38,12 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
     public ListView listView;
     public ArrayList<Faq> listArray;
     String mpoints, userAcumulatedPoints;
+    ;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
     String idUser;
+    private int preLast;
+    private int listCount = 0;
     Activity context;
 
     public TabSesionFragment() {
@@ -65,6 +69,30 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
         context = getActivity();
         View rootView = inflater.inflate(R.layout.fragment_tab_sesion, container, false);
         listView = (ListView) rootView.findViewById(R.id.listviewFaqSesion);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    if (preLast != lastItem) { //to avoid multiple calls for last item
+                        if (listArray == null) {
+                            listCount = 0;
+                        } else {
+                            listCount = listArray.size();
+                        }
+                        service();
+                        preLast = lastItem;
+                    }
+                } else {
+                    preLast = 0;
+                }
+            }
+        });
         service();
         return rootView;
     }
@@ -92,25 +120,28 @@ public class TabSesionFragment extends Fragment implements Response.Listener<JSO
 
 
         try {
-            listArray = new ArrayList<Faq>();
             Gson gson = new Gson();
             JSONArray ranges = response.getJSONArray("faq");
             String range = "";
             String message = "";
             String messageType = "";
-            for (int i = 0; i < ranges.length(); i++) {
-                JSONObject currRange = ranges.getJSONObject(i);
+            if (listCount != ranges.length()) {
+                listArray = new ArrayList<Faq>();
+                for (int i = 0; i < ranges.length(); i++) {
+                    JSONObject currRange = ranges.getJSONObject(i);
 
-                Faq element = new Faq();
-                element.setQuestion(currRange.getString("question"));
-                element.setAnswer(currRange.getString("answer"));
+                    Faq element = new Faq();
+                    element.setQuestion(currRange.getString("question"));
+                    element.setAnswer(currRange.getString("answer"));
 
 
-                listArray.add(element);
+                    listArray.add(element);
+                }
+
+                adapter = new CustomAdapterFaq(context, listArray);
+                listView.setAdapter(adapter);
+                listView.setSelection(preLast - 1);
             }
-
-            adapter = new CustomAdapterFaq(context, listArray);
-            listView.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
