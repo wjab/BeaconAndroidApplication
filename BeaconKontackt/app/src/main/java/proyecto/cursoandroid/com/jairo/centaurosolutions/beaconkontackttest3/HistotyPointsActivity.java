@@ -208,6 +208,14 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent();
+        intent.putExtra("code",1);
+        setResult(2,intent);
+        finish();
+        super.onBackPressed();
+    }
 
 }
