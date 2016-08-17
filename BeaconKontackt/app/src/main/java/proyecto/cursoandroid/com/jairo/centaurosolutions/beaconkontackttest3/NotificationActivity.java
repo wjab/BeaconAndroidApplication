@@ -66,7 +66,8 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
             }
         });
         back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
@@ -99,7 +100,8 @@ public class NotificationActivity extends AppCompatActivity {
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser",idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -107,5 +109,11 @@ public class NotificationActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
-
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
+    }
 }

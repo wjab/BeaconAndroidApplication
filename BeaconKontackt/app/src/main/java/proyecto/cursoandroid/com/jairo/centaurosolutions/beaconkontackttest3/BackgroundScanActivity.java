@@ -324,11 +324,11 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
     }
 
-
     public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser", idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
 
     public void logOut() {
@@ -536,7 +536,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.profile))) {
                 Intent intent = new Intent(getBaseContext(), ActivityProfile.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
 
             }
             if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.invitation))) {
@@ -565,7 +566,8 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
             if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.wishList))) {
                 Intent intent = new Intent(getBaseContext(), WishListActivity.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
 
             }
             if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.points))) {

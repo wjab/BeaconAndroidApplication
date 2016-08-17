@@ -201,7 +201,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
     public void openHistory() {
         Intent intent = new Intent(context, HistotyPointsActivity.class);
         intent.putExtra("idUser", idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
 
     ServiceController serviceController;

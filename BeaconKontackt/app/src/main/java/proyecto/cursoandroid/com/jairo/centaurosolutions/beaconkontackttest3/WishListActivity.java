@@ -148,12 +148,21 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser", idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
     }
 
     @Override

@@ -15,8 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -46,36 +49,63 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     Response.ErrorListener responseError;
     String idUser;
     ServiceController serviceController;
-    EditText editName;
-    EditText editLastName;
-    EditText editEmail;
-    EditText editPhone;
+    EditText editName, editLastName, editEmail, editPhone;
+    TextView pointsAction;
     Button updateInfo;
     boolean isFacebook;
     String idFacebook;
     private DatePicker datePicker;
     private Calendar calendar;
-    private Button dateView;
+    private Button dateView, addImage;
     private int year, month, day;
     RadioButton male;
     RadioButton female;
     LinearLayout form, back;
-    NonStaticUtils nonStaticUtils;
+    String mpoints, userAcumulatedPoints;
     SharedPreferences preferences;
+    NonStaticUtils nonStaticUtils;
+    ImageView openHistoryPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         nonStaticUtils = new NonStaticUtils();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        preferences = nonStaticUtils.loadLoginInfo(this);
+        mpoints = String.valueOf(preferences.getInt("points", 0));
+        ServiceController imageRequest = new ServiceController();
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
+        idUser = preferences.getString("userId", "");
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(actionBarLayout);
+        openHistoryPoints = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
+                intent.putExtra("idUser", idUser);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
+            }
+        });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("code", 1);
+                setResult(2, intent);
+                finish();
+            }
+        });
 
+        pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
 
-        Intent intent1 = getIntent();
-        idUser = intent1.getStringExtra("idUser");
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -105,21 +135,33 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
 
             }
         });
-        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
-        back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
+        pointsAction.setText(userAcumulatedPoints.toString());
+
+        pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                if(mpoints.equals("0"))
+                {
+                    Toast.makeText(getApplication(), getString(R.string.dontHavePoints), Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    openHistory();
+                }
             }
         });
-        getSupportActionBar().setCustomView(actionBarLayout);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(formatDate(year, month, day));
         sendUserRequestById(idUser);
+    }
+    public void openHistory(){
+        Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
+        intent.putExtra("idUser",idUser);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
 
     @Override
@@ -200,7 +242,14 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackmanager.onActivityResult(requestCode, resultCode, data);
+        int code = data.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, data);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
+        else {
+            callbackmanager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     List<String> permissionNeeds = Arrays.asList("user_photos", "email", "user_birthday", "user_friends");
@@ -264,27 +313,20 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     }
 
     @Override
-    public void onResponse(JSONObject response)
-    {
-        try
-        {
+    public void onResponse(JSONObject response) {
+        try {
             Log.d("Response", response.toString());
             response = response.getJSONObject("user");
-            if (response.getBoolean("enable"))
-            {
-                try
-                {
+            if (response.getBoolean("enable")) {
+                try {
                     String socialNetworkType = response.getString("socialNetworkType");
 
-                    if (socialNetworkType.equals("facebook"))
-                    {
+                    if (socialNetworkType.equals("facebook")) {
                         isFacebook = true;
                         idFacebook = response.getString("socialNetworkId");
                         getinfo();
                         updateInfo.setText("Ir a Perfil");
-                    }
-                    else
-                    {
+                    } else {
                         isFacebook = false;
                         idFacebook = "";
                         updateInfo.setText("Actualizar Información");
@@ -292,10 +334,8 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                         editLastName.setText(response.getString("lastName"));
                         editEmail.setText(response.getString("email"));
                         editPhone.setText(response.getString("phone"));
-                        try
-                        {
-                            if (!response.getString("creationDate").isEmpty())
-                            {
+                        try {
+                            if (!response.getString("creationDate").isEmpty()) {
                                 Date date = new Date(Long.parseLong(response.getString("creationDate")));
                                 Calendar calendar = new GregorianCalendar();
                                 calendar.setTime(date);
@@ -304,9 +344,7 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                                 showDate(formatDate(year, month, day));
                             }
-                        }
-                        catch (Exception e)
-                        {
+                        } catch (Exception e) {
                             calendar = Calendar.getInstance();
                             year = calendar.get(Calendar.YEAR);
                             month = calendar.get(Calendar.MONTH) + 1;
@@ -314,27 +352,30 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                             showDate(formatDate(year, month, day));
                         }
                     }
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     isFacebook = false;
                     idFacebook = "";
                     updateInfo.setText("Actualizar Información");
                 }
 
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onErrorResponse(VolleyError error)
-    {
+    public void onErrorResponse(VolleyError error) {
         Log.d("Login Error", error.toString());
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent=new Intent();
+        intent.putExtra("code",1);
+        setResult(2,intent);
+        finish();
+        super.onBackPressed();
+    }
 
 }

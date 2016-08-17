@@ -154,7 +154,6 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, description);
-
                 startActivity(Intent.createChooser(intent, "Share with"));
             }
         });
@@ -199,7 +198,8 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
     public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser", idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

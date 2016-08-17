@@ -111,8 +111,10 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
-
+                Intent intent = new Intent();
+                intent.putExtra("code", 1);
+                setResult(2, intent);
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -134,7 +136,13 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
         shopProductService();
         return;
     }
-
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
+    }
     @Override
     public void onErrorResponse(VolleyError error) {
 

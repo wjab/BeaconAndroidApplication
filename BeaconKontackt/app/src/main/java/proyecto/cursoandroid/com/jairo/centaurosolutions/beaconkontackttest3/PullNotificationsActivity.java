@@ -164,8 +164,6 @@ public class PullNotificationsActivity extends AppCompatActivity {
             Log.d("PromoList", "Size:" + myBeaconCacheList.size());
 
             if (myBeaconCacheList.size() > 0) {
-
-
                 promociones = new ArrayList<Promociones>();
 
                 for (BeaconCache myCache : myBeaconCacheList) {
@@ -189,7 +187,6 @@ public class PullNotificationsActivity extends AppCompatActivity {
                 }
 
                 if (promociones.size() > 0) {
-
                     adapter = new Adaptador_Promo(this, promociones);
                     listviewPromo.setAdapter(adapter);
                 } else {

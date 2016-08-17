@@ -32,6 +32,7 @@ public class RedimirRegalarActivity extends AppCompatActivity {
     LinearLayout back;
     private CharSequence mpoints;
     private Date dateExpiration;
+    Button addImage;
     private String idUser, userAcumulatedPoints, date;
     public static final Locale COSTARICA = new Locale("es", "CR");
 
@@ -87,6 +88,16 @@ public class RedimirRegalarActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
+        addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
+                intent.putExtra("idUser", idUser);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
+            }
+        });
         back = (LinearLayout) actionBarLayout.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,15 +117,23 @@ public class RedimirRegalarActivity extends AppCompatActivity {
                 }
             }
         });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
 
     }
 
     public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser", idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
-
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
+    }
     private void sendPoints() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");

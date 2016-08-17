@@ -186,7 +186,8 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     {
         Intent intent = new Intent(context, HistotyPointsActivity.class);
         intent.putExtra("idUser",idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
     }
     public void chargeDepartments()
     {

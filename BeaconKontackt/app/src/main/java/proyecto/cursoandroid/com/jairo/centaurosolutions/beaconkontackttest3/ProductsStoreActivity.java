@@ -94,7 +94,8 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WishListActivity.class);
                 intent.putExtra("idUser", idUser);
-                startActivity(intent);
+                intent.putExtra("code", 1);
+                startActivityForResult(intent, 2);
             }
         });
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
@@ -120,7 +121,15 @@ public class ProductsStoreActivity extends AppCompatActivity implements Response
     public void openHistory(){
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
         intent.putExtra("idUser",idUser);
-        startActivity(intent);
+        intent.putExtra("code", 1);
+        startActivityForResult(intent, 2);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int code = intent.getIntExtra("code", 0);
+        if (code == 1) {
+            super.onActivityResult(requestCode, resultCode, intent);
+            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+        }
     }
     @Override
     public void onErrorResponse(VolleyError error) {
