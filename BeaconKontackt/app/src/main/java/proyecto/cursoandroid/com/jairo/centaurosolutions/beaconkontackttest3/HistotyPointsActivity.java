@@ -100,6 +100,7 @@ public class HistotyPointsActivity extends AppCompatActivity implements Response
                 startActivity(intent);
             }
         });
+        addImage.setText(String.valueOf(BackgroundScanActivity.size));
         shopProductService();
         return;
     }

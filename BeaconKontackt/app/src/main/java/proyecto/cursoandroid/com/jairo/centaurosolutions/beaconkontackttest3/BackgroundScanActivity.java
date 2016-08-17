@@ -69,8 +69,7 @@ import service.BackgroundScanService;
 import utils.NonStaticUtils;
 import utils.Utils;
 
-public class BackgroundScanActivity extends BaseActivity implements Response.Listener<JSONObject>, Response.ErrorListener
-{
+public class BackgroundScanActivity extends BaseActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
     public static final String TAG = BackgroundScanActivity.class.getSimpleName();
 
     public static final int MESSAGE_START_SCAN = 16;
@@ -84,12 +83,13 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private CharSequence mpoints;
     private TextView points;
     private CharSequence mTitle;
-    private String imageUrl=null;
-    private String idUser,imgDecodableString;
+    private String imageUrl = null;
+    private String idUser, imgDecodableString;
     private ActionBarDrawerToggle mDrawerToggle;
-    public  ArrayList<Promociones> listPromoArray;
-    public  ArrayList<Wish> listArray;
+    public ArrayList<Promociones> listPromoArray;
+    public ArrayList<Wish> listArray;
     public static int size;
+
     static {
         SCAN_INTENT_FILTER = new IntentFilter(BackgroundScanService.BROADCAST);
         SCAN_INTENT_FILTER.setPriority(2);
@@ -115,13 +115,12 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private Button addImage;
     SharedPreferences preferences;
     NonStaticUtils nonStaticUtils;
-    ViewPager  pager;
+    ViewPager pager;
     TabLayout tabLayout;
     private int PICK_IMAGE_REQUEST = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.background_scan_activity);
 
@@ -130,12 +129,12 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         serviceController = new ServiceController();
 
         // Inflate your custom layout
-        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate( R.layout.action_bar_layout, null);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_layout, null);
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         addImage = (Button) actionBarLayout.findViewById(R.id.buttonAdd);
-        FragmentManager manager=getSupportFragmentManager();
-        PagerAdapter adapter=new PagerAdapter(manager);
+        FragmentManager manager = getSupportFragmentManager();
+        PagerAdapter adapter = new PagerAdapter(manager);
         pager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(pager);
@@ -148,14 +147,14 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         mTitle = preferences.getString("username", "");
         mpoints = String.valueOf(preferences.getInt("points", 0));
         idUser = preferences.getString("userId", "");
-        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel),mpoints);
+        userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
 
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(actionBarLayout);
         TextView pointsAction = (TextView) actionBarLayout.findViewById(R.id.userPointsAction);
-        open_history_points=(ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
+        open_history_points = (ImageView) actionBarLayout.findViewById(R.id.openHistoryPoints);
 
         pointsAction.setText(mpoints.toString());
 
@@ -164,12 +163,9 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         pointsAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
-                {
+                if (mpoints.toString().equals("0")) {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     openHistory();
                 }
             }
@@ -177,12 +173,9 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         open_history_points.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mpoints.toString().equals("0"))
-                {
+                if (mpoints.toString().equals("0")) {
                     Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     openHistory();
                 }
             }
@@ -218,12 +211,12 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
         //Declaramos el header el caul sera el layout de header.xml
         View header = getLayoutInflater().inflate(R.layout.header_menu, null);
-        layout_header= (RelativeLayout)header.findViewById(R.id.layout_header);
+        layout_header = (RelativeLayout) header.findViewById(R.id.layout_header);
         textUserName = ((TextView) header.findViewById(R.id.usernameheader));
         textUserName.setText(mTitle);
 
         userTotalPoints = (TextView) header.findViewById(R.id.user_total_points);
-        userTotalPoints.setText( userAcumulatedPoints);
+        userTotalPoints.setText(userAcumulatedPoints);
 
         profileImage = ((CircleImageView) header.findViewById(R.id.profile_image));
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -236,24 +229,22 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                     intent.setType("image/*");
 
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent,getString(R.string.selectedPicture)), PICK_IMAGE_REQUEST);
+                    startActivityForResult(Intent.createChooser(intent, getString(R.string.selectedPicture)), PICK_IMAGE_REQUEST);
 
                 }
             }
         });
 
-        imageNavigation=((CircleImageView) findViewById(R.id.imageProfileNavigation));
+        imageNavigation = ((CircleImageView) findViewById(R.id.imageProfileNavigation));
 
-        if( !preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal)) )
-        {
+        if (!preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal))) {
             url = getString(R.string.getProfilePictureFaceBook);
             url = String.format(url, preferences.getString("socialNetworkId", ""));
             Picasso.with(this).load(url).into(profileImage);
             Picasso.with(this).load(url).into(imageNavigation);
-
-        }
-        else {
-         imageService();
+            imageService();
+        } else {
+            imageService();
         }
 
         mDrawerList.addHeaderView(header);
@@ -267,19 +258,16 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
                 R.drawable.ic_added,  /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
-        )
-        {
+        ) {
 
             /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view)
-            {
+            public void onDrawerClosed(View view) {
                /* getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_options);
                 setTitle("");*/
             }
 
             /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView)
-            {
+            public void onDrawerOpened(View drawerView) {
               /*  getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
                 setTitle("");*/
             }
@@ -315,34 +303,32 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
     }
 
-      @Override
-   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       super.onActivityResult(requestCode, resultCode, data);
-       try {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
 
-           if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
-               Uri pickedImage = data.getData();
-               service(pickedImage.toString());
+            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && null != data) {
+                Uri pickedImage = data.getData();
+                service(pickedImage.toString());
 
-           } else {
-               Toast.makeText(this, getString(R.string.dontSelectedImage), Toast.LENGTH_LONG).show();
-           }
-       } catch (Exception e) {
-           Toast.makeText(this, getString(R.string.somethingWrong), Toast.LENGTH_LONG).show();
-       }
+            } else {
+                Toast.makeText(this, getString(R.string.dontSelectedImage), Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, getString(R.string.somethingWrong), Toast.LENGTH_LONG).show();
+        }
 
-   }
+    }
 
 
-
-    public void openHistory(){
+    public void openHistory() {
         Intent intent = new Intent(this.getBaseContext(), HistotyPointsActivity.class);
-        intent.putExtra("idUser",idUser);
+        intent.putExtra("idUser", idUser);
         startActivity(intent);
     }
 
-    public void logOut()
-    {
+    public void logOut() {
         SharedPreferences prefs;
         SharedPreferences.Editor editor;
         prefs = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE);
@@ -353,100 +339,83 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         editor.putInt("points", 0);
         editor.putBoolean("isAuthenticated", false);
         editor.commit();
-        Intent intent= new Intent(getApplicationContext(),LoginOptions.class);
+        Intent intent = new Intent(getApplicationContext(), LoginOptions.class);
         startActivity(intent);
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         Utils.cancelNotifications(this, BackgroundScanService.INFO_LIST);
         registerReceiver(scanReceiver, SCAN_INTENT_FILTER);
     }
 
     @Override
-    public void onBackPressed()
-    {
-        if (exit)
-        {
+    public void onBackPressed() {
+        if (exit) {
             moveTaskToBack(true);
-        }
-        else
-        {
-            Toast.makeText(this,getString(R.string.pressBackAgainToExit),
+        } else {
+            Toast.makeText(this, getString(R.string.pressBackAgainToExit),
                     Toast.LENGTH_SHORT).show();
             exit = true;
-            new Handler().postDelayed(new Runnable()
-            {
+            new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     exit = false;
                 }
             }, 3 * 1000);
         }
     }
+
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         unregisterReceiver(scanReceiver);
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         sendMessage(Message.obtain(null, MESSAGE_STOP_SCAN));
         serviceMessenger = null;
         unbindService(serviceConnection);
         serviceConnection = null;
-      //  ButterKnife.reset(this);
+        //  ButterKnife.reset(this);
     }
 
-    private void bindServiceAndStartMonitoring()
-    {
+    private void bindServiceAndStartMonitoring() {
         final Intent intent = new Intent(this, BackgroundScanService.class);
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
-    private ServiceConnection createServiceConnection()
-    {
-        return new ServiceConnection()
-        {
+    private ServiceConnection createServiceConnection() {
+        return new ServiceConnection() {
             @Override
-            public void onServiceConnected(ComponentName name, IBinder service)
-            {
+            public void onServiceConnected(ComponentName name, IBinder service) {
                 serviceMessenger = new Messenger(service);
                 sendMessage(Message.obtain(null, MESSAGE_START_SCAN));
             }
 
             @Override
-            public void onServiceDisconnected(ComponentName name)
-            {
+            public void onServiceDisconnected(ComponentName name) {
             }
         };
     }
 
-    private void sendMessage(final Message message)
-    {
+    private void sendMessage(final Message message) {
         SDKPreconditions.checkNotNull(serviceMessenger, "ServiceMessenger is null.");
         SDKPreconditions.checkNotNull(message, "Message is null");
 
-        try
-        {
+        try {
             serviceMessenger.send(message);
-        }
-        catch (RemoteException e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
             Logger.d(": message not sent(" + message.toString() + ")");
         }
     }
 
     //Service-----------------------------------------------------------------------------------------------------------------------------------------
-    public void service(String uri){
+    public void service(String uri) {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -456,14 +425,15 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
 
-            String url = getString(R.string.WebService_User) + "user/editPathImage/"+idUser;
+        String url = getString(R.string.WebService_User) + "user/editPathImage/" + idUser;
 
-            Map<String, Object> mapParams = new HashMap<>();
-            mapParams.put("pathImage",uri);
-            serviceController.jsonObjectRequest(url, Request.Method.PUT, mapParams, map, response, responseError);
+        Map<String, Object> mapParams = new HashMap<>();
+        mapParams.put("pathImage", uri);
+        serviceController.jsonObjectRequest(url, Request.Method.PUT, mapParams, map, response, responseError);
 
     }
-    public void imageService(){
+
+    public void imageService() {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -472,26 +442,28 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
-        String url = getString(R.string.WebService_User) + "user/id/"+idUser;
+        String url = getString(R.string.WebService_User) + "user/id/" + idUser;
         serviceController.jsonObjectRequest(url, Request.Method.GET, null, map, response, responseError);
 
     }
-//on error response ------------------------------------------------------------------------------------------------------------------------------------
+
+    //on error response ------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void onErrorResponse(VolleyError error) {
 
     }
-//onresponse-------------------------------------------------------------------------------------------------------------------------------------------
+
+    //onresponse-------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void onResponse(JSONObject response) {
         try {
-            response=response.getJSONObject("user");
-                String url= response.getString("pathImage");
-                Log.e("URI---->", url);
+            response = response.getJSONObject("user");
+            String url = response.getString("pathImage");
+            Log.e("URI---->", url);
             JSONArray ranges = response.getJSONArray("productWishList");
-            size=ranges.length();
+            size = ranges.length();
             addImage.setText(String.valueOf(size));
-            if(url!=null && !url.isEmpty()) {
+            if (url != null && !url.isEmpty() && preferences.getString("loginType", getString(R.string.login_userlocal)).equals(getString(R.string.login_userlocal))) {
                 Picasso.with(this).load(url).error(R.drawable.profiledefault).into(profileImage);
                 Picasso.with(this).load(url).error(R.drawable.profiledefault).into(imageNavigation);
             }
@@ -500,38 +472,32 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
         }
     }
 
-    private static class ForegrondScanReceiver extends AbstractScanBroadcastReceiver
-    {
+    private static class ForegrondScanReceiver extends AbstractScanBroadcastReceiver {
         @Override
-        protected AbstractBroadcastInterceptor createBroadcastHandler(Context context)
-        {
+        protected AbstractBroadcastInterceptor createBroadcastHandler(Context context) {
             return new ForegroundBroadcastInterceptor(context);
         }
 
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState)
-    {
+    protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
-        if (mDrawerToggle.onOptionsItemSelected(item))
-        {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         // Handle your other action bar items...
@@ -542,79 +508,72 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     /**
      * Swaps fragments in the main content view
      */
-    private void selectItem(int position)
-    {
-        mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username","");
+    private void selectItem(int position) {
+        mTitle = getSharedPreferences("SQ_UserLogin", MODE_PRIVATE).getString("username", "");
         //Toast.makeText(this, mTitle, Toast.LENGTH_SHORT).show();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
-       // setTitle(mPlanetTitles.get(position).elemento);
+        // setTitle(mPlanetTitles.get(position).elemento);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override
-    public void setTitle(CharSequence title)
-    {
+    public void setTitle(CharSequence title) {
         getSupportActionBar().setTitle(title);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener
-    {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id)
-        {
-            selectItem(position-1);
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.close_session)))
-            {
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position - 1);
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.close_session))) {
                 logOut();
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.profile)))
-            {
-                Intent intent= new Intent(getBaseContext(),ActivityProfile.class);
-                intent.putExtra("idUser",idUser);
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.profile))) {
+                Intent intent = new Intent(getBaseContext(), ActivityProfile.class);
+                intent.putExtra("idUser", idUser);
                 startActivity(intent);
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.invitation)))
-            {
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.invitation))) {
 
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.messageShareApp) + getString(R.string.link));
 
-                startActivity(Intent.createChooser(intent,getString(R.string.send_invitation)));
+                startActivity(Intent.createChooser(intent, getString(R.string.send_invitation)));
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.preferences))){
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.preferences))) {
                 FragmentManager fm = getSupportFragmentManager();
                 Bundle args = new Bundle();
                 args.putString("idUser", idUser);
-                PreferencesDialogFragment p= new PreferencesDialogFragment();
+                PreferencesDialogFragment p = new PreferencesDialogFragment();
                 p.setArguments(args);
                 p.show(fm, "tag");
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.faq))){
-                Intent intent= new Intent(getBaseContext(),FaqActivity.class);
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.faq))) {
+                Intent intent = new Intent(getBaseContext(), FaqActivity.class);
                 startActivity(intent);
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.wishList))){
-                Intent intent= new Intent(getBaseContext(),WishListActivity.class);
-                intent.putExtra("idUser",idUser);
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.wishList))) {
+                Intent intent = new Intent(getBaseContext(), WishListActivity.class);
+                intent.putExtra("idUser", idUser);
                 startActivity(intent);
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.points))){
-                Intent intent= new Intent(getBaseContext(),PointsActivity.class);
-                intent.putExtra("idUser",idUser);
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.points))) {
+                Intent intent = new Intent(getBaseContext(), PointsActivity.class);
+                intent.putExtra("idUser", idUser);
                 startActivity(intent);
 
             }
-            if(mPlanetTitles.get(position-1).getElemento().equals(getString(R.string.notificaciones))){
-                Intent intent= new Intent(getBaseContext(),NotificationActivity.class);
-                intent.putExtra("idUser",idUser);
+            if (mPlanetTitles.get(position - 1).getElemento().equals(getString(R.string.notificaciones))) {
+                Intent intent = new Intent(getBaseContext(), NotificationActivity.class);
+                intent.putExtra("idUser", idUser);
                 startActivity(intent);
 
             }
