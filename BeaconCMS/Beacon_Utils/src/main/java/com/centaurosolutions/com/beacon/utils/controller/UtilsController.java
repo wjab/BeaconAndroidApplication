@@ -415,10 +415,12 @@ public class UtilsController
 		List<OfferHistory> filteredList =  new ArrayList<OfferHistory>();
 		LinkedHashMap<String,Object> data = new LinkedHashMap<String, Object>();
 		String promoId = "";
+		String productName = "";
+		String merchantName = "";
 		ObjectMapper mapper = new ObjectMapper();
 		Object custom =  new Object();
 		ArrayList<Object> listData = new ArrayList<Object>();
-
+		MerchantProfile merchantObject = null;
 		try
 		{
 			if(!userId.isEmpty() || userId != null)
@@ -461,12 +463,33 @@ public class UtilsController
 						{
 							totalPoints = offerHistoryAttemptResponse.getAttemptData().getAttempts() * promoResponse.getPromo().getGiftPoints();
 							merchantProfileResponse.getMerchantProfile().setUsers(null);
-
+							merchantObject= merchantProfileResponse.getMerchantProfile();
+	                        if (!merchantObject.getMerchantName().isEmpty()) {
+	                            merchantName = merchantObject.getMerchantName();
+	                        }                             
+	                        if(merchantProfileResponse.getMerchantProfile().getDepartments() != null && 
+	                            merchantProfileResponse.getMerchantProfile().getDepartments().size() > 0) 
+	                        {
+	                            for(Department department : merchantProfileResponse.getMerchantProfile().getDepartments()) 
+	                            {
+	                                if(department.getProducts() != null && department.getProducts().size() > 0 ) 
+	                                {
+	                                    for (Product product : department.getProducts()) 
+	                                    {
+	                                        if(product.getProductId().equals(promoResponse.getPromo().getIdProduct())) 
+	                                        {
+	                                            productName = product.getProductName();
+	                                        }
+	                                    }
+	                                }
+	                            }      
+	                		}
 							customData.put("merchantProfile", merchantProfileResponse.getMerchantProfile());
 							customData.put("promo", promoResponse.getPromo());
 							customData.put("points", totalPoints);
 							customData.put("lastScanDate", offerHistoryAttemptResponse.getAttemptData().getLastScan());
-
+							customData.put("productName", productName);
+							customData.put("merchantName", merchantName);
 							custom = mapper.convertValue(customData, new TypeReference<Object>() {
 							});
 						}
@@ -636,14 +659,20 @@ public class UtilsController
 		User userObject = null;
 		UserResponse userResponse = null;
 		OfferHistoryAttemptResponse offerHistoryAttemptResponse = null;
+		 MerchantProfileResponse merchantProfileResponse = new MerchantProfileResponse();
+		  String merchantName = "";
+		  String productName = "";
+	        
 		OfferHistoryAttempt offerHistoryAttempt = null;
 		Promo promoObject  = null;
+		MerchantProfile merchantObject = null;
 		PromoResponse promoResponse = null;
 		RestTemplate restTemplate = new RestTemplate();
 		Notification notification = null;
 
 		try
 		{
+			
             offerHistoryAttemptResponse = restTemplate.getForObject(
                     urlOfferHistory + String.format(
                             offerHistoryAttemptResource,
@@ -655,6 +684,7 @@ public class UtilsController
 
 			if(promoResponse.getStatus() == 200 && offerHistoryAttemptResponse.getStatus() == 200 ) 
 			{
+				
 				offerHistoryAttempt = offerHistoryAttemptResponse.getAttemptData();
 
 				promoObject = promoResponse.getPromo();
@@ -675,7 +705,7 @@ public class UtilsController
 						userObject = userResponse.getUser();
 						points = userObject.getTotalGiftPoints() + promoObject.getGiftPoints();
 						userObject.setTotalGiftPoints(points);
-
+						
 						if (setUserPoints(userObject) && setUserPromoOffer(userObject.getId(), promoObject.getId()))
 						{
 
@@ -683,14 +713,38 @@ public class UtilsController
                             response.put("user", userObject);
                             response.put("status", 200);
                             response.put("message", "Puntos asignados correctamente");
-
+                            merchantProfileResponse =  restTemplate.getForObject( urlMerchant  + "" + promoObject.getMerchantId(), MerchantProfileResponse.class);
+                            if(merchantProfileResponse.getStatus() == 200 ) 
+                			{
+                            	merchantObject= merchantProfileResponse.getMerchantProfile();
+                            	if (!merchantObject.getMerchantName().isEmpty()) {
+                            		merchantName = merchantObject.getMerchantName();
+                            	}                             
+                                if(merchantProfileResponse.getMerchantProfile().getDepartments() != null && 
+                                	merchantProfileResponse.getMerchantProfile().getDepartments().size() > 0) 
+                                {
+                                    for(Department department : merchantProfileResponse.getMerchantProfile().getDepartments()) 
+                                    {
+                                       if(department.getProducts() != null && department.getProducts().size() > 0 ) 
+                                       {
+                                            for (Product product : department.getProducts()) 
+                                            {
+                                               if(product.getProductId().equals(promoObject.getIdProduct())) 
+                                               {
+                                                	productName = product.getProductName();
+                                               }
+                                            }
+                                        }
+                                    }      
+                			    }
+                            }
 							if(isScan)
 							{
-								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() +" puntos por visitar a nuestros clientes", NOTIFICATION_PUSH);
+								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() + " puntos por escanear el producto " + productName + " ,en " +merchantName, NOTIFICATION_PUSH);
 							}
 							else
 							{
-								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() +" puntos", NOTIFICATION_PUSH);
+								notificationController.CreateNotification(userObject.getId(), "Has obtenido "+ promoObject.getGiftPoints() +" puntos por visitar "+ merchantName, NOTIFICATION_PUSH);
 							}
 						}
 					}
