@@ -50,6 +50,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controllers.ServiceController;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 import utils.Utils;
@@ -74,6 +76,26 @@ public class LoginOptions extends Activity implements Response.Listener<JSONObje
 
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Branch branch = Branch.getInstance();
+        branch.initSession(new Branch.BranchReferralInitListener() {
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error == null) {
+                    // params are the deep linked params associated with the link that the user clicked before showing up
+                    Log.i("BranchConfigTest", "deep link data: " + referringParams.toString());
+                }
+            }
+        }, this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
 
 
     @Override

@@ -10,11 +10,13 @@ import com.android.volley.toolbox.Volley;
 import com.kontakt.sdk.android.common.KontaktSDK;
 import com.kontakt.sdk.android.common.log.LogLevel;
 import com.kontakt.sdk.android.common.log.Logger;
-//import com.squareup.leakcanary.LeakCanary;
 
 import butterknife.ButterKnife;
+import io.branch.referral.Branch;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.BuildConfig;
 import utils.LruBitmapCache;
+
+//import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by dcortess on 9/4/15.
@@ -32,6 +34,7 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Branch.getAutoInstance(this);
         mInstance = this;
         initializeDependencies();
     }

@@ -1,12 +1,10 @@
 package proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.StyleableRes;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +30,6 @@ import java.util.Map;
 
 import controllers.ServiceController;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.CustomAdapterWish;
-import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Faq;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Wish;
 import utils.NonStaticUtils;
 
@@ -42,7 +39,8 @@ public class WishListActivity extends AppCompatActivity implements Response.List
     private static ListView listView;
     public ArrayList<Wish> listArray;
     private static String idUser, toastDelete, toast;
-    private static Activity context;
+    private static Activity
+            context;
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
@@ -63,9 +61,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
         setTitle("Lista de deseos");
-        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(
-                R.layout.action_bar_promodetail,
-                null);
+        final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_promodetail, null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
@@ -135,7 +131,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             @Override
             public void onClick(View view) {
                 if (mpoints.equals("0")) {
-                    Toast.makeText(getApplication(), "Aun no ha obtenido puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Aún no ha obtenido puntos", Toast.LENGTH_SHORT).show();
                 } else {
                     openHistory();
                 }
@@ -159,9 +155,10 @@ public class WishListActivity extends AppCompatActivity implements Response.List
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         int code = intent.getIntExtra("code", 0);
+
         if (code == 1) {
             super.onActivityResult(requestCode, resultCode, intent);
-            addImage.setText(String.valueOf(BackgroundScanActivity.size));
+            shopProductService();
         }
     }
 
@@ -195,7 +192,6 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             BackgroundScanActivity.size = ranges.length();
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
             adapter = new CustomAdapterWish(context, listArray);
-
             listView.setAdapter(adapter);
             }
 

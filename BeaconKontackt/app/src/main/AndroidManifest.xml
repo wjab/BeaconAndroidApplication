@@ -13,11 +13,12 @@
         android:allowBackup="true"
         android:icon="@drawable/logo1"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <meta-data
             android:name="kontakt.io.API_KEY"
             android:value="ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc" />
-
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_cbugjCz7He8mgotHqfoePoljwBflKmU9" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
@@ -65,7 +66,8 @@
         <activity
             android:name=".LoginMainActivity"
             android:label="BeaconApp"
-            android:theme="@style/AppThemelogin" />
+            android:theme="@style/AppThemelogin" >
+        </activity>
 
         <service
             android:name="service.BeaconSyncMessageService"
@@ -77,7 +79,6 @@
             android:label="Quick Shop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -86,7 +87,9 @@
             android:label="@string/title_activity_user_register" />
         <activity
             android:name=".DetailPromo"
-            android:label="@string/title_activity_detail__promo" />
+            android:label="@string/title_activity_detail__promo">
+            <meta-data android:name="io.branch.sdk.auto_link_keys" android:value="product_picture" />
+        </activity>
         <activity
             android:name=".PullNotificationsActivity"
             android:label="@string/title_activity_pull_notifications" />
@@ -110,7 +113,15 @@
 
         <activity
             android:name=".LoginOptions"
-            android:label="@string/title_activity_login__options" />
+            android:label="@string/title_activity_login__options"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <data android:scheme="QuickShop" android:host="open" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ActivityProfile"
             android:label="@string/title_activity_activity_profile" />

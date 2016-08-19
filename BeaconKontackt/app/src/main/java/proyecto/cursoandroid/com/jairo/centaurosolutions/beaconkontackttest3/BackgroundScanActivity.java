@@ -60,6 +60,8 @@ import broadcast.ForegroundBroadcastInterceptor;
 import butterknife.InjectView;
 import controllers.ServiceController;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 import model.elementMenu.ElementMenu;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Adaptadores.PagerAdapter;
 import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Promociones;
@@ -120,10 +122,30 @@ public class BackgroundScanActivity extends BaseActivity implements Response.Lis
     private int PICK_IMAGE_REQUEST = 1;
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        Branch branch = Branch.getInstance();
+        branch.initSession(new Branch.BranchReferralInitListener() {
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error == null) {
+                    // params are the deep linked params associated with the link that the user clicked before showing up
+                    Log.i("BranchConfigTest", "deep link data: " + referringParams.toString());
+                }
+            }
+        }, this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Automatic session tracking
         setContentView(R.layout.background_scan_activity);
-
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
         serviceController = new ServiceController();
