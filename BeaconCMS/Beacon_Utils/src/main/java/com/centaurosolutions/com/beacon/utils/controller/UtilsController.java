@@ -34,9 +34,8 @@ public class UtilsController
     private final String PROMO_WALKIN = "WALKIN";
     private final String PROMO_PURCHASE = "PURCHASE";
 	private final String NOTIFICATION_PUSH = "PUSH";
-
-
-
+	private int minPoints = 5;
+	
 	@Autowired
 	private NotificationController notificationController = new NotificationController();
 
@@ -71,9 +70,8 @@ public class UtilsController
 		return response;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value="/exchangePoints")
-	public Map<String, Object> exchangePoints(@RequestBody Map<String, Object> customMap)
-	{
+	@RequestMapping(method = RequestMethod.POST, value = "/exchangePoints")
+	public Map<String, Object> exchangePoints(@RequestBody Map<String, Object> customMap) {
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		Points pointsModel = new Points();
 		PointsResponse pointsResponse = new PointsResponse();
@@ -83,76 +81,75 @@ public class UtilsController
 		ObjectMapper mapper = new ObjectMapper();
 		int points = 0;
 
+		try {
+			if ((customMap.get("userId") != null && !customMap.get("userId").toString().isEmpty())
+					&& (customMap.get("points") != null && !customMap.get("points").toString().isEmpty())) {
 
-		try
-		{
-			if((customMap.get("userId") != null && !customMap.get("userId").toString().isEmpty()) &&
-					(customMap.get("points") != null && !customMap.get("points").toString().isEmpty()))
-			{
-
-				userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(), UserResponse.class);
+				userResponse = restTemplate.getForObject(urlUser + "id/" + customMap.get("userId").toString(),
+						UserResponse.class);
 
 				points = Integer.parseInt(customMap.get("points").toString());
 
-				if(userResponse.getStatus() == 200)
-				{
-					if(points <= userResponse.getUser().getTotalGiftPoints()){
+				if (userResponse.getStatus() == 200) {
+					if (points >= minPoints) {
+						if (points <= userResponse.getUser().getTotalGiftPoints()) {
 
-						pointsResponse = generateCodeCall(customMap.get("userId").toString(), Integer.parseInt(customMap.get("points").toString()));
-						pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() { });
+							pointsResponse = generateCodeCall(customMap.get("userId").toString(),
+									Integer.parseInt(customMap.get("points").toString()));
+							pointsModel = mapper.convertValue(pointsResponse.getPoints(), new TypeReference<Points>() {
+							});
 
-						if(pointsResponse.getStatus() == 200) {
+							if (pointsResponse.getStatus() == 200) {
 
-							userObject = userResponse.getUser();
-							userObject.setTotalGiftPoints(userObject.getTotalGiftPoints() - points);
+								userObject = userResponse.getUser();
+								userObject.setTotalGiftPoints(userObject.getTotalGiftPoints() - points);
 
-							if (setUserPoints(userObject)){
-								response.put("points", pointsModel);
-								response.put("status", 200);
-								response.put("message", "Saldo flotante creado");
+								if (setUserPoints(userObject)) {
+									response.put("points", pointsModel);
+									response.put("status", 200);
+									response.put("message", "Saldo flotante creado");
 
-								notificationController.CreateNotification(userObject.getId(), "Has creado el código de regalo "+ pointsModel.getCode() +" con un valor de "+ points +" puntos", NOTIFICATION_PUSH);
-							}
-							else{
+									notificationController.CreateNotification(
+											userObject.getId(), "Has creado el código de regalo "
+													+ pointsModel.getCode() + " con un valor de " + points + " puntos",
+											NOTIFICATION_PUSH);
+								} else {
+									response.put("points", null);
+									response.put("status", 400);
+									response.put("message", "El usuario no tiene saldo para regalar puntos");
+								}
+							} else {
 								response.put("points", null);
 								response.put("status", 400);
-								response.put("message", "El usuario no tiene saldo para regalar puntos");
+								response.put("message", "Error durante la generación de código");
 							}
 						}
-						else{
+
+						else {
 							response.put("points", null);
-							response.put("status", 400);
-							response.put("message", "Error durante la generación de código");
+							response.put("status", 404);
+							response.put("message", "El usuario no tiene saldo para regalar puntos");
 						}
-					}
-					else
-					{
+					} else {
 						response.put("points", null);
 						response.put("status", 404);
-						response.put("message", "El usuario no tiene saldo para regalar puntos");
+						response.put("message", "La cantidad de puntos no supera el minimo requerido");
 					}
-				}
-				else
-				{
+				} else {
 					response.put("points", null);
 					response.put("status", 400);
 					response.put("message", "El usuario no existe");
 				}
-			}
-			else
-			{
+			} else {
 				response.put("points", null);
 				response.put("status", 404);
 				response.put("message", "Faltan parámetros");
 			}
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			response.put("points", null);
 			response.put("status", 500);
 			response.put("message", ex.getMessage());
 		}
-
 
 		return response;
 	}
@@ -1150,6 +1147,15 @@ public class UtilsController
 		user.setProductWishList(null);
 		user.setGender(null);
 
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/pointsMin")
+	public Map<String, Object> pointsMin() {
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		response.put("status", 200);
+		response.put("message", "Points");
+		response.put("minPoints", minPoints);
+		return response;
+	
 	}
 
 }
