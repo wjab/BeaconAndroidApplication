@@ -234,13 +234,13 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                         .setChannel("facebook")
                         .setFeature("sharing");
                 //STYLE
-                ShareSheetStyle shareSheetStyle = new ShareSheetStyle(thisActivity, "Check this out!", "This stuff is awesome: ")
-                        .setCopyUrlStyle(getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-                        .setMoreOptionStyle(getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+                ShareSheetStyle shareSheetStyle = new ShareSheetStyle(thisActivity, "Mira esto", "Esta promoción es asombrosa: ")
+                        .setCopyUrlStyle(getResources().getDrawable(android.R.drawable.ic_menu_send), "Copiado", "Añadido al portapapeles")
+                        .setMoreOptionStyle(getResources().getDrawable(android.R.drawable.ic_menu_search), "Muestrame más")
                         .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
                         .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
                         .setAsFullWidthStyle(true)
-                        .setSharingTitle("Share With");
+                        .setSharingTitle("Compartir con");
                 branchUniversalObject.showShareSheet(thisActivity,linkProperties,shareSheetStyle,new Branch.BranchLinkShareListener() {
                     @Override
                     public void onShareLinkDialogLaunched() {
