@@ -210,5 +210,6 @@
     <string name="pointsMount">Favor ingresar un monto de puntos</string>
     <string name="sendCode">Enviar el código</string>
     <string name="purchasePointsText">C / %s</string>
+    <string name="minPointsRequire">La cantidad de puntos no supera el minimo requerido</string>
 
 </resources>

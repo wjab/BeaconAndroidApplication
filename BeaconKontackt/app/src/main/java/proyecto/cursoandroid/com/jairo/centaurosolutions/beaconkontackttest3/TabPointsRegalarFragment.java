@@ -32,6 +32,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
     private String idUser;
     private String code,dateExpiration, messageToSend = null;
     private int pointsIntGift,pointsUser;
+    private static int pointsMin;
     public TabPointsRegalarFragment() {
         // Required empty public constructor
     }
@@ -53,10 +54,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
         idUser = preferences.getString("userId", "");
         mpoints = getContext().getSharedPreferences("SQ_UserLogin", getContext().MODE_PRIVATE).getInt("points", 0)+"";
         userAcumulatedPoints = String.format(getString(R.string.giftPoints), mpoints);
-
         points=(TextView)view.findViewById(R.id.messagePoints);
-        points.setText(userAcumulatedPoints);
-
         pointsToGift=(TextView)view.findViewById(R.id.points);
         message=(TextView)view.findViewById(R.id.message);
         sendData=(Button)view.findViewById(R.id.gift_points);
@@ -84,13 +82,24 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                 }
             }
         });
-
+        servicePointsMin();
+        points.setText(userAcumulatedPoints+" ,esta es la cantidad minima de puntos: "+String.valueOf(pointsMin));
         return view;
     }
 
     ServiceController serviceController;
     Response.Listener<JSONObject> response;
     Response.ErrorListener responseError;
+    public void servicePointsMin(){
+        serviceController = new ServiceController();
+        responseError = this;
+        response = this;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        String url = getString(R.string.WebService_Utils)+"utils/pointsMin";
+        Log.e("URL",url);
+        serviceController.jsonObjectRequest(url, Request.Method.GET,null, map, response, responseError);
+    }
 
     public void service()
     {
@@ -119,6 +128,7 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
         serviceController.jsonObjectRequest(url, Request.Method.GET,null, map, response, responseError);
 
     }
+
     @Override
     public void onResponse(JSONObject response) {
 
@@ -128,6 +138,13 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                 code = object.getString("code");
                 dateExpiration=object.getString("expirationDate");
                 serviceUpdatePoints();
+            }
+            else if(response.get("message").equals("La cantidad de puntos no supera el minimo requerido")){
+                Toast.makeText(getContext(), getString(R.string.minPointsRequire), Toast.LENGTH_SHORT).show();
+            }
+            else if(response.get("message").equals("Points")){
+                pointsMin= response.getInt("minPoints");
+                points.setText(userAcumulatedPoints+" ,esta es la cantidad minima de puntos: "+String.valueOf(pointsMin));
             }
             else {
                 response = response.getJSONObject("user");

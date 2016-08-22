@@ -244,23 +244,18 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
                 branchUniversalObject.showShareSheet(thisActivity,linkProperties,shareSheetStyle,new Branch.BranchLinkShareListener() {
                     @Override
                     public void onShareLinkDialogLaunched() {
-                        Toast.makeText(getApplication(), "onSharedLinkLaunched", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onShareLinkDialogDismissed() {
-                        Toast.makeText(getApplication(), "onSharedLinkDismiss", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
-                        Toast.makeText(getApplication(), "onShareLinkResponse", Toast.LENGTH_SHORT).show();
-
                     }
 
                     @Override
                     public void onChannelSelected(String channelName) {
-                        Toast.makeText(getApplication(), "onchanelName", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
