@@ -211,13 +211,12 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
 
     public void chargeDepartments() {
         String idProductWishList, idProduct;
-
-        for (int i = 0; i < listArrayWish.size(); i++) {
-            idProductWishList = listArrayWish.get(i).getProductId();
-
-            for (int j = 0; j < listArray.size(); j++) {
-                idProduct = listArray.get(j).getProductId();
-                if (idProductWishList.equals(idProduct)) {
+        for (int j = 0; j < listArray.size(); j++) {
+            listArray.get(j).setStateWishList(0);
+            idProduct = listArray.get(j).getProductId();
+                for (int i = 0; i < listArrayWish.size(); i++) {
+                    idProductWishList = listArrayWish.get(i).getProductId();
+                    if (idProductWishList.equals(idProduct)) {
                     listArray.get(j).setStateWishList(1);
                 }
             }
@@ -279,8 +278,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         int code = intent.getIntExtra("code", 0);
         if (code == 1) {
             super.onActivityResult(requestCode, resultCode, intent);
-            obtainProducts();
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
+            obtainProducts();
         }
     }
 
@@ -351,9 +350,8 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setPrice(currRange.getInt("price"));
                     listArray.add(element);
                     }
-                    productWishList();
-
                 }
+                productWishList();
 
             }
         } catch (JSONException e) {

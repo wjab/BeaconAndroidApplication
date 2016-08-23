@@ -33,6 +33,9 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
     private String code,dateExpiration, messageToSend = null;
     private int pointsIntGift,pointsUser;
     private static int pointsMin;
+    ServiceController serviceController;
+    Response.Listener<JSONObject> response;
+    Response.ErrorListener responseError;
     public TabPointsRegalarFragment() {
         // Required empty public constructor
     }
@@ -76,8 +79,6 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
                         Toast.makeText(getContext(), getString(R.string.process), Toast.LENGTH_SHORT).show();
                         messageToSend=message.getText().toString();
                         service();
-
-
                     }
                 }
             }
@@ -87,9 +88,6 @@ public class TabPointsRegalarFragment extends Fragment implements Response.Liste
         return view;
     }
 
-    ServiceController serviceController;
-    Response.Listener<JSONObject> response;
-    Response.ErrorListener responseError;
     public void servicePointsMin(){
         serviceController = new ServiceController();
         responseError = this;

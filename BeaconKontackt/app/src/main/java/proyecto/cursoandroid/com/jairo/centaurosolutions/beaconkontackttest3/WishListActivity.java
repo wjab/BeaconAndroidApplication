@@ -189,15 +189,15 @@ public class WishListActivity extends AppCompatActivity implements Response.List
                 element.setPrice(currRange.getInt("price"));
                 listArray.add(element);
             }
+            }
+           if(ranges.length() == 0) {
+                listArray = new ArrayList<Wish>();
+                Toast.makeText(context, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
+            }
             BackgroundScanActivity.size = ranges.length();
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
             adapter = new CustomAdapterWish(context, listArray);
             listView.setAdapter(adapter);
-            }
-
-            if (ranges.length() == 0) {
-                Toast.makeText(context, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

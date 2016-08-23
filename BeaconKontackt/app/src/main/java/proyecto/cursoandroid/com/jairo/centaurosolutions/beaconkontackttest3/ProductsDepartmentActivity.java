@@ -193,17 +193,18 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
     {
         String idProductWishList, idProduct;
 
-        for(int i = 0; i < listArray.size(); i++ )
+        for(int j = 0; j < ranges.size(); j++ )
         {
-            idProductWishList=listArray.get(i).getProductId();
-            for(int j = 0; j < ranges.size(); j++ )
-            {
-                idProduct = ranges.get(j).getProductId();
-                if(idProductWishList.equals(idProduct))
+            ranges.get(j).setStateWishList(0);
+            idProduct = ranges.get(j).getProductId();
+            for(int i = 0; i < listArray.size(); i++ )
                 {
-                    ranges.get(j).setStateWishList(1);
+                    idProductWishList=listArray.get(i).getProductId();
+                    if(idProductWishList.equals(idProduct))
+                    {
+                        ranges.get(j).setStateWishList(1);
+                    }
                 }
-            }
         }
         adapter = new CustomAdapterProductDepartment(thisActivity, ranges, 1);
         grid.setAdapter(adapter);

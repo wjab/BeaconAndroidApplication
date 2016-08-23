@@ -69,8 +69,6 @@ public class DetailPromo extends AppCompatActivity implements Response.Listener<
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        } else {
-            Toast.makeText(getApplication(),"Launched by normal application flow", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
