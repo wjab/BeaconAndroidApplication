@@ -39,7 +39,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1375" y="-108"/>
+            <point key="canvasLocation" x="-1845" y="-528"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="jQM-NR-1IT">
@@ -88,78 +88,387 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPV-6r-O6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1375" y="604"/>
+            <point key="canvasLocation" x="-1845" y="232"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="10e-yD-xq2">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OaH-SD-Ii6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="MenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YWc-AI-AFc" customClass="MenuViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZcO-7C-p73"/>
+                        <viewControllerLayoutGuide type="bottom" id="SPh-oL-Kdh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SYb-Tc-Phc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNu-01-aab">
+                                <rect key="frame" x="82" y="-10" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onCloseMenuClick:" destination="YWc-AI-AFc" eventType="touchUpOutside" id="Tte-6w-OKu"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="34" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7YH-Ie-8Rd">
+                                <rect key="frame" x="10" y="72" width="222" height="496"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cellMenu" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellMenu" id="sFQ-iU-Tt5">
+                                        <rect key="frame" x="0.0" y="28" width="222" height="34"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sFQ-iU-Tt5" id="4ns-g7-wRi">
+                                            <rect key="frame" x="0.0" y="0.0" width="222" height="33"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1X-2O-iye">
+                                                    <rect key="frame" x="140" y="14" width="1" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B0i-Bb-Jy0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="28" height="25"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="YWc-AI-AFc" id="wAL-gv-AMx"/>
+                                    <outlet property="delegate" destination="YWc-AI-AFc" id="ltF-Ya-yXN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="btnCloseMenuOverlay" destination="yNu-01-aab" id="BkP-SD-y6y"/>
+                        <outlet property="tblMenuOptions" destination="7YH-Ie-8Rd" id="amn-TA-60p"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-1834" y="-1276"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="0Wt-2t-mZM">
+            <objects>
+                <viewController storyboardIdentifier="FAQTabOneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eBD-sD-kws" customClass="FAQTabOneViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g4p-ln-4AV"/>
+                        <viewControllerLayoutGuide type="bottom" id="g1V-xq-MG7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fxr-i5-VVe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8a-3k-ZVC">
+                                <rect key="frame" x="127" y="260" width="32" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="qvV-sF-dWR"/>
+                    <navigationItem key="navigationItem" title="Title" id="W62-dm-cqv"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q6U-Jc-0wP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-693" y="152"/>
         </scene>
         <!--Item 2-->
-        <scene sceneID="aiX-7C-vWo">
+        <scene sceneID="ard-pn-Qmc">
             <objects>
-                <viewController id="tB6-ad-SBC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationTabOneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HoO-Yg-tOF" customClass="NotificationTabOneViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AdS-Yo-5FI"/>
-                        <viewControllerLayoutGuide type="bottom" id="cs7-q0-sdf"/>
+                        <viewControllerLayoutGuide type="top" id="GoN-vb-NYK"/>
+                        <viewControllerLayoutGuide type="bottom" id="rYl-sl-kyo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iM6-YQ-YPP">
+                    <view key="view" contentMode="scaleToFill" id="Und-t0-rEl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tiendas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9zv-Is-0V6">
-                                <rect key="frame" x="85" y="205" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxi-lP-2HP">
+                                <rect key="frame" x="132" y="183" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="bdz-og-Iqh"/>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="hx2-d8-YD5"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nHX-rL-Bdn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JrS-Lj-OOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1331" y="1343"/>
+            <point key="canvasLocation" x="-693" y="819"/>
         </scene>
         <!--Item 1-->
-        <scene sceneID="upy-ed-0zL">
+        <scene sceneID="6uF-L8-bLg">
             <objects>
-                <viewController id="s48-cw-82s" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationTabTwoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pof-3o-w3x" customClass="NotificationTabTwoViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Kjj-my-9U9"/>
-                        <viewControllerLayoutGuide type="bottom" id="Zfh-Xr-XQq"/>
+                        <viewControllerLayoutGuide type="top" id="emj-6z-0wR"/>
+                        <viewControllerLayoutGuide type="bottom" id="KmK-09-AhW"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8tu-06-pdw">
+                    <view key="view" contentMode="scaleToFill" id="4zh-kx-war">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Promociones" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rAM-Bw-Rmm">
-                                <rect key="frame" x="83" y="238" width="106" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUf-yW-HfZ">
+                                <rect key="frame" x="77" y="201" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="1JS-Sl-WrY"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qmq-xq-u7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-915" y="1351"/>
-        </scene>
-        <!--Background View Controller-->
-        <scene sceneID="coR-QX-2d8">
-            <objects>
-                <tabBarController storyboardIdentifier="background" id="pWI-eN-7im" customClass="BackgroundViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item 1" id="vgP-YH-PYm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="bOW-nE-6qv">
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AyF-Zf-jg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-321" y="811"/>
+        </scene>
+        <!--Notification Tab View Controller-->
+        <scene sceneID="V1m-Pk-7IQ">
+            <objects>
+                <tabBarController storyboardIdentifier="NotificationTabViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hfM-Uv-XIw" customClass="NotificationTabViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="80j-Od-PS9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.31903238113949106" green="0.82511861910994766" blue="0.14623243510254882" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="s48-cw-82s" kind="relationship" relationship="viewControllers" id="lWM-Fc-tjt"/>
-                        <segue destination="tB6-ad-SBC" kind="relationship" relationship="viewControllers" id="edU-5U-W9z"/>
+                        <segue destination="Pof-3o-w3x" kind="relationship" relationship="viewControllers" id="B7G-qM-APk"/>
+                        <segue destination="HoO-Yg-tOF" kind="relationship" relationship="viewControllers" id="tY1-op-Zzj"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1cZ-4p-w28" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6d9-Eq-VL7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-923" y="604"/>
+            <point key="canvasLocation" x="-1077" y="811"/>
+        </scene>
+        <!--Wish View Controller-->
+        <scene sceneID="XhK-u2-7sS">
+            <objects>
+                <viewController storyboardIdentifier="WishViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JFj-cB-ARe" customClass="WishViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kQW-y3-Z1Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="lQu-Gi-8Ah"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fg9-6s-xQK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uLk-Mc-bDe">
+                                <rect key="frame" x="20" y="75" width="280" height="473"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fy9-9l-nXB">
+                                        <rect key="frame" x="0.0" y="28" width="280" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fy9-9l-nXB" id="jjd-RK-BdZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d5o-rM-0CJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1439" y="167"/>
+        </scene>
+        <!--Navigation View Controller-->
+        <scene sceneID="VBD-xG-5Vv">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PSh-dF-4AC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lmf-I8-Dx4" customClass="NavigationViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G4B-eH-kwJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.34175519667747378" green="0.76300719895287961" blue="0.2120167054817253" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="LQ4-uM-HZY" kind="relationship" relationship="rootViewController" id="HDd-zk-2Kb"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-1461" y="-1232"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="yIT-b5-i5D">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZiI-be-V3m" customClass="ProfileViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a3v-vm-hJT"/>
+                        <viewControllerLayoutGuide type="bottom" id="PqP-vS-N82"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Rrh-7b-rT0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L44-vM-H7Y">
+                                <rect key="frame" x="37" y="106" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Apellido" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DeY-bI-hFU">
+                                <rect key="frame" x="37" y="172" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Correo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BGd-Th-jpQ">
+                                <rect key="frame" x="37" y="233" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Fecha" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Uu-f1-ueg">
+                                <rect key="frame" x="37" y="316" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8e-KV-Sqs">
+                                <rect key="frame" x="37" y="373" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-A2-LAI">
+                                <rect key="frame" x="113" y="436" width="94" height="30"/>
+                                <state key="normal" title="Ir al perfil"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="kZF-Rt-IaW"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zOa-mK-KfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1439" y="-521"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="7ag-RK-i0P">
+            <objects>
+                <viewController id="8lL-og-ayE" customClass="HomeTabViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="86e-lj-1Lc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q39-eJ-YhP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T5a-2z-6RJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="I8g-wV-Glc"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JoU-2d-iRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="195" y="-1240"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="AjJ-VG-gE9">
+            <objects>
+                <viewController id="Tl4-49-fBQ" customClass="HomeTabViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FJB-k3-Hri"/>
+                        <viewControllerLayoutGuide type="bottom" id="O0q-cq-e3p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bM1-7c-vqT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="4SV-r3-ebh"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Lr-kW-U0B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-321" y="-1232"/>
+        </scene>
+        <!--HomeVC-->
+        <scene sceneID="ECf-9u-H9M">
+            <objects>
+                <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LQ4-uM-HZY" customClass="HomeVC" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SGo-DV-GSk"/>
+                        <viewControllerLayoutGuide type="bottom" id="ESR-FB-csT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JdJ-Gi-u9y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CsN-Po-57A"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AwZ-D0-a6p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1395" y="-1843"/>
+        </scene>
+        <!--Home Tab View Controller-->
+        <scene sceneID="296-oe-tJc">
+            <objects>
+                <tabBarController storyboardIdentifier="HomeTabViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="txI-r8-0Zg" customClass="HomeTabViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Qqi-P5-kol"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="iVi-qP-JuL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Tl4-49-fBQ" kind="relationship" relationship="viewControllers" id="YTP-pY-VbU"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9d7-uD-v2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1027" y="-1772"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="iYy-Hu-I5P">
+            <objects>
+                <viewController storyboardIdentifier="FAQTabTwoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R6w-H8-uda" customClass="FAQTabTwoViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d5c-0r-7Ra"/>
+                        <viewControllerLayoutGuide type="bottom" id="tEy-zm-Lgu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="krr-ec-j13">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FAQ TAB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpr-gs-dWu">
+                                <rect key="frame" x="119" y="194" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Xv8-1r-Yyd"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CQp-9D-GXt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-321" y="152"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Zzb-q2-V4a">
@@ -214,7 +523,101 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="062-ho-hJ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-942" y="-60"/>
+            <point key="canvasLocation" x="-1834" y="996"/>
+        </scene>
+        <!--Tab View Controller-->
+        <scene sceneID="H26-zI-g73">
+            <objects>
+                <tabBarController storyboardIdentifier="FAQTabViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hVx-gn-301" customClass="FAQTabViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="7c0-YE-QhV">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="eBD-sD-kws" kind="relationship" relationship="viewControllers" id="dPU-Z1-osZ"/>
+                        <segue destination="R6w-H8-uda" kind="relationship" relationship="viewControllers" id="xjR-aS-ExR"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dV6-EK-ZFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1077" y="158"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="C6E-ek-Wd4">
+            <objects>
+                <viewController storyboardIdentifier="PointsTabOneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J9x-27-Qlw" customClass="PointsTabOneViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lpu-cw-ATI"/>
+                        <viewControllerLayoutGuide type="bottom" id="WoL-7K-vAE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="duo-hy-m45">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="id6-73-DbF">
+                                <rect key="frame" x="117" y="246" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="RP7-ia-evd"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TI3-eR-oo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-693" y="-521"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="eu5-gZ-agN">
+            <objects>
+                <viewController storyboardIdentifier="PointsTabTwoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pg7-vQ-kDH" customClass="PointsTabTwoViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0hy-fz-tQL"/>
+                        <viewControllerLayoutGuide type="bottom" id="Shx-Wk-Avr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dgv-aH-KsY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lv0-Dc-rKL">
+                                <rect key="frame" x="54" y="260" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="tdg-aB-m1v"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bOB-oe-xui" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-321" y="-521"/>
+        </scene>
+        <!--Points Tab View Controller-->
+        <scene sceneID="OGu-nS-oJg">
+            <objects>
+                <tabBarController storyboardIdentifier="PointsTabViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iRd-xK-SOp" customClass="PointsTabViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="bWD-Pg-lHy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Pg7-vQ-kDH" kind="relationship" relationship="viewControllers" id="3uS-JK-VbC"/>
+                        <segue destination="J9x-27-Qlw" kind="relationship" relationship="viewControllers" id="kyP-Jl-MVq"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6yb-v7-EYK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1077" y="-516"/>
         </scene>
     </scenes>
     <resources>

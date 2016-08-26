@@ -19,6 +19,11 @@ class User: NSObject {
     var socialNetworkType = "local"
     var email = "algo@gmail.com"
     var pathImage = "htttp"
+    var preference = []
+    var productWishList = []
+    var gender = "women"
+    var socialNetworkId = "123143"
+    var socialNetworkJson = "{}"
     
     var namePropeties: (String) {
         get {
@@ -107,6 +112,56 @@ class User: NSObject {
         
         set(newVal) {
             socialNetworkType = newVal
+        }
+    }
+    
+    var preferencePropeties: (Array<Preference>) {
+        get {
+            return (preference) as! (Array<Preference>)
+        }
+        
+        set(newVal) {
+            preference = newVal
+        }
+    }
+    
+    var productWishListPropeties: (Array<Wish>) {
+        get {
+            return (productWishList) as! (Array<Wish>)
+        }
+        
+        set(newVal) {
+            productWishList = newVal
+        }
+    }
+
+    var genderPropeties: (String) {
+        get {
+            return (gender)
+        }
+        
+        set(newVal) {
+            gender = newVal
+        }
+    }
+    
+    var socialNetworkIdPropeties: (String) {
+        get {
+            return socialNetworkId
+        }
+        
+        set(newVal) {
+            socialNetworkId = newVal
+        }
+    }
+    
+    var socialNetworkJsonPropeties: (String) {
+        get {
+            return socialNetworkJson
+        }
+        
+        set(newVal) {
+            socialNetworkJson = newVal
         }
     }
 }

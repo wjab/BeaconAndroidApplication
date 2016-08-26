@@ -58,8 +58,25 @@ class LoginViewController: UIViewController {
                                 {
                                     //Open background
                                     print("Ingresando")
-                                    let vc = self.storyboard!.instantiateViewControllerWithIdentifier("background")
-                                    self.showDetailViewController(vc as! BackgroundViewController, sender: self)
+                                    let defaults = NSUserDefaults.standardUserDefaults()
+                                    let userObject = User()
+                                    userObject.namePropeties = (user)["name"] as! String
+                                    userObject.usernameropeties = (user)["user"] as! String
+                                    userObject.enablePropeties = (user)["enable"] as! Bool
+                                    userObject.totalGiftPoints = (user)["totalGiftPoints"] as! Int
+                                    userObject.lastnamePropeties = (user)["lastName"] as! String
+                                    userObject.emailPropeties = (user)["email"] as! String
+                                    userObject.phonePropeties = (user)["phone"] as! String
+                                    userObject.socialNetworkIdPropeties = (user)["socialNetworkId"] as! String
+                                    userObject.socialNetworkTypePropeties = (user)["socialNetworkType"] as! String
+                                    //userObject.genderPropeties = (user)["gender"] as! String
+                                    userObject.socialNetworkJsonPropeties = (user)["socialNetworkJson"] as! String
+                                    userObject.productWishList = (user)["productWishList"] as! Array<Wish>
+                                    userObject.pathImagePropeties = (user)["pathImage"] as! String
+                                    userObject.preferencePropeties = (user)["preference"] as! Array<Preference>
+                                    //defaults.setObject(userObject, forKey: "userObject")
+                                    let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
+                                    self.showDetailViewController(vc as! NavigationViewController, sender: self)
                                 }
                                 else
                                 {

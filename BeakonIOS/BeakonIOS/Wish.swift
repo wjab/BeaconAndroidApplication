@@ -13,4 +13,45 @@ class Wish: NSObject {
     var productName = "Blusa de seda para Señora"
     var price = 8500
     var imageUrlList = "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg"
+    
+    var productIdPropeties: (String) {
+        get {
+            return (productId)
+        }
+        
+        set(newVal) {
+            productId = newVal
+        }
+    }
+    
+    var productNamePropeties: (String) {
+        get {
+            return (productName)
+        }
+        
+        set(newVal) {
+            productName = newVal
+        }
+    }
+    
+    var pricePropeties: (Int) {
+        get {
+            return (price)
+        }
+        
+        set(newVal) {
+            price = newVal
+        }
+    }
+    
+    var imageUrlListPropeties: (String) {
+        get {
+            return (imageUrlList)
+        }
+        
+        set(newVal) {
+            imageUrlList = newVal
+        }
+    }
+
 }

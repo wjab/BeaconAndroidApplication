@@ -1,14 +1,14 @@
 //
-//  BackgroundViewController.swift
+//  PointsTabOneViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/24/16.
+//  Created by Christopher on 8/26/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
 import UIKit
 
-class BackgroundViewController: UITabBarController {
+class PointsTabOneViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
