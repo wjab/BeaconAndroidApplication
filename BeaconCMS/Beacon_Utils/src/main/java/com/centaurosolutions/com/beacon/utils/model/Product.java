@@ -12,9 +12,10 @@ public class Product
 	private String code;
 	private Boolean allowScan;
 	private int pointsByScan;
-	
+	private int pointsByPrice;
+
 	public Product(){}
-	
+
 	/**
 	 * @param productname
 	 * @param price
@@ -22,10 +23,10 @@ public class Product
 	 * @param details
 	 */
 	public Product(
-			String productname, 
-			float price, 
-			ArrayList<String> imageurlList, 
-			String details, String code, Boolean allowScan, int pointsByScan)
+			String productname,
+			float price,
+			ArrayList<String> imageurlList,
+			String details, String code, Boolean allowScan, int pointsByScan, int pointsByPrice)
 	{
 		this.productName = productname;
 		this.price = price;
@@ -34,9 +35,10 @@ public class Product
 		this.code = code;
 		this.allowScan = allowScan;
 		this.pointsByScan = pointsByScan;
+		this.pointsByPrice = pointsByPrice;
 	}
-	
-	
+
+
 	/**
 	 * @return productid
 	 */
@@ -44,7 +46,7 @@ public class Product
 	{
 		return this.productId;
 	}
-	
+
 	/**
 	 *  @param id
 	 */
@@ -52,7 +54,7 @@ public class Product
 	{
 		this.productId = productId;
 	}
-	
+
 	/**
 	 * @return productName
 	 */
@@ -60,7 +62,7 @@ public class Product
 	{
 		return this.productName;
 	}
-	
+
 	/**
 	 * @param productname
 	 */
@@ -68,7 +70,7 @@ public class Product
 	{
 		this.productName = productname;
 	}
-	
+
 	/**
 	 * @return price
 	 */
@@ -76,7 +78,7 @@ public class Product
 	{
 		return this.price;
 	}
-	
+
 	/**
 	 * @param price
 	 */
@@ -84,7 +86,7 @@ public class Product
 	{
 		this.price = price;
 	}
-	
+
 	/**
 	 * @return imageUrlList
 	 */
@@ -92,7 +94,7 @@ public class Product
 	{
 		return this.imageUrlList;
 	}
-	
+
 	/**
 	 * @param imageUrlList
 	 */
@@ -100,7 +102,7 @@ public class Product
 	{
 		this.imageUrlList = imageUrlList;
 	}
-	
+
 	/**
 	 * @return details
 	 */
@@ -108,7 +110,7 @@ public class Product
 	{
 		return this.details;
 	}
-	
+
 	/**
 	 * @param details
 	 */
@@ -132,7 +134,7 @@ public class Product
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+
 	public Boolean getAllowScan() {
 		return allowScan;
 	}
@@ -140,7 +142,7 @@ public class Product
 	public void setAllowScan(Boolean allowScan) {
 		this.allowScan = allowScan;
 	}
-	
+
 	public int getPointsByScan() {
 		return pointsByScan;
 	}
@@ -148,6 +150,13 @@ public class Product
 	public void setPointsByScan(int pointsByScan) {
 		this.pointsByScan = pointsByScan;
 	}
-	
+	public int getPointsByPrice() {
+		return pointsByPrice;
+	}
+
+	public void setPointsByPrice(int pointsByPrice) {
+		this.pointsByPrice = pointsByPrice;
+	}
+
 	
 }
