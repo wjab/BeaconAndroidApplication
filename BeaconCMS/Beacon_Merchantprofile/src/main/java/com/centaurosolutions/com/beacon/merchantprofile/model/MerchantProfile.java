@@ -26,19 +26,14 @@ public class MerchantProfile {
 	public String updatedBy;
 	public String latitude ;
 	public String longitude;
-
-	
+	public ArrayList<Exchange> exchangeList;
 	public ArrayList<Department> departments;
 	public TotalGiftPoints totalGiftPoints;
 	
 
-
 	public MerchantProfile(){
 		
 	}
-
-
-	
 
 
 	/**
@@ -58,12 +53,13 @@ public class MerchantProfile {
 	 * @param updatedBy
 	 * @param latitude
 	 * @param longitude
+	 * @param exchangeList
 	 */
 	public MerchantProfile(String country, String city, ArrayList<MerchantContactData> contactNumbers, String timeZone,
 			String merchantName, String address, String image, String businessType,
 			ArrayList<MerchantUser> users, boolean enable, int pointsToGive,
 			Date creationDate, Date modifiedDate, String updatedBy,
-			String latitude,String longitude, ArrayList<Department> departments, TotalGiftPoints totalGiftPoints) {
+			String latitude,String longitude, ArrayList<Department> departments, TotalGiftPoints totalGiftPoints, ArrayList<Exchange> exchangeList) {
 		super();
 		this.country = country;
 		this.city = city;
@@ -83,6 +79,7 @@ public class MerchantProfile {
 		this.longitude = longitude;
 		this.departments = departments;
 		this.totalGiftPoints = totalGiftPoints;
+		this.exchangeList = exchangeList;
 	}
 
 
@@ -334,6 +331,30 @@ public class MerchantProfile {
 	 */
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+
+	public ArrayList<Exchange> getExchangeList() {
+		return exchangeList;
+	}
+
+	public void setExchangeList(ArrayList<Exchange> exchangeList) {
+		this.exchangeList = exchangeList;
+	}
+
+	public ArrayList<Department> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(ArrayList<Department> departments) {
+		this.departments = departments;
+	}
+
+	public TotalGiftPoints getTotalGiftPoints() {
+		return totalGiftPoints;
+	}
+
+	public void setTotalGiftPoints(TotalGiftPoints totalGiftPoints) {
+		this.totalGiftPoints = totalGiftPoints;
 	}
 }
 	

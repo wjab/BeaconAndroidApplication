@@ -33,6 +33,7 @@ public class MerchantProfileController
 			ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
 			ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
 			ArrayList<Department> departments = new ArrayList<Department>();
+			ArrayList<Exchange> exchangeList =  new ArrayList<Exchange>();
 			TotalGiftPoints totalGiftPoints = new TotalGiftPoints();
 			ObjectMapper mapper = new ObjectMapper();
 			if(merchantProfileMap.get("contactNumbers") != null)
@@ -57,7 +58,13 @@ public class MerchantProfileController
 				
 				totalGiftPoints = mapper.convertValue(merchantProfileMap.get("totalGiftPoints"), new TypeReference<TotalGiftPoints>() { });
 			}
-			
+			if(merchantProfileMap.get("exchangeList") != null)
+			{
+
+				exchangeList = mapper.convertValue(merchantProfileMap.get("exchangeList"), new TypeReference<ArrayList<Exchange>>() { });
+			}
+
+
 			MerchantProfile merchantProfileModel = new MerchantProfile(
 					merchantProfileMap.get("country").toString(),
 				    merchantProfileMap.get("city").toString(), 
@@ -76,7 +83,8 @@ public class MerchantProfileController
 				    merchantProfileMap.get("latitude").toString(),
 				    merchantProfileMap.get("longitude").toString(),
 				    departments,
-				    totalGiftPoints);
+				    totalGiftPoints,
+					exchangeList);
 			
 			
 			merchantProfileRepository.save(merchantProfileModel);
@@ -248,6 +256,7 @@ public class MerchantProfileController
 		    	ArrayList<MerchantContactData> contacts = new ArrayList<MerchantContactData>();
 		    	ArrayList<MerchantUser> users = new ArrayList<MerchantUser>();
 		    	ArrayList<Department> departments = new ArrayList<Department>();
+				ArrayList<Exchange> exchangeList =  new ArrayList<Exchange>();
 				TotalGiftPoints totalGiftPoints = new TotalGiftPoints();
 				ObjectMapper mapper = new ObjectMapper();
 		    	if(merchantProfileMap.get("contacts") != null)
@@ -266,7 +275,15 @@ public class MerchantProfileController
 				{				
 					totalGiftPoints = mapper.convertValue(merchantProfileMap.get("totalGiftPoints"), new TypeReference<TotalGiftPoints>() { });
 				}
-		    	MerchantProfile merchantProfileModel = new MerchantProfile(
+				if(merchantProfileMap.get("exchangeList") != null)
+				{
+
+					exchangeList = mapper.convertValue(merchantProfileMap.get("exchangeList"), new TypeReference<ArrayList<Exchange>>() { });
+				}
+
+
+
+				MerchantProfile merchantProfileModel = new MerchantProfile(
 		    			merchantProfileMap.get("country").toString(),
 					    merchantProfileMap.get("city").toString(),
 					    contacts,
@@ -284,7 +301,8 @@ public class MerchantProfileController
 					    merchantProfileMap.get("latitude").toString(),
 					    merchantProfileMap.get("longitude").toString(),
 					    departments,
-					    totalGiftPoints);
+					    totalGiftPoints,
+						exchangeList);
 		    	
 		    	merchantProfileModel.setId(MerchantProfileId);
 		    	response.put("message", "Perfil de Tiendas actualizado correctamente");
@@ -373,6 +391,136 @@ public class MerchantProfileController
 		
 		return response;
 	}
+
+	@RequestMapping(method = RequestMethod.POST, value="/getProductsExchange")
+	public Map<String, Object> getMerchantExchanges(@RequestBody Map<String, Object> merchantProfileMap){
+
+		Map<String, Object> response = new LinkedHashMap<String, Object>();
+		MerchantProfile merchantProfile =  new MerchantProfile();
+		ArrayList<Department> departmentList =  new ArrayList<Department>();
+		int valueExchange = 1;
+		float totalExchange = 0;
+
+		try{
+
+			merchantProfile =  merchantProfileRepository.findOne(merchantProfileMap.get("merchantId").toString());
+
+			if(merchantProfile != null){
+
+			    //Obtiene el valor de cambio dependiendo de la moneda
+				if(merchantProfile.exchangeList != null && merchantProfile.exchangeList.size() > 0){
+					for(Exchange exchange : merchantProfile.exchangeList){
+						if(exchange.getCurrency().equals(merchantProfileMap.get("currency").toString())){
+							valueExchange = exchange.getValue();
+                            break;
+						}
+					}
+				}
+
+				if(merchantProfileMap.get("departmentId") != null){
+
+					for(Department department : merchantProfile.departments){
+
+						if(department.getId().equals(merchantProfileMap.get("departmentId").toString())){
+
+							for(Product product : department.getProducts() ){
+								totalExchange = product.getPrice() / valueExchange;
+								product.setPointsByPrice((int)totalExchange);
+							}
+
+							departmentList.add(department);
+							break;
+						}
+					}
+
+					response.put("merchantData", departmentList);
+					response.put("status", 200);
+					response.put("message", "Valores de producto en moneda " + merchantProfileMap.get("currency").toString());
+				}
+				else {
+
+					for(Department department : merchantProfile.departments){
+
+						for(Product product : department.getProducts() ){
+							totalExchange = product.getPrice() / valueExchange;
+							product.setPointsByPrice((int)totalExchange);
+						}
+
+						departmentList.add(department);
+					}
+
+					response.put("merchantData", departmentList);
+					response.put("status", 200);
+					response.put("message", "Valores de producto en moneda " + merchantProfileMap.get("currency").toString());
+				}
+			}
+			else{
+
+				response.put("message", "Merchant not found");
+				response.put("merchantData", null);
+				response.put("status", "404");
+			}
+		}
+
+		catch (Exception ex){
+
+			response.put("message", ex.getMessage());
+			response.put("merchantData", null);
+			response.put("status", "400");
+		}
+
+		return response;
+	}
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(method = RequestMethod.PUT, value="/exchange/{MerchantProfileId}")
+    public Map<String, Object> editMerchantProfileExchangeList(@PathVariable("MerchantProfileId") String MerchantProfileId,
+	      @RequestBody Map<String, Object> merchantProfileMap){
+
+
+        Map<String, Object> response = new LinkedHashMap<String, Object>();
+        MerchantProfile merchantProfile =  new MerchantProfile();
+        ArrayList<Exchange> exchangeList =  new ArrayList<Exchange>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+
+            merchantProfile =  merchantProfileRepository.findOne(MerchantProfileId);
+
+            if(merchantProfile != null){
+
+                if(merchantProfileMap.get("exchangeList") != null)
+                {
+                    exchangeList = mapper.convertValue(merchantProfileMap.get("exchangeList"), new TypeReference<ArrayList<Exchange>>() { });
+
+                    merchantProfile.setExchangeList(exchangeList);
+
+                    response.put("message", "Merchant exchange rates updated");
+                    response.put("merchantProfile", merchantProfileRepository.save(merchantProfile));
+                    response.put("status", "200");
+                }
+            }
+            else{
+
+                response.put("message", "Merchant not found");
+                response.put("merchantProfile", null);
+                response.put("status", "404");
+            }
+        }
+
+        catch (Exception ex){
+
+            response.put("message", ex.getMessage());
+            response.put("merchantProfile", null);
+            response.put("status", "400");
+        }
+
+        return response;
+    }
+
+
+
+
 	
 	private Date DateFormatter(String pDate)
 	{			

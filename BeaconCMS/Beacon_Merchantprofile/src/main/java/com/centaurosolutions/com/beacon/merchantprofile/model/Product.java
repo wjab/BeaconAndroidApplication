@@ -3,7 +3,7 @@ package com.centaurosolutions.com.beacon.merchantprofile.model;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.steps.allNodesLeafPlanner;
+
 
 /**
  * @author Jairo
@@ -20,6 +20,7 @@ public class Product
 	private String code;
 	private Boolean allowScan;
 	private int pointsByScan;
+	private int pointsByPrice;
 
 	public Product(){
 		this.productId = UUID.randomUUID().toString();
@@ -35,7 +36,7 @@ public class Product
 			String productname,
 			float price,
 			ArrayList<String> imageurlList,
-			String details, String code, Boolean allowScan, int pointsByScan)
+			String details, String code, Boolean allowScan, int pointsByScan, int pointsByPrice)
 	{
 		this.productName = productname;
 		this.price = price;
@@ -44,6 +45,7 @@ public class Product
 		this.code = code;
 		this.allowScan = allowScan;
 		this.pointsByScan = pointsByScan;
+		this.pointsByPrice = pointsByPrice;
 	}
 
 
@@ -158,5 +160,12 @@ public class Product
 	public void setPointsByScan(int pointsByScan) {
 		this.pointsByScan = pointsByScan;
 	}
-	
+
+	public int getPointsByPrice() {
+		return pointsByPrice;
+	}
+
+	public void setPointsByPrice(int pointsByPrice) {
+		this.pointsByPrice = pointsByPrice;
+	}
 }
