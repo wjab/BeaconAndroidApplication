@@ -5,18 +5,19 @@ public class Wish {
 	String productName;
 	int price;
 	String imageUrlList;
-	
+	int pointsByPrice;
 
 	public Wish() {
 	}
 
 
-	public Wish(String productId,String productName,int price,String imageUrlList) {
+	public Wish(String productId,String productName,int price,String imageUrlList, int pointsByPrice) {
 		super();
 		this.productId=productId;
 		this.productName=productName;
 		this.price=price;
 		this.imageUrlList=imageUrlList;
+		this.pointsByPrice = pointsByPrice;
 	}
 
 
@@ -59,6 +60,13 @@ public class Wish {
 		this.imageUrlList = imageUrlList;
 	}
 
+	public void setPointsByPrice(int pointsByPrice) {
+		this.pointsByPrice = pointsByPrice;
+	}
 
+
+	public int getPointsByPrice() {
+		return pointsByPrice;
+	}
 
 	}

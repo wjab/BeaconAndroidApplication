@@ -481,6 +481,7 @@ public class UserController {
 					  wishList.setProductName(userMap.get("productName").toString());
 					  wishList.setPrice(Integer.parseInt(userMap.get("price").toString()));
 					  wishList.setImageUrlList(userMap.get("imageUrlList").toString());
+					  wishList.setPointsByPrice(Integer.parseInt(userMap.get("pointsByPrice").toString()));
 					  userExist.getProductWishList().add(wishList);
 					  userRepository.save(userExist);
 
