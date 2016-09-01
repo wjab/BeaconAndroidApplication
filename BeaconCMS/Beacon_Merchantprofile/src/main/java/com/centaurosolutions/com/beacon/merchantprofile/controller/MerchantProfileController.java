@@ -3,6 +3,7 @@ package com.centaurosolutions.com.beacon.merchantprofile.controller;
 
 import com.centaurosolutions.com.beacon.merchantprofile.model.*;
 import com.centaurosolutions.com.beacon.merchantprofile.repository.MerchantProfileRepository;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,12 +106,19 @@ public class MerchantProfileController
 	public Map<String, Object> getMerchantProfileDetails(@PathVariable("MerchantProfileId") String merchantProfileId)
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
-		  
+		Map<String, Object> merchantProfileMap = new HashMap<String, Object>();
 		try
 		{
 			MerchantProfile merchant = merchantProfileRepository.findOne(merchantProfileId);
 			if(merchant != null)
 			{
+				merchantProfileMap.put("merchantId", merchant.id);
+				merchantProfileMap.put("currency", "CRC");
+				Map<String, Object> resutls = getMerchantExchanges(merchantProfileMap);
+				ArrayList<Department> departments = (ArrayList<Department>) resutls.get("merchantData");
+				if (departments.size()!=0) {
+					merchant.setDepartments(departments);
+				}
 				response.put("message", "Perfil de tienda encontrado");
 				response.put("merchantProfile", merchant);
 				response.put("status", "200");
@@ -223,10 +231,20 @@ public class MerchantProfileController
 	public Map<String, Object> getAllMerchantProfileDetails()
 	{
 		  Map<String, Object> response = new LinkedHashMap<String, Object>();
-		  
+		  Map<String, Object> merchantProfileMap = new HashMap<String, Object>();
 		  try
 		  {
 		      List<MerchantProfile> merchantProfileModelList = merchantProfileRepository.findAll();
+		      for(MerchantProfile merchant: merchantProfileModelList)
+			  {
+		    	    merchantProfileMap.put("merchantId", merchant.id);
+				    merchantProfileMap.put("currency", "CRC");
+					Map<String, Object> resutls = getMerchantExchanges(merchantProfileMap);
+					ArrayList<Department> departments = (ArrayList<Department>) resutls.get("merchantData");
+					if (departments.size()!=0) {
+						merchant.setDepartments(departments);
+					}		    	  
+			  }				
 		      response.put("message", "Total de tiendas: "+ merchantProfileModelList.size());
 		      response.put("merchantProfile", merchantProfileModelList);
 		      response.put("status", "200");
@@ -280,9 +298,6 @@ public class MerchantProfileController
 
 					exchangeList = mapper.convertValue(merchantProfileMap.get("exchangeList"), new TypeReference<ArrayList<Exchange>>() { });
 				}
-
-
-
 				MerchantProfile merchantProfileModel = new MerchantProfile(
 		    			merchantProfileMap.get("country").toString(),
 					    merchantProfileMap.get("city").toString(),
