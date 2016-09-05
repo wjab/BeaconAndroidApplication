@@ -225,7 +225,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         grid.setAdapter(adapter);
     }
 
-    public void service(String productId, String productName, float price, String urlImage, int pointsByPrice) {
+    public void service(String productId, String productName, float price, String urlImage) {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -236,7 +236,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         mapParams.put("productName", productName);
         mapParams.put("price", price);
         mapParams.put("imageUrlList", urlImage);
-        mapParams.put("pointsByPrice", pointsByPrice);
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
@@ -299,7 +298,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setProductName(currRange.getString("productName"));
                     element.setImageUrlList(currRange.getString("imageUrlList"));
                     element.setPrice(currRange.getInt("price"));
-                    element.setPointsByPrice(currRange.getInt("pointsByPrice"));
                     listArrayWish.add(element);
                 }
                 chargeDepartments();
@@ -315,7 +313,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     element.setProductName(currRange.getString("productName"));
                     element.setImageUrlList(currRange.getString("imageUrlList"));
                     element.setPrice(currRange.getInt("price"));
-                    element.setPointsByPrice(currRange.getInt("pointsByPrice"));
                     listArrayWish.add(element);
                 }
                 BackgroundScanActivity.size = listArrayWish.size();
@@ -351,7 +348,6 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                     }
                     element.setImageUrlList(images);
                     element.setPrice(currRange.getInt("price"));
-                    element.setPointsByPrice(currRange.getInt("pointsByPrice"));
                     listArray.add(element);
                     }
                 }

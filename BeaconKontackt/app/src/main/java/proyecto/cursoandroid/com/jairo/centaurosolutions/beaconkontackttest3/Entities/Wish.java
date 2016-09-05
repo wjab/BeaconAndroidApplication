@@ -9,7 +9,6 @@ public class Wish implements Serializable{
     private String productId;
     private String productName;
     private int price;
-    private int pointsByPrice;
     private String imageUrlList;
     private String dateCreation;
 
@@ -52,9 +51,4 @@ public class Wish implements Serializable{
     public void setDateCreation(String dateCreation) {
         this.dateCreation = dateCreation;
     }
-
-    public int getPointsByPrice() {  return pointsByPrice;   }
-
-    public void setPointsByPrice(int pointsByPrice) {  this.pointsByPrice = pointsByPrice;   }
-
 }

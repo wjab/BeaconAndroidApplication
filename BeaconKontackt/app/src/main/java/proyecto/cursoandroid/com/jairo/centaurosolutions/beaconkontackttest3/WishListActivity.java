@@ -186,7 +186,6 @@ public class WishListActivity extends AppCompatActivity implements Response.List
                 element.setProductId(currRange.getString("productId"));
                 element.setProductName(currRange.getString("productName"));
                 element.setImageUrlList(currRange.getString("imageUrlList"));
-                element.setPointsByPrice(currRange.getInt("pointsByPrice"));
                 element.setPrice(currRange.getInt("price"));
                 listArray.add(element);
             }

@@ -3,7 +3,7 @@ Implementation-Title: spring-rest-service-oauth
 Implementation-Version: 0.1.0
 Built-By: Jairo
 Implementation-Vendor-Id: org.springframework
-Build-Jdk: 1.8.0_72
+Build-Jdk: 1.8.0_92
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 

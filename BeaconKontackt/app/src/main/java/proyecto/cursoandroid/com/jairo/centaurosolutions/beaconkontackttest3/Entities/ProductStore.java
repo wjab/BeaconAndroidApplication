@@ -16,8 +16,6 @@ public class ProductStore  implements Serializable {
     private String urlImageShow;
     private boolean allowScan;
     private float pointsByScan;
-    private int pointsByPrice;
-
 
 
     public String getProductId() {
@@ -91,8 +89,4 @@ public class ProductStore  implements Serializable {
     public void setPointsByScan(float pointsByScan) {
         this.pointsByScan = pointsByScan;
     }
-
-    public int getPointsByPrice() { return pointsByPrice; }
-
-    public void setPointsByPrice(int pointsByPrice) { this.pointsByPrice = pointsByPrice; }
 }

@@ -68,7 +68,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
         final ImageView barcodeImage = (ImageView)rowView.findViewById(R.id.imageView4);
         final TextView price = (TextView)rowView.findViewById(R.id.price);
         final TextView pointsByScan = (TextView)rowView.findViewById(R.id.pointsScan);
-        price.setText( String.format(contexto.getString(R.string.colonSymbol), String.valueOf(productList.get(position).getPointsByPrice())) );
+        price.setText( String.format(contexto.getString(R.string.colonSymbol), String.valueOf(productList.get(position).getPrice())) );
         pointsByScan.setText(String.valueOf(productList.get(position).getPointsByScan()));
 
         if(activity == 1) {
@@ -89,7 +89,6 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                     String productName = productList.get(position).getProductName();
                     String url=null;
                     float price = productList.get(position).getPrice();
-                    int pointsByPrice = productList.get(position).getPointsByPrice();
                     ArrayList<String> imagesArray= new ArrayList<String>();
                     imagesArray=productList.get(position).getImageUrlList();
                     int len = imagesArray.size();
@@ -98,7 +97,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                             url =imagesArray.get(l);
                         }
                     }
-                    productDepartmentActivity.service(productId, productName, price,url, pointsByPrice);
+                    productDepartmentActivity.service(productId, productName, price,url);
 
                 }});
 
@@ -124,7 +123,6 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                     String productName = productList.get(position).getProductName();
                     String url=null;
                     float price = productList.get(position).getPrice();
-                    int  pointsByPrice = productList.get(position).getPointsByPrice();
                     ArrayList<String> imagesArray= new ArrayList<String>();
                     imagesArray=productList.get(position).getImageUrlList();
                     int len = imagesArray.size();
@@ -134,7 +132,7 @@ public class CustomAdapterProductDepartment extends ArrayAdapter<ProductStore> {
                         }
                     }
 
-                    productCategoryActivity.service(productId, productName, price, url, pointsByPrice);
+                    productCategoryActivity.service(productId, productName, price, url);
                 }});
 
             // Metodo de escaneo
