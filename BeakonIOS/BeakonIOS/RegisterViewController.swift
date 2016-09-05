@@ -7,29 +7,106 @@
 //
 
 import UIKit
-
+import Alamofire
+import SwiftyJSON
+import JLToast
 class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var phoneTF: UITextField!
+    @IBOutlet weak var lastnameTF: UITextField!
+    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var registerBtn: UIButton!
+    let utils = UtilsC()
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerBtn.addTarget(self, action: #selector(RegisterViewController.loginService), forControlEvents: .TouchUpInside)
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func loginService()
+    {
+        //Endpoint
+        let url : String = "http://buserdevel.cfapps.io/user/"
+        //Obtiene el texto de los textView para realizar el request
+        let emailT : String = self.emailTF.text!
+        print(emailT)
+        //self.emailTF.selectedTextRange = self.emailTF.textRangeFromPosition(self.emailTF.beginningOfDocument, toPosition: self.emailTF.beginningOfDocument)
+        let nameT : String = self.nameTF.text!
+        let phoneT : String = self.phoneTF.text!
+        let lastnameT : String = self.lastnameTF.text!
+        let passwordT : String = self.passwordTF.text!
+        let preferenceList = Array<Preference>();
+        if(emailT != "" && nameT != "" && phoneT != "" && lastnameT != "" && passwordT != "")
+        {
+        if utils.isValidEmail(emailT){
+            print("Validate EmailID")
+            //parametros a enviar por body en el request
+            let newTodo = ["user": emailT,
+                           "password": passwordT,
+                           "enable": true,
+                           "categoryId":"0",
+                           "totalGiftPoints":"0",
+                           "name": nameT,
+                           "lastName": lastnameT,
+                           "phone": phoneT,
+                           "creationDate": utils.convertLongToDate(),
+                           "modifiedDate": utils.convertLongToDate(),
+                           "email": emailT,
+                           "socialNetworkId":"",
+                           "socialNetworkType" : "localuser",
+                           "socialNetworkJson": "",
+                           "gender":  "",
+                           "pathImage":"",
+                           "preference": preferenceList]
+            
+            //Crea el request
+            Alamofire.request(.POST, url, parameters: newTodo as? [String : AnyObject], encoding: .JSON)
+                .responseJSON
+                {
+                    response in switch response.result
+                    {
+                    //Si la respuesta es satisfactoria
+                    case .Success(let JSON):
+                        let response = JSON as! NSDictionary
+                        var user = JSON as! NSDictionary
+                        //Si la respuesta no tiene status 404
+                        if((response)["status"] as! Int != 404)
+                        {
+                            //Obtiene solo el objeto user de la respuesta
+                            user = response.objectForKey("user")! as! NSDictionary
+                            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Login")
+                            self.showDetailViewController(vc as! LoginViewController, sender: self)
+                            
+                        }
+                        else
+                        {
+                            print("El usuario no se ha registrado correctamente")
+                            JLToast.makeText("El usuario no se ha registrado correctamente").show()
+                        }
+                    case .Failure(let error):
+                        print("Hubo un error realizando la peticion: \(error)")
+                        JLToast.makeText("Hubo un error realizando la petición").show()
+                    }
+            }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        }
+       else{
+            print("Email invalido")
+            JLToast.makeText("Email invalido").show()
+        }
+        }
+        else
+        {
+             JLToast.makeText("Favor ingresar todos los datos").show()
+        }
     }
-    */
+
 
 }

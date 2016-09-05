@@ -7,43 +7,37 @@
 //
 
 import UIKit
+import Haneke
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(index : Int32)
 }
 
 class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    /**
-     *  Array to display menu options
-     */
+
     @IBOutlet var tblMenuOptions : UITableView!
-    
-    /**
-     *  Transparent button to hide menu
-     */
     @IBOutlet var btnCloseMenuOverlay : UIButton!
-    
-    /**
-     *  Array containing menu options
-     */
     var arrayMenuOptions = [Dictionary<String,String>]()
-    
-    /**
-     *  Menu button which was tapped to display the menu
-     */
     var btnMenu: UIButton!
-    
-    /**
-     *  Delegate of the MenuVC
-     */
     var delegate : SlideMenuDelegate?
-    
+    var positionLogOut = 0
+    @IBOutlet weak var pointsLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var imageProfile: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         tblMenuOptions.tableFooterView = UIView()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let username = defaults.objectForKey("username") as? String
+        let image = defaults.objectForKey("image") as? String
+        let points = defaults.objectForKey("points") as! Int
+        let url = NSURL(string: image!)!
+        imageProfile?.hnk_setImageFromURL(url, format: Format<UIImage>(name: "original"))
+        //imageByRoundingCornersOfImage(image)
+        
+        usernameLabel?.text = username
+        pointsLabel?.text = String(points)
         // Do any additional setup after loading the view.
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,6 +66,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         btnMenu.tag = 0
         
         if (self.delegate != nil) {
+            
             var index = Int32(button.tag)
             if(button == self.btnCloseMenuOverlay){
                 index = -1
@@ -99,6 +94,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         cell.imageView!.image = UIImage(named: arrayMenuOptions[indexPath.row]["icon"]!)
         cell.textLabel!.text = arrayMenuOptions[indexPath.row]["title"]!
+        cell.textLabel!.font = UIFont.systemFontOfSize(10.0)
       
         return cell
     }
@@ -108,13 +104,27 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let btn = UIButton(type: UIButtonType.Custom)
         btn.tag = indexPath.row
         self.onCloseMenuClick(btn)
+       
+        if(indexPath.row == positionLogOut-1)
+        {
+            let appDomain = NSBundle.mainBundle().bundleIdentifier!
+            NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject("", forKey: "username")
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
+            self.showDetailViewController(vc as! ViewController, sender: self)
+            
+        }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.positionLogOut = arrayMenuOptions.count
         return arrayMenuOptions.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
+    
 }

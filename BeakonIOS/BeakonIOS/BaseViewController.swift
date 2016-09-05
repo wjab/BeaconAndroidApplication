@@ -25,7 +25,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         let topViewController : UIViewController = self.navigationController!.topViewController!
         switch(index){
         case 0:
-            self.openViewControllerBasedOnIdentifier("HomeVC")
+            self.openViewControllerBasedOnIdentifier("HomeTabViewController")
             break
         case 1:
             self.openViewControllerBasedOnIdentifier("ProfileViewController")
