@@ -60,7 +60,7 @@ public class CustomAdapterWish extends ArrayAdapter<Wish> {
         imageRequest.imageRequest(list.get(position).getImageUrlList(), image, 0, 0);
         id.setText(list.get(position).getProductId());
         name.setText(list.get(position).getProductName() + "");
-        price.setText(list.get(position).getPrice() + "");
+        price.setText(list.get(position).getPointsByPrice() + "");
         imageUrl.setText(list.get(position).getImageUrlList());
         final ImageView delete = (ImageView) rowView.findViewById(R.id.deleteWish);
 

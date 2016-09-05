@@ -134,6 +134,7 @@ public class ShopFragment extends Fragment implements Response.Listener<JSONObje
                         produtctElement.setPrice(currProduct.getLong("price"));
                         produtctElement.setProductId(currProduct.getString("productId"));
                         produtctElement.setProductName(currProduct.getString("productName"));
+                        produtctElement.setPointsByPrice(currProduct.getInt("pointsByPrice"));
                         produtctElement.setDetails(currProduct.getString("details"));
                         produtctElement.setPointsByScan(currProduct.getInt("pointsByScan"));
                         produtctElement.setAllowScan(currProduct.getBoolean("allowScan"));

@@ -61,9 +61,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         /* Obtiene de las preferencias compartidas, la cantidad de los puntos*/
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
         mpoints = String.valueOf(preferences.getInt("points", 0));
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
         idUser = preferences.getString("userId", "");
@@ -97,7 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         addImage.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_add));
         pointsAction.setText(userAcumulatedPoints.toString());
         name.setText(product.getProductName());
-        price.setText(String.format(getString(R.string.colonSymbol), Float.toString(product.getPrice())));
+        price.setText(String.format(Integer.toString(product.getPointsByPrice())));
         details.setText(product.getDetails());
         images = product.getImageUrlList();
         idProduct = product.getProductId();
@@ -178,6 +176,7 @@ public class ProductDetailActivity extends AppCompatActivity implements Response
         mapParams.put("productId", product.getProductId());
         mapParams.put("productName", product.getProductName());
         mapParams.put("price", product.getPrice());
+        mapParams.put("pointsByPrice", product.getPointsByPrice());
         mapParams.put("imageUrlList", urlImage);
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");

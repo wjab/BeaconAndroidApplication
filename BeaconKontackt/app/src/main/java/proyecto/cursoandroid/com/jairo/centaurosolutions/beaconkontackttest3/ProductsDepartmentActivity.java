@@ -210,7 +210,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         grid.setAdapter(adapter);
     }
 
-    public void service(String productId, String productName, float price,String urlImage)
+    public void service(String productId, String productName, float price,String urlImage, int pointsByPrice)
     {
         serviceController = new ServiceController();
         responseError = this;
@@ -222,6 +222,7 @@ public class ProductsDepartmentActivity extends AppCompatActivity implements Res
         mapParams.put("productName", productName);
         mapParams.put("price", price);
         mapParams.put("imageUrlList", urlImage);
+        mapParams.put("pointsByPrice", pointsByPrice);
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
