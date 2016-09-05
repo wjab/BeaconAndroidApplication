@@ -364,7 +364,7 @@ public class MerchantProfileController
 	{
 		Map<String, Object> response = new LinkedHashMap<String, Object>();
 		ArrayList<ExtendedProduct> extendedProductList = new ArrayList<>();
-		
+		Map<String, Object> merchantProfileMap = new HashMap<String, Object>();
 		try
 		{
 			// Obtener todas las tiendas que tengan cada departamento
@@ -372,6 +372,13 @@ public class MerchantProfileController
 			
 			for (MerchantProfile merchantProfile : merchantProfileModelList) 
 			{
+				merchantProfileMap.put("merchantId", merchantProfile.id);
+				merchantProfileMap.put("currency", "CRC");
+				Map<String, Object> resutls = getMerchantExchanges(merchantProfileMap);
+				ArrayList<Department> departments = (ArrayList<Department>) resutls.get("merchantData");
+				if (departments.size()!=0) {
+					merchantProfile.setDepartments(departments);
+				}				
 				for (Department departmentItem : merchantProfile.departments) 
 				{
 					for (Product productItem : departmentItem.getProducts()) 
@@ -387,6 +394,7 @@ public class MerchantProfileController
 						extendedProduct.setDetails(productItem.getDetails());
 						extendedProduct.setImageUrlList(productItem.getImageUrlList());
 						extendedProduct.setPrice(productItem.getPrice());
+						extendedProduct.setPointsByPrice(productItem.getPointsByPrice());
 						
 						extendedProductList.add(extendedProduct);
 					}
