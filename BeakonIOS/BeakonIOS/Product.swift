@@ -2,7 +2,7 @@
 //  Product.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/31/16.
+//  Created by Alejandra on 8/31/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -11,8 +11,42 @@ import UIKit
 class Product: NSObject {
     var productName = ""
     var productId = ""
-    var price = 123
+    var price = 0
     var imageUrlList = Array<String>()
+    var details = ""
+    var code = ""
+    var allowScan = ""
+    var pointsByScan = 0
+    var pointsByPrice = 0
+    
+    var detailsPropeties: (String) {
+        get {
+            return (details)
+        }
+        
+        set(newVal) {
+            details = newVal
+        }
+    }
+    
+    var codePropeties: (String) {
+        get {
+            return (code)
+        }
+        
+        set(newVal) {
+            code = newVal
+        }
+    }
+    
+    var allowScanPropeties: (String) {
+        get {
+            return (allowScan)
+        }
+        set(newVal) {
+            allowScan = newVal
+        }
+    }
     
     var productNamePropeties: (String) {
         get {
@@ -43,7 +77,24 @@ class Product: NSObject {
             price = newVal
         }
     }
-  
+    var pointsByScanPropeties: (Int) {
+        get {
+            return (pointsByScan)
+        }
+        
+        set(newVal) {
+            pointsByScan = newVal
+        }
+    }
+    var pointsByPricePropeties: (Int) {
+        get {
+            return (pointsByPrice)
+        }
+        
+        set(newVal) {
+            pointsByPrice = newVal
+        }
+    }
     var imageUrlListPropeties: (Array<String>) {
         get {
             return (imageUrlList)

@@ -2,7 +2,7 @@
 //  PromoViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/29/16.
+//  Created by Alejandra on 8/29/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -19,7 +19,6 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         service()
-        self.table.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         table.delegate = self
         table.dataSource = self
         
@@ -72,19 +71,11 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as UITableViewCell!
+        let cell:PromoCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! PromoCell!
         let promoObject = self.promoArray[indexPath.row]
-        cell.textLabel?.text = String(promoObject.titlePropeties)
-        cell.textLabel!.font = UIFont.systemFontOfSize(10.0)
-        let url = NSURL(string: String(promoObject.imagesPropeties))!
-        
-        let imageView = UIImageView(frame: CGRectMake(0, 0, 310, 120))
-        let image = UIImage(imageView.hnk_setImageFromURL(url, format: Format<UIImage>(name: "original")))
-        imageView.image = image
-        cell.backgroundView = UIView()
-        cell.backgroundView!.addSubview(imageView)
-        
-        //cell.imageView?.hnk_setImageFromURL(url, format: Format<UIImage>(name: "original"))
+        let name = promoObject.descriptionPromoPropeties
+        let urlImage = promoObject.imagesPropeties
+         cell.configure(name,urlImagePromo: urlImage)
         return cell
     }
     

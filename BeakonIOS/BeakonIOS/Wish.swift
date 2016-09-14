@@ -2,7 +2,7 @@
 //  Wish.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/24/16.
+//  Created by Alejandra on 8/24/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ class Wish: NSObject {
     var productName = "Blusa de seda para Señora"
     var price = 8500
     var imageUrlList = "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg"
-    
+    var isAdded = false
     var productIdPropeties: (String) {
         get {
             return (productId)
@@ -23,7 +23,15 @@ class Wish: NSObject {
             productId = newVal
         }
     }
-    
+    var isAddedPropeties: (Bool) {
+        get {
+            return (isAdded)
+        }
+        
+        set(newVal) {
+            isAdded = newVal
+        }
+    }
     var productNamePropeties: (String) {
         get {
             return (productName)

@@ -2,7 +2,7 @@
 //  User.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/24/16.
+//  Created by Alejandra on 8/24/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -20,7 +20,7 @@ class User: NSObject {
     var email = "algo@gmail.com"
     var pathImage = "htttp"
     var preference = []
-    var productWishList = []
+    var productWishList = Array <Wish>()
     var gender = "women"
     var socialNetworkId = "123143"
     var socialNetworkJson = "{}"
@@ -127,7 +127,7 @@ class User: NSObject {
     
     var productWishListPropeties: (Array<Wish>) {
         get {
-            return (productWishList) as! (Array<Wish>)
+            return (productWishList) 
         }
         
         set(newVal) {

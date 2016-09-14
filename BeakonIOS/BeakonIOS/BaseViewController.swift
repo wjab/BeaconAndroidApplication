@@ -2,7 +2,7 @@
 //  ContainerViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/25/16.
+//  Created by Alejandra on 8/25/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 

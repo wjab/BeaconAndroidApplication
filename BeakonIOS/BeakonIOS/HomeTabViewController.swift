@@ -2,7 +2,7 @@
 //  HomeTabViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/26/16.
+//  Created by Alejandra on 8/26/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -10,17 +10,29 @@ import UIKit
 
 class HomeTabViewController: UITabBarController {
 
+    @IBOutlet weak var openNavigation: UIBarButtonItem!
+    @IBOutlet weak var tabBarHome: UITabBar!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
+        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-30, tabBarHome.frame.size.width, tabBarHome.frame.size.height-30)
         //addSlideMenuButton()
-        // Do any additional setup after loading the view.
+        let btn1 = UIButton()
+        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
+        self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
     }
+    func openWishList(){
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("WishViewController")
+        self.showDetailViewController(vc as! WishViewController, sender: self)
 
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+   
     func addSlideMenuButton(){
         let btnShowMenu = UIButton(type: UIButtonType.System)
         btnShowMenu.setImage(self.defaultMenuImage(), forState: UIControlState.Normal)
@@ -29,6 +41,7 @@ class HomeTabViewController: UITabBarController {
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
     }
+    
     func defaultMenuImage() -> UIImage {
         var defaultMenuImage = UIImage()
         
@@ -50,14 +63,5 @@ class HomeTabViewController: UITabBarController {
         
         return defaultMenuImage;
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+   
 }

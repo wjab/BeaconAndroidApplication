@@ -2,7 +2,7 @@
 //  HomeVC.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/25/16.
+//  Created by Alejandra on 8/25/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -13,9 +13,7 @@ class HomeVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
-        // Do any additional setup after loading the view.
-    }
-    
+     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

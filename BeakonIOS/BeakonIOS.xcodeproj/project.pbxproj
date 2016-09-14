@@ -47,19 +47,27 @@
 		9DC578741D773DA000DF4860 /* GiftPointsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC578731D773DA000DF4860 /* GiftPointsType.swift */; };
 		9DC658AE1D7DDAB30029DC3F /* DetailGiftPointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC658AD1D7DDAB30029DC3F /* DetailGiftPointsViewController.swift */; };
 		9DC658B21D7DDAFE0029DC3F /* DetailChangePointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC658B11D7DDAFE0029DC3F /* DetailChangePointsViewController.swift */; };
-		9DC6596A1D7E293A0029DC3F /* SwiftyJSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DC659511D7E28FF0029DC3F /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596B1D7E29470029DC3F /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DC659391D7E28F60029DC3F /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DC659241D7E28E60029DC3F /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DC6591A1D7E28DE0029DC3F /* SlideMenuControllerSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596E1D7E295C0029DC3F /* JLToast.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DC6590A1D7E28CC0029DC3F /* JLToast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596F1D7E29630029DC3F /* Haneke.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DC658FE1D7E28C20029DC3F /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC659711D7E2A0E0029DC3F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659701D7E2A0D0029DC3F /* FBSDKCoreKit.framework */; };
-		9DC659731D7E2A180029DC3F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659721D7E2A170029DC3F /* FBSDKLoginKit.framework */; };
+		9DC6596A1D7E293A0029DC3F /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659511D7E28FF0029DC3F /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DC6596B1D7E29470029DC3F /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659391D7E28F60029DC3F /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659241D7E28E60029DC3F /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC6591A1D7E28DE0029DC3F /* SlideMenuControllerSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DC6596E1D7E295C0029DC3F /* JLToast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC6590A1D7E28CC0029DC3F /* JLToast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DC6596F1D7E29630029DC3F /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC658FE1D7E28C20029DC3F /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DC87AAC1D7F3BFD00BFECF1 /* FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC87AAB1D7F3BFD00BFECF1 /* FAQ.swift */; };
 		9DCB51A81D74AEDA0056774C /* UtilsC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51A71D74AEDA0056774C /* UtilsC.swift */; };
 		9DCB51AA1D74E0DD0056774C /* PromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51A91D74E0DD0056774C /* PromoViewController.swift */; };
 		9DCB51AC1D74E0EA0056774C /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51AB1D74E0EA0056774C /* ShopViewController.swift */; };
 		9DCB51AE1D74E0F80056774C /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51AD1D74E0F80056774C /* ProductViewController.swift */; };
+		9DCB523F1D831CED00D36FE6 /* DetailCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB523E1D831CED00D36FE6 /* DetailCategoryViewController.swift */; };
+		9DCB52411D831E3100D36FE6 /* DetailProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB52401D831E3100D36FE6 /* DetailProductCell.swift */; };
+		9DCB52431D8356CB00D36FE6 /* DetailProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB52421D8356CB00D36FE6 /* DetailProductViewController.swift */; };
 		9DD4B7551D78DAEA00C32DC7 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4B7541D78DAEA00C32DC7 /* Notification.swift */; };
+		9DDD889C1D80658F00EB6698 /* ShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD889B1D80658F00EB6698 /* ShopCell.swift */; };
+		9DDD88B71D806F2A00EB6698 /* PromoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD88B61D806F2A00EB6698 /* PromoCell.swift */; };
+		9DDD88B91D8071A200EB6698 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD88B81D8071A200EB6698 /* ProductCell.swift */; };
+		9DE4A1721D87171700C3AD6E /* WishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4A1711D87171700C3AD6E /* WishCell.swift */; };
+		9DF115FB1D8207C400EBB7D6 /* FBSDKLoginKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF115F91D8207C300EBB7D6 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DF115FC1D8207C400EBB7D6 /* FBSDKCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF115FA1D8207C300EBB7D6 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,19 +319,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9D2CA0891D6CBF4E00F8997E /* CopyFiles */ = {
+		9D2CA0891D6CBF4E00F8997E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9DC6596F1D7E29630029DC3F /* Haneke.framework in CopyFiles */,
-				9DC6596E1D7E295C0029DC3F /* JLToast.framework in CopyFiles */,
-				9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in CopyFiles */,
-				9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in CopyFiles */,
-				9DC6596B1D7E29470029DC3F /* Alamofire.framework in CopyFiles */,
-				9DC6596A1D7E293A0029DC3F /* SwiftyJSON.framework in CopyFiles */,
+				9DF115FB1D8207C400EBB7D6 /* FBSDKLoginKit.framework in Embed Frameworks */,
+				9DF115FC1D8207C400EBB7D6 /* FBSDKCoreKit.framework in Embed Frameworks */,
+				9DC6596F1D7E29630029DC3F /* Haneke.framework in Embed Frameworks */,
+				9DC6596E1D7E295C0029DC3F /* JLToast.framework in Embed Frameworks */,
+				9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in Embed Frameworks */,
+				9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in Embed Frameworks */,
+				9DC6596B1D7E29470029DC3F /* Alamofire.framework in Embed Frameworks */,
+				9DC6596A1D7E293A0029DC3F /* SwiftyJSON.framework in Embed Frameworks */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -378,13 +389,22 @@
 		9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		9DC6592D1D7E28F60029DC3F /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		9DC659461D7E28FE0029DC3F /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
-		9DC659701D7E2A0D0029DC3F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-4.15.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
-		9DC659721D7E2A170029DC3F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-4.15.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		9DC87AAB1D7F3BFD00BFECF1 /* FAQ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQ.swift; sourceTree = "<group>"; };
 		9DCB51A71D74AEDA0056774C /* UtilsC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsC.swift; sourceTree = "<group>"; };
 		9DCB51A91D74E0DD0056774C /* PromoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoViewController.swift; sourceTree = "<group>"; };
 		9DCB51AB1D74E0EA0056774C /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		9DCB51AD1D74E0F80056774C /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		9DCB523E1D831CED00D36FE6 /* DetailCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCategoryViewController.swift; sourceTree = "<group>"; };
+		9DCB52401D831E3100D36FE6 /* DetailProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProductCell.swift; sourceTree = "<group>"; };
+		9DCB52421D8356CB00D36FE6 /* DetailProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProductViewController.swift; sourceTree = "<group>"; };
 		9DD4B7541D78DAEA00C32DC7 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		9DDD889B1D80658F00EB6698 /* ShopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopCell.swift; sourceTree = "<group>"; };
+		9DDD88B61D806F2A00EB6698 /* PromoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCell.swift; sourceTree = "<group>"; };
+		9DDD88B81D8071A200EB6698 /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		9DE4A1711D87171700C3AD6E /* WishCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishCell.swift; sourceTree = "<group>"; };
+		9DF115BA1D81FACF00EBB7D6 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		9DF115F91D8207C300EBB7D6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-4.15.0 (1)/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		9DF115FA1D8207C300EBB7D6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-4.15.0 (1)/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,8 +412,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DC659731D7E2A180029DC3F /* FBSDKLoginKit.framework in Frameworks */,
-				9DC659711D7E2A0E0029DC3F /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +432,7 @@
 				9DC578731D773DA000DF4860 /* GiftPointsType.swift */,
 				9DD4B7541D78DAEA00C32DC7 /* Notification.swift */,
 				9DA88D1C1D79E9FC000C53A3 /* Category.swift */,
+				9DC87AAB1D7F3BFD00BFECF1 /* FAQ.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -421,8 +440,9 @@
 		9D2CA0501D6CBD2F00F8997E = {
 			isa = PBXGroup;
 			children = (
-				9DC659721D7E2A170029DC3F /* FBSDKLoginKit.framework */,
-				9DC659701D7E2A0D0029DC3F /* FBSDKCoreKit.framework */,
+				9DF115F91D8207C300EBB7D6 /* FBSDKLoginKit.framework */,
+				9DF115FA1D8207C300EBB7D6 /* FBSDKCoreKit.framework */,
+				9DF115BA1D81FACF00EBB7D6 /* Bridging-Header.h */,
 				9DC659461D7E28FE0029DC3F /* SwiftyJSON.xcodeproj */,
 				9DC6592D1D7E28F60029DC3F /* Alamofire.xcodeproj */,
 				9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */,
@@ -490,6 +510,7 @@
 				9DB9FA901D6F96C600E24891 /* HomeVC.swift */,
 				9DB9FA631D6F48C600E24891 /* ProfileViewController.swift */,
 				9DB9FA6F1D6F551B00E24891 /* WishViewController.swift */,
+				9DE4A1711D87171700C3AD6E /* WishCell.swift */,
 			);
 			name = ViewControllerNavigation;
 			sourceTree = "<group>";
@@ -588,6 +609,7 @@
 		9DC658BE1D7DDCB40029DC3F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9DDD88B51D806F0500EB6698 /* Cells */,
 				9DC658C11D7DDCCE0029DC3F /* Details */,
 				9DC658C01D7DDCC70029DC3F /* Tabs */,
 				9DC658BF1D7DDCBF0029DC3F /* Controller */,
@@ -618,6 +640,8 @@
 			children = (
 				9DAADE151D7630DD00D9ADE1 /* DetailPromoViewController.swift */,
 				9DA88CFD1D79D8B5000C53A3 /* DetailShopViewController.swift */,
+				9DCB523E1D831CED00D36FE6 /* DetailCategoryViewController.swift */,
+				9DCB52421D8356CB00D36FE6 /* DetailProductViewController.swift */,
 			);
 			name = Details;
 			sourceTree = "<group>";
@@ -701,6 +725,17 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		9DDD88B51D806F0500EB6698 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9DDD889B1D80658F00EB6698 /* ShopCell.swift */,
+				9DDD88B61D806F2A00EB6698 /* PromoCell.swift */,
+				9DDD88B81D8071A200EB6698 /* ProductCell.swift */,
+				9DCB52401D831E3100D36FE6 /* DetailProductCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -711,7 +746,7 @@
 				9D2CA0551D6CBD2F00F8997E /* Sources */,
 				9D2CA0561D6CBD2F00F8997E /* Frameworks */,
 				9D2CA0571D6CBD2F00F8997E /* Resources */,
-				9D2CA0891D6CBF4E00F8997E /* CopyFiles */,
+				9D2CA0891D6CBF4E00F8997E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1023,7 +1058,9 @@
 				9DC5786E1D7739DB00DF4860 /* Department.swift in Sources */,
 				9D926E401D70E50C0040FDF8 /* NotificationTabViewController.swift in Sources */,
 				9D926E471D70EF550040FDF8 /* PointsTabOneViewController.swift in Sources */,
+				9DCB52411D831E3100D36FE6 /* DetailProductCell.swift in Sources */,
 				9DC5786C1D7739CD00DF4860 /* Product.swift in Sources */,
+				9DDD889C1D80658F00EB6698 /* ShopCell.swift in Sources */,
 				9D2CA05F1D6CBD2F00F8997E /* ViewController.swift in Sources */,
 				9D926E391D70E3FE0040FDF8 /* FAQTabViewController.swift in Sources */,
 				9D926E451D70EF3D0040FDF8 /* NotificationTabTwoViewController.swift in Sources */,
@@ -1036,13 +1073,16 @@
 				9DC578741D773DA000DF4860 /* GiftPointsType.swift in Sources */,
 				9DA88D211D79F376000C53A3 /* FAQTabFourViewController.swift in Sources */,
 				9D926E511D70FC780040FDF8 /* Preference.swift in Sources */,
+				9DDD88B71D806F2A00EB6698 /* PromoCell.swift in Sources */,
 				9DA88D1F1D79F364000C53A3 /* FAQTabThreeViewController.swift in Sources */,
 				9DC578721D773A0200DF4860 /* History.swift in Sources */,
+				9DC87AAC1D7F3BFD00BFECF1 /* FAQ.swift in Sources */,
 				9DC578701D7739E900DF4860 /* Shop.swift in Sources */,
 				9DD4B7551D78DAEA00C32DC7 /* Notification.swift in Sources */,
 				9D2CA05D1D6CBD2F00F8997E /* AppDelegate.swift in Sources */,
 				9D926E3E1D70E4EF0040FDF8 /* PointsTabViewController.swift in Sources */,
 				9DCB51AE1D74E0F80056774C /* ProductViewController.swift in Sources */,
+				9DCB52431D8356CB00D36FE6 /* DetailProductViewController.swift in Sources */,
 				9D926E3C1D70E4D60040FDF8 /* HomeTabViewController.swift in Sources */,
 				9DCB51AC1D74E0EA0056774C /* ShopViewController.swift in Sources */,
 				9DB9FA911D6F96C600E24891 /* HomeVC.swift in Sources */,
@@ -1057,6 +1097,9 @@
 				9DCB51AA1D74E0DD0056774C /* PromoViewController.swift in Sources */,
 				9DA88D1D1D79E9FC000C53A3 /* Category.swift in Sources */,
 				9DAADDE41D75EE1D00D9ADE1 /* Promo.swift in Sources */,
+				9DDD88B91D8071A200EB6698 /* ProductCell.swift in Sources */,
+				9DE4A1721D87171700C3AD6E /* WishCell.swift in Sources */,
+				9DCB523F1D831CED00D36FE6 /* DetailCategoryViewController.swift in Sources */,
 				9D926E311D70CD8C0040FDF8 /* NavigationViewController.swift in Sources */,
 				9D926E491D70EF650040FDF8 /* PointsTabTwoViewController.swift in Sources */,
 			);
@@ -1203,35 +1246,71 @@
 		9D2CA06C1D6CBD2F00F8997E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BeakonIOS/BeakonIOS.entitlements;
+				COPY_HEADERS_RUN_UNIFDEF = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
 				);
 				INFOPLIST_FILE = BeakonIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				New_Setting = "";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = centaurosolutions.com.BeakonIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
 		9D2CA06D1D6CBD2F00F8997E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BeakonIOS/BeakonIOS.entitlements;
+				COPY_HEADERS_RUN_UNIFDEF = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.15.0",
+					"(1)",
 				);
 				INFOPLIST_FILE = BeakonIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				New_Setting = "";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = centaurosolutions.com.BeakonIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

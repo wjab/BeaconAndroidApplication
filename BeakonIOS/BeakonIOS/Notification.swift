@@ -2,7 +2,7 @@
 //  Notification.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 9/1/16.
+//  Created by Alejandra on 9/1/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 

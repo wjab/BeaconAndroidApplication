@@ -2,7 +2,7 @@
 //  ShopViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/29/16.
+//  Created by Alejandra on 8/29/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -20,7 +20,6 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         service()
-        self.table.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         table.delegate = self
         table.dataSource = self
         
@@ -112,18 +111,14 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-         let cell:UITableViewCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as UITableViewCell!
+         let cell:ShopCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! ShopCell!
         print(shopArray.count, "indexx" , indexPath.row)
         let shopObject = self.shopArray[indexPath.row]
-        cell.textLabel?.text = String(shopObject.merchantNamePropeties)
-        cell.textLabel!.font = UIFont.systemFontOfSize(10.0)
-        let url = NSURL(string: String(shopObject.imagePropeties))!
-        
-        cell.imageView?.hnk_setImageFromURL(url, format: Format<UIImage>(name: "original"))
-        cell.imageView?.frame = CGRectMake(0 , 0, 50, 50)
-
-        print(shopObject.totalGiftPointsPropeties.billPropeties)
-       
+        let scan = shopObject.totalGiftPointsPropeties.scanPropeties
+        let walkin = shopObject.totalGiftPointsPropeties.walkinPropeties
+        let purchase = shopObject.totalGiftPointsPropeties.purchasePropeties
+        let urlImage = shopObject.imagePropeties
+        cell.configure(purchase,walkin: walkin,scan: scan, urlImageShop: urlImage)
         return cell
     }
     

@@ -2,7 +2,7 @@
 //  LoginViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 8/23/16.
+//  Created by Alejandra on 8/23/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CryptoSwift
 import JLToast
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
@@ -20,7 +20,20 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         loginBtn.addTarget(self, action: #selector(LoginViewController.loginService), forControlEvents: .TouchUpInside)
     }
-
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        self.view.endEditing(true)
+        
+        return true
+        
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        usernameText.resignFirstResponder()
+        passwordText.resignFirstResponder()
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,6 +65,7 @@ class LoginViewController: UIViewController {
                             //Si la respuesta no tiene status 404
                             if((response)["status"] as! Int != 404)
                             {
+                                print((response)["status"])
                                 //Obtiene solo el objeto user de la respuesta
                                 user = response.objectForKey("user")! as! NSDictionary
                                 //obtiene la contraseña
@@ -61,11 +75,12 @@ class LoginViewController: UIViewController {
                                 {
                                     if((user)["enable"] as! Bool == true)
                                     {
-                                        //Open background
                                         print("Ingresando")
+                                                                              
                                         let appDomain = NSBundle.mainBundle().bundleIdentifier!
                                         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
                                         let defaults = NSUserDefaults.standardUserDefaults()
+                           
                                         defaults.setObject((user)["user"] as! String, forKey: "username")
                                         defaults.setObject((user)["id"] as! String, forKey: "userId")
                                         defaults.setObject((user)["enable"] as! Bool, forKey: "enable")
