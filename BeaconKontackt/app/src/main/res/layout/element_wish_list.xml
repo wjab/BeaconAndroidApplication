@@ -16,6 +16,20 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="72dp" />
+    <TextView
+        android:text="1000"
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/darkBlue"
+        android:gravity="center_vertical|left"
+        android:layout_height="wrap_content"
+        android:id="@+id/points"
+        android:textStyle="bold"
+        android:layout_marginRight="15dp"
+        android:textIsSelectable="false"
+        android:layout_alignTop="@+id/price"
+        android:layout_toEndOf="@+id/idProduct" />
+
 
     <View
         android:layout_width="match_parent"
@@ -53,6 +67,7 @@
         android:visibility="gone"
         android:layout_alignBottom="@+id/price"
         android:layout_toEndOf="@+id/imageViewProduct" />
+
 
     <ImageView
         android:layout_width="27dp"

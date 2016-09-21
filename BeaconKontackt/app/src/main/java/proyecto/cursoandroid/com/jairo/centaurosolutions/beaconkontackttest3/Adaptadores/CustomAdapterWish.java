@@ -53,6 +53,7 @@ public class CustomAdapterWish extends ArrayAdapter<Wish> {
         final TextView name = (TextView) rowView.findViewById(R.id.nameProduct);
         final TextView id = (TextView) rowView.findViewById(R.id.idProduct);
         final TextView price = (TextView) rowView.findViewById(R.id.price);
+        final TextView points = (TextView) rowView.findViewById(R.id.points);
         final ImageView image = (ImageView) rowView.findViewById(R.id.imageViewProduct);
         final TextView imageUrl=(TextView)rowView.findViewById(R.id.urlImage);
         ServiceController imageRequest = new ServiceController();
@@ -60,7 +61,8 @@ public class CustomAdapterWish extends ArrayAdapter<Wish> {
         imageRequest.imageRequest(list.get(position).getImageUrlList(), image, 0, 0);
         id.setText(list.get(position).getProductId());
         name.setText(list.get(position).getProductName() + "");
-        price.setText(list.get(position).getPrice() + "");
+        points.setText( String.format(contexto.getString(R.string.pointsSymbol),list.get(position).getPointsByPrice() ));
+        price.setText( String.format(contexto.getString(R.string.colonSymbol),list.get(position).getPrice() ));
         imageUrl.setText(list.get(position).getImageUrlList());
         final ImageView delete = (ImageView) rowView.findViewById(R.id.deleteWish);
 

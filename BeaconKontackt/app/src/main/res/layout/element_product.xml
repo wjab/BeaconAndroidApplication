@@ -2,7 +2,25 @@
     android:background="@android:color/transparent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#e4e5e9"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="puntos"
+        android:gravity="left"
+        android:id="@+id/points"
+        android:textColorHighlight="#505050"
+        android:textColor="@color/black"
+        android:background="#e4e5e9"
+        android:layout_alignParentTop="true"
+ />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="18dp"
@@ -13,9 +31,9 @@
         android:textColorHighlight="#505050"
         android:textColor="@color/black"
         android:background="#e4e5e9"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp" />
+        android:layout_alignParentTop="true" />
+    </LinearLayout>
+
 
     <ImageView
         android:layout_width="fill_parent"

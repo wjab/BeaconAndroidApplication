@@ -186,6 +186,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
                 element.setProductId(currRange.getString("productId"));
                 element.setProductName(currRange.getString("productName"));
                 element.setImageUrlList(currRange.getString("imageUrlList"));
+                element.setPointsByPrice(currRange.getString("pointsByPrice"));
                 element.setPrice(currRange.getInt("price"));
                 listArray.add(element);
             }
@@ -198,6 +199,7 @@ public class WishListActivity extends AppCompatActivity implements Response.List
             addImage.setText(String.valueOf(BackgroundScanActivity.size));
             adapter = new CustomAdapterWish(context, listArray);
             listView.setAdapter(adapter);
+            listView.setSelection(preLast - 1);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -225,7 +225,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         grid.setAdapter(adapter);
     }
 
-    public void service(String productId, String productName, float price, String urlImage) {
+    public void service(String productId, String productName, float price, String urlImage,int pointsByPrice) {
         serviceController = new ServiceController();
         responseError = this;
         response = this;
@@ -236,6 +236,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
         mapParams.put("productName", productName);
         mapParams.put("price", price);
         mapParams.put("imageUrlList", urlImage);
+        mapParams.put("pointsByPrice", pointsByPrice);
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("Content-Type", "application/json");
@@ -333,6 +334,7 @@ public class ProductCategoryActivity extends AppCompatActivity implements Respon
                         element.setProductId(currRange.getString("productId"));
                         element.setProductName(currRange.getString("productName"));
                         element.setDetails(currRange.getString("details"));
+                        element.setPointsByPrice(currRange.getInt("pointsByPrice"));
                         ArrayList<String> images = new ArrayList<String>();
                         JSONArray imagesArray = currRange.getJSONArray("imageUrlList");
 

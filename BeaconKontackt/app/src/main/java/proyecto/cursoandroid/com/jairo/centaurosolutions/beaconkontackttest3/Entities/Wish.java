@@ -11,6 +11,8 @@ public class Wish implements Serializable{
     private int price;
     private String imageUrlList;
     private String dateCreation;
+    private String pointsByPrice;
+
 
     public String getProductId() {
         return productId;
@@ -19,6 +21,9 @@ public class Wish implements Serializable{
     public void setProductId(String productId) {
         this.productId = productId;
     }
+
+    public String getPointsByPrice() {   return pointsByPrice;    }
+    public void setPointsByPrice(String pointsByPrice) {  this.pointsByPrice = pointsByPrice;  }
 
     public String getProductName() {
         return productName;

@@ -190,6 +190,7 @@
     <string name="textoIntentScan">Código de Barras</string>
     <string name="codigoNoEscaneado">Código no escaneado</string>
     <string name="colonSymbol">₡%s</string>
+    <string name="pointsSymbol">¤%s</string>
     <string name="facebookImage">Para actualizar su foto actualice la de su perfil de facebook</string>
     <string name="selectedPicture">Imagen Seleccionada</string>
     <string name="dontSelectedImage">No ha seleccionado ninguna imagen aún</string>
