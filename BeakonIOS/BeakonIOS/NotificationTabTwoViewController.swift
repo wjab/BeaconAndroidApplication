@@ -45,7 +45,7 @@ class NotificationTabTwoViewController: UIViewController , UITableViewDelegate, 
                     {
                         print(response.objectForKey("status"))
                         let notificationList = response.mutableArrayValueForKey("notificationResult")
-                        for (index, element) in notificationList.enumerate() {
+                        for (_, element) in notificationList.enumerate() {
                             let notificationObject = Notification()
                             
                             notificationObject.idPropeties = element.objectForKey("id") as! String

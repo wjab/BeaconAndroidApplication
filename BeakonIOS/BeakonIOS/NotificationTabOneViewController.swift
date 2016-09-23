@@ -45,6 +45,7 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                         print(response.objectForKey("status"))
                         let notificationList = response.mutableArrayValueForKey("notificationResult")
                         for (index, element) in notificationList.enumerate() {
+                            print(index)
                             let notificationObject = Notification()
                             notificationObject.idPropeties = element.objectForKey("id") as! String
                             notificationObject.messagePropeties = element.objectForKey("message") as! String

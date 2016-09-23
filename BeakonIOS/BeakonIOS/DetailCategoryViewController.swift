@@ -19,6 +19,38 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         service()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        let btn1 = UIButton()
+        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1.addTarget(self, action: #selector(DetailCategoryViewController.openWishList), forControlEvents: .TouchUpInside)
+        self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        //Genera el boton del centro que contiene los puntos del usuario
+        let button =  UIButton(type: .Custom)
+        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
+        button.setTitle(String(points), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(DetailCategoryViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.navigationItem.titleView = button
+        
+    }
+    
+    //Abre el historial de puntos
+    func clickOnButton(button: UIButton) {
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    //Abre la lista de deseos
+    func openWishList(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+
+    
+    func loadList(notification: NSNotification){
+        //load data here
+        self.collection.reloadData()
     }
     func service(){
         //Endpoint
@@ -38,7 +70,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
                     {
                         let productList = response.mutableArrayValueForKey("merchantProfile")
                         for (index, element) in productList.enumerate() {
-                            print(index)
+                            //print(index)
                             let productObject = Product()
                             productObject .detailsPropeties = element.objectForKey("details") as! String
                             //productObject .allowScanPropeties = element.objectForKey("allowScan") as! String

@@ -40,7 +40,7 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                     if((response)["status"] as! Int != 404)
                     {
                         let promoList = response.mutableArrayValueForKey("listPromo")
-                        for (index, element) in promoList.enumerate() {
+                        for (_, element) in promoList.enumerate() {
                             //print(index, ":", element)
                             let promoObject = Promo()
                             promoObject.codePropeties = element.objectForKey("code") as! String

@@ -12,21 +12,46 @@ class HomeTabViewController: UITabBarController {
 
     @IBOutlet weak var openNavigation: UIBarButtonItem!
     @IBOutlet weak var tabBarHome: UITabBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipeRight"))
+        recognizer.direction = .Right
+        self.view .addGestureRecognizer(recognizer)
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        //Cambia el tamaño de los tabs
         let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
         tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-30, tabBarHome.frame.size.width, tabBarHome.frame.size.height-30)
-        //addSlideMenuButton()
-        let btn1 = UIButton()
+        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+       let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        //Genera el boton del centro que contiene los puntos del usuario
+        let button =  UIButton(type: .Custom)
+        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
+        button.setTitle(String(points), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.navigationItem.titleView = button
     }
+    
+    func swipeRight(recognizer : UISwipeGestureRecognizer) {
+        self.performSegueWithIdentifier("MenuTableViewController", sender: self)
+    }
+    
+    //Abre el historial de puntos
+    func clickOnButton(button: UIButton) {
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    //Abre la lista de deseos
     func openWishList(){
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("WishViewController")
-        self.showDetailViewController(vc as! WishViewController, sender: self)
-
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

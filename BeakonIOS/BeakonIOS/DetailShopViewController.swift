@@ -23,7 +23,7 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var imagePurchase: UIImageView!
     private let reuseIdentifier = "departmentCell"
     @IBOutlet weak var collection: UICollectionView!
-
+    var actualyArrayIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         cityTL.text = shop.cityPropeties
@@ -34,35 +34,52 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         imageShop.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         imageShopDetail.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         validationImageToShow()
-        // Do any additional setup after loading the view.
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        let btn1 = UIButton()
+        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1.addTarget(self, action: #selector(DetailShopViewController.openWishList), forControlEvents: .TouchUpInside)
+        self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        //Genera el boton del centro que contiene los puntos del usuario
+        let button =  UIButton(type: .Custom)
+        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
+        button.setTitle(String(points), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(DetailShopViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.navigationItem.titleView = button
+        
+    }
+    
+    //Abre el historial de puntos
+    func clickOnButton(button: UIButton) {
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    //Abre la lista de deseos
+    func openWishList(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
     // MARK: UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        //3
         return 1
     }
     
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        //4
         print(self.shop.departments.count)
         return self.shop.departments.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        //5
         let cell:UICollectionViewCell = self.collection.dequeueReusableCellWithReuseIdentifier(reuseIdentifier,forIndexPath: indexPath) as UICollectionViewCell!
-        
         let departmentObject = self.shop.departments[indexPath.row]
         let imageView = UIImageView(frame: CGRectMake(0, 0, 160, 100))
         let image = NSURL(string: String(departmentObject.departmentUrl)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
@@ -70,17 +87,17 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         imageView.image = image
         cell.backgroundView = UIView()
         cell.backgroundView!.addSubview(imageView)
-        
-        // cell.imageView = NSURL(string: String(departmentObject.departmentUrl)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
-        
         return cell
     }
     
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // handle tap events
+        self.actualyArrayIndex = indexPath.row
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailDepartmentViewController") as! DetailDepartmentViewController
+        secondViewController.department = self.shop.departmentsPropeties[self.actualyArrayIndex]
+        self.navigationController?.pushViewController(secondViewController, animated: true)
         print("You selected cell #\(indexPath.item)!")
     }
+    
     func validationImageToShow()
     {
         let purchase = shop.totalGiftPointsPropeties.purchasePropeties

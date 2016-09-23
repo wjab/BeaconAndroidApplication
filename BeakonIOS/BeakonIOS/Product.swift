@@ -18,6 +18,7 @@ class Product: NSObject {
     var allowScan = ""
     var pointsByScan = 0
     var pointsByPrice = 0
+    var isAdded = false
     
     var detailsPropeties: (String) {
         get {
@@ -105,4 +106,14 @@ class Product: NSObject {
         }
     }
 
+    var isAddedPropeties: (Bool) {
+        get {
+            return (isAdded)
+        }
+        
+        set(newVal) {
+            isAdded = newVal
+        }
+    }
+    
 }

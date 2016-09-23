@@ -9,11 +9,13 @@
 import UIKit
 
 class Wish: NSObject {
-    var productId = "2f520c7b-efd8-4531-84ac-96b93d757635"
-    var productName = "Blusa de seda para Señora"
-    var price = 8500
-    var imageUrlList = "http://www.evga.com/products/images/gallery/02G-P4-2958-KR_MD_1.jpg"
+    var productId = ""
+    var productName = ""
+    var price = 0
+    var imageUrlList = ""
     var isAdded = false
+    var pointsByPrice = 0
+    
     var productIdPropeties: (String) {
         get {
             return (productId)
@@ -62,4 +64,13 @@ class Wish: NSObject {
         }
     }
 
+    var pointsByPricePropeties: (Int) {
+        get {
+            return (pointsByPrice)
+        }
+        
+        set(newVal) {
+            pointsByPrice = newVal
+        }
+    }
 }
