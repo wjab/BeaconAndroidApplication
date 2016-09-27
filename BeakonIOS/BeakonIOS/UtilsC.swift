@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import JLToast
 
 class UtilsC: UIViewController {
     
@@ -27,7 +28,6 @@ class UtilsC: UIViewController {
     var webServicePoints = "http://bpointsdevel.cfapps.io/"
     
     let defaults = NSUserDefaults.standardUserDefaults()
-   static var wishArray: [Wish] = []
     
     func convertLongToDate() -> String{
         let newDate = NSDate()
@@ -36,57 +36,7 @@ class UtilsC: UIViewController {
         return formatter.stringFromDate(newDate)
     }
     
-    func obtainWishListUser(productRecieve:Product){
-        let idUser = (defaults.objectForKey("userId") as? String)!
-        //Endpoint
-        let url : String = "http://buserdevel.cfapps.io/user/id/"+idUser
-        Alamofire.request(.GET, url, encoding: .JSON)
-            .responseJSON
-            {
-                response in switch response.result
-                {
-                //Si la respuesta es satisfactoria
-                case .Success(let JSON):
-                    let response = JSON as! NSDictionary
-                    var user = JSON as! NSDictionary
-                    //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
-                    {
-                        print((response)["status"])
-                        user = response.objectForKey("user")! as! NSDictionary
-                        let productList = user.mutableArrayValueForKey("productWishList")
-                        for (indexP, product) in productList.enumerate()
-                        {
-                            print(indexP, ":", product)
-                            let wishObject = Wish()
-                            wishObject.productIdPropeties = product.objectForKey("productId") as! String
-                            wishObject.productNamePropeties = product.objectForKey("productName") as! String
-                            wishObject.pricePropeties = product.objectForKey("price") as! Int
-                            wishObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! String
-                            wishObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
-                            if(wishObject.productIdPropeties == productRecieve.productIdPropeties){
-                                //Si si es igual se actualiza la propiedad
-                                wishObject.isAddedPropeties = true
-                            }
-
-                           UtilsC.wishArray.append(wishObject)
-                        }
-                        print("-------------------------------- 1 ------------------------------------------")
-                        print(UtilsC.wishArray[0].productName,UtilsC.wishArray[0].isAdded)
-                    }
-                    else
-                    {
-                        print("Hubo un error obteniendo los datos de lista de deseos")
-                    }
-                case .Failure(let error):
-                    print("Hubo un error realizando la peticion: \(error)")
-                }
-                print("------------------------ 2 --------------------------------------------------")
-                print(UtilsC.wishArray[0].productName,UtilsC.wishArray[0].isAdded)
-        }
-      
-    }
-    
+        
     func isValidEmail(testStr:String) -> Bool {
         print("validate emilId: \(testStr)")
         let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
@@ -110,8 +60,6 @@ class UtilsC: UIViewController {
                        "price": price,
                        "imageUrlList":urlImage,
                         "pointsByPrice": 0]
-        
-        print(url)
         Alamofire.request(.POST, url, parameters: newTodo as? [String : AnyObject], encoding: .JSON)
             .responseJSON
             {
@@ -123,7 +71,14 @@ class UtilsC: UIViewController {
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
+                        if((response)["message"] as! String=="Product already added to wishlist"){
+                            JLToast.makeText("Este producto ya se encuentra en la lista de deseos").show()
+                        }
+                        else{
                         print("Genial")
+                        JLToast.makeText("Añadido correctamente").show()
+                        }
+
                     }
                     else
                     {

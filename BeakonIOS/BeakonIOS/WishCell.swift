@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import JLToast
 
 class WishCell: UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
@@ -51,9 +52,13 @@ class WishCell: UITableViewCell {
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
+                      
                         print("Genial")
+                       JLToast.makeText("Eliminado correctamente").show()
                         NSNotificationCenter.defaultCenter().postNotificationName("wish", object: nil)
-                    }
+                        }
+                        
+                    
                     else
                     {
                         print("ERROR")

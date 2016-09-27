@@ -48,6 +48,7 @@ class WishViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
+    
     //Abre la lista de deseos
     func openWishList(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController

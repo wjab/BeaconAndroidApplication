@@ -80,6 +80,7 @@ class ProductViewController: UIViewController , UITableViewDelegate, UITableView
         self.actualyArrayIndex = indexPath.row
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailCategoryViewController") as! DetailCategoryViewController
         secondViewController.categoryName = self.categoryArray[self.actualyArrayIndex].typePropeties
+        secondViewController.image = self.categoryArray[self.actualyArrayIndex].imageUrlPropeties
         self.navigationController?.pushViewController(secondViewController, animated: true)
         
         

@@ -12,16 +12,23 @@ import SwiftyJSON
 
 class DetailCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var product : [Product] = []
+    var image:String = ""
     var actualyArrayIndex = 0
     var categoryName:String = ""
     private let reuseIdentifier = "cellProductCategory"
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var imageCategory: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         service()
+        imageCategory.image = NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)
+        //Carga los datos de user defaults
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
+        //Boton para abir la lista de deseos
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
@@ -70,7 +77,6 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
                     {
                         let productList = response.mutableArrayValueForKey("merchantProfile")
                         for (index, element) in productList.enumerate() {
-                            //print(index)
                             let productObject = Product()
                             productObject .detailsPropeties = element.objectForKey("details") as! String
                             //productObject .allowScanPropeties = element.objectForKey("allowScan") as! String
@@ -83,7 +89,6 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
                             productObject .productNamePropeties = element.objectForKey("productName") as! String
                             self.product.append(productObject )
                         }
-                         print (self.product.count)
                         self.collection.reloadData()
                     }
                     else
@@ -106,23 +111,22 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(self.product.count)
         return self.product.count
     }
     
+    //Carga cada celda
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DetailProductCell
         let productObject = self.product[indexPath.row]
         let image = productObject.imageUrlListPropeties[0]
-        //cell.isAddedImage.addTarget(self, action: #selector(onTap), forControlEvents: .TouchUpInside)
         cell.configure(productObject.productNamePropeties,urlImageProduct: image, product: productObject)
-     
-        return cell
+       return cell
     }
+    
     func send(){
         print(product[self.actualyArrayIndex].productNamePropeties)
     }
-    
+    //Envia los datos al segundo ViewController
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DetailProductCell

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import KontaktSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+       
         let username = defaults.objectForKey("username") as? String
-        if(username!.isEmpty == false)
+     if(username != nil){
+      if(username!.isEmpty == false )
         {
             let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewControllerWithIdentifier("Navigation") as UIViewController
@@ -26,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = initialViewControlleripad
             self.window?.makeKeyAndVisible()
         }
- 
+        }
+       //  Kontakt.setAPIKey("ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc")
         //return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }

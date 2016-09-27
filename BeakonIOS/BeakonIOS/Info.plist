@@ -14,6 +14,10 @@
         </array>
         <key>FacebookAppID</key>
         <string>632966880204499</string>
+        <!--BeaconKonkat-->
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>Required for ios 8 compatibilty</string>
+        
         <key>FacebookDisplayName</key>
         <string>QuickShopIos</string>
         
