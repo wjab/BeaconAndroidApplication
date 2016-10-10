@@ -14,6 +14,7 @@ class ViewController: UICollectionViewController {
 
     var items : [String] = []
     
+    @IBOutlet weak var btnFacebook: FBSDKLoginButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: CellReuseIdentifier)
