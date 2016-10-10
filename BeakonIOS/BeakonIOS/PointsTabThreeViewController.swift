@@ -76,7 +76,7 @@ class PointsTabThreeViewController: UIViewController {
                         let response = JSON as! NSDictionary
                         var pointsObject = JSON as! NSDictionary
                         //Si la respuesta no tiene status 404
-                        if((response)["status"] as! Int != 404)
+                        if((response)["status"] as! Int != 404 && (response)["status"] as! Int != 400 )
                         {
                         
                                 pointsObject = response.objectForKey("pointsData")! as! NSDictionary
@@ -84,6 +84,10 @@ class PointsTabThreeViewController: UIViewController {
                                 //self.expirationDate = (pointsObject)["expirationDate"] as Float
                                 JLToast.makeText("Puntos obtenidos "+String(points)).show()
                                 self.serviceUpdateUserDefault()
+                        }
+                        else if((response)["status"] as! Int == 400)
+                        {
+                            JLToast.makeText("Codigo invalido").show()
                         }
                         else
                         {

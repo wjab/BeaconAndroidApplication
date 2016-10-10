@@ -10,6 +10,7 @@ import UIKit
 import Haneke
 import Alamofire
 import SwiftyJSON
+
 class DetailPromoViewController: UIViewController {
     
     var toPass : Promo!
@@ -21,11 +22,16 @@ class DetailPromoViewController: UIViewController {
     @IBOutlet weak var adressShop: UILabel!
     @IBOutlet weak var descriptionPromo: UILabel!
     @IBOutlet weak var imageShop: UIImageView!
+    @IBOutlet weak var sharePromo: UIButton!
+    var branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "")
     
     override func viewDidLoad()
     {
+        self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
         super.viewDidLoad()
         self.service()
+        branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
+         sharePromo.addTarget(self, action: #selector(DetailPromoViewController.branchUniversal), forControlEvents: .TouchUpInside)
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
         //Cambia el tamaño de los tabs
@@ -55,8 +61,45 @@ class DetailPromoViewController: UIViewController {
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
-
+    func testBarcodeScanner(){
+        
+    }
     
+    func branchUniversal(){
+      
+        
+        branchUniversalObject.title = toPass.descriptionPromoPropeties
+        branchUniversalObject.contentDescription = toPass.descriptionPromoPropeties
+        branchUniversalObject.imageUrl = toPass.imagesPropeties
+        
+        branchUniversalObject.addMetadataKey("idPromo", value: toPass.idPropeties)
+        branchUniversalObject.addMetadataKey("departmentId", value: toPass.departmentIdPropeties)
+        branchUniversalObject.addMetadataKey("description", value: toPass.descriptionPromoPropeties)
+        branchUniversalObject.addMetadataKey("idProduct", value: toPass.productIdPropeties)
+        branchUniversalObject.addMetadataKey("idMerchant", value: toPass.merchantIdPropeties)
+        branchUniversalObject.addMetadataKey("image", value: toPass.imagesPropeties)
+        branchUniversalObject.addMetadataKey("points", value:  String( toPass.giftPointsPropeties))
+        branchUniversalObject.addMetadataKey("titulo", value: toPass.titlePropeties)
+        branchUniversalObject.addMetadataKey("product_picture", value: "product_picture")
+        
+        let linkProperties: BranchLinkProperties = BranchLinkProperties()
+        linkProperties.feature = "sharing"
+        linkProperties.channel = "facebook"
+      
+        branchUniversalObject.showShareSheetWithLinkProperties(linkProperties, andShareText: "Super amazing thing I want to share!", fromViewController: self)
+        {
+          (activityType, completed) in
+               if (completed) {
+                    print(String(format: "Completed sharing to %@", activityType!))
+                }
+               else
+               {
+                  print("Link sharing cancelled")
+               }
+        }
+        
+}
+
     func charge()
     {
         let url = NSURL(string: String(toPass.imagesPropeties))!

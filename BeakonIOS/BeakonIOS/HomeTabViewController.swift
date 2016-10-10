@@ -7,7 +7,19 @@
 //
 
 import UIKit
-
+extension UIImage {
+    
+    class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
+        let rect: CGRect = CGRectMake(0, 0, size.width, size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+}
 class HomeTabViewController: UITabBarController {
 
     @IBOutlet weak var openNavigation: UIBarButtonItem!
@@ -15,13 +27,19 @@ class HomeTabViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
         
+        // Set verde cuando es seleccionadao
+        let numberOfItems = CGFloat(tabBar.items!.count)
+        let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
+        tabBar.selectionIndicatorImage = UIImage.imageWithColor(UIColor.greenColor(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
+        
+        //Swipe
         let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipeRight"))
         recognizer.direction = .Right
         self.view .addGestureRecognizer(recognizer)
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let points = defaults.objectForKey("points") as! Int
+    
         //Cambia el tamaño de los tabs
         let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
         tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-30, tabBarHome.frame.size.width, tabBarHome.frame.size.height-30)

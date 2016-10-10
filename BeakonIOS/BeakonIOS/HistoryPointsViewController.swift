@@ -16,7 +16,7 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
     var historyArray: [History] = []
     var actualyArrayIndex = 0
     @IBOutlet weak var table: UITableView!
-    let cellReuseIdentifier = "cellHistoryPoints"
+    let cellReuseIdentifier = "CellHistoryPoints"
     let defaults = NSUserDefaults.standardUserDefaults()
     var idUser = ""
     override func viewDidLoad() {
@@ -76,22 +76,32 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
                     if((response)["status"] as! Int != 404)
                     {
                         print((response)["status"])
-                        user = response.objectForKey("user")! as! NSDictionary
-                        let productList = user.mutableArrayValueForKey("pointsData")
-                        for (indexP, product) in productList.enumerate()
+                        
+                        let productList = response.mutableArrayValueForKey("pointsData")
+                        for (indexP, history) in productList.enumerate()
                         {
-                            print(indexP, ":", product)
+                            //Obtiene los datos de la tienda
+                            let shop = history.objectForKey("merchantProfile")
+                            //Obtiene los datos de la promocion
+                            let promo = history.objectForKey("promo")
+                            //Obtiene la direccion de la tienda
+                            let address = shop!.valueForKey("address")as! String
+                            //Obtiene el titulo de la promocion
+                            let title = promo!.valueForKey("title")as! String
+                            //Obtiene los punts obtenidos
+                            let points = history.valueForKey("points") as! Int
+                            //Crea el nuevo objeto Historial
                             let historyObject = History()
-                            //wishObject.productIdPropeties = product.objectForKey("productId") as! String
-                            
-                          
+                           //Settea los datos al objeto Historial
+                            historyObject.addressShopPropeties = address
+                            historyObject.pointsPropeties = points
+                            historyObject.promoTitlePropeties = title
                             self.historyArray.append(historyObject)
                         }
                         self.table.reloadData()
                     }
                     else
                     {
-                        self.table.reloadData()
                         print("Hubo un error obteniendo los datos de lista de deseos")
                     }
                 case .Failure(let error):

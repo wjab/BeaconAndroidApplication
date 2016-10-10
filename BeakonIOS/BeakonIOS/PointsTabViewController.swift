@@ -14,6 +14,10 @@ class PointsTabViewController: UITabBarController {
         super.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
+        //Set verde en el tab seleccionado
+        let numberOfItems = CGFloat(tabBar.items!.count)
+        let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
+        tabBar.selectionIndicatorImage = UIImage.imageWithColor(UIColor.greenColor(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
         //Cambia el tamaño de los tabs
         let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
         tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarPoints.frame.size.height-30, tabBarPoints.frame.size.width, tabBarPoints.frame.size.height-30)

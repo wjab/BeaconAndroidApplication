@@ -9,14 +9,28 @@
 import UIKit
 
 class Promo: NSObject {
+    var id = ""
     var type = ""
     var merchantId = ""
+    var departmentId = ""
+    var productId = ""
     var code = ""
     var enable = true
     var descriptionPromo = ""
     var giftPoints = 123
     var title = ""
     var images = ""
+    
+    var idPropeties: (String) {
+        get {
+            return (id)
+        }
+        
+        set(newVal) {
+            id = newVal
+        }
+    }
+    
     var merchantIdPropeties: (String) {
         get {
             return (merchantId)
@@ -24,6 +38,26 @@ class Promo: NSObject {
         
         set(newVal) {
             merchantId = newVal
+        }
+    }
+    
+    var productIdPropeties: (String) {
+        get {
+            return (productId)
+        }
+        
+        set(newVal) {
+            productId = newVal
+        }
+    }
+    
+    var departmentIdPropeties: (String) {
+        get {
+            return (departmentId)
+        }
+        
+        set(newVal) {
+            departmentId = newVal
         }
     }
     

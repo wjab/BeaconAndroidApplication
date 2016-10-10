@@ -16,9 +16,14 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
     let imagePicker = UIImagePickerController()
     var url: String!
     let defaults = NSUserDefaults.standardUserDefaults()
-    
+    @IBOutlet weak var userPointsText: UILabel!
+    @IBOutlet weak var usernameText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let points = defaults.objectForKey("points") as! Int
+        let name = defaults.objectForKey("username") as! String
+        userPointsText.text = String(points)
+        usernameText.text = String(name)
            imagePicker.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action:#selector(HeaderMenuViewController.tapDetected))
         singleTap.numberOfTapsRequired = 1
@@ -36,6 +41,7 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
     }
     
     func loadImageFromPath(path: String) {
+        
         let image = UIImage(contentsOfFile: path)
         
         if image == nil {
@@ -59,10 +65,7 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImage.contentMode = .ScaleAspectFit
-            //self.url = String(info[UIImagePickerControllerReferenceURL]!)
-            //updateImageProfileService(self.url!)
-           profileImage.image = pickedImage
-            
+            profileImage.image = pickedImage
             
             let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL
             let imagePath =  imageURL.path!

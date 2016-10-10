@@ -31,7 +31,14 @@ class DetailDepartmentViewController: UIViewController {
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(DetailDepartmentViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
+        //Observer para actualizar la tabla
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.loadList(_:)),name:"loadDepartment", object: nil)
         
+    }
+    
+    func loadList(notification: NSNotification){
+        //load data here
+        self.collection.reloadData()
     }
     
     //Abre el historial de puntos
@@ -73,7 +80,7 @@ class DetailDepartmentViewController: UIViewController {
         
         let productObject = self.department.products[indexPath.row]
 
-       cell.configure(productObject.productNamePropeties, urlImageProduct: productObject.imageUrlListPropeties[0])
+       cell.configure(productObject.productNamePropeties, urlImageProduct: productObject.imageUrlListPropeties[0],product: productObject)
         return cell
     }
     

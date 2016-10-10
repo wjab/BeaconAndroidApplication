@@ -79,8 +79,11 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
                         for (index, element) in productList.enumerate() {
                             let productObject = Product()
                             productObject .detailsPropeties = element.objectForKey("details") as! String
-                            //productObject .allowScanPropeties = element.objectForKey("allowScan") as! String
-                            //productObject .codePropeties = element.objectForKey("code") as! String
+                            
+                            if(element.objectForKey("allowScan")is NSNull){productObject .allowScanPropeties = false}
+                            else{productObject .allowScanPropeties =  true}
+                            if(element.objectForKey("code")is NSNull){productObject .codePropeties = ""}
+                            else{productObject .codePropeties = element.objectForKey("code") as! String}
                             productObject .imageUrlListPropeties = element.objectForKey("imageUrlList") as! Array<String>
                             productObject .pointsByPricePropeties = element.objectForKey("pointsByPrice") as! Int
                             productObject .pointsByScanPropeties = element.objectForKey("pointsByScan") as! Int
@@ -126,6 +129,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     func send(){
         print(product[self.actualyArrayIndex].productNamePropeties)
     }
+    
     //Envia los datos al segundo ViewController
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row

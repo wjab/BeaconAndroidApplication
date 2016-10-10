@@ -9,7 +9,8 @@
 import UIKit
 
 class NavigationViewController: UINavigationController {
-
+    var image:String = ""
+    var name:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 

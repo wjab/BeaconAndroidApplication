@@ -61,6 +61,7 @@ class DetailProductCell: UICollectionViewCell {
                     {
                         user = response.objectForKey("user")! as! NSDictionary
                         let productList = user.mutableArrayValueForKey("productWishList")
+                        
                         for (indexP, product) in productList.enumerate()
                         {
                             let wishObject = Wish()
@@ -70,15 +71,15 @@ class DetailProductCell: UICollectionViewCell {
                             wishObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! String
                             wishObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
                             
-                            if(wishObject.productIdPropeties == self.product.productIdPropeties){
+                            let idWish = wishObject.productIdPropeties
+                            let idProduct = self.product.productIdPropeties
+                            if(idWish == idProduct){
                                 //Si si es igual se actualiza la propiedad
-                                wishObject.isAddedPropeties = true
+                                self.product.isAddedPropeties = true
+                                print("id" + idProduct)
+                                print("addedPropetiesTrueee:  " + String(self.product.isAddedPropeties))
+                                print("------------------------------------------------------------------------")
                             }
-                            else
-                            {
-                                wishObject.isAddedPropeties = false
-                            }
-                            
                             self.wishArray.append(wishObject)
                         }
                         self.compare()
@@ -92,19 +93,14 @@ class DetailProductCell: UICollectionViewCell {
                 }
         }
     }
-
+    
     func compare(){
-        for (indexP, wish) in self.wishArray.enumerate()
+        if(self.product.isAddedPropeties == true){
+            self.isAddedImage.setImage(UIImage(named: "icon_added"), forState: UIControlState.Normal)
+        }
+        else
         {
-            if(wish.productIdPropeties==self.product.productIdPropeties){
-                if(wish.isAddedPropeties == true){
-                    self.isAddedImage.setImage(UIImage(named: "icon_added"), forState: UIControlState.Normal)
-                }
-                else
-                {
-                    self.isAddedImage.setImage(UIImage(named: "icon_add"), forState: UIControlState.Normal)
-                }
-            }
+            self.isAddedImage.setImage(UIImage(named: "icon_add"), forState: UIControlState.Normal)
         }
     }
     

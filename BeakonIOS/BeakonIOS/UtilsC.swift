@@ -100,4 +100,47 @@ class UtilsC: UIViewController {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("WishViewController")
         self.showDetailViewController(vc as! WishViewController, sender: self)
     }
+    
+    //Get by Id
+    func serviceById(id:String){
+        //Endpoint
+        let idUser = (defaults.objectForKey("userId") as? String)!
+        let newTodo = [
+            "userId": idUser,
+            "promoId": id
+        ]
+
+        let url = "http://butilsdevel.cfapps.io/utils/savePoints"
+        //Crea el request
+        Alamofire.request(.POST, url, parameters: newTodo, encoding: .JSON)
+            .responseJSON
+            {
+                response in switch response.result
+                {
+                //Si la respuesta es satisfactoria
+                case .Success(let JSON):
+                    let response = JSON as! NSDictionary
+                    var user = JSON as! NSDictionary
+                    //Si la respuesta no tiene status 404
+                    if((response)["status"] as! Int != 404 && (response)["status"]as! Int != 400)
+                    {
+                        user = response.objectForKey("user")! as! NSDictionary
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
+                        JLToast.makeText("Puntos obtenidos").show()
+                    }
+                    else if((response)["status"]as! Int == 400){
+                        JLToast.makeText("El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido").show()
+                    }
+                    else
+                    {
+                        print("Hubo un error obteniendo los datos de promociones")
+                    }
+                case .Failure(let error):
+                    print("Hubo un error realizando la peticion: \(error)")
+                }
+        }
+    }
+    
+
 }

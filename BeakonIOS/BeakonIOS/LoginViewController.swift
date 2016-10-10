@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CryptoSwift
 import JLToast
+
 class LoginViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var usernameText: UITextField!

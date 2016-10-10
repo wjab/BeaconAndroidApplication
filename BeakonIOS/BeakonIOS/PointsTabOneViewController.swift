@@ -21,6 +21,8 @@ class PointsTabOneViewController: UIViewController {
     var userId = ""
     var code = ""
     var pointsUser = 0
+    var dateExpiration:CLongLong = 1473118701583
+    
    // var expirationDate = 1473118701583
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,10 +129,12 @@ class PointsTabOneViewController: UIViewController {
                             {
                                 pointsObject = response.objectForKey("points")! as! NSDictionary
                                 self.code = (pointsObject)["code"] as! String
+                                //self.dateExpiration = (pointsObject)["expirationDate"] as! CLongLong
                                 //self.expirationDate = (pointsObject)["expirationDate"] as Float
                                 JLToast.makeText("Creado con exito").show()
                                 self.serviceUpdateUserDefault()
                                 let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailChangePointsViewController") as! DetailChangePointsViewController
+                                secondViewController.expiration = String(self.dateExpiration)
                                 secondViewController.code = self.code
                                 self.navigationController?.pushViewController(secondViewController, animated: true)
                                 
@@ -138,7 +142,6 @@ class PointsTabOneViewController: UIViewController {
                             else if((response)["message"] as! String == "La cantidad de puntos no supera el minimo requerido")
                             {
                                 JLToast.makeText("La cantidad de puntos no supera el minimo requerido").show()
-                                
                             }
                         }
                         else

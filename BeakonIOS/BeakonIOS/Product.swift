@@ -15,7 +15,7 @@ class Product: NSObject {
     var imageUrlList = Array<String>()
     var details = ""
     var code = ""
-    var allowScan = ""
+    var allowScan =  false
     var pointsByScan = 0
     var pointsByPrice = 0
     var isAdded = false
@@ -40,7 +40,7 @@ class Product: NSObject {
         }
     }
     
-    var allowScanPropeties: (String) {
+    var allowScanPropeties: (Bool) {
         get {
             return (allowScan)
         }

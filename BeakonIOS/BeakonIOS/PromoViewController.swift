@@ -23,10 +23,10 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
         table.dataSource = self
         
     }
-    
+       
     func service(){
         //Endpoint
-        let url : String = "http://bpromodevel.cfapps.io/promo"
+       let url : String = "http://bpromodevel.cfapps.io/promo"
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON
@@ -43,18 +43,23 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                         for (_, element) in promoList.enumerate() {
                             //print(index, ":", element)
                             let promoObject = Promo()
+                            promoObject.idPropeties = element.objectForKey("id") as! String
                             promoObject.codePropeties = element.objectForKey("code") as! String
                             promoObject.descriptionPromoPropeties = element.objectForKey("description") as! String
                             promoObject.enablePropeties = element.objectForKey("enable") as! Bool
                             promoObject.giftPointsPropeties = element.objectForKey("giftPoints") as! Int
                             promoObject.merchantIdPropeties = element.objectForKey("merchantId") as! String
+                            promoObject.productIdPropeties = element.objectForKey("idProduct") as! String
+                            promoObject.departmentIdPropeties = element.objectForKey("departamentId") as! String
                             promoObject.titlePropeties = element.objectForKey("title") as! String
                             promoObject.typePropeties = element.objectForKey("type") as! String
                             promoObject.imagesPropeties = element.objectForKey("images") as! String
                             self.promoArray.append(promoObject)
-                            print(String(promoObject.codePropeties))
+                            print(String(promoObject.descriptionPromo))
                         }
-                        self.table.reloadData()
+                             self.table.reloadData()
+
+                       
                     }
                     else
                     {

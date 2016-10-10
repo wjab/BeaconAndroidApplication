@@ -9,98 +9,220 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-//, FBSDKLoginButtonDelegate
-class ViewController: UIViewController {
-    let recognizer = UITapGestureRecognizer()
+import JLToast
+import CryptoSwift
+
+class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     let url = "http://buserdevel.cfapps.io/user"
-    @IBOutlet weak var imageViewFacebook: UIImageView!
-    let defaults = NSUserDefaults.standardUserDefaults()
+    @IBOutlet weak var btnFacebook: FBSDKLoginButton!
+     let defaults = NSUserDefaults.standardUserDefaults()
+    let utils = UtilsC()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        imageViewFacebook.userInteractionEnabled = true
-        recognizer.addTarget(self, action: #selector(ViewController.login))
-        imageViewFacebook.addGestureRecognizer(recognizer)
-        
-        /*if (FBSDKAccessToken.currentAccessToken() != nil)
-        {
-            // User is already logged in, do work such as go to next view controller.
-            
-            // Or Show Logout Button
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
-            self.returnUserData()
-        }
-        else
-        {
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
-        }
- */
+        configureFacebook()
     }
-    // Facebook Delegate Methods
-    
-    /*func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("User Logged In")
-        
-        if ((error) != nil)
-        {
-        print(error)
-        }
-        else if result.isCancelled {
-            print("cancelado")
-        }
-        else {
-            // If you ask for multiple permissions at once, you
-            // should check if specific permissions missing
-            if result.grantedPermissions.contains("email")
-            {
-                print("permmisos")
-            }
-            
-            self.returnUserData()
-        }
-        
-    }
-    
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out")
-    }
-    
-    func returnUserData()
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
     {
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.loginBehavior = FBSDKLoginBehavior.Web
+        fbLoginManager.logInWithReadPermissions(["public_profile","email"], fromViewController: self) { (result, error) -> Void in
+            if error != nil {
+                print(error.localizedDescription)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else if result.isCancelled {
+                print("Cancelled")
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                self.getInfoFacebook()
+            }
+        }
+        
+        //"fields", "email,gender,first_name,last_name,name,id,birthday"
+          }
+    
+    func getInfoFacebook(){
+        FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"email, name, gender, id, first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+            //Obtiene los datos de facebook del usuario
+            let strFirstName: String = (result.objectForKey("first_name") as? String)!
+            let strLastName: String = (result.objectForKey("last_name") as? String)!
+            let strName: String = (result.objectForKey("name") as? String)!
+            let strId: String = (result.objectForKey("id") as? String)!
+            let strGender: String = (result.objectForKey("gender") as? String)!
+            let strEmail: String = (result.objectForKey("email") as? String)!
+            let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+            print("Welcome, \(strFirstName) , \(strLastName) , \(strGender)  , \(strEmail)  , \(strId)" )
+        
+            //Crea el json a guardar en socialNetworkJson
+            let userData:NSMutableDictionary = NSMutableDictionary()
+            userData.setValue(strGender, forKey: "gender")
+            userData.setValue(strFirstName, forKey: "first_name")
+            userData.setValue(strLastName, forKey: "last_name")
+            userData.setValue(strName, forKey: "name")
+            userData.setValue(strId, forKey: "id")
+            let jsonData = try! NSJSONSerialization.dataWithJSONObject(userData, options: NSJSONWritingOptions())
+            let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as! String
+            print(jsonString)
             
-            if ((error) != nil)
-            {
-                // Process error
-                print("Error: \(error)")
+            self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: strId, email: strEmail)
+            
             }
-            else
+
+    }
+    
+    func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String){
+        //Endpoint
+        let url : String = "http://buserdevel.cfapps.io/user/username"
+        //parametros a enviar por body en el request
+        let newTodo = ["username": username]
+        //Crea el request
+        Alamofire.request(.POST, url, parameters: newTodo, encoding: .JSON)
+            .responseJSON
             {
-                print("fetched user: \(result)")
-                let userName : NSString = result.valueForKey("name") as! NSString
-                print("User Name is: \(userName)")
-                let userEmail : NSString = result.valueForKey("email") as! NSString
-                print("User Email is: \(userEmail)")
-            }
-        })
+                response in switch response.result
+                {
+                //Si la respuesta es satisfactoria
+                case .Success(let JSON):
+                    let response = JSON as! NSDictionary
+                    var user = JSON as! NSDictionary
+                    //Si la respuesta no tiene status 404
+                    if((response)["status"] as! Int != 404)
+                    {
+                          user = response.objectForKey("user")! as! NSDictionary
+                        print((response)["status"])
+                            if((user)["enable"] as! Bool == true)
+                            {
+                                if((user)["socialNetworkType"] as! String != "localuser"){
+                                    let appDomain = NSBundle.mainBundle().bundleIdentifier!
+                                    NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+                                    let defaults = NSUserDefaults.standardUserDefaults()
+                                    
+                                    defaults.setObject((user)["user"] as! String, forKey: "username")
+                                    defaults.setObject((user)["id"] as! String, forKey: "userId")
+                                    defaults.setObject((user)["enable"] as! Bool, forKey: "enable")
+                                    defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
+                                    defaults.setObject((user)["pathImage"] as! String, forKey: "image")
+                                    defaults.setObject((user)["name"] as! String, forKey: "name")
+                                    defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
+                                    defaults.setObject((user)["email"] as! String, forKey: "email")
+                                    defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
+                                    //defaults.setObject((user)["pathImage"] as! String, forKey: "image")
+                                    //defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                    let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
+                                    self.showDetailViewController(vc as! NavigationViewController, sender: self)
+                                }
+                                else
+                                {
+                                    print("Usuario no asociado a una red social")
+                                    JLToast.makeText("El usuario no se encuentra asociado a una red social").show()
+                                }
+                            }
+                            else
+                            {
+                                print("Usuario desactivado")
+                                JLToast.makeText("El usuario se encuentra desactivado").show()
+                            }
+                            
+                        }
+                        //Si el status de la respuesta es 404 el usuario no esta registrado, se crea el usuario
+                    else
+                    {
+                    self.createUserSocial(json, username: username, firstname: firstname, lastname: lastname, gender: gender, id: id, email: email)
+                    }
+    
+                case .Failure(let error):
+                    print("Hubo un error realizando la peticion: \(error)")
+                    JLToast.makeText("Hubo un error realizando la petición").show()
+                }
+        }
+ 
+        //Validar que sea un usuario de typo social
+            //Guarda los datos en UserDefaults
     }
-    */
-    func login(){
-        let alertController = UIAlertController(title: "iOScreator", message:
-            "Hello, world!", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "http://buserdevel.cfapps.io/user", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
+
+    func createUserSocial(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String){
+        //Endpoint
+        let url : String = "http://buserdevel.cfapps.io/user/"
+        let preferenceList = Array<Preference>();
+                //parametros a enviar por body en el request
+                let newTodo = ["user": username,
+                               "password": id.md5(),
+                               "enable": true,
+                               "categoryId":"0",
+                               "totalGiftPoints":"0",
+                               "name": firstname,
+                               "lastName": lastname,
+                               "phone": "",
+                               "creationDate": utils.convertLongToDate(),
+                               "modifiedDate": utils.convertLongToDate(),
+                               "email": email,
+                               "socialNetworkId":id,
+                               "socialNetworkType" : "facebook",
+                               "socialNetworkJson": "",
+                               "gender":  gender,
+                               "pathImage":"",
+                               "preference": preferenceList]
+                
+                //Crea el request
+                Alamofire.request(.POST, url, parameters: newTodo as? [String : AnyObject], encoding: .JSON)
+                    .responseJSON
+                    {
+                        response in switch response.result
+                        {
+                        //Si la respuesta es satisfactoria
+                        case .Success(let JSON):
+                            let response = JSON as! NSDictionary
+                            var user = JSON as! NSDictionary
+                            //Si la respuesta no tiene status 404
+                            if((response)["status"] as! Int != 404)
+                            {
+                                //Obtiene solo el objeto user de la respuesta
+                                user = response.objectForKey("user")! as! NSDictionary
+                                let appDomain = NSBundle.mainBundle().bundleIdentifier!
+                                NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+                                let defaults = NSUserDefaults.standardUserDefaults()
+                                
+                                defaults.setObject((user)["user"] as! String, forKey: "username")
+                                defaults.setObject((user)["id"] as! String, forKey: "userId")
+                                defaults.setObject((user)["enable"] as! Bool, forKey: "enable")
+                                defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
+                                defaults.setObject((user)["pathImage"] as! String, forKey: "image")
+                                defaults.setObject((user)["name"] as! String, forKey: "name")
+                                defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
+                                defaults.setObject((user)["email"] as! String, forKey: "email")
+                                defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
+                                //defaults.setObject((user)["pathImage"] as! String, forKey: "image")
+                                //defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
+                                self.showDetailViewController(vc as! NavigationViewController, sender: self)
+                            }
+                            else
+                            {
+                                print("El usuario no se ha registrado correctamente")
+                                JLToast.makeText("El usuario no se ha registrado correctamente").show()
+                            }
+                        case .Failure(let error):
+                            print("Hubo un error realizando la peticion: \(error)")
+                            JLToast.makeText("Hubo un error realizando la petición").show()
+                        }
+        }
+
     }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
+    {
+        let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+        loginManager.logOut()
+    }
+
+    //    MARK: Other Methods
+
+    func configureFacebook()
+    {
+        btnFacebook.readPermissions = ["public_profile", "email", "user_friends"];
+        btnFacebook.delegate = self
+    }
+
 }
 

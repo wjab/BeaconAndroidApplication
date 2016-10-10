@@ -11,17 +11,63 @@ import Alamofire
 import SwiftyJSON
 
 class TableViewController: UITableViewController , UIImagePickerControllerDelegate{
+   @IBOutlet weak var preferencesButton: UIButton!
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var wishButton: UIButton!
+    @IBOutlet weak var notificationButton: UIButton!
+    @IBOutlet weak var questionButton: UIButton!
+    @IBOutlet weak var pointsButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     var preference:String!
     var state:String!
     let imagePicker = UIImagePickerController()
-    @IBOutlet weak var preferencesButton: UIButton!
     let defaults = NSUserDefaults.standardUserDefaults()
     var arrayLabel = [UILabel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         preferencesButton.addTarget(self, action: #selector(TableViewController.createAlertPreferences), forControlEvents: .TouchUpInside)
+        profileButton.addTarget(self, action: #selector(TableViewController.openProfile), forControlEvents: .TouchUpInside)
+        wishButton.addTarget(self, action: #selector(TableViewController.openWish), forControlEvents: .TouchUpInside)
+        notificationButton.addTarget(self, action: #selector(TableViewController.openNotification), forControlEvents: .TouchUpInside)
+        questionButton.addTarget(self, action: #selector(TableViewController.openQuestions), forControlEvents: .TouchUpInside)
+        pointsButton.addTarget(self, action: #selector(TableViewController.openPoints), forControlEvents: .TouchUpInside)
+        logoutButton.addTarget(self, action: #selector(TableViewController.logout), forControlEvents: .TouchUpInside)
     }
-  
+    
+    func openProfile(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    
+    func openPoints(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PointsTabViewController") as! PointsTabViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+
+    func openQuestions(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FAQTabViewController") as! FAQTabViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+
+    func openNotification(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NotificationTabViewController") as! NotificationTabViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    
+    func openWish(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    
+    func logout(){
+        
+        let appDomain = NSBundle.mainBundle().bundleIdentifier!
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
+        self.showDetailViewController(vc as! ViewController, sender: self)
+
+    }
  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
