@@ -38,6 +38,8 @@ class PointsTabTwoViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         self.userId = defaults.objectForKey("userId") as! String
         self.pointsUser = defaults.objectForKey("points") as! Int
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
         messageL.text = "Usted tiene un total de " + String(self.pointsUser) + " pts disponibles para regalar, esta es la cantidad minima de puntos que puedes regalar: " + String(self.pointsMinium)
     }
     
@@ -85,7 +87,8 @@ class PointsTabTwoViewController: UIViewController {
                     var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
-                    {   user = response.objectForKey("user")! as! NSDictionary
+                    {
+                        user = response.objectForKey("user")! as! NSDictionary
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
                         self.chargeData()
@@ -130,10 +133,13 @@ class PointsTabTwoViewController: UIViewController {
                             self.code = (pointsObject)["code"] as! String
                             //self.expirationDate = (pointsObject)["expirationDate"] as Float
                             JLToast.makeText("Creado con exito").show()
+                            self.pointsL.text = ""
+                            self.mesageToSend.text = ""
                             self.serviceUpdateUserDefault()
                             let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailGiftPointsViewController") as! DetailGiftPointsViewController
                             secondViewController.code = self.code
                             secondViewController.message = self.message
+                           
                             self.navigationController?.pushViewController(secondViewController, animated: true)
 
                         }

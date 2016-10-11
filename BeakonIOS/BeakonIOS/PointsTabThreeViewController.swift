@@ -44,6 +44,8 @@ class PointsTabThreeViewController: UIViewController {
                     {   user = response.objectForKey("user")! as! NSDictionary
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
                     }
                     else
                     {
@@ -84,6 +86,7 @@ class PointsTabThreeViewController: UIViewController {
                                 //self.expirationDate = (pointsObject)["expirationDate"] as Float
                                 JLToast.makeText("Puntos obtenidos "+String(points)).show()
                                 self.serviceUpdateUserDefault()
+                                self.codeL.text = ""
                         }
                         else if((response)["status"] as! Int == 400)
                         {

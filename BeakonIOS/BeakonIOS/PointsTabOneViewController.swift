@@ -89,6 +89,9 @@ class PointsTabOneViewController: UIViewController {
                     {   user = response.objectForKey("user")! as! NSDictionary
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
+                        self.pointsL.text = ""
                         self.chargeData()
                     }
                     else

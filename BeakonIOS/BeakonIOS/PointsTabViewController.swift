@@ -10,6 +10,8 @@ import UIKit
 
 class PointsTabViewController: UITabBarController {
     @IBOutlet weak var tabBarPoints: UITabBar!
+    let button =  UIButton(type: .Custom)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -28,11 +30,17 @@ class PointsTabViewController: UITabBarController {
         btn1.addTarget(self, action: #selector(PointsTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(PointsTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshPoints(_:)),name:"refreshPoints", object: nil)
+    }
+    func refreshPoints(notification: NSNotification){
+        //load data here
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        self.button.setTitle(String(points), forState: UIControlState.Normal)
     }
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {

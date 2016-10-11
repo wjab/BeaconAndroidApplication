@@ -24,7 +24,7 @@ class HomeTabViewController: UITabBarController {
 
     @IBOutlet weak var openNavigation: UIBarButtonItem!
     @IBOutlet weak var tabBarHome: UITabBar!
-    
+     let button =  UIButton(type: .Custom)
     override func viewDidLoad() {
         super.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -50,13 +50,20 @@ class HomeTabViewController: UITabBarController {
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
+       
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
+        //Observer para actualizar la tabla
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshPoints(_:)),name:"refreshPointsHome", object: nil)
     }
-    
+    func refreshPoints(notification: NSNotification){
+        //load data here
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        self.button.setTitle(String(points), forState: UIControlState.Normal)
+    }
     func swipeRight(recognizer : UISwipeGestureRecognizer) {
         self.performSegueWithIdentifier("MenuTableViewController", sender: self)
     }
