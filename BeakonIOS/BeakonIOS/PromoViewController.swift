@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import Haneke
+//import Haneke
 class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
     var promoArray: [Promo] = []
     var actualyArrayIndex = 0

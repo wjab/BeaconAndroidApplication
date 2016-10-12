@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Haneke
+//import Haneke
 import Alamofire
 import SwiftyJSON
 
@@ -109,9 +109,11 @@ class DetailPromoViewController: UIViewController {
         descriptionPromo.text = String(toPass.descriptionPromoPropeties)
         nameShop.text = name
         adressShop.text = adress
-        imageShop.hnk_setImageFromURL(urlShop, format: Format<UIImage>(name: "original"))
-        imagePromo.hnk_setImageFromURL(url, format: Format<UIImage>(name: "original"))
-    }
+        imageShop.image = NSURL(string: String(urlShop)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        imagePromo.image = NSURL(string: String(url)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+           }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)

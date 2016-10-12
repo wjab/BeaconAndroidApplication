@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import Haneke
+//import Haneke
 
 class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
     

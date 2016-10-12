@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import Haneke
+//import Haneke
 class NotificationTabOneViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
     var notificationArray: [Notification] = []
     var actualyArrayIndex = 0
