@@ -8,7 +8,7 @@
 
 import UIKit
 import KontaktSDK
-import Branch
+//import Branch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,21 +32,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         }
          Kontakt.setAPIKey("ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc")
-        let branch: Branch = Branch.getInstance()
-        branch.initSessionWithLaunchOptions(launchOptions, andRegisterDeepLinkHandler: { params, error in
+        //let branch: Branch = Branch.getInstance()
+        //branch.initSessionWithLaunchOptions(launchOptions, andRegisterDeepLinkHandler: { params, error in
             // route the user based on what's in params
-            print("Inicio de sesion branch.io")
-        })
+         //   print("Inicio de sesion branch.io")
+       // })
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
        // return true
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
     {
-        if (!Branch.getInstance().handleDeepLink(url)) {
+        //if (!Branch.getInstance().handleDeepLink(url)) {
             // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
-             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-        }
+          //   return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+     //   }
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
  
@@ -77,13 +77,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
         // pass the url to the handle deep link call
-        Branch.getInstance().continueUserActivity(userActivity);
+      //  Branch.getInstance().continueUserActivity(userActivity);
         
         return true
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification launchOptions: [NSObject: AnyObject]?) -> Void {
-        Branch.getInstance().handlePushNotification(launchOptions)
+     //   Branch.getInstance().handlePushNotification(launchOptions)
     }
 
 }

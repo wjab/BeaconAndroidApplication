@@ -23,15 +23,15 @@ class DetailPromoViewController: UIViewController {
     @IBOutlet weak var descriptionPromo: UILabel!
     @IBOutlet weak var imageShop: UIImageView!
     @IBOutlet weak var sharePromo: UIButton!
-    var branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "")
+    //var branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "")
     
     override func viewDidLoad()
     {
-        self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
+        //self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
         super.viewDidLoad()
         self.service()
-        branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
-         sharePromo.addTarget(self, action: #selector(DetailPromoViewController.branchUniversal), forControlEvents: .TouchUpInside)
+        //branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
+         sharePromo.addTarget(self, action: #selector(DetailPromoViewController.share), forControlEvents: .TouchUpInside)
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
         //Cambia el tamaño de los tabs
@@ -61,11 +61,13 @@ class DetailPromoViewController: UIViewController {
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
-    func testBarcodeScanner(){
+    func share(){
+        let activityViewController = UIActivityViewController(activityItems: [toPass.descriptionPromoPropeties+" en: "+name as NSString, imagePromo ], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: {})
         
     }
     
-    func branchUniversal(){
+    /*func branchUniversal(){
       
         
         branchUniversalObject.title = toPass.descriptionPromoPropeties
@@ -99,7 +101,7 @@ class DetailPromoViewController: UIViewController {
         }
         
 }
-
+*/
     func charge()
     {
         let url = NSURL(string: String(toPass.imagesPropeties))!

@@ -9,14 +9,17 @@
 import UIKit
 
 class DetailGiftPointsViewController: UIViewController {
+    @IBOutlet weak var share: UIButton!
     @IBOutlet weak var codeL: UILabel!
     @IBOutlet weak var messageL: UILabel!
     var code = ""
     var message = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.codeL.text = self.code
         self.messageL.text = self.message
+        share.addTarget(self, action: #selector(DetailGiftPointsViewController.shareCode), forControlEvents: .TouchUpInside)
     }
     
 
@@ -25,7 +28,12 @@ class DetailGiftPointsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func shareCode(){
+        let code = codeL.text
+        let activityViewController = UIActivityViewController(activityItems: [ code! as NSString], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: {})
+        
+    }
     /*
     // MARK: - Navigation
 

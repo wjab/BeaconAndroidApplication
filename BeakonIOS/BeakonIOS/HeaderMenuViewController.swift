@@ -35,7 +35,13 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
         profileImage.layer.cornerRadius = 13
         profileImage.layer.cornerRadius =   profileImage.frame.size.height/2
         profileImage.clipsToBounds = true
-        self.loadImageFromPath("assets-library://asset/asset.JPG?id=ED7AC36B-A150-4C38-BB8C-B6D696F4F2ED&ext=JPG")
+        
+        let image = defaults.objectForKey("image")as! String
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        if (typeUser != "localuser"){
+        profileImage.image = NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        }
+        //self.loadImageFromPath(defaults.objectForKey("image")as!String)
         //assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG
         // Do any additional setup after loading the view.
     }

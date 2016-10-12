@@ -52,7 +52,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             let strGender: String = (result.objectForKey("gender") as? String)!
             let strEmail: String = (result.objectForKey("email") as? String)!
             let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-            print("Welcome, \(strFirstName) , \(strLastName) , \(strGender)  , \(strEmail)  , \(strId)" )
+            print("Welcome" + strPictureURL)
         
             //Crea el json a guardar en socialNetworkJson
             let userData:NSMutableDictionary = NSMutableDictionary()
@@ -65,13 +65,13 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as! String
             print(jsonString)
             
-            self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: strId, email: strEmail)
+            self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: strId, email: strEmail, image: strPictureURL)
             
             }
 
     }
     
-    func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String){
+    func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String){
         //Endpoint
         let url : String = "http://buserdevel.cfapps.io/user/username"
         //parametros a enviar por body en el request
@@ -107,7 +107,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                                     defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                     defaults.setObject((user)["email"] as! String, forKey: "email")
                                     defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
-                                    //defaults.setObject((user)["pathImage"] as! String, forKey: "image")
+                                    defaults.setObject(image, forKey: "image")
                                     //defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                     let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                     self.showDetailViewController(vc as! NavigationViewController, sender: self)
@@ -128,7 +128,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                         //Si el status de la respuesta es 404 el usuario no esta registrado, se crea el usuario
                     else
                     {
-                    self.createUserSocial(json, username: username, firstname: firstname, lastname: lastname, gender: gender, id: id, email: email)
+                        self.createUserSocial(json, username: username, firstname: firstname, lastname: lastname, gender: gender, id: id, email: email, image: image)
                     }
     
                 case .Failure(let error):
@@ -141,7 +141,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             //Guarda los datos en UserDefaults
     }
 
-    func createUserSocial(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String){
+    func createUserSocial(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String){
         //Endpoint
         let url : String = "http://buserdevel.cfapps.io/user/"
         let preferenceList = Array<Preference>();
@@ -192,7 +192,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                                 defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                 defaults.setObject((user)["email"] as! String, forKey: "email")
                                 defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
-                                //defaults.setObject((user)["pathImage"] as! String, forKey: "image")
+                                defaults.setObject(image, forKey: "image")
                                 //defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                 let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                 self.showDetailViewController(vc as! NavigationViewController, sender: self)

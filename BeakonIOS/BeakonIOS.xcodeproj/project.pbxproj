@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9D134FDD1DA2B83200CBEC06 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */; };
-		9D1350161DA2F6CE00CBEC06 /* KontaktSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1350131DA2F6B900CBEC06 /* KontaktSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D1350181DA2F91D00CBEC06 /* KonkatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */; };
 		9D18A12B1D9C3DA50053F663 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D18A12A1D9C3DA50053F663 /* ScannerViewController.swift */; };
 		9D1E46C61D6DFBAA00772202 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1E46C51D6DFBAA00772202 /* User.swift */; };
@@ -19,6 +18,7 @@
 		9D2CA0641D6CBD2F00F8997E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2CA0631D6CBD2F00F8997E /* Assets.xcassets */; };
 		9D2CA0671D6CBD2F00F8997E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D2CA0651D6CBD2F00F8997E /* LaunchScreen.storyboard */; };
 		9D2CA0AF1D6CC67F00F8997E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */; };
+		9D5C0DC31DAE95E600BC4A18 /* DiscoveredBarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */; };
 		9D7B07D21D6CFBB600BB5FF1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */; };
 		9D926E311D70CD8C0040FDF8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E301D70CD8C0040FDF8 /* NavigationViewController.swift */; };
 		9D926E391D70E3FE0040FDF8 /* FAQTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E381D70E3FE0040FDF8 /* FAQTabViewController.swift */; };
@@ -32,8 +32,6 @@
 		9D926E4B1D70EF8F0040FDF8 /* FAQTabOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E4A1D70EF8F0040FDF8 /* FAQTabOneViewController.swift */; };
 		9D926E4D1D70EFA30040FDF8 /* FAQTabTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E4C1D70EFA30040FDF8 /* FAQTabTwoViewController.swift */; };
 		9D926E511D70FC780040FDF8 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E501D70FC780040FDF8 /* Preference.swift */; };
-		9D98D7731DA7FD7400687E8E /* Branch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D98D7711DA7FCD200687E8E /* Branch.framework */; };
-		9D98D7741DA7FD7400687E8E /* Branch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D98D7711DA7FCD200687E8E /* Branch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DA88CFE1D79D8B5000C53A3 /* DetailShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA88CFD1D79D8B5000C53A3 /* DetailShopViewController.swift */; };
 		9DA88D1D1D79E9FC000C53A3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA88D1C1D79E9FC000C53A3 /* Category.swift */; };
 		9DA88D1F1D79F364000C53A3 /* FAQTabThreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA88D1E1D79F364000C53A3 /* FAQTabThreeViewController.swift */; };
@@ -42,8 +40,12 @@
 		9DAADDE41D75EE1D00D9ADE1 /* Promo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAADDE31D75EE1D00D9ADE1 /* Promo.swift */; };
 		9DAADE161D7630DD00D9ADE1 /* DetailPromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAADE151D7630DD00D9ADE1 /* DetailPromoViewController.swift */; };
 		9DABCF441DA6E4CA00550DDD /* MenuContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DABCF431DA6E4CA00550DDD /* MenuContainerViewController.swift */; };
-		9DAE98001DA5A10500A0FFA8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAE97FE1DA5A10500A0FFA8 /* FBSDKCoreKit.framework */; };
-		9DAE98011DA5A10500A0FFA8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAE97FF1DA5A10500A0FFA8 /* FBSDKLoginKit.framework */; };
+		9DAECDD21DAE9F2800844841 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECDD11DAE9F2800844841 /* FBSDKLoginKit.framework */; };
+		9DAECDD31DAE9F2800844841 /* FBSDKLoginKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECDD11DAE9F2800844841 /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DAECDD51DAE9F3700844841 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECDD41DAE9F3700844841 /* FBSDKCoreKit.framework */; };
+		9DAECDD61DAE9F3700844841 /* FBSDKCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECDD41DAE9F3700844841 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DAECE161DAECC0700844841 /* KontaktSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECE151DAECC0700844841 /* KontaktSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9DAECE171DAECDDA00844841 /* KontaktSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECE151DAECC0700844841 /* KontaktSDK.framework */; };
 		9DB9FA641D6F48C600E24891 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA631D6F48C600E24891 /* ProfileViewController.swift */; };
 		9DB9FA6C1D6F519D00E24891 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA6B1D6F519D00E24891 /* BaseViewController.swift */; };
 		9DB9FA6E1D6F546600E24891 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA6D1D6F546600E24891 /* MenuViewController.swift */; };
@@ -61,7 +63,6 @@
 		9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659241D7E28E60029DC3F /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC6591A1D7E28DE0029DC3F /* SlideMenuControllerSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC6596E1D7E295C0029DC3F /* JLToast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC6590A1D7E28CC0029DC3F /* JLToast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596F1D7E29630029DC3F /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC658FE1D7E28C20029DC3F /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC87AAC1D7F3BFD00BFECF1 /* FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC87AAB1D7F3BFD00BFECF1 /* FAQ.swift */; };
 		9DCB51A81D74AEDA0056774C /* UtilsC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51A71D74AEDA0056774C /* UtilsC.swift */; };
 		9DCB51AA1D74E0DD0056774C /* PromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51A91D74E0DD0056774C /* PromoViewController.swift */; };
@@ -84,34 +85,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9DC658FB1D7E28C20029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A095C9561980418C00CD0F4C;
-			remoteInfo = "Haneke-iOS";
-		};
-		9DC658FD1D7E28C20029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6393C5F71C3B229200EB1FD8;
-			remoteInfo = "Haneke-tvOS";
-		};
-		9DC658FF1D7E28C20029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A095C9611980418C00CD0F4C;
-			remoteInfo = HanekeTests;
-		};
-		9DC659011D7E28C20029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A0026E9A19C9BFBC004DE0C6;
-			remoteInfo = HanekeDemo;
-		};
 		9DC659091D7E28CC0029DC3F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */;
@@ -322,13 +295,6 @@
 			remoteGlobalIDString = 03A75E2A1BCF2066002E46C4;
 			remoteInfo = JLToast;
 		};
-		9DC659681D7E292C0029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A095C9551980418C00CD0F4C;
-			remoteInfo = "Haneke-iOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -338,13 +304,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9D1350161DA2F6CE00CBEC06 /* KontaktSDK.framework in Embed Frameworks */,
-				9DC6596F1D7E29630029DC3F /* Haneke.framework in Embed Frameworks */,
-				9D98D7741DA7FD7400687E8E /* Branch.framework in Embed Frameworks */,
+				9DAECE161DAECC0700844841 /* KontaktSDK.framework in Embed Frameworks */,
 				9DC6596E1D7E295C0029DC3F /* JLToast.framework in Embed Frameworks */,
 				9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in Embed Frameworks */,
 				9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in Embed Frameworks */,
 				9DC6596B1D7E29470029DC3F /* Alamofire.framework in Embed Frameworks */,
+				9DAECDD31DAE9F2800844841 /* FBSDKLoginKit.framework in Embed Frameworks */,
+				9DAECDD61DAE9F3700844841 /* FBSDKCoreKit.framework in Embed Frameworks */,
 				9DC6596A1D7E293A0029DC3F /* SwiftyJSON.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -355,7 +321,6 @@
 /* Begin PBXFileReference section */
 		9D134FD21DA2B30B00CBEC06 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanViewController.swift; path = ../ScanViewController.swift; sourceTree = "<group>"; };
-		9D1350131DA2F6B900CBEC06 /* KontaktSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KontaktSDK.framework; path = "kontakt-ios-sdk/KontaktSDK/iOS/KontaktSDK.framework"; sourceTree = "<group>"; };
 		9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonkatViewController.swift; sourceTree = "<group>"; };
 		9D18A12A1D9C3DA50053F663 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		9D1E46C51D6DFBAA00772202 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -368,6 +333,7 @@
 		9D2CA0661D6CBD2F00F8997E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D2CA0681D6CBD2F00F8997E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredBarCodeView.swift; sourceTree = "<group>"; };
 		9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		9D926E301D70CD8C0040FDF8 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		9D926E381D70E3FE0040FDF8 /* FAQTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQTabViewController.swift; sourceTree = "<group>"; };
@@ -390,8 +356,9 @@
 		9DAADDE31D75EE1D00D9ADE1 /* Promo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promo.swift; sourceTree = "<group>"; };
 		9DAADE151D7630DD00D9ADE1 /* DetailPromoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPromoViewController.swift; sourceTree = "<group>"; };
 		9DABCF431DA6E4CA00550DDD /* MenuContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuContainerViewController.swift; sourceTree = "<group>"; };
-		9DAE97FE1DA5A10500A0FFA8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		9DAE97FF1DA5A10500A0FFA8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		9DAECDD11DAE9F2800844841 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		9DAECDD41DAE9F3700844841 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		9DAECE151DAECC0700844841 /* KontaktSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KontaktSDK.framework; path = kontakt/KontaktSDK/iOS/KontaktSDK.framework; sourceTree = "<group>"; };
 		9DB9FA631D6F48C600E24891 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9DB9FA6B1D6F519D00E24891 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9DB9FA6D1D6F546600E24891 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -405,7 +372,6 @@
 		9DC658AD1D7DDAB30029DC3F /* DetailGiftPointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailGiftPointsViewController.swift; sourceTree = "<group>"; };
 		9DC658B11D7DDAFE0029DC3F /* DetailChangePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChangePointsViewController.swift; sourceTree = "<group>"; };
 		9DC658CB1D7E0BF50029DC3F /* BeakonIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BeakonIOS.entitlements; sourceTree = "<group>"; };
-		9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = "<group>"; };
 		9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JLToast.xcodeproj; path = JLToast/JLToast.xcodeproj; sourceTree = "<group>"; };
 		9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SlideMenuControllerSwift.xcodeproj; path = SlideMenuControllerSwift/SlideMenuControllerSwift.xcodeproj; sourceTree = "<group>"; };
 		9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
@@ -437,9 +403,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DAE98011DA5A10500A0FFA8 /* FBSDKLoginKit.framework in Frameworks */,
-				9D98D7731DA7FD7400687E8E /* Branch.framework in Frameworks */,
-				9DAE98001DA5A10500A0FFA8 /* FBSDKCoreKit.framework in Frameworks */,
+				9DAECE171DAECDDA00844841 /* KontaktSDK.framework in Frameworks */,
+				9DAECDD21DAE9F2800844841 /* FBSDKLoginKit.framework in Frameworks */,
+				9DAECDD51DAE9F3700844841 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,12 +492,11 @@
 		9DAE97F51DA599E100A0FFA8 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				9DAECDD41DAE9F3700844841 /* FBSDKCoreKit.framework */,
+				9DAECDD11DAE9F2800844841 /* FBSDKLoginKit.framework */,
+				9DAECE151DAECC0700844841 /* KontaktSDK.framework */,
 				9D98D7711DA7FCD200687E8E /* Branch.framework */,
-				9D1350131DA2F6B900CBEC06 /* KontaktSDK.framework */,
-				9DAE97FE1DA5A10500A0FFA8 /* FBSDKCoreKit.framework */,
-				9DAE97FF1DA5A10500A0FFA8 /* FBSDKLoginKit.framework */,
 				9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */,
-				9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */,
 				9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */,
 				9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */,
 				9DC6592D1D7E28F60029DC3F /* Alamofire.xcodeproj */,
@@ -672,17 +637,6 @@
 			name = Details;
 			sourceTree = "<group>";
 		};
-		9DC658F51D7E28C20029DC3F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9DC658FC1D7E28C20029DC3F /* Haneke.framework */,
-				9DC658FE1D7E28C20029DC3F /* Haneke.framework */,
-				9DC659001D7E28C20029DC3F /* HanekeTests.xctest */,
-				9DC659021D7E28C20029DC3F /* HanekeDemo.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9DC659041D7E28CC0029DC3F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +704,7 @@
 				9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */,
 				9D18A12A1D9C3DA50053F663 /* ScannerViewController.swift */,
 				9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */,
+				9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -887,7 +842,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9DC659691D7E292C0029DC3F /* PBXTargetDependency */,
 				9DC659671D7E29250029DC3F /* PBXTargetDependency */,
 				9DC659651D7E291E0029DC3F /* PBXTargetDependency */,
 				9DC659631D7E29180029DC3F /* PBXTargetDependency */,
@@ -940,10 +894,6 @@
 					ProjectRef = 9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */;
 				},
 				{
-					ProductGroup = 9DC658F51D7E28C20029DC3F /* Products */;
-					ProjectRef = 9DC658F41D7E28C20029DC3F /* Haneke.xcodeproj */;
-				},
-				{
 					ProductGroup = 9DC659041D7E28CC0029DC3F /* Products */;
 					ProjectRef = 9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */;
 				},
@@ -964,34 +914,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9DC658FC1D7E28C20029DC3F /* Haneke.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Haneke.framework;
-			remoteRef = 9DC658FB1D7E28C20029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9DC658FE1D7E28C20029DC3F /* Haneke.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Haneke.framework;
-			remoteRef = 9DC658FD1D7E28C20029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9DC659001D7E28C20029DC3F /* HanekeTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = HanekeTests.xctest;
-			remoteRef = 9DC658FF1D7E28C20029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9DC659021D7E28C20029DC3F /* HanekeDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = HanekeDemo.app;
-			remoteRef = 9DC659011D7E28C20029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9DC6590A1D7E28CC0029DC3F /* JLToast.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1190,6 +1112,7 @@
 				9D926E4B1D70EF8F0040FDF8 /* FAQTabOneViewController.swift in Sources */,
 				9D2CA0AF1D6CC67F00F8997E /* LoginViewController.swift in Sources */,
 				9DCB51A81D74AEDA0056774C /* UtilsC.swift in Sources */,
+				9D5C0DC31DAE95E600BC4A18 /* DiscoveredBarCodeView.swift in Sources */,
 				9D134FDD1DA2B83200CBEC06 /* ScanViewController.swift in Sources */,
 				9DC5786E1D7739DB00DF4860 /* Department.swift in Sources */,
 				9DE460E81D89E09500F7E058 /* DetailProductDepartmentCell.swift in Sources */,
@@ -1277,11 +1200,6 @@
 			isa = PBXTargetDependency;
 			name = JLToast;
 			targetProxy = 9DC659661D7E29250029DC3F /* PBXContainerItemProxy */;
-		};
-		9DC659691D7E292C0029DC3F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Haneke-iOS";
-			targetProxy = 9DC659681D7E292C0029DC3F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1418,6 +1336,7 @@
 					"$(PROJECT_DIR)/facebook-sdk-swift/Carthage/Checkouts/facebook-ios-sdk/FBSDKLoginKit/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/FacebookSDK",
 					"$(PROJECT_DIR)/ios-branch-deep-linking",
+					"$(PROJECT_DIR)/kontakt/KontaktSDK/iOS",
 				);
 				INFOPLIST_FILE = BeakonIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1428,6 +1347,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -1462,6 +1382,7 @@
 					"$(PROJECT_DIR)/facebook-sdk-swift/Carthage/Checkouts/facebook-ios-sdk/FBSDKLoginKit/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/FacebookSDK",
 					"$(PROJECT_DIR)/ios-branch-deep-linking",
+					"$(PROJECT_DIR)/kontakt/KontaktSDK/iOS",
 				);
 				INFOPLIST_FILE = BeakonIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1473,6 +1394,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

@@ -868,7 +868,6 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1S3-P2-Id9">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="purchase-blue"/>
                                 <connections>
                                     <segue destination="UvP-Jd-sQR" kind="show" id="2FL-7D-A5B"/>
                                 </connections>
@@ -886,6 +885,7 @@
                         </connections>
                     </tabBar>
                     <connections>
+                        <outlet property="open" destination="1S3-P2-Id9" id="Xjl-Z4-dnG"/>
                         <outlet property="tabBarHome" destination="iVi-qP-JuL" id="x8s-p3-KLi"/>
                         <segue destination="Tl4-49-fBQ" kind="relationship" relationship="viewControllers" id="YTP-pY-VbU"/>
                         <segue destination="8lL-og-ayE" kind="relationship" relationship="viewControllers" id="jab-Qg-nCu"/>
@@ -1282,6 +1282,7 @@
                     <connections>
                         <outlet property="codeL" destination="QIP-5n-zk5" id="HVV-9s-ZJo"/>
                         <outlet property="messageL" destination="Fse-9i-UFv" id="1sZ-Di-wmd"/>
+                        <outlet property="share" destination="bKH-eV-qEe" id="SuR-rT-7Tr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m1j-pb-84f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1552,6 +1553,15 @@
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zd-8z-izu">
+                                                    <rect key="frame" x="137" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="hiiii">
+                                                        <color key="titleColor" red="0.077268205583095551" green="0.32832583785057068" blue="0.79990679025650024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="wf8-FF-S3K" kind="show" id="zfQ-57-DHi"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1612,15 +1622,6 @@
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zd-8z-izu">
-                                                    <rect key="frame" x="274" y="4" width="30" height="30"/>
-                                                    <state key="normal" title="hiiii">
-                                                        <color key="titleColor" red="0.077268205583095551" green="0.32832583785057068" blue="0.79990679025650024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="wf8-FF-S3K" kind="show" id="zfQ-57-DHi"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1647,6 +1648,7 @@
                         <outlet property="preferencesButton" destination="o1a-QL-i7b" id="BIz-iH-IEu"/>
                         <outlet property="profileButton" destination="jRN-De-fu6" id="ajR-bO-Ou4"/>
                         <outlet property="questionButton" destination="wNA-Cp-IBx" id="Ncn-Q0-Cep"/>
+                        <outlet property="shareAppButton" destination="xna-pA-ikL" id="kUz-7J-4LL"/>
                         <outlet property="wishButton" destination="Mp4-xj-gA4" id="z4i-6E-hyS"/>
                     </connections>
                 </tableViewController>
@@ -1665,7 +1667,7 @@
                         <color key="barTintColor" red="0.31903238109999998" green="0.82511861909999995" blue="0.1462324351" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="txI-r8-0Zg" kind="relationship" relationship="rootViewController" id="7PW-br-AM7"/>
+                        <segue destination="txI-r8-0Zg" kind="relationship" relationship="rootViewController" id="Yoo-wm-A6O"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wsm-5B-qcn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2406,10 +2408,10 @@
             </objects>
             <point key="canvasLocation" x="63" y="-1944"/>
         </scene>
-        <!--Konkat View Controller-->
+        <!--Scan View Controller-->
         <scene sceneID="rU9-XZ-aB8">
             <objects>
-                <viewController storyboardIdentifier="KonkatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wf8-FF-S3K" customClass="KonkatViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KonkatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wf8-FF-S3K" customClass="ScanViewController" customModule="BeakonIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nx5-qk-WJc"/>
                         <viewControllerLayoutGuide type="bottom" id="qmU-6p-iKt"/>
@@ -2443,7 +2445,6 @@
         <image name="icon_wish_list" width="35" height="29"/>
         <image name="logo" width="173" height="189"/>
         <image name="notificaciones-on" width="47" height="48"/>
-        <image name="purchase-blue" width="47" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="CcW-dd-V3g"/>

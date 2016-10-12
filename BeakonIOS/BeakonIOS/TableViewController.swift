@@ -18,11 +18,13 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     @IBOutlet weak var questionButton: UIButton!
     @IBOutlet weak var pointsButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var shareAppButton: UIButton!
     var preference:String!
     var state:String!
     let imagePicker = UIImagePickerController()
     let defaults = NSUserDefaults.standardUserDefaults()
     var arrayLabel = [UILabel]()
+    let shareContent:String = "Conoces acerca de QuickShop, descargalo aqui http://quickshop.com"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         notificationButton.addTarget(self, action: #selector(TableViewController.openNotification), forControlEvents: .TouchUpInside)
         questionButton.addTarget(self, action: #selector(TableViewController.openQuestions), forControlEvents: .TouchUpInside)
         pointsButton.addTarget(self, action: #selector(TableViewController.openPoints), forControlEvents: .TouchUpInside)
+         shareAppButton.addTarget(self, action: #selector(TableViewController.share), forControlEvents: .TouchUpInside)
         logoutButton.addTarget(self, action: #selector(TableViewController.logout), forControlEvents: .TouchUpInside)
     }
     
@@ -45,6 +48,12 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
 
+    func share(){
+        let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: {})
+        
+    }
+    
     func openQuestions(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FAQTabViewController") as! FAQTabViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
@@ -61,13 +70,11 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     }
     
     func logout(){
-        
         let appDomain = NSBundle.mainBundle().bundleIdentifier!
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
         self.showDetailViewController(vc as! ViewController, sender: self)
-
-    }
+}
  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

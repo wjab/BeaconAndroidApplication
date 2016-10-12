@@ -25,11 +25,33 @@ class HomeTabViewController: UITabBarController {
     @IBOutlet weak var openNavigation: UIBarButtonItem!
     @IBOutlet weak var tabBarHome: UITabBar!
      let button =  UIButton(type: .Custom)
+    @IBOutlet weak var open: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
+        let image = defaults.objectForKey("image")as! String
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
         
+        open.userInteractionEnabled = true
+        open.layer.borderWidth=1.0
+        open.layer.masksToBounds = false
+        open.layer.borderColor = UIColor.whiteColor().CGColor
+        open.layer.cornerRadius = 13
+        open.layer.cornerRadius =   open.frame.size.height/2
+        open.clipsToBounds = true
+
+        if (typeUser != "localuser"){
+        open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        }
+        else
+        {
+            open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        }
+      //  open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState:  .Normal)
+        //open.setImage(UIImage(named: "icon_added"), forState: .Normal)
         // Set verde cuando es seleccionadao
         let numberOfItems = CGFloat(tabBar.items!.count)
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
@@ -58,12 +80,14 @@ class HomeTabViewController: UITabBarController {
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshPoints(_:)),name:"refreshPointsHome", object: nil)
     }
+    
     func refreshPoints(notification: NSNotification){
         //load data here
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
         self.button.setTitle(String(points), forState: UIControlState.Normal)
     }
+    
     func swipeRight(recognizer : UISwipeGestureRecognizer) {
         self.performSegueWithIdentifier("MenuTableViewController", sender: self)
     }

@@ -114,7 +114,7 @@ class PointsTabOneViewController: UIViewController {
             [
                 "userId": self.userId,
                 "points": points!
-        ]
+            ]
         if(self.pointsUser >= points)
         {
             Alamofire.request(.POST, url, parameters: newTodo , encoding: .JSON).responseJSON
