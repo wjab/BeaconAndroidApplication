@@ -107,15 +107,6 @@ class HomeTabViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
    
-    func addSlideMenuButton(){
-        let btnShowMenu = UIButton(type: UIButtonType.System)
-        btnShowMenu.setImage(self.defaultMenuImage(), forState: UIControlState.Normal)
-        btnShowMenu.frame = CGRectMake(0, 0, 30, 30)
-        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
-        self.navigationItem.leftBarButtonItem = customBarItem;
-    }
-    
     func defaultMenuImage() -> UIImage {
         var defaultMenuImage = UIImage()
         

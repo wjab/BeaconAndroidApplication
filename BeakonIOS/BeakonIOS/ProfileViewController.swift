@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: BaseViewController {
+class ProfileViewController: UIViewController {
     
     @IBOutlet weak var numberTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!

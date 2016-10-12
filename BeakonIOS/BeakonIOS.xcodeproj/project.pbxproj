@@ -47,10 +47,7 @@
 		9DAECE161DAECC0700844841 /* KontaktSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECE151DAECC0700844841 /* KontaktSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DAECE171DAECDDA00844841 /* KontaktSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAECE151DAECC0700844841 /* KontaktSDK.framework */; };
 		9DB9FA641D6F48C600E24891 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA631D6F48C600E24891 /* ProfileViewController.swift */; };
-		9DB9FA6C1D6F519D00E24891 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA6B1D6F519D00E24891 /* BaseViewController.swift */; };
-		9DB9FA6E1D6F546600E24891 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA6D1D6F546600E24891 /* MenuViewController.swift */; };
 		9DB9FA701D6F551B00E24891 /* WishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA6F1D6F551B00E24891 /* WishViewController.swift */; };
-		9DB9FA911D6F96C600E24891 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9FA901D6F96C600E24891 /* HomeVC.swift */; };
 		9DC5786C1D7739CD00DF4860 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC5786B1D7739CD00DF4860 /* Product.swift */; };
 		9DC5786E1D7739DB00DF4860 /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC5786D1D7739DB00DF4860 /* Department.swift */; };
 		9DC578701D7739E900DF4860 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC5786F1D7739E900DF4860 /* Shop.swift */; };
@@ -360,10 +357,7 @@
 		9DAECDD41DAE9F3700844841 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		9DAECE151DAECC0700844841 /* KontaktSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KontaktSDK.framework; path = kontakt/KontaktSDK/iOS/KontaktSDK.framework; sourceTree = "<group>"; };
 		9DB9FA631D6F48C600E24891 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		9DB9FA6B1D6F519D00E24891 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		9DB9FA6D1D6F546600E24891 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9DB9FA6F1D6F551B00E24891 /* WishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishViewController.swift; sourceTree = "<group>"; };
-		9DB9FA901D6F96C600E24891 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		9DC5786B1D7739CD00DF4860 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9DC5786D1D7739DB00DF4860 /* Department.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		9DC5786F1D7739E900DF4860 /* Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
@@ -786,8 +780,6 @@
 		9DCD15E61D8C551400E50856 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9DB9FA6D1D6F546600E24891 /* MenuViewController.swift */,
-				9DB9FA6B1D6F519D00E24891 /* BaseViewController.swift */,
 				9D926E301D70CD8C0040FDF8 /* NavigationViewController.swift */,
 				9DF696101D93043A00C22251 /* TableViewController.swift */,
 				9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */,
@@ -810,7 +802,6 @@
 				9D2CA05E1D6CBD2F00F8997E /* ViewController.swift */,
 				9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */,
 				9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */,
-				9DB9FA901D6F96C600E24891 /* HomeVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1128,8 +1119,6 @@
 				9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */,
 				9D1E46C61D6DFBAA00772202 /* User.swift in Sources */,
 				9DA88CFE1D79D8B5000C53A3 /* DetailShopViewController.swift in Sources */,
-				9DB9FA6C1D6F519D00E24891 /* BaseViewController.swift in Sources */,
-				9DB9FA6E1D6F546600E24891 /* MenuViewController.swift in Sources */,
 				9DB9FA701D6F551B00E24891 /* WishViewController.swift in Sources */,
 				9D1E47121D6E059A00772202 /* Wish.swift in Sources */,
 				9DC578741D773DA000DF4860 /* GiftPointsType.swift in Sources */,
@@ -1151,7 +1140,6 @@
 				9D926E3C1D70E4D60040FDF8 /* HomeTabViewController.swift in Sources */,
 				9DCB51AC1D74E0EA0056774C /* ShopViewController.swift in Sources */,
 				9DCD15C41D8C52C400E50856 /* HistoryPointsViewController.swift in Sources */,
-				9DB9FA911D6F96C600E24891 /* HomeVC.swift in Sources */,
 				9D926E4D1D70EFA30040FDF8 /* FAQTabTwoViewController.swift in Sources */,
 				9DC658AE1D7DDAB30029DC3F /* DetailGiftPointsViewController.swift in Sources */,
 				9DC658B21D7DDAFE0029DC3F /* DetailChangePointsViewController.swift in Sources */,

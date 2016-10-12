@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class WishViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var wishArray: [Wish] = []
     var actualyArrayIndex = 0
