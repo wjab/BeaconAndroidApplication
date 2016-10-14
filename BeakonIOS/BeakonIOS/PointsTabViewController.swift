@@ -35,12 +35,24 @@ class PointsTabViewController: UITabBarController {
         button.addTarget(self, action: #selector(PointsTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshPoints(_:)),name:"refreshPoints", object: nil)
+        //Button abre  menu
+        let open = UIButton()
+        let image = defaults.objectForKey("image")as! String
+        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        open.frame = CGRectMake(0, 0, 30, 25)
+        open.addTarget(self, action: #selector(PointsTabViewController.openMenu), forControlEvents: .TouchUpInside)
+        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
     }
     func refreshPoints(notification: NSNotification){
         //load data here
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
         self.button.setTitle(String(points), forState: UIControlState.Normal)
+    }
+    //Abre el menu
+    func openMenu(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {

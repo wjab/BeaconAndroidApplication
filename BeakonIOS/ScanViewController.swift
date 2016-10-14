@@ -2,7 +2,7 @@
 //  ScanViewController.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 10/3/16.
+//  Created by Alejandra on 10/3/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //
 
@@ -50,7 +50,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         let output = AVCaptureMetadataOutput()
         session.addOutput(output)
         output.metadataObjectTypes = output.availableMetadataObjectTypes
-        print(output.availableMetadataObjectTypes)
+        //print(output.availableMetadataObjectTypes)
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         session.startRunning()
     }
@@ -69,7 +69,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
     func translatePoints(points : [AnyObject], fromView : UIView, toView : UIView) -> [CGPoint] {
         var translatedPoints : [CGPoint] = []
         for point in points {
-            var dict = point as! NSDictionary
+            let dict = point as! NSDictionary
             let x = CGFloat((dict.objectForKey("X") as! NSNumber).floatValue)
             let y = CGFloat((dict.objectForKey("Y") as! NSNumber).floatValue)
             let curr = CGPointMake(x, y)
@@ -109,4 +109,5 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             }
         }
     }
+    
 }

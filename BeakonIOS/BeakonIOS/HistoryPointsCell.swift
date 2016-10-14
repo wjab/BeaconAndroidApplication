@@ -15,10 +15,18 @@ class HistoryPointsCell: UITableViewCell {
     @IBOutlet weak var shopNameL: UILabel!
     @IBOutlet weak var addressL: UILabel!
 
-    internal func configure(name:String, points:Int, address:String, date:Float) {
+    internal func configure(name:String, points:Int, address:String, date:Int) {
         pointsL.text = String(points)
         shopNameL.text = name
         addressL.text = address
-        dateL.text = String(date)
+        if let theDate = NSDate(jsonDate: "/Date("+String(date)+"-0800)/")
+        {
+            dateL.text = String(theDate)
+        }
+        else
+        {
+            print("wrong format")
+        }
+        
     }
 }

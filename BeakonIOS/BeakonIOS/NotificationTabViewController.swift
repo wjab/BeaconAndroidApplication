@@ -22,7 +22,14 @@ class NotificationTabViewController: UITabBarController {
         //Cambia el tamaño de los tabs
         let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
         tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarNotification.frame.size.height-30, tabBarNotification.frame.size.width, tabBarNotification.frame.size.height-30)
-        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        //Button abre  menu
+        let open = UIButton()
+        let image = defaults.objectForKey("image")as! String
+        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        open.frame = CGRectMake(0, 0, 30, 25)
+        open.addTarget(self, action: #selector(NotificationTabViewController.openMenu), forControlEvents: .TouchUpInside)
+        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+              //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
@@ -38,6 +45,11 @@ class NotificationTabViewController: UITabBarController {
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    //Abre el menu
+    func openMenu(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     //Abre la lista de deseos

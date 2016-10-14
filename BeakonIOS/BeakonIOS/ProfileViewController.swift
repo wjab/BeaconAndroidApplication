@@ -26,7 +26,13 @@ class ProfileViewController: UIViewController {
         self.typerUser = defaults.objectForKey("socialNetworkType") as! String
         self.validateStateUser()
         let points = defaults.objectForKey("points") as! Int
-        //Cambia el tamaño de los tabs
+        //Button abre  menu
+        let open = UIButton()
+        let image = defaults.objectForKey("image")as! String
+        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        open.frame = CGRectMake(0, 0, 30, 25)
+        open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
+        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
@@ -42,6 +48,11 @@ class ProfileViewController: UIViewController {
         
     }
     
+    //Abre el menu
+    func openMenu(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController

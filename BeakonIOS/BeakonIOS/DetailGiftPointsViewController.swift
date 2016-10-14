@@ -12,18 +12,20 @@ class DetailGiftPointsViewController: UIViewController {
     @IBOutlet weak var share: UIButton!
     @IBOutlet weak var codeL: UILabel!
     @IBOutlet weak var messageL: UILabel!
+    @IBOutlet weak var date: UILabel!
     var code = ""
     var message = ""
+    var expiration = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.codeL.text = self.code
         self.messageL.text = self.message
+        self.date.text = self.expiration
         share.addTarget(self, action: #selector(DetailGiftPointsViewController.shareCode), forControlEvents: .TouchUpInside)
     }
     
-
-    override func didReceiveMemoryWarning() {
+  override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

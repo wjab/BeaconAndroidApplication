@@ -14,8 +14,8 @@ class History: NSObject {
     var shopName = ""
     var  addressShop = ""
     var promoTitle = ""
-    var scanDate:Float = 1470882059436
-    var scanDatePropeties: (Float) {
+    var scanDate:Int = 0
+    var scanDatePropeties: (Int) {
         get {
             return (scanDate)
         }

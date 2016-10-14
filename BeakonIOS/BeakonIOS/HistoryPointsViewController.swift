@@ -33,6 +33,13 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        //Button abre  menu
+        let open = UIButton()
+        let image = defaults.objectForKey("image")as! String
+        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        open.frame = CGRectMake(0, 0, 30, 25)
+        open.addTarget(self, action: #selector(HistoryPointsViewController.openMenu), forControlEvents: .TouchUpInside)
+        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Genera el boton del centro que contiene los puntos del usuario
         let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
@@ -40,6 +47,11 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
 
+    }
+    //Abre el menu
+    func openMenu(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     //Abre el historial de puntos
@@ -71,14 +83,14 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
                 //Si la respuesta es satisfactoria
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
-                    var user = JSON as! NSDictionary
+                    _ = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
                         print((response)["status"])
                         
                         let productList = response.mutableArrayValueForKey("pointsData")
-                        for (indexP, history) in productList.enumerate()
+                        for (_, history) in productList.enumerate()
                         {
                             //Obtiene los datos de la tienda
                             let shop = history.objectForKey("merchantProfile")

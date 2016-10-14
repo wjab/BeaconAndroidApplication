@@ -21,6 +21,8 @@ class PointsTabTwoViewController: UIViewController {
     var code = ""
     var pointsUser = 2
     var message = ""
+    var dateExpiration:Int = 14
+    var dateSend = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,7 +133,16 @@ class PointsTabTwoViewController: UIViewController {
                         {
                             pointsObject = response.objectForKey("points")! as! NSDictionary
                             self.code = (pointsObject)["code"] as! String
-                            //self.expirationDate = (pointsObject)["expirationDate"] as Float
+                            self.dateExpiration = (pointsObject)["expirationDate"] as! Int
+                            if let theDate = NSDate(jsonDate: "/Date("+String(self.dateExpiration)+"-0800)/")
+                            {
+                                self.dateSend = String(theDate)
+                                print(theDate)
+                            }
+                            else
+                            {
+                                print("wrong format")
+                            }
                             JLToast.makeText("Creado con exito").show()
                             self.pointsL.text = ""
                             self.mesageToSend.text = ""
@@ -139,6 +150,7 @@ class PointsTabTwoViewController: UIViewController {
                             let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailGiftPointsViewController") as! DetailGiftPointsViewController
                             secondViewController.code = self.code
                             secondViewController.message = self.message
+                            secondViewController.expiration = self.dateSend
                            
                             self.navigationController?.pushViewController(secondViewController, animated: true)
 

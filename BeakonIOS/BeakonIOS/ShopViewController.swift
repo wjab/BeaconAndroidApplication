@@ -40,7 +40,7 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                     if((response)["status"] as! String != "404")
                     {
                         let shopList = response.mutableArrayValueForKey("merchantProfile")
-                        for (index, shop) in shopList.enumerate()
+                        for (_, shop) in shopList.enumerate()
                         {
                             let shopObject = Shop()
                             shopObject.countryPropeties = shop.objectForKey("country") as! String

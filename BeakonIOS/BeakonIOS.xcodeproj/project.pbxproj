@@ -58,7 +58,6 @@
 		9DC6596A1D7E293A0029DC3F /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659511D7E28FF0029DC3F /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC6596B1D7E29470029DC3F /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659391D7E28F60029DC3F /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC659241D7E28E60029DC3F /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC6591A1D7E28DE0029DC3F /* SlideMenuControllerSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC6596E1D7E295C0029DC3F /* JLToast.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC6590A1D7E28CC0029DC3F /* JLToast.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DC87AAC1D7F3BFD00BFECF1 /* FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC87AAB1D7F3BFD00BFECF1 /* FAQ.swift */; };
 		9DCB51A81D74AEDA0056774C /* UtilsC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCB51A71D74AEDA0056774C /* UtilsC.swift */; };
@@ -103,27 +102,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 03A75E4F1BCF20D4002E46C4;
 			remoteInfo = JLToastDemo;
-		};
-		9DC659151D7E28DE0029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C539E6411A315E87003B7CC7;
-			remoteInfo = SlideMenuControllerSwift;
-		};
-		9DC659171D7E28DE0029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C539E6591A315E87003B7CC7;
-			remoteInfo = SlideMenuControllerSwiftTests;
-		};
-		9DC659191D7E28DE0029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0E75C5961BE3CA7900844634;
-			remoteInfo = "SlideMenuControllerSwift-iOS";
 		};
 		9DC659231D7E28E60029DC3F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -279,13 +257,6 @@
 			remoteGlobalIDString = 754BE45419693E190098E6F3;
 			remoteInfo = "CryptoSwift iOS";
 		};
-		9DC659641D7E291E0029DC3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0E75C5951BE3CA7900844634;
-			remoteInfo = "SlideMenuControllerSwift-iOS";
-		};
 		9DC659661D7E29250029DC3F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */;
@@ -304,7 +275,6 @@
 			files = (
 				9DAECE161DAECC0700844841 /* KontaktSDK.framework in Embed Frameworks */,
 				9DC6596E1D7E295C0029DC3F /* JLToast.framework in Embed Frameworks */,
-				9DC6596D1D7E29540029DC3F /* SlideMenuControllerSwift.framework in Embed Frameworks */,
 				9DC6596C1D7E294D0029DC3F /* CryptoSwift.framework in Embed Frameworks */,
 				9DC6596B1D7E29470029DC3F /* Alamofire.framework in Embed Frameworks */,
 				9DAECDD31DAE9F2800844841 /* FBSDKLoginKit.framework in Embed Frameworks */,
@@ -368,7 +338,6 @@
 		9DC658B11D7DDAFE0029DC3F /* DetailChangePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChangePointsViewController.swift; sourceTree = "<group>"; };
 		9DC658CB1D7E0BF50029DC3F /* BeakonIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BeakonIOS.entitlements; sourceTree = "<group>"; };
 		9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JLToast.xcodeproj; path = JLToast/JLToast.xcodeproj; sourceTree = "<group>"; };
-		9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SlideMenuControllerSwift.xcodeproj; path = SlideMenuControllerSwift/SlideMenuControllerSwift.xcodeproj; sourceTree = "<group>"; };
 		9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		9DC6592D1D7E28F60029DC3F /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		9DC659461D7E28FE0029DC3F /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
@@ -494,7 +463,6 @@
 				9DAECE151DAECC0700844841 /* KontaktSDK.framework */,
 				9D98D7711DA7FCD200687E8E /* Branch.framework */,
 				9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */,
-				9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */,
 				9DC6591B1D7E28E50029DC3F /* CryptoSwift.xcodeproj */,
 				9DC6592D1D7E28F60029DC3F /* Alamofire.xcodeproj */,
 				9DC659461D7E28FE0029DC3F /* SwiftyJSON.xcodeproj */,
@@ -640,16 +608,6 @@
 				9DC6590A1D7E28CC0029DC3F /* JLToast.framework */,
 				9DC6590C1D7E28CC0029DC3F /* JLToastTests.xctest */,
 				9DC6590E1D7E28CC0029DC3F /* JLToastDemo.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9DC659101D7E28DD0029DC3F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9DC659161D7E28DE0029DC3F /* SlideMenuControllerSwift.app */,
-				9DC659181D7E28DE0029DC3F /* SlideMenuControllerSwiftTests.xctest */,
-				9DC6591A1D7E28DE0029DC3F /* SlideMenuControllerSwift.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -837,7 +795,6 @@
 			);
 			dependencies = (
 				9DC659671D7E29250029DC3F /* PBXTargetDependency */,
-				9DC659651D7E291E0029DC3F /* PBXTargetDependency */,
 				9DC659631D7E29180029DC3F /* PBXTargetDependency */,
 				9DC659611D7E29110029DC3F /* PBXTargetDependency */,
 				9DC6595F1D7E290C0029DC3F /* PBXTargetDependency */,
@@ -859,9 +816,12 @@
 				TargetAttributes = {
 					9D2CA0581D6CBD2F00F8997E = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = XENJF7X24S;
+						DevelopmentTeam = DQ3722E3Y2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
@@ -896,10 +856,6 @@
 					ProjectRef = 9DC659031D7E28CC0029DC3F /* JLToast.xcodeproj */;
 				},
 				{
-					ProductGroup = 9DC659101D7E28DD0029DC3F /* Products */;
-					ProjectRef = 9DC6590F1D7E28DD0029DC3F /* SlideMenuControllerSwift.xcodeproj */;
-				},
-				{
 					ProductGroup = 9DC659471D7E28FE0029DC3F /* Products */;
 					ProjectRef = 9DC659461D7E28FE0029DC3F /* SwiftyJSON.xcodeproj */;
 				},
@@ -931,27 +887,6 @@
 			fileType = wrapper.application;
 			path = JLToastDemo.app;
 			remoteRef = 9DC6590D1D7E28CC0029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9DC659161D7E28DE0029DC3F /* SlideMenuControllerSwift.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = SlideMenuControllerSwift.app;
-			remoteRef = 9DC659151D7E28DE0029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9DC659181D7E28DE0029DC3F /* SlideMenuControllerSwiftTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SlideMenuControllerSwiftTests.xctest;
-			remoteRef = 9DC659171D7E28DE0029DC3F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9DC6591A1D7E28DE0029DC3F /* SlideMenuControllerSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SlideMenuControllerSwift.framework;
-			remoteRef = 9DC659191D7E28DE0029DC3F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9DC659241D7E28E60029DC3F /* CryptoSwift.framework */ = {
@@ -1187,11 +1122,6 @@
 			name = "CryptoSwift iOS";
 			targetProxy = 9DC659621D7E29180029DC3F /* PBXContainerItemProxy */;
 		};
-		9DC659651D7E291E0029DC3F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SlideMenuControllerSwift-iOS";
-			targetProxy = 9DC659641D7E291E0029DC3F /* PBXContainerItemProxy */;
-		};
 		9DC659671D7E29250029DC3F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = JLToast;
@@ -1310,6 +1240,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = BeakonIOS/BeakonIOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_HEADERS_RUN_UNIFDEF = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = YES;
@@ -1341,6 +1272,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = centaurosolutions.com.BeakonIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1356,6 +1288,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = BeakonIOS/BeakonIOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_HEADERS_RUN_UNIFDEF = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = YES;
@@ -1388,6 +1321,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = centaurosolutions.com.BeakonIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				TARGETED_DEVICE_FAMILY = 1;

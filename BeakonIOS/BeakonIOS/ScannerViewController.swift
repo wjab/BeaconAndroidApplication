@@ -38,7 +38,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Create a nilable NSError to hand off to the next method.
         // Make sure to use the "var" keyword and not "let"
-        var error : NSError? = nil
+        let error : NSError? = nil
         var input: AVCaptureDeviceInput = AVCaptureDeviceInput()
         do {
             input = try  AVCaptureDeviceInput(device: device) as AVCaptureDeviceInput

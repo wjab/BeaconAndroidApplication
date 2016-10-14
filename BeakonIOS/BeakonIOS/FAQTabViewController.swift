@@ -17,6 +17,13 @@ class FAQTabViewController: UITabBarController {
         super.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
+        //Button abre  menu
+        let open = UIButton()
+        let image = defaults.objectForKey("image")as! String
+        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        open.frame = CGRectMake(0, 0, 30, 25)
+        open.addTarget(self, action: #selector(FAQTabViewController.openMenu), forControlEvents: .TouchUpInside)
+        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Set verde en el tab seleccionado
         let numberOfItems = CGFloat(tabBar.items!.count)
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
@@ -40,6 +47,11 @@ class FAQTabViewController: UITabBarController {
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    //Abre el menu
+    func openMenu(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     //Abre la lista de deseos

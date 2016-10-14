@@ -61,7 +61,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
                         user = response.objectForKey("user")! as! NSDictionary
                         let productList = user.mutableArrayValueForKey("productWishList")
                         
-                        for (indexP, product) in productList.enumerate()
+                        for (_, product) in productList.enumerate()
                         {
                             let wishObject = Wish()
                             wishObject.productIdPropeties = product.objectForKey("productId") as! String

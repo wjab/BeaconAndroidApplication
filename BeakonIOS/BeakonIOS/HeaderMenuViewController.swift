@@ -77,6 +77,7 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
             let imagePath =  imageURL.path!
             let localPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(imagePath)
             
+            
             //this block of code adds data to the above path
             let path = localPath.relativePath!
             let imageName = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -84,7 +85,7 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
             data?.writeToFile(imagePath, atomically: true)
             let printUrl = info[UIImagePickerControllerReferenceURL]
             //this block grabs the NSURL so you can use it in CKASSET
-            let photoURL = NSURL(fileURLWithPath: path)
+            _ = NSURL(fileURLWithPath: path)
             print("---------------------------------------------------------")
             print(printUrl?.absoluteString)
         }

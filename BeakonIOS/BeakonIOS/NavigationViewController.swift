@@ -10,10 +10,10 @@ import UIKit
 
 class NavigationViewController: UINavigationController {
     var image:String = ""
+    let konkat = KonkatViewController()
     var name:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 

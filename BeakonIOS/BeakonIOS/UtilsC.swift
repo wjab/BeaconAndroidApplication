@@ -13,20 +13,6 @@ import JLToast
 
 class UtilsC: UIViewController {
     
-    var webServiceCategory = "http://bcategorydevel.cfapps.io/"
-    var webServiceDevice = "http://bdevicedevel.cfapps.io/"
-    var webServiceMerchantProduct = "http://bmerchantproductdevel.cfapps.io/"
-    var webServiceMerchantProfile = "http://bmerchantprofiledevel.cfapps.io/"
-    var webServiceMobile = "http://bmobiledevel.cfapps.io/"
-    var webServiceOfferHistory = "http://bofferhistorydevel.cfapps.io/"
-    var webServicePromo = "http://bpromodevel.cfapps.io/"
-    var webServiceUser = "http://buserdevel.cfapps.io/"
-    var webServiceUtils = "http://butilsdevel.cfapps.io/"
-    var webServiceFaq = "http://bfaqdevel.cfapps.io/"
-    var webServiceHistoryPointsUser = "http://butilsdevel.cfapps.io/utils/user/getPointsData/"
-    var webService_VisitorHistory = "http://bvisitorhistorydevel.cfapps.io/"
-    var webServicePoints = "http://bpointsdevel.cfapps.io/"
-    
     let defaults = NSUserDefaults.standardUserDefaults()
     
     func convertLongToDate() -> String{
@@ -130,7 +116,14 @@ class UtilsC: UIViewController {
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
                         JLToast.makeText("Puntos obtenidos").show()
-                    }
+                        let localNotification = UILocalNotification()
+                        localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+                        localNotification.alertBody = "puntos obtenidos: "+String()
+                        localNotification.timeZone = NSTimeZone.defaultTimeZone()
+                        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+                        
+                        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                        }
                     else if((response)["status"]as! Int == 400){
                         JLToast.makeText("El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido").show()
                     }

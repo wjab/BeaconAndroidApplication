@@ -27,13 +27,22 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         table.dataSource = self
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.loadList(_:)),name:"wish", object: nil)
             let points = defaults.objectForKey("points") as! Int
-            //Cambia el tamaño de los tabs
+            
             //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
             let btn1 = UIButton()
             btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
             btn1.frame = CGRectMake(0, 0, 30, 25)
             btn1.addTarget(self, action: #selector(WishViewController.openWishList), forControlEvents: .TouchUpInside)
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+            
+            //Button abre  menu
+            let open = UIButton()
+            let image = defaults.objectForKey("image")as! String
+            open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+            open.frame = CGRectMake(0, 0, 30, 25)
+            open.addTarget(self, action: #selector(WishViewController.openMenu), forControlEvents: .TouchUpInside)
+            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+            
             //Genera el boton del centro que contiene los puntos del usuario
             let button =  UIButton(type: .Custom)
             button.frame = CGRectMake(0, 0, 100, 40) as CGRect
@@ -41,6 +50,11 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             button.addTarget(self, action: #selector(WishViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.navigationItem.titleView = button
             
+    }
+    //Abre el menu
+    func openMenu(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     //Abre el historial de puntos
@@ -54,8 +68,6 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
-    
-
     
     func loadList(notification: NSNotification){
         service()

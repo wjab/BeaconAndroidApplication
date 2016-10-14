@@ -11,6 +11,46 @@ import Alamofire
 import SwiftyJSON
 import JLToast
 
+extension NSDate {
+    convenience init?(jsonDate: String) {
+        let prefix = "/Date("
+        let suffix = ")/"
+        let scanner = NSScanner(string: jsonDate)
+        
+        // Check prefix:
+        if scanner.scanString(prefix, intoString: nil) {
+            
+            // Read milliseconds part:
+            var milliseconds : Int64 = 0
+            if scanner.scanLongLong(&milliseconds) {
+                // Milliseconds to seconds:
+                var timeStamp = NSTimeInterval(milliseconds)/1000.0
+                
+                // Read optional timezone part:
+                var timeZoneOffset : Int = 0
+                if scanner.scanInteger(&timeZoneOffset) {
+                    let hours = timeZoneOffset / 100
+                    let minutes = timeZoneOffset % 100
+                    // Adjust timestamp according to timezone:
+                    timeStamp += NSTimeInterval(3600 * hours + 60 * minutes)
+                }
+                
+                // Check suffix:
+                if scanner.scanString(suffix, intoString: nil) {
+                    // Success! Create NSDate and return.
+                    self.init(timeIntervalSince1970: timeStamp)
+                    return
+                }
+            }
+        }
+        
+        // Wrong format, return nil. (The compiler requires us to
+        // do an initialization first.)
+        self.init(timeIntervalSince1970: 0)
+        return nil
+    }
+}
+
 class PointsTabOneViewController: UIViewController {
 
     @IBOutlet weak var pointsBtn: UITextField!
@@ -21,9 +61,8 @@ class PointsTabOneViewController: UIViewController {
     var userId = ""
     var code = ""
     var pointsUser = 0
-    var dateExpiration:CLongLong = 1473118701583
-    
-   // var expirationDate = 1473118701583
+    var dateExpiration:Int = 14
+    var dateSend = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         obtainMiniumPoints()
@@ -132,12 +171,21 @@ class PointsTabOneViewController: UIViewController {
                             {
                                 pointsObject = response.objectForKey("points")! as! NSDictionary
                                 self.code = (pointsObject)["code"] as! String
-                                //self.dateExpiration = (pointsObject)["expirationDate"] as! CLongLong
+                                self.dateExpiration = (pointsObject)["expirationDate"] as! Int
+                                if let theDate = NSDate(jsonDate: "/Date("+String(self.dateExpiration)+"-0800)/")
+                                {
+                                    self.dateSend = String(theDate)
+                                    print(theDate)
+                                }
+                                else
+                                {
+                                    print("wrong format")
+                                }
                                 //self.expirationDate = (pointsObject)["expirationDate"] as Float
                                 JLToast.makeText("Creado con exito").show()
                                 self.serviceUpdateUserDefault()
                                 let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailChangePointsViewController") as! DetailChangePointsViewController
-                                secondViewController.expiration = String(self.dateExpiration)
+                                secondViewController.expiration = self.dateSend
                                 secondViewController.code = self.code
                                 self.navigationController?.pushViewController(secondViewController, animated: true)
                                 
