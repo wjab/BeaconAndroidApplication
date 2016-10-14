@@ -12,30 +12,55 @@ import Alamofire
 import SwiftyJSON
 import JLToast
 
-class KonkatViewController: UIViewController {
-    
+class KonkatViewController: UIViewController
+{
     @IBOutlet weak var imageView: UIImageView!
     let headers = [
-        "Api-Key": "ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc",
-        "Content-Type":"application/json",
-        "Accept" : "application/vnd.com.kontakt+json;version=8"]
-    //https://api.kontakt.io/device?uniqueId=aruM
-    //http://bdevicedevel.cfapps.io/device/UID/Jwm8
+        "Api-Key": Constants.general.kontakt_api_key,
+        "Content-Type": Constants.general.content_type_json,
+        "Accept" : Constants.general.header_accept
+    ]
     
     var devicesManager: KTKDevicesManager!
     var connection: KTKDeviceConnection?
+    var backgroundScanTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    var intervalTimeSeg : double_t = 15.0
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         // Initiate Devices Manager
         devicesManager = KTKDevicesManager(delegate: self)
         
         // Start Discovery
-        //Scanea cada hora
-        devicesManager.startDevicesDiscoveryWithInterval(3.0)
+        // Scaneo en segundos
+        devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
     }
     
-    func getDataForBeacon(beacon: CLBeacon) {
+    func reinstateBackgroundTask()
+    {
+        if backgroundScanTask == UIBackgroundTaskInvalid
+        {
+            registerBackgroundTask()
+        }
+    }
+    
+    func registerBackgroundTask()
+    {
+        backgroundScanTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+            [unowned self] in self.endBackgroundTask()
+        })
+    }
+    
+    func endBackgroundTask()
+    {
+        NSLog("BackgroundScanTask scan task ended.")
+        UIApplication.sharedApplication().endBackgroundTask(backgroundScanTask)
+        backgroundScanTask = UIBackgroundTaskInvalid
+    }
+    
+    func getDataForBeacon(beacon: CLBeacon)
+    {
         // Parameters
         let parameters = [
             "proximity": beacon.proximityUUID.UUIDString,
@@ -44,20 +69,21 @@ class KonkatViewController: UIViewController {
         ]
         
         // Log
-        print("Getting Data for Beacon with parameters: \(parameters)")
+        NSLog("Getting Data for Beacon with parameters: \(parameters)")
         
         // Get Device
         KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters: parameters) { [weak self] response, error in
-            if let device = response?.objects?.first as? KTKDevice {
+            if let device = response?.objects?.first as? KTKDevice
+            {
                 self?.getActionForDevice(proximity: beacon.proximity, device: device)
             }
         }
     }
     
-    func getActionForDevice(proximity proximity:CLProximity, device: KTKDevice) {
-        
+    func getActionForDevice(proximity proximity:CLProximity, device: KTKDevice)
+    {
         // Log
-        print("Getting Action for Beacon with unique ID: \(device.uniqueID)")
+        NSLog("Getting Action for Beacon with unique ID: \(device.uniqueID)")
         
         KTKCloudClient.sharedInstance().getObjects(KTKAction.self, parameters: ["uniqueId": device.uniqueID]) { [weak self] response, error in
             
@@ -66,7 +92,8 @@ class KonkatViewController: UIViewController {
             {
                 // Download Image
                 content.downloadContentDataWithCompletion { data, error in
-                    if let data = data, let image = UIImage(data: data) {
+                    if let data = data, let image = UIImage(data: data)
+                    {
                         self?.imageView.image = image
                     }
                 }
@@ -75,59 +102,65 @@ class KonkatViewController: UIViewController {
     }
 }
 
-extension KonkatViewController: KTKDevicesManagerDelegate {
+extension KonkatViewController: KTKDevicesManagerDelegate
+{
     
-    func devicesManagerDidFailToStartDiscovery(manager: KTKDevicesManager, withError error: NSError?) {
+    func devicesManagerDidFailToStartDiscovery(manager: KTKDevicesManager, withError error: NSError?)
+    {
         
     }
     
-    func devicesManager(manager: KTKDevicesManager, didDiscoverDevices devices: [KTKNearbyDevice]?) {
+    func devicesManager(manager: KTKDevicesManager, didDiscoverDevices devices: [KTKNearbyDevice]?)
+    {
+        NSLog("Devices Manager found \(devices?.count) kontakt devices")
         
-        print("Devices Manager found \(devices?.count) kontakt devices")
         //For para conocer las promos
         for (index, element) in devices!.enumerate() {
-            let url : String = "http://bdevicedevel.cfapps.io/device/UID/"+element.uniqueID!
+            let url : String = Constants.ws_services.device + element.uniqueID!
+            
             //Crea el request
             Alamofire.request(.GET, url, headers: self.headers,encoding: .JSON)
                 .responseJSON
+            {
+                response in switch response.result
                 {
-                    response in switch response.result
-                    {
                     //Si la respuesta es satisfactoria
                     case .Success(let JSON):
                         let response = JSON as! NSDictionary
-                        //Si la respuesta no tiene status 404
-                        if((response)["status"] as! String != "404" && (response)["status"] as! String != "401")
+                            
+                         //Si la respuesta no tiene status 404
+                        if((response)["status"] as! String != Constants.ws_response_code.not_found && (response)["status"] as! String != Constants.ws_response_code.unauthorized)
                         {
                             var device = JSON as! NSDictionary
                             device = response.objectForKey("device") as! NSDictionary
                             let rangesList =  device.mutableArrayValueForKey("ranges")
-                            for (_, element) in rangesList.enumerate() {
-                                //print(index, ":", element)
+                                
+                            for (_, element) in rangesList.enumerate()
+                            {
                                 let idPromo = element.objectForKey("promoID")as! String
+                                
                                 //Llama a buscar la promo
                                 let promo = UtilsC()
                                 promo.serviceById(idPromo)
                             }
-                             //self.devicesManager.stopDevicesDiscovery()
-                            //self.devicesManager.startDevicesDiscoveryWithInterval(7200.0)
                         }
-                        else if((response)["status"] as! String == "401"){
-                            print("El Beakon no esta asociado a ninguna promocion")
+                        else if((response)["status"] as! String == Constants.ws_response_code.not_found)
+                        {
+                            print(Constants.info_messages.beacon_not_belongs_to_promo)
                         }
                         else
                         {
-                            print("Problema al obtner datos del beacon")
+                            print(Constants.error_messages.get_beacon_info)
                         }
-                    case .Failure(let error):
-                        print("Hubo un error realizando la peticion: \(error)")
+                        case .Failure(let error):
+                            print(NSString(format : Constants.error_messages.call_to_ws , error ) )
                     }
             }
 
         }
      
 
-        if let device = devices?.filter({ $0.uniqueID == "<#unique id#>" }).first {
+        /*if let device = devices?.filter({ $0.uniqueID == "<#unique id#>" }).first {
             manager.stopDevicesDiscovery()
             
             let configuration = KTKDeviceConfiguration(uniqueID: "<#unique id#>")
@@ -160,6 +193,6 @@ extension KonkatViewController: KTKDevicesManagerDelegate {
                     }
                 }
             }
-        }
+        }*/
     }
 }

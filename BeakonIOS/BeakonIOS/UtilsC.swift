@@ -71,12 +71,14 @@ class UtilsC: UIViewController {
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
-                        if((response)["message"] as! String=="Product already added to wishlist"){
+                        if((response)["message"] as! String=="Product already added to wishlist")
+                        {
                             JLToast.makeText("Este producto ya se encuentra en la lista de deseos").show()
                         }
-                        else{
-                        print("Genial")
-                        JLToast.makeText("Añadido correctamente").show()
+                        else
+                        {
+                            print("Genial")
+                            JLToast.makeText("Añadido correctamente").show()
                         }
 
                     }

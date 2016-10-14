@@ -79,6 +79,7 @@
 		9DE4A1721D87171700C3AD6E /* WishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4A1711D87171700C3AD6E /* WishCell.swift */; };
 		9DF696111D93043A00C22251 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696101D93043A00C22251 /* TableViewController.swift */; };
 		9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */; };
+		ABC71F351DB14A520063F636 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC71F341DB14A520063F636 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,6 +391,7 @@
 		9DE4A1711D87171700C3AD6E /* WishCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishCell.swift; sourceTree = "<group>"; };
 		9DF696101D93043A00C22251 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderMenuViewController.swift; sourceTree = "<group>"; };
+		ABC71F341DB14A520063F636 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,6 +455,7 @@
 				9D2CA05C1D6CBD2F00F8997E /* AppDelegate.swift */,
 				9D2CA0631D6CBD2F00F8997E /* Assets.xcassets */,
 				9D2CA0681D6CBD2F00F8997E /* Info.plist */,
+				ABC71F341DB14A520063F636 /* Constants.swift */,
 			);
 			path = BeakonIOS;
 			sourceTree = "<group>";
@@ -856,7 +859,11 @@
 				TargetAttributes = {
 					9D2CA0581D6CBD2F00F8997E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = XENJF7X24S;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -1118,6 +1125,7 @@
 				9D926E451D70EF3D0040FDF8 /* NotificationTabTwoViewController.swift in Sources */,
 				9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */,
 				9D1E46C61D6DFBAA00772202 /* User.swift in Sources */,
+				ABC71F351DB14A520063F636 /* Constants.swift in Sources */,
 				9DA88CFE1D79D8B5000C53A3 /* DetailShopViewController.swift in Sources */,
 				9DB9FA701D6F551B00E24891 /* WishViewController.swift in Sources */,
 				9D1E47121D6E059A00772202 /* Wish.swift in Sources */,
