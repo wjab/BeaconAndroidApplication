@@ -56,6 +56,7 @@ class HomeTabViewController: UITabBarController {
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(UIColor(red:0.63, green:0.85, blue:0.25, alpha:1.0), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
         
+        
         //Swipe
         let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
         recognizer.addTarget(self, action: #selector(HomeTabViewController.swipeRight(_:)))
@@ -64,7 +65,21 @@ class HomeTabViewController: UITabBarController {
     
         //Cambia el tamaño de los tabs
        let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
-        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-30, tabBarHome.frame.size.width, tabBarHome.frame.size.height-30)
+        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-15, tabBarHome.frame.size.width, tabBarHome.frame.size.height-15)
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.blackColor()], forState: UIControlState.Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Selected)
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
+    
+        
+        
+
+        
+
+        
+      
+        
+        
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
        let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)

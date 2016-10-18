@@ -22,8 +22,11 @@ class PointsTabViewController: UITabBarController {
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(UIColor(red:0.63, green:0.85, blue:0.25, alpha:1.0), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
         //Cambia el tamaño de los tabs
         let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
-        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarPoints.frame.size.height-30, tabBarPoints.frame.size.width, tabBarPoints.frame.size.height-30)
-        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarPoints.frame.size.height-15, tabBarPoints.frame.size.width, tabBarPoints.frame.size.height-15)
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.blackColor()], forState: UIControlState.Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Selected)
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
