@@ -39,4 +39,33 @@ struct Constants
         static let get_beacon_info = "Problema al obtner datos del beacon"
         static let call_to_ws = "Hubo un error realizando la peticion: %@"
     }
+    struct colors{
+        static func getWhite() -> UIColor{
+            return UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.0)
+        }
+        static func getBlack() -> UIColor{
+            return UIColor(red:0.06, green:0.07, blue:0.09, alpha:1.0)
+        }
+        static func getDarkGreen() -> UIColor{
+            return UIColor(red:0.63, green:0.85, blue:0.25, alpha:1.0)
+        }
+        static func getLightBlue() -> UIColor{
+            return UIColor(red:0.33, green:0.50, blue:0.68, alpha:1.0)
+        }
+        static func getDarkBlue() -> UIColor{
+            return UIColor(red:0.11, green:0.32, blue:0.55, alpha:1.0)
+        }
+        static func getActionBarColor() -> UIColor{
+            return UIColor(red:0.19, green:0.64, blue:0.42, alpha:1.0)
+        }
+        static func getGrey() -> UIColor{
+            return UIColor(red:0.27, green:0.27, blue:0.27, alpha:1.0)
+        }
+        static func getLightGrey() -> UIColor{
+            return UIColor(red:0.66, green:0.66, blue:0.66, alpha:1.0)
+        }
+        static func getMediumGrey() -> UIColor{
+            return UIColor(red:0.44, green:0.44, blue:0.44, alpha:1.0)
+        }
+    }
 }
