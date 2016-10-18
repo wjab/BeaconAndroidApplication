@@ -25,6 +25,7 @@ class KonkatViewController: UIViewController
     var connection: KTKDeviceConnection?
     var backgroundScanTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
     var intervalTimeSeg : double_t = 15.0
+    var updateTimer : NSTimer?
     
     override func viewDidLoad()
     {
@@ -32,14 +33,24 @@ class KonkatViewController: UIViewController
         // Initiate Devices Manager
         devicesManager = KTKDevicesManager(delegate: self)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KonkatViewController.reinstateBackgroundTask), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
         // Start Discovery
         // Scaneo en segundos
-        devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
+        //devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
+        
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(intervalTimeSeg, target: self,
+                                                             selector: #selector(KonkatViewController.scanManager), userInfo: nil, repeats: true)
+    }
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func reinstateBackgroundTask()
     {
-        if backgroundScanTask == UIBackgroundTaskInvalid
+        if updateTimer != nil && backgroundScanTask == UIBackgroundTaskInvalid
         {
             registerBackgroundTask()
         }
@@ -50,6 +61,7 @@ class KonkatViewController: UIViewController
         backgroundScanTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
             [unowned self] in self.endBackgroundTask()
         })
+        assert(backgroundScanTask != UIBackgroundTaskInvalid)
     }
     
     func endBackgroundTask()
@@ -57,6 +69,32 @@ class KonkatViewController: UIViewController
         NSLog("BackgroundScanTask scan task ended.")
         UIApplication.sharedApplication().endBackgroundTask(backgroundScanTask)
         backgroundScanTask = UIBackgroundTaskInvalid
+    }
+    
+    func scanManager()
+    {
+        switch UIApplication.sharedApplication().applicationState
+        {
+            case .Inactive:
+                NSLog("Inactive state. Scan task ended.")
+                updateTimer?.invalidate()
+                updateTimer = nil
+                if backgroundScanTask != UIBackgroundTaskInvalid
+                {
+                    endBackgroundTask()
+                }
+                break
+        case .Background:
+                NSLog("Scan is backgrounded.")
+                devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
+                registerBackgroundTask()
+                break
+            default:
+                devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
+                registerBackgroundTask()
+                break
+        }
+        
     }
     
     func getDataForBeacon(beacon: CLBeacon)
@@ -115,7 +153,7 @@ extension KonkatViewController: KTKDevicesManagerDelegate
         NSLog("Devices Manager found \(devices?.count) kontakt devices")
         
         //For para conocer las promos
-        for (index, element) in devices!.enumerate() {
+        for (_, element) in devices!.enumerate() {
             let url : String = Constants.ws_services.device + element.uniqueID!
             
             //Crea el request
@@ -144,7 +182,7 @@ extension KonkatViewController: KTKDevicesManagerDelegate
                                 promo.serviceById(idPromo)
                             }
                         }
-                        else if((response)["status"] as! String == Constants.ws_response_code.not_found)
+                        else if((response)["status"] as! String == Constants.ws_response_code.unauthorized)
                         {
                             print(Constants.info_messages.beacon_not_belongs_to_promo)
                         }
@@ -154,45 +192,9 @@ extension KonkatViewController: KTKDevicesManagerDelegate
                         }
                         case .Failure(let error):
                             print(NSString(format : Constants.error_messages.call_to_ws , error ) )
-                    }
+                }
             }
 
         }
-     
-
-        /*if let device = devices?.filter({ $0.uniqueID == "<#unique id#>" }).first {
-            manager.stopDevicesDiscovery()
-            
-            let configuration = KTKDeviceConfiguration(uniqueID: "<#unique id#>")
-            configuration.major = 1000
-            configuration.minor = 2000
-            
-            connection = KTKDeviceConnection(nearbyDevice: device)
-            if let connection = connection {
-                // Write Configuration
-                connection.writeConfiguration(configuration) { synchronized, configuration, error in
-                    if let _ = error {
-                        print("Error while configuring")
-                    }
-                    else {
-                        print("Configuration applied")
-                    }
-                }
-                
-                // Update Firmware
-                KTKFirmware.getFirmwaresForUniqueIDs(["<#unique id#>"]) { firmware, error in
-                    if let firmware = firmware?.first {
-                        connection.updateWithFirmware(firmware, progress: { print("Firmware update progress: \($0)") }) { success, error in
-                            if let _ = error {
-                                print("Error while configuring")
-                            }
-                            else {
-                                print("Firmware update completed")
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
     }
 }
