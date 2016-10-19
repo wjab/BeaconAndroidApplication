@@ -20,8 +20,18 @@ class FAQTabViewController: UITabBarController {
         //Button abre  menu
         let open = UIButton()
         let image = defaults.objectForKey("image")as! String
-        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
-        open.frame = CGRectMake(0, 0, 30, 25)
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        if (typeUser != "localuser"){
+            open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        }
+        else
+        {
+            open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        }
+        open.frame = CGRectMake(0, 0, 40, 35)
+        open.layer.masksToBounds = false
+        open.layer.cornerRadius = open.frame.height/2
+        open.clipsToBounds = true
         open.addTarget(self, action: #selector(FAQTabViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Set verde en el tab seleccionado
@@ -29,9 +39,10 @@ class FAQTabViewController: UITabBarController {
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(Constants.colors.getDarkGreen(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
         //Cambia el tamaño de los tabs
-        let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
-        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarFaq.frame.size.height-15, tabBarFaq.frame.size.width, tabBarFaq.frame.size.height-15)
+      //  let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
+       // tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarFaq.frame.size.height-15, tabBarFaq.frame.size.width, tabBarFaq.frame.size.height-15)
         
+        //Cambia el color de los tabs
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getBlack()], forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)

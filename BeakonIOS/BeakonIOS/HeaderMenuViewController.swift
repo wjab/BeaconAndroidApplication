@@ -27,22 +27,25 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
            imagePicker.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action:#selector(HeaderMenuViewController.tapDetected))
         singleTap.numberOfTapsRequired = 1
-         profileImage.userInteractionEnabled = true
-        profileImage.addGestureRecognizer(singleTap)
-        profileImage.layer.borderWidth=1.0
-        profileImage.layer.masksToBounds = false
-        profileImage.layer.borderColor = UIColor.whiteColor().CGColor
-        profileImage.layer.cornerRadius = 13
-        profileImage.layer.cornerRadius =   profileImage.frame.size.height/2
+        
+        profileImage.frame = CGRectMake(0, 0, 60, 53)
+         profileImage.layer.masksToBounds = false
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
         
         let image = defaults.objectForKey("image")as! String
         let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        
         if (typeUser != "localuser"){
         profileImage.image = NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         }
-        //self.loadImageFromPath(defaults.objectForKey("image")as!String)
-        //assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG
+        else{
+            profileImage.userInteractionEnabled = true
+            profileImage.addGestureRecognizer(singleTap)
+            // self.loadImageFromPath(defaults.objectForKey("image")as!String)
+            //assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG
+        }
+       
         // Do any additional setup after loading the view.
     }
     
@@ -52,8 +55,12 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
         
         if image == nil {
             print("missing image at: \(path)")
+            
         }
         print("Loading image from path: \(path)") // this is just for you to see the path in case you want to go to the directory, using Finder.
+        let path: String? = NSBundle.mainBundle().pathForResource("imageName", ofType: "png", inDirectory: "DirectoryName/Images")
+        let imageFromPath = UIImage(contentsOfFile: path!)!
+        self.profileImage.image = imageFromPath
         profileImage.image = image
         }
     

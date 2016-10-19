@@ -29,8 +29,18 @@ class ProfileViewController: UIViewController {
         //Button abre  menu
         let open = UIButton()
         let image = defaults.objectForKey("image")as! String
-        open.setImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
-        open.frame = CGRectMake(0, 0, 30, 25)
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        if (typeUser != "localuser"){
+            open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+        }
+        else
+        {
+            open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        }
+       open.frame = CGRectMake(0, 0, 40, 35)
+        open.layer.masksToBounds = false
+        open.layer.cornerRadius = open.frame.height/2
+        open.clipsToBounds = true
         open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos

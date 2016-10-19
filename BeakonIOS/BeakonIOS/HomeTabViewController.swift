@@ -36,17 +36,13 @@ class HomeTabViewController: UITabBarController {
         let points = defaults.objectForKey("points") as! Int
         let image = defaults.objectForKey("image")as! String
         let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        
-        open.userInteractionEnabled = true
-        open.layer.borderWidth=1.0
+        open.frame = CGRectMake(0, 0, 40, 35)
         open.layer.masksToBounds = false
-        open.layer.borderColor = UIColor.whiteColor().CGColor
-        open.layer.cornerRadius = 13
-        open.layer.cornerRadius =   open.frame.size.height/2
+        open.layer.cornerRadius = open.frame.height/2
         open.clipsToBounds = true
 
         if (typeUser != "localuser"){
-        open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
+       open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
         }
         else
         {
@@ -64,10 +60,11 @@ class HomeTabViewController: UITabBarController {
         recognizer.direction = .Right
         self.view .addGestureRecognizer(recognizer)
     
-        //Cambia el tamaño de los tabs
-       let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
-        tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-15, tabBarHome.frame.size.width, tabBarHome.frame.size.height-15)
+        //Coloca los tabs arriba
+       //let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
+        //tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-15, tabBarHome.frame.size.width, tabBarHome.frame.size.height-15)
         
+        //Cambia el tamaño de los tabs
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getBlack()], forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
