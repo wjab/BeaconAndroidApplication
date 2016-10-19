@@ -23,24 +23,11 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         configureFacebook()
     }
+    
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
     {
-        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.loginBehavior = FBSDKLoginBehavior.Web
-        fbLoginManager.logInWithReadPermissions(["public_profile","email"], fromViewController: self) { (result, error) -> Void in
-            if error != nil {
-                print(error.localizedDescription)
-                self.dismissViewControllerAnimated(true, completion: nil)
-            } else if result.isCancelled {
-                print("Cancelled")
-                self.dismissViewControllerAnimated(true, completion: nil)
-            } else {
-                self.getInfoFacebook()
-            }
-        }
-        
-        //"fields", "email,gender,first_name,last_name,name,id,birthday"
-          }
+        self.getInfoFacebook()
+    }
     
     func getInfoFacebook(){
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"email, name, gender, id, first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in

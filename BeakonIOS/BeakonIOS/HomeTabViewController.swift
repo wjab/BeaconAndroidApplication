@@ -46,7 +46,14 @@ class HomeTabViewController: UITabBarController {
         }
         else
         {
+            if NSFileManager.defaultManager().fileExistsAtPath(image) {
+                let url = NSURL(string: image)
+                let data = NSData(contentsOfURL: url!)
+                open.setBackgroundImage(UIImage(data: data!), forState: .Normal)
+            }
+            else{
             open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+            }
         }
         // Set verde cuando es seleccionadao
         let numberOfItems = CGFloat(tabBar.items!.count)
