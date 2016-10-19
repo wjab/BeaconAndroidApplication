@@ -70,8 +70,12 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     }
     
     func logout(){
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
         let appDomain = NSBundle.mainBundle().bundleIdentifier!
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+        if (typeUser == "facebook"){
+         FBSDKLoginManager().logOut()
+        }
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
         self.showDetailViewController(vc as! ViewController, sender: self)
 }
