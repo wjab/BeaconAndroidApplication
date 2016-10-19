@@ -106,26 +106,32 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         if(purchase == "0")
         {
             imagePurchase.image = UIImage(named:"purchase-gray")
+            purchaseTL.textColor = UIColor.grayColor()
         }
         else
         {
             imagePurchase.image = UIImage(named:"purchase-blue")
+            purchaseTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         if(walkin == "0")
         {
             imageWalkin.image = UIImage(named:"walk-in-gray")
+            walkinTL.textColor = UIColor.grayColor()
         }
         else
         {
             imageWalkin.image = UIImage(named:"walk-in-blue")
+            walkinTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         if(scan == "0")
         {
             imageScan.image = UIImage(named:"scan-gray")
+            scanTL.textColor = UIColor.grayColor()
         }
         else
         {
             imageScan.image = UIImage(named:"scan-blue")
+            scanTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
 
     }

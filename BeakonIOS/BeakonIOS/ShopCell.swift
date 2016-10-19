@@ -37,26 +37,32 @@ class ShopCell: UITableViewCell {
         if(self.purchase == "0")
         {
             purchaseImage.image = UIImage(named:"purchase-gray")
+            purchaseL.textColor = UIColor.grayColor()
         }
         else
         {
             purchaseImage.image = UIImage(named:"purchase-blue")
+            purchaseL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         if(self.walkin == "0")
         {
             walkinImage.image = UIImage(named:"walk-in-gray")
+            walkinL.textColor = UIColor.grayColor()
         }
         else
         {
             walkinImage.image = UIImage(named:"walk-in-blue")
+            walkinL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         if(self.scan == "0")
         {
             scanImage.image = UIImage(named:"scan-gray")
+            scanL.textColor = UIColor.grayColor()
         }
         else
         {
             scanImage.image = UIImage(named:"scan-blue")
+            scanL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         
     }
