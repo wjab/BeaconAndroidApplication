@@ -28,7 +28,9 @@ class ShopCell: UITableViewCell {
        purchaseL.text = purchase
         scanL.text = scan
         walkinL.text = walkin
-        shopImage.image = NSURL(string: String(urlImageShop)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        var image: UIImage? = NSURL(string: String(urlImageShop)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        shopImage.image = image
         self.validationImageToShow()
     }
     func validationImageToShow()

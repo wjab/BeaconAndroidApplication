@@ -15,7 +15,10 @@ class PromoCell: UITableViewCell {
     
     internal func configure(name: String, urlImagePromo: String, points: String) {
         nameL.text = name
-        promoImage.image = NSURL(string: String(urlImagePromo)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        var image: UIImage? = NSURL(string: String(urlImagePromo)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        promoImage.image = image
         pointsL.text = points
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, promoImage.bounds.width, promoImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

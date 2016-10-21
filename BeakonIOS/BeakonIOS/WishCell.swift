@@ -21,7 +21,8 @@ class WishCell: UITableViewCell {
     internal func configure(name: String, urlImage: String,product: Wish) {
         nameL.text = name
         wishProduct = product
-        productImage.image = NSURL(string: String(urlImage)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        var image: UIImage? = NSURL(string: String(urlImage)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        productImage.image = image
          deleteProduct.addTarget(self, action: #selector(deleteProductWish), forControlEvents: .TouchUpInside)
     }
     

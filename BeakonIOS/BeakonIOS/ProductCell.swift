@@ -12,8 +12,12 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var nameL: UILabel!
     internal func configure(name: String, urlImageCategory: String) {
+        
+        var image: UIImage? = NSURL(string: String(urlImageCategory)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        
         nameL.text = name
-        categoryImage.image = NSURL(string: String(urlImageCategory)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        categoryImage.image = image
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, categoryImage.bounds.width, categoryImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = gradientLayerView.bounds

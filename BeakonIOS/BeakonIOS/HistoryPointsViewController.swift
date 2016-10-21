@@ -38,10 +38,11 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         let image = defaults.objectForKey("image")as! String
         let typeUser = defaults.objectForKey("socialNetworkType")as! String
 
+        /*
         open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
         
         open.addTarget(self, action: #selector(HistoryPointsViewController.openMenu), forControlEvents: .TouchUpInside)
-        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)*/
         //Genera el boton del centro que contiene los puntos del usuario
         let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
