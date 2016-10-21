@@ -37,7 +37,7 @@ class NotificationTabViewController: UITabBarController {
         }
         else
         {
-            open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+            open.setBackgroundImage(UIImage(named: "profiledefault"), forState: .Normal)
         }
         open.frame = CGRectMake(0, 0, 40, 35)
         open.layer.masksToBounds = false
@@ -45,12 +45,14 @@ class NotificationTabViewController: UITabBarController {
         open.clipsToBounds = true
         open.addTarget(self, action: #selector(NotificationTabViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
-              //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        
+        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(NotificationTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        
         //Genera el boton del centro que contiene los puntos del usuario
         let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect

@@ -80,7 +80,11 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
         let promoObject = self.promoArray[indexPath.row]
         let name = promoObject.descriptionPromoPropeties
         let urlImage = promoObject.imagesPropeties
-         cell.configure(name,urlImagePromo: urlImage)
+        let points = promoObject.giftPoints
+        let pointsMsg = "\(String(points)) pts"
+        
+        
+         cell.configure(name,urlImagePromo: urlImage, points: pointsMsg)
         return cell
     }
     

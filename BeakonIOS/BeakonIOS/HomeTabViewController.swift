@@ -40,21 +40,11 @@ class HomeTabViewController: UITabBarController {
         open.layer.masksToBounds = false
         open.layer.cornerRadius = open.frame.height/2
         open.clipsToBounds = true
+        
+        
+        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
 
-        if (typeUser != "localuser"){
-       open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
-        }
-        else
-        {
-            if NSFileManager.defaultManager().fileExistsAtPath(image) {
-                let url = NSURL(string: image)
-                let data = NSData(contentsOfURL: url!)
-                open.setBackgroundImage(UIImage(data: data!), forState: .Normal)
-            }
-            else{
-            open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-            }
-        }
+
         // Set verde cuando es seleccionadao
         let numberOfItems = CGFloat(tabBar.items!.count)
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)

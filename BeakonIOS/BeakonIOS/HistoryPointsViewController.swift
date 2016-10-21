@@ -34,21 +34,12 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Button abre  menu
-        let open = UIButton()
+        var open = UIButton()
         let image = defaults.objectForKey("image")as! String
-         let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        if (typeUser != "localuser"){
-            open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
-        }
-        else
-        {
-            open.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-        }
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
 
-        open.frame = CGRectMake(0, 0, 40, 35)
-        open.layer.masksToBounds = false
-        open.layer.cornerRadius = open.frame.height/2
-        open.clipsToBounds = true
+        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
+        
         open.addTarget(self, action: #selector(HistoryPointsViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Genera el boton del centro que contiene los puntos del usuario

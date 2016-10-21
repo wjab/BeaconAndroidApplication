@@ -78,6 +78,7 @@
 		9DE4A1721D87171700C3AD6E /* WishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4A1711D87171700C3AD6E /* WishCell.swift */; };
 		9DF696111D93043A00C22251 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696101D93043A00C22251 /* TableViewController.swift */; };
 		9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */; };
+		AB5A5D0A1DB96D0C000B55EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A5D091DB96D0C000B55EF /* Utils.swift */; };
 		ABC71F351DB14A520063F636 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC71F341DB14A520063F636 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -360,6 +361,7 @@
 		9DE4A1711D87171700C3AD6E /* WishCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishCell.swift; sourceTree = "<group>"; };
 		9DF696101D93043A00C22251 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderMenuViewController.swift; sourceTree = "<group>"; };
+		AB5A5D091DB96D0C000B55EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		ABC71F341DB14A520063F636 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -425,6 +427,7 @@
 				9D2CA0631D6CBD2F00F8997E /* Assets.xcassets */,
 				9D2CA0681D6CBD2F00F8997E /* Info.plist */,
 				ABC71F341DB14A520063F636 /* Constants.swift */,
+				AB5A5D091DB96D0C000B55EF /* Utils.swift */,
 			);
 			path = BeakonIOS;
 			sourceTree = "<group>";
@@ -1077,6 +1080,7 @@
 				9DC578701D7739E900DF4860 /* Shop.swift in Sources */,
 				9DD4B7551D78DAEA00C32DC7 /* Notification.swift in Sources */,
 				9D2CA05D1D6CBD2F00F8997E /* AppDelegate.swift in Sources */,
+				AB5A5D0A1DB96D0C000B55EF /* Utils.swift in Sources */,
 				9D926E3E1D70E4EF0040FDF8 /* PointsTabViewController.swift in Sources */,
 				9DCB51AE1D74E0F80056774C /* ProductViewController.swift in Sources */,
 				9DCB52431D8356CB00D36FE6 /* DetailProductViewController.swift in Sources */,
