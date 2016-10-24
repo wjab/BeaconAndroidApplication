@@ -59,12 +59,12 @@ class UtilsC: UIViewController {
                     {
                         if((response)["message"] as! String=="Product already added to wishlist")
                         {
-                            JLToast.makeText("Este producto ya se encuentra en la lista de deseos").show()
+                            JLToast.makeText("Este producto ya se encuentra en su lista de deseos").show()
                         }
                         else
                         {
                             print("Genial")
-                            JLToast.makeText("Añadido correctamente").show()
+                            JLToast.makeText("Añadido correctamente a su lista de deseos").show()
                         }
 
                     }
@@ -91,6 +91,9 @@ class UtilsC: UIViewController {
     
     //Get by Id
     func serviceById(id:String){
+    
+            if(id.isEmpty == false )
+            {
         //Endpoint
         let idUser = (defaults.objectForKey("userId") as? String)!
         let newTodo = [
@@ -123,6 +126,8 @@ class UtilsC: UIViewController {
                         localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
                         
                         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                        
+                         NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
                         }
                     else if((response)["status"]as! Int == 400){
                         JLToast.makeText("El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido").show()
@@ -134,6 +139,7 @@ class UtilsC: UIViewController {
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
                 }
+        }
         }
     }
     

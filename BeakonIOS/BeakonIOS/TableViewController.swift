@@ -76,6 +76,8 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         if (typeUser == "facebook"){
          FBSDKLoginManager().logOut()
         }
+        HomeTabViewController.konkat.endBackgroundTask()
+        HomeTabViewController.konkat.devicesManager.stopDevicesDiscovery()
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
         self.showDetailViewController(vc as! ViewController, sender: self)
 }

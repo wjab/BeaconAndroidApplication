@@ -27,7 +27,8 @@ class PointsTabViewController: UITabBarController {
         //Cambia el color de los tabs
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getBlack()], forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
-        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
+        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)

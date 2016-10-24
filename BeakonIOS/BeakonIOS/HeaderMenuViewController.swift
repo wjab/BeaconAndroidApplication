@@ -9,15 +9,19 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import AssetsLibrary
 
 class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImage: UIImageView!
     let imagePicker = UIImagePickerController()
     var url: String!
+    var urlImagePicked = ""
     let defaults = NSUserDefaults.standardUserDefaults()
     @IBOutlet weak var userPointsText: UILabel!
     @IBOutlet weak var usernameText: UILabel!
+    var asset = ALAssetsLibrary()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let points = defaults.objectForKey("points") as! Int
@@ -42,27 +46,30 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
         else{
             profileImage.userInteractionEnabled = true
             profileImage.addGestureRecognizer(singleTap)
-            // self.loadImageFromPath(defaults.objectForKey("image")as!String)
+           // print("urlImage ---------> " + image)
+            let fileUrl = NSURL(string:  image)
+             self.loadImageFromPath(fileUrl!)
+           
             //assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG
         }
        
         // Do any additional setup after loading the view.
     }
     
-    func loadImageFromPath(path: String) {
-        
-        let image = UIImage(contentsOfFile: path)
-        
-        if image == nil {
-            print("missing image at: \(path)")
-            
-        }
-        print("Loading image from path: \(path)") // this is just for you to see the path in case you want to go to the directory, using Finder.
-        let path: String? = NSBundle.mainBundle().pathForResource("imageName", ofType: "png", inDirectory: "DirectoryName/Images")
-        let imageFromPath = UIImage(contentsOfFile: path!)!
-        self.profileImage.image = imageFromPath
-        profileImage.image = image
-        }
+    func loadImageFromPath(url: NSURL) {
+        asset.assetForURL(url, resultBlock: { asset in
+            if let ast = asset {
+                let assetRep = ast.defaultRepresentation()
+                let iref = assetRep.fullResolutionImage().takeUnretainedValue()
+                let image = UIImage(CGImage: iref)
+                dispatch_async(dispatch_get_main_queue(), {
+                   self.profileImage.image = image
+                })
+            }
+            }, failureBlock: { error in
+                print("Error: \(error)")
+        })
+    }
     
     func tapDetected() {
         imagePicker.allowsEditing = false
@@ -93,11 +100,11 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
             let printUrl = info[UIImagePickerControllerReferenceURL]
             //this block grabs the NSURL so you can use it in CKASSET
             _ = NSURL(fileURLWithPath: path)
-            print("---------------------------------------------------------")
-            print(printUrl?.absoluteString)
+          self.urlImagePicked = printUrl!.absoluteString
         }
         
         dismissViewControllerAnimated(true, completion: nil)
+          updateImageProfileService(self.urlImagePicked)
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -107,10 +114,12 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
     func updateImageProfileService(pathImage:String){
         //userService/user/editPathImage/userId
         //PUT
-        let idUser = (defaults.objectForKey("userId") as? String)!
+        defaults.setObject(pathImage, forKey: "image")
+    
+        let idUser = defaults.objectForKey("userId") as! String
         let endpoint: String = "http://buserdevel.cfapps.io/user/editPathImage/"+idUser
         let newTodo = ["pathImage": pathImage]
-        print(url)
+        //print(url)
         Alamofire.request(.PUT, endpoint, parameters: newTodo, encoding: .JSON)
             .responseJSON
             {

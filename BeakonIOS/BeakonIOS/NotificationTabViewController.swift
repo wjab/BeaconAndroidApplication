@@ -29,16 +29,10 @@ class NotificationTabViewController: UITabBarController {
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
         
         //Button abre  menu
-        let open = UIButton()
+        var open = UIButton()
         let image = defaults.objectForKey("image")as! String
         let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        if (typeUser != "localuser"){
-            open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
-        }
-        else
-        {
-            open.setBackgroundImage(UIImage(named: "profiledefault"), forState: .Normal)
-        }
+        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
         open.frame = CGRectMake(0, 0, 40, 35)
         open.layer.masksToBounds = false
         open.layer.cornerRadius = open.frame.height/2

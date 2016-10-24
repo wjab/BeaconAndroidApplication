@@ -32,7 +32,6 @@ class KonkatViewController: UIViewController
         super.viewDidLoad()
         // Initiate Devices Manager
         devicesManager = KTKDevicesManager(delegate: self)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KonkatViewController.reinstateBackgroundTask), name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         // Start Discovery
@@ -41,6 +40,7 @@ class KonkatViewController: UIViewController
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(intervalTimeSeg, target: self,
                                                              selector: #selector(KonkatViewController.scanManager), userInfo: nil, repeats: true)
+       
     }
     
     deinit
@@ -62,20 +62,23 @@ class KonkatViewController: UIViewController
             [unowned self] in self.endBackgroundTask()
         })
         assert(backgroundScanTask != UIBackgroundTaskInvalid)
-    }
+            }
     
     func endBackgroundTask()
     {
         NSLog("BackgroundScanTask scan task ended.")
         UIApplication.sharedApplication().endBackgroundTask(backgroundScanTask)
         backgroundScanTask = UIBackgroundTaskInvalid
+        devicesManager.stopDevicesDiscovery()
+        updateTimer?.invalidate()
+        updateTimer = nil
     }
     
     func scanManager()
     {
         switch UIApplication.sharedApplication().applicationState
         {
-            case .Inactive:
+           case .Inactive:
                 NSLog("Inactive state. Scan task ended.")
                 updateTimer?.invalidate()
                 updateTimer = nil
@@ -86,12 +89,14 @@ class KonkatViewController: UIViewController
                 break
         case .Background:
                 NSLog("Scan is backgrounded.")
-                devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
                 registerBackgroundTask()
+                devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
+
                 break
             default:
-                devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
+                print("Scan default")
                 registerBackgroundTask()
+                devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
                 break
         }
         
@@ -99,6 +104,7 @@ class KonkatViewController: UIViewController
     
     func getDataForBeacon(beacon: CLBeacon)
     {
+        print("getDataForBeacon")
         // Parameters
         let parameters = [
             "proximity": beacon.proximityUUID.UUIDString,
@@ -145,12 +151,12 @@ extension KonkatViewController: KTKDevicesManagerDelegate
     
     func devicesManagerDidFailToStartDiscovery(manager: KTKDevicesManager, withError error: NSError?)
     {
-        
+        print("DidFailToStartDiscovery")
     }
     
     func devicesManager(manager: KTKDevicesManager, didDiscoverDevices devices: [KTKNearbyDevice]?)
     {
-        NSLog("Devices Manager found \(devices?.count) kontakt devices")
+        NSLog("Devices Manager found \(devices!.count) kontakt devices")
         
         //For para conocer las promos
         for (_, element) in devices!.enumerate() {
@@ -196,5 +202,7 @@ extension KonkatViewController: KTKDevicesManagerDelegate
             }
 
         }
+        
+        
     }
 }

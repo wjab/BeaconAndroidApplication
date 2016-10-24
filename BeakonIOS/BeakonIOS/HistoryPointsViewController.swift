@@ -34,9 +34,9 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Button abre  menu
-        var open = UIButton()
-        let image = defaults.objectForKey("image")as! String
-        let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        _ = UIButton()
+        _ = defaults.objectForKey("image")as! String
+        _ = defaults.objectForKey("socialNetworkType")as! String
 
         /*
         open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
@@ -105,12 +105,15 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
                             let title = promo!.valueForKey("title")as! String
                             //Obtiene los punts obtenidos
                             let points = history.valueForKey("points") as! Int
+                            //Obtiene el ultimo escaneo
+                            let scanDate = history.valueForKey("lastScanDate") as! Int
                             //Crea el nuevo objeto Historial
                             let historyObject = History()
                            //Settea los datos al objeto Historial
                             historyObject.addressShopPropeties = address
                             historyObject.pointsPropeties = points
                             historyObject.promoTitlePropeties = title
+                            historyObject.scanDate = scanDate
                             self.historyArray.append(historyObject)
                         }
                         self.table.reloadData()

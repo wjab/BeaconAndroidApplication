@@ -28,10 +28,11 @@ class HomeTabViewController: UITabBarController {
     @IBOutlet weak var tabBarHome: UITabBar!
      let button =  UIButton(type: .Custom)
     @IBOutlet weak var open: UIButton!
-    
+     static let konkat = KonkatViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
+        HomeTabViewController.konkat.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
         let image = defaults.objectForKey("image")as! String
