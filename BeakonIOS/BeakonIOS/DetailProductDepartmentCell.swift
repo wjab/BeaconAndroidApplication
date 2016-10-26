@@ -21,8 +21,10 @@ class DetailProductDepartmentCell: UICollectionViewCell {
     let defaults = NSUserDefaults.standardUserDefaults()
     var wishArray = [Wish]()
     
-    internal func configure(name: String, urlImageProduct: String, product: Product) {
-        if(product.allowScanPropeties==false){
+    internal func configure(name: String, urlImageProduct: String, product: Product)
+    {
+        if(product.allowScanPropeties == false)
+        {
             allowScan.hidden = true
         }
         nameL.text = name
@@ -46,17 +48,20 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         self.obtainWishListUser()
     }
 
-    func scan(){
+    func scan()
+    {
         NSNotificationCenter.defaultCenter().postNotificationName("scan", object: nil)
     }
     
-    func send(){
+    func send()
+    {
         utilsC.addWishList(self.product)
         compare()
         NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
     }
     
-    func obtainWishListUser(){
+    func obtainWishListUser()
+    {
         let idUser = (defaults.objectForKey("userId") as? String)!
         //Endpoint
         let url : String = "http://buserdevel.cfapps.io/user/id/"+idUser

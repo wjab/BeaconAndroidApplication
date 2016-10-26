@@ -29,6 +29,8 @@ class DetailPromoViewController: UIViewController {
     {
         //self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imagePromo.bounds.width, imagePromo.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = gradientLayerView.bounds

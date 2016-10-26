@@ -19,8 +19,11 @@ class DetailProductViewController: UIViewController {
     @IBOutlet weak var productImage: UIImageView!
      let btn1 = UIButton()
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         print(product.imageUrlListPropeties[0])
         
@@ -30,11 +33,13 @@ class DetailProductViewController: UIViewController {
         details.text = product.detailsPropeties
         price.text = String(product.pricePropeties)
        
-        if(product.isAddedPropeties==true){
+        if(product.isAddedPropeties==true)
+        {
               btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         }
-        else{
-        btn1.setImage(UIImage(named: "icon_add"), forState: .Normal)
+        else
+        {
+            btn1.setImage(UIImage(named: "icon_add"), forState: .Normal)
         }
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailProductViewController.addWishList), forControlEvents: .TouchUpInside)

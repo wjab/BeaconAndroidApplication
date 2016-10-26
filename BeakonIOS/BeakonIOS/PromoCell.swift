@@ -16,7 +16,8 @@ class PromoCell: UITableViewCell {
     @IBOutlet weak var nameL: UILabel!
     @IBOutlet weak var pointsL: UILabel!
     
-    internal func configure(name: String, urlImagePromo: String, points: String) {
+    internal func configure(name: String, urlImagePromo: String, points: String)
+    {
         nameL.text = name
         
         let url = NSURL(string: urlImagePromo)

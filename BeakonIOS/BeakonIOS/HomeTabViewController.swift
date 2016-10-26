@@ -29,9 +29,9 @@ class HomeTabViewController: UITabBarController {
      let button =  UIButton(type: .Custom)
     @IBOutlet weak var open: UIButton!
      static let konkat = KonkatViewController()
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        
         self.navigationItem.title = ""
        
         HomeTabViewController.konkat.viewDidLoad()

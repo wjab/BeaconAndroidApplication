@@ -12,9 +12,8 @@ import Haneke
 class ProductCell: UITableViewCell {
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var nameL: UILabel!
-    internal func configure(name: String, urlImageCategory: String) {
-        
-
+    internal func configure(name: String, urlImageCategory: String)
+    {
         let url = NSURL(string: urlImageCategory)
         categoryImage.hnk_setImageFromURL(url!)
         nameL.text = name

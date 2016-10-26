@@ -10,7 +10,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class DetailCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class DetailCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate
+{
     var product : [Product] = []
     var image:String = ""
     var actualyArrayIndex = 0
@@ -19,8 +20,11 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     @IBOutlet weak var collection: UICollectionView!
     @IBOutlet weak var imageCategory: UIImageView!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         service()
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imageCategory.bounds.width, imageCategory.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

@@ -25,8 +25,10 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var collection: UICollectionView!
     var actualyArrayIndex = 0
     var utils = UtilsC()
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
         
         cityTL.text = shop.cityPropeties
         addressTL.text = shop.adressPropeties

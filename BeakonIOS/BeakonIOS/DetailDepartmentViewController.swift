@@ -15,8 +15,11 @@ class DetailDepartmentViewController: UIViewController {
     var actualyArrayIndex = 0
     @IBOutlet weak var departmentImage: UIImageView!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, departmentImage.bounds.width, departmentImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

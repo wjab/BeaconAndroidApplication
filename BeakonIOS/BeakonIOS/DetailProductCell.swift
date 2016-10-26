@@ -20,7 +20,8 @@ class DetailProductCell: UICollectionViewCell {
     let defaults = NSUserDefaults.standardUserDefaults()
     var wishArray = [Wish]()
     
-    internal func configure(name: String, urlImageProduct: String, product: Product) {
+    internal func configure(name: String, urlImageProduct: String, product: Product)
+    {
         nameL.text = name
         self.product = product
         

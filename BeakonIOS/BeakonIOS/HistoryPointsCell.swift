@@ -15,7 +15,8 @@ class HistoryPointsCell: UITableViewCell {
     @IBOutlet weak var shopNameL: UILabel!
     @IBOutlet weak var addressL: UILabel!
 
-    internal func configure(name:String, points:Int, address:String, date:Int) {
+    internal func configure(name:String, points:Int, address:String, date:Int)
+    {
         pointsL.text = String(points)
         shopNameL.text = name
         addressL.text = address

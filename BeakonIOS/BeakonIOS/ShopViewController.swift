@@ -17,8 +17,11 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
     var actualyArrayIndex = 0
     @IBOutlet weak var table: UITableView!
     let cellReuseIdentifier = "cellShop"
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         service()
         table.delegate = self
         table.dataSource = self
