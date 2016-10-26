@@ -20,7 +20,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     @IBOutlet weak var invite: UIView!
     @IBOutlet weak var wishList: UIView!
     @IBOutlet weak var preferences: UIView!
-    
+    @IBOutlet weak var home: UIView!
     var preference:String!
     var state:String!
     let imagePicker = UIImagePickerController()
@@ -33,6 +33,9 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         let faq = UITapGestureRecognizer(target: self, action:  #selector (self.openQuestions))
         self.faq.addGestureRecognizer(faq)
         
+        let home = UITapGestureRecognizer(target: self, action:  #selector (self.openHome))
+        self.home.addGestureRecognizer(home)
+
         let invite = UITapGestureRecognizer(target: self, action:  #selector (self.share))
         self.wishList.addGestureRecognizer(invite)
         
@@ -58,6 +61,11 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     
     func openProfile(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    
+    func openHome(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HomeTabViewController") as! HomeTabViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     

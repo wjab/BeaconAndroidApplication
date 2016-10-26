@@ -345,24 +345,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5X-6h-5Ce">
-                                                    <rect key="frame" x="0.0" y="0.0" width="116" height="98"/>
+                                                    <rect key="frame" x="0.0" y="4" width="95" height="86"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9U-iS-aFz">
-                                                    <rect key="frame" x="241" y="0.0" width="31" height="28"/>
-                                                    <state key="normal" image="eliminarfavorito_azul"/>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-S3-cH7">
-                                                    <rect key="frame" x="185" y="77" width="95" height="21"/>
+                                                    <rect key="frame" x="201" y="77" width="79" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oe8-3A-62b">
-                                                    <rect key="frame" x="119" y="41" width="161" height="21"/>
+                                                    <rect key="frame" x="95" y="38" width="185" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9U-iS-aFz">
+                                                    <rect key="frame" x="247" y="4" width="25" height="21"/>
+                                                    <state key="normal" image="eliminarfavorito_azul"/>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1577,6 +1577,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="faq" destination="rNu-Ne-m0T" id="SYw-hx-pPn"/>
+                        <outlet property="home" destination="J0j-W4-3p6" id="W2X-RQ-N3D"/>
                         <outlet property="invite" destination="2JP-4w-Xad" id="kPv-tk-k3r"/>
                         <outlet property="notification" destination="429-K0-rEk" id="pXo-wY-KEr"/>
                         <outlet property="perfil" destination="7yw-5z-51c" id="r3l-5Z-Lk2"/>

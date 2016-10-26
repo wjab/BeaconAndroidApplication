@@ -91,6 +91,8 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                                         defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                         defaults.setObject((user)["email"] as! String, forKey: "email")
                                         defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
+                                        let productList = user.mutableArrayValueForKey("productWishList")
+                                        defaults.setObject(productList.count, forKey: "wishCount")
                                         //defaults.setObject((user)["pathImage"] as! String, forKey: "image")
                                         //defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")

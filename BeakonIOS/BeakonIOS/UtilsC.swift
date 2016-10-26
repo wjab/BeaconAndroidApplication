@@ -15,6 +15,11 @@ class UtilsC: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
     
+    func btnWishList(btn1:UIButton)->UIButton{
+       
+        return btn1
+}
+    
     func convertLongToDate() -> String{
         let newDate = NSDate()
         let formatter = NSDateFormatter()

@@ -17,7 +17,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var btnFacebook: FBSDKLoginButton!
      let defaults = NSUserDefaults.standardUserDefaults()
     let utils = UtilsC()
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -95,6 +95,9 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                                     defaults.setObject((user)["email"] as! String, forKey: "email")
                                     defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                     defaults.setObject(image, forKey: "image")
+                                    
+                                    let productList = user.mutableArrayValueForKey("productWishList")
+                                    defaults.setObject(productList.count, forKey: "wishCount")
                                     //defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                     let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                     self.showDetailViewController(vc as! NavigationViewController, sender: self)

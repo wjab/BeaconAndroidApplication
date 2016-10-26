@@ -14,6 +14,8 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     
     var wishArray: [Wish] = []
     var actualyArrayIndex = 0
+    var wishCount = 1
+     let btn1 = UIButton()
     @IBOutlet weak var table: UITableView!
     let cellReuseIdentifier = "cellWish"
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -25,12 +27,15 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         service()
         table.delegate = self
         table.dataSource = self
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.refreshWishCount),name:"refreshWishCount", object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.loadList(_:)),name:"wish", object: nil)
             let points = defaults.objectForKey("points") as! Int
-            
+             self.wishCount = defaults.objectForKey("wishCount")as!Int
             //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-            let btn1 = UIButton()
-            btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+           
+            btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+            btn1.setTitle(String(wishCount), forState: .Normal)
+            btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
             btn1.frame = CGRectMake(0, 0, 30, 25)
             btn1.addTarget(self, action: #selector(WishViewController.openWishList), forControlEvents: .TouchUpInside)
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
@@ -55,6 +60,17 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             self.navigationItem.titleView = button
             
     }
+    
+    func refreshWishCount(){
+        //Refresca el contador de wish al eliminar un producto de la lista
+        var wish = self.wishCount
+        wish = wish - 1
+        self.wishCount = wish
+        defaults.setObject(self.wishCount, forKey: "wishCount")
+        btn1.setTitle(String(wishCount), forState: .Normal)
+
+    }
+    
     //Abre el menu
     func openMenu(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController

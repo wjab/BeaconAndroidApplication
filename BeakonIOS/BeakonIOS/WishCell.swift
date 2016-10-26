@@ -55,13 +55,12 @@ class WishCell: UITableViewCell {
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
-                      
                         print("Genial")
                        JLToast.makeText("Eliminado correctamente").show()
                         NSNotificationCenter.defaultCenter().postNotificationName("wish", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
+
                         }
-                        
-                    
                     else
                     {
                         print("ERROR")

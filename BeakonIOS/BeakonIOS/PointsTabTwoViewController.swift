@@ -42,7 +42,7 @@ class PointsTabTwoViewController: UIViewController {
         self.pointsUser = defaults.objectForKey("points") as! Int
         NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
-        messageL.text = "Usted tiene un total de " + String(self.pointsUser) + " pts disponibles para regalar, esta es la cantidad minima de puntos que puedes regalar: " + String(self.pointsMinium)
+        messageL.text = "Usted tiene un total de " + String(self.pointsUser) + " pts disponibles para regalar, esta es la cantidad minima de puntos: " + String(self.pointsMinium)
     }
     
     func obtainMiniumPoints(){

@@ -79,7 +79,7 @@ class PointsTabOneViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         self.userId = defaults.objectForKey("userId") as! String
         self.pointsUser = defaults.objectForKey("points") as! Int
-        messageL.text = "Usted tiene un total de " + String(self.pointsUser) + " pts disponibles para redimir, esta es la cantidad minima de puntos que puedes redimir: " + String(self.pointsMinium)
+        messageL.text = "Usted tiene un total de " + String(self.pointsUser) + " pts disponibles para redimir, esta es la cantidad minima de puntos: " + String(self.pointsMinium)
     }
     
     func obtainMiniumPoints(){
