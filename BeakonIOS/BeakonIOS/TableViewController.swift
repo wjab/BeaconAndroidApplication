@@ -93,6 +93,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     
     func openWish(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
+          secondViewController.navigationStatus = 0
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     

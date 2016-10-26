@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    var navigationStatus = 1
     var wishArray: [Wish] = []
     var actualyArrayIndex = 0
     var wishCount = 1
@@ -44,13 +44,15 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             var open = UIButton()
             let image = defaults.objectForKey("image")as! String
             let typeUser = defaults.objectForKey("socialNetworkType")as! String
-            open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-            open.frame = CGRectMake(0, 0, 40, 35)
-            open.layer.masksToBounds = false
-            open.layer.cornerRadius = open.frame.height/2
-            open.clipsToBounds = true
-            open.addTarget(self, action: #selector(WishViewController.openMenu), forControlEvents: .TouchUpInside)
-            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+            if(self.navigationStatus==0){
+                open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
+                open.frame = CGRectMake(0, 0, 40, 35)
+                open.layer.masksToBounds = false
+                open.layer.cornerRadius = open.frame.height/2
+                open.clipsToBounds = true
+                open.addTarget(self, action: #selector(WishViewController.openMenu), forControlEvents: .TouchUpInside)
+                self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+            }
             
             //Genera el boton del centro que contiene los puntos del usuario
             let button =  UIButton(type: .Custom)
