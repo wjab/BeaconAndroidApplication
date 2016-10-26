@@ -95,17 +95,26 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
     }
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        for data in metadataObjects {
-            let metaData = data as! AVMetadataObject
-            let transformed = previewLayer?.transformedMetadataObjectForMetadataObject(metaData) as? AVMetadataMachineReadableCodeObject
-            if let unwraped = transformed {
-                identifiedBorder?.frame = unwraped.bounds
-                identifiedBorder?.hidden = false
-                let identifiedCorners = self.translatePoints(unwraped.corners, fromView: self.view, toView: self.identifiedBorder!)
-                identifiedBorder?.drawBorder(identifiedCorners)
-                self.identifiedBorder?.hidden = false
-                self.startTimer()
+        var capturedBarcode: String
+        let supportedBarcodeTypes = [AVMetadataObjectTypeUPCECode, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode39Mod43Code,
+                                     AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeCode128Code,
+                                     AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode]
+        
+     
+        for barcodeMetadata in metadataObjects {
+            
+            for supportedBarcode in supportedBarcodeTypes {
                 
+                if supportedBarcode == barcodeMetadata.type {
+             
+                    let barcodeObject = self.previewLayer!.transformedMetadataObjectForMetadataObject(barcodeMetadata as! AVMetadataObject)
+                    capturedBarcode = (barcodeObject as! AVMetadataMachineReadableCodeObject).stringValue
+                    
+                        print(capturedBarcode)
+                       self.session.stopRunning()
+     
+                    return
+                }
             }
         }
     }

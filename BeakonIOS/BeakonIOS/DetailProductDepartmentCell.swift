@@ -11,6 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 class DetailProductDepartmentCell: UICollectionViewCell {
+    
+    @IBOutlet weak var allowScan: UIButton!
     @IBOutlet weak var nameL: UILabel!
    @IBOutlet weak var isAddedImage: UIButton!
     @IBOutlet weak var productImage: UIImageView!
@@ -20,6 +22,9 @@ class DetailProductDepartmentCell: UICollectionViewCell {
     var wishArray = [Wish]()
     
     internal func configure(name: String, urlImageProduct: String, product: Product) {
+        if(product.allowScanPropeties==false){
+            allowScan.hidden = true
+        }
         nameL.text = name
         self.product = product
         var image: UIImage? = NSURL(string: String(urlImageProduct)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
@@ -31,10 +36,16 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         gradient.colors = [UIColor.clearColor().CGColor,UIColor.clearColor().CGColor,UIColor.grayColor().CGColor]
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.productImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
+         //Accion del boton scanear
+         allowScan.addTarget(self, action: #selector(scan), forControlEvents: .TouchUpInside)
         //Accion del boton añadir
         isAddedImage.addTarget(self, action: #selector(send), forControlEvents: .TouchUpInside)
         //Obtener la lista de deseos
         self.obtainWishListUser()
+    }
+
+    func scan(){
+        NSNotificationCenter.defaultCenter().postNotificationName("scan", object: nil)
     }
     
     func send(){

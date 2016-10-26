@@ -155,6 +155,9 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         print("Switch Value : \(sender.on)")
     }
     
+   
+
+    
     func createAlertPreferences(){
         //Crea el alert
         let alertController = UIAlertController(title: "Preferencias", message: "", preferredStyle: .Alert)

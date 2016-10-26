@@ -15,13 +15,16 @@ class DetailProductViewController: UIViewController {
     var product:Product!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var price: UILabel!
-    
+    @IBOutlet weak var details: UILabel!
     @IBOutlet weak var productImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         print(product.imageUrlListPropeties[0])
         productImage.image = NSURL(string: String(product.imageUrlListPropeties[0])).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         name.text = product.productNamePropeties
+        details.text = product.detailsPropeties
         price.text = String(product.pricePropeties)
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_add"), forState: .Normal)

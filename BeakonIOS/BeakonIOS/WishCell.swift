@@ -12,6 +12,7 @@ import SwiftyJSON
 import JLToast
 
 class WishCell: UITableViewCell {
+    @IBOutlet weak var priceL: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var nameL: UILabel!
     @IBOutlet weak var deleteProduct: UIButton!
@@ -19,10 +20,11 @@ class WishCell: UITableViewCell {
     let defaults = NSUserDefaults.standardUserDefaults()
     
     internal func configure(name: String, urlImage: String,product: Wish) {
-        nameL.text = name
+        nameL.text = product.productNamePropeties
         wishProduct = product
         var image: UIImage? = NSURL(string: String(urlImage)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         productImage.image = image
+        priceL.text = String(wishProduct.pricePropeties)
          deleteProduct.addTarget(self, action: #selector(deleteProductWish), forControlEvents: .TouchUpInside)
     }
     

@@ -17,6 +17,17 @@ class DetailDepartmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, departmentImage.bounds.width, departmentImage.bounds.height))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = gradientLayerView.bounds
+        gradient.colors = [
+            UIColor.clearColor().CGColor,
+            UIColor.clearColor().CGColor,
+            UIColor.grayColor().CGColor
+        ]
+        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
+        self.departmentImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         departmentImage.image =  NSURL(string: String(department.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
@@ -33,6 +44,9 @@ class DetailDepartmentViewController: UIViewController {
         self.navigationItem.titleView = button
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.loadList(_:)),name:"loadDepartment", object: nil)
+        
+        //Observer para abrir scan
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.scan),name:"scan", object: nil)
         
     }
     
@@ -72,6 +86,12 @@ class DetailDepartmentViewController: UIViewController {
         //4
         print(self.department.products.count)
         return self.department.products.count
+    }
+    
+    func scan(){
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ScanViewController") as! ScanViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

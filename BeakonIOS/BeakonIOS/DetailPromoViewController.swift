@@ -29,6 +29,18 @@ class DetailPromoViewController: UIViewController {
     {
         //self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
         super.viewDidLoad()
+        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imagePromo.bounds.width, imagePromo.bounds.height))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = gradientLayerView.bounds
+        gradient.colors = [
+            UIColor.clearColor().CGColor,
+            UIColor.clearColor().CGColor,
+            UIColor.grayColor().CGColor
+        ]
+        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
+        self.imagePromo.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         self.service()
         //branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
          sharePromo.addTarget(self, action: #selector(DetailPromoViewController.share), forControlEvents: .TouchUpInside)

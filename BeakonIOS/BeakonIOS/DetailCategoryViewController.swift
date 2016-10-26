@@ -22,6 +22,16 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         service()
+        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imageCategory.bounds.width, imageCategory.bounds.height))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = gradientLayerView.bounds
+        gradient.colors = [
+            UIColor.clearColor().CGColor,
+            UIColor.clearColor().CGColor,
+            UIColor.grayColor().CGColor
+        ]
+        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
+        self.imageCategory.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         imageCategory.image = NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)

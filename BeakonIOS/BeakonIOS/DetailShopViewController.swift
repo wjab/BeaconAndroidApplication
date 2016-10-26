@@ -24,14 +24,26 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     private let reuseIdentifier = "departmentCell"
     @IBOutlet weak var collection: UICollectionView!
     var actualyArrayIndex = 0
+    var utils = UtilsC()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         cityTL.text = shop.cityPropeties
         addressTL.text = shop.adressPropeties
         purchaseTL.text = shop.totalGiftPointsPropeties.purchasePropeties
         walkinTL.text = shop.totalGiftPointsPropeties.walkinPropeties
         scanTL.text = shop.totalGiftPointsPropeties.scanPropeties
         imageShop.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imageShop.bounds.width, imageShop.bounds.height))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = gradientLayerView.bounds
+        gradient.colors = [
+            UIColor.clearColor().CGColor,
+            UIColor.clearColor().CGColor,
+            UIColor.grayColor().CGColor
+        ]
+        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
+        self.imageShop.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         imageShopDetail.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         validationImageToShow()
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -47,6 +59,7 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(DetailShopViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         
     }
     
@@ -78,16 +91,17 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         return self.shop.departments.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+       func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell:UICollectionViewCell = self.collection.dequeueReusableCellWithReuseIdentifier(reuseIdentifier,forIndexPath: indexPath) as UICollectionViewCell!
         let departmentObject = self.shop.departments[indexPath.row]
         let imageView = UIImageView(frame: CGRectMake(0, 0, 160, 100))
-        imageView.image = NSURL(string: String(departmentObject.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        utils.loadImageFromUrl(String(departmentObject.departmentUrlPropeties), view: imageView)
+        //imageView.image = NSURL(string: String(departmentObject.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         cell.backgroundView = UIView()
         cell.backgroundView!.addSubview(imageView)
         return cell
     }
-    
+   
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailDepartmentViewController") as! DetailDepartmentViewController

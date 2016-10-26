@@ -21,7 +21,23 @@ class UtilsC: UIViewController {
         formatter.dateFormat = "dd/MM/yyyy HH:mm:ss.SSS"
         return formatter.stringFromDate(newDate)
     }
+    //Cargar las  imagenes desde la url
+    func loadImageFromUrl(url: String, view: UIImageView){
+        let url = NSURL(string: url)!
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (responseData, responseUrl, error) -> Void in
+            if(error==nil){
+                if let data = responseData{
+                    view.image = UIImage(data: data)
+                }
+            }
+            else{
+                view.image = UIImage(named: "logo")
+            }
+        }
+        task.resume()
+    }
     
+
         
     func isValidEmail(testStr:String) -> Bool {
         print("validate emilId: \(testStr)")
