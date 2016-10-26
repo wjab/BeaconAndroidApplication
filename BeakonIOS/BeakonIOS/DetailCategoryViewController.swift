@@ -32,7 +32,10 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         ]
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.imageCategory.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
-        imageCategory.image = NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        let urlCategoryImage = NSURL(string: String(image))
+        imageCategory.hnk_setImageFromURL(urlCategoryImage!)
+        
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)
         //Carga los datos de user defaults

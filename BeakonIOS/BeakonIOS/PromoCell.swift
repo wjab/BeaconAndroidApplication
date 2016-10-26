@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Haneke
+
+
 
 class PromoCell: UITableViewCell {
     @IBOutlet weak var promoImage: UIImageView!
@@ -16,9 +19,8 @@ class PromoCell: UITableViewCell {
     internal func configure(name: String, urlImagePromo: String, points: String) {
         nameL.text = name
         
-        var image: UIImage? = NSURL(string: String(urlImagePromo)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
-        
-        promoImage.image = image
+        let url = NSURL(string: urlImagePromo)
+        promoImage.hnk_setImageFromURL(url!)
         pointsL.text = points
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, promoImage.bounds.width, promoImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

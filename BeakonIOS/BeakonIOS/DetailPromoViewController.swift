@@ -121,11 +121,14 @@ class DetailPromoViewController: UIViewController {
         descriptionPromo.text = String(toPass.descriptionPromoPropeties)
         nameShop.text = name
         adressShop.text = adress
-        imageShop.image = NSURL(string: String(urlShop)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         
-        imagePromo.image = NSURL(string: String(url)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        let urlImageShop = NSURL(string: String(urlShop))
+        let urlImagePromo = NSURL(string: String(url))
         
-           }
+        imageShop.hnk_setImageFromURL(urlImageShop!)
+        imagePromo.hnk_setImageFromURL(urlImagePromo!)
+        
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)

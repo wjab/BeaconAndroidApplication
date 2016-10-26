@@ -48,8 +48,8 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
             profileImage.addGestureRecognizer(singleTap)
            // print("urlImage ---------> " + image)
             let fileUrl = NSURL(string:  image)
-             self.loadImageFromPath(fileUrl!)
-           
+            
+            profileImage.hnk_setImageFromURL(fileUrl!)
             //assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG
         }
        

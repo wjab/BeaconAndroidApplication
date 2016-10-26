@@ -22,7 +22,9 @@ class DetailProductViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         print(product.imageUrlListPropeties[0])
-        productImage.image = NSURL(string: String(product.imageUrlListPropeties[0])).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        let urlProductImage = NSURL(string: String(product.imageUrlListPropeties[0]))
+        productImage.hnk_setImageFromURL(urlProductImage!)
         name.text = product.productNamePropeties
         details.text = product.detailsPropeties
         price.text = String(product.pricePropeties)

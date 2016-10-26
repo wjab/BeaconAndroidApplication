@@ -23,8 +23,11 @@ class DetailProductCell: UICollectionViewCell {
     internal func configure(name: String, urlImageProduct: String, product: Product) {
         nameL.text = name
         self.product = product
-        var image: UIImage? = NSURL(string: String(urlImageProduct)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
-        productImage.image = image
+        
+        let url = NSURL(string: urlImageProduct)
+        productImage.hnk_setImageFromURL(url!)
+
+        
        //Gradient
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, productImage.bounds.width, productImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

@@ -95,7 +95,10 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         let cell:UICollectionViewCell = self.collection.dequeueReusableCellWithReuseIdentifier(reuseIdentifier,forIndexPath: indexPath) as UICollectionViewCell!
         let departmentObject = self.shop.departments[indexPath.row]
         let imageView = UIImageView(frame: CGRectMake(0, 0, 160, 100))
-        utils.loadImageFromUrl(String(departmentObject.departmentUrlPropeties), view: imageView)
+        
+        let urlImageDeparment = NSURL(string: departmentObject.departmentUrlPropeties)
+        imageView.hnk_setImageFromURL(urlImageDeparment!)
+
         //imageView.image = NSURL(string: String(departmentObject.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         cell.backgroundView = UIView()
         cell.backgroundView!.addSubview(imageView)
