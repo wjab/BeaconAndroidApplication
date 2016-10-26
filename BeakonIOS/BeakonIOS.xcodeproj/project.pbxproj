@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9D134FDD1DA2B83200CBEC06 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */; };
 		9D1350181DA2F91D00CBEC06 /* KonkatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */; };
-		9D18A12B1D9C3DA50053F663 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D18A12A1D9C3DA50053F663 /* ScannerViewController.swift */; };
 		9D1E46C61D6DFBAA00772202 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1E46C51D6DFBAA00772202 /* User.swift */; };
 		9D1E47121D6E059A00772202 /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1E47111D6E059A00772202 /* Wish.swift */; };
 		9D2CA05D1D6CBD2F00F8997E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CA05C1D6CBD2F00F8997E /* AppDelegate.swift */; };
@@ -291,7 +290,6 @@
 		9D134FD21DA2B30B00CBEC06 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanViewController.swift; path = ../ScanViewController.swift; sourceTree = "<group>"; };
 		9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonkatViewController.swift; sourceTree = "<group>"; };
-		9D18A12A1D9C3DA50053F663 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		9D1E46C51D6DFBAA00772202 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9D1E47111D6E059A00772202 /* Wish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
 		9D2CA0591D6CBD2F00F8997E /* BeakonIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeakonIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -660,7 +658,6 @@
 			children = (
 				9DCB51A71D74AEDA0056774C /* UtilsC.swift */,
 				9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */,
-				9D18A12A1D9C3DA50053F663 /* ScannerViewController.swift */,
 				9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */,
 				9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */,
 			);
@@ -1068,7 +1065,6 @@
 				9DB9FA701D6F551B00E24891 /* WishViewController.swift in Sources */,
 				9D1E47121D6E059A00772202 /* Wish.swift in Sources */,
 				9DC578741D773DA000DF4860 /* GiftPointsType.swift in Sources */,
-				9D18A12B1D9C3DA50053F663 /* ScannerViewController.swift in Sources */,
 				9DCD15EC1D8C560300E50856 /* HistoryPointsCell.swift in Sources */,
 				9DA88D211D79F376000C53A3 /* FAQTabFourViewController.swift in Sources */,
 				9D926E511D70FC780040FDF8 /* Preference.swift in Sources */,
