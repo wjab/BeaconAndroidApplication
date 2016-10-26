@@ -15,6 +15,8 @@ class FAQTabViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         let defaults = NSUserDefaults.standardUserDefaults()
         let wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int

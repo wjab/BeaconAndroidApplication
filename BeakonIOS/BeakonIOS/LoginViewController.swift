@@ -17,8 +17,11 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
     let utils = UtilsC()
-    override func viewDidLoad() {
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
         loginBtn.addTarget(self, action: #selector(LoginViewController.loginService), forControlEvents: .TouchUpInside)
     }
     

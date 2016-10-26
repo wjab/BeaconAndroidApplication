@@ -22,7 +22,9 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     var idUser = ""
         override func viewDidLoad() {
         super.viewDidLoad()
-      //  addSlideMenuButton()
+        self.navigationItem.title = ""
+            
+        //  addSlideMenuButton()
         self.idUser = (defaults.objectForKey("userId") as? String)!
         service()
         table.delegate = self

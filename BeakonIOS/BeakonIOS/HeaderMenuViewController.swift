@@ -11,8 +11,8 @@ import Alamofire
 import SwiftyJSON
 import AssetsLibrary
 
-class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-
+class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate
+{
     @IBOutlet weak var profileImage: UIImageView!
     let imagePicker = UIImagePickerController()
     var url: String!
@@ -22,8 +22,11 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
     @IBOutlet weak var usernameText: UILabel!
     var asset = ALAssetsLibrary()
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         let points = defaults.objectForKey("points") as! Int
         let name = defaults.objectForKey("username") as! String
         userPointsText.text = String(points)

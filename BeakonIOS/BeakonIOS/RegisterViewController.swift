@@ -10,8 +10,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import JLToast
-class RegisterViewController: UIViewController {
-
+class RegisterViewController: UIViewController
+{
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var phoneTF: UITextField!
@@ -19,8 +19,11 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var registerBtn: UIButton!
     let utils = UtilsC()
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         registerBtn.addTarget(self, action: #selector(RegisterViewController.loginService), forControlEvents: .TouchUpInside)
 
     }

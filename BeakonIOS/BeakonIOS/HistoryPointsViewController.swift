@@ -11,7 +11,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource
+{
     var utilsC = UtilsC()
     var historyArray: [History] = []
     var actualyArrayIndex = 0
@@ -19,8 +20,11 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
     let cellReuseIdentifier = "CellHistoryPoints"
     let defaults = NSUserDefaults.standardUserDefaults()
     var idUser = ""
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
         self.idUser = (defaults.objectForKey("userId") as? String)!
         service()
         table.delegate = self

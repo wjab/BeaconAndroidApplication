@@ -31,6 +31,8 @@ class HomeTabViewController: UITabBarController {
      static let konkat = KonkatViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = ""
        
         HomeTabViewController.konkat.viewDidLoad()
         let defaults = NSUserDefaults.standardUserDefaults()

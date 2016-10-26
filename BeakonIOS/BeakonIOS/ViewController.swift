@@ -21,6 +21,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.navigationItem.title = ""
         configureFacebook()
     }
     
@@ -29,7 +30,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.getInfoFacebook()
     }
     
-    func getInfoFacebook(){
+    func getInfoFacebook()
+    {
         FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"email, name, gender, id, first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
             //Obtiene los datos de facebook del usuario
             let strFirstName: String = (result.objectForKey("first_name") as? String)!
@@ -55,7 +57,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: strId, email: strEmail, image: strPictureURL)
             
             }
-
     }
     
     func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String){

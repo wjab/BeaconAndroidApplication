@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController {
     var typerUser = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = ""
+        
        // addSlideMenuButton()
         let defaults = NSUserDefaults.standardUserDefaults()
         nameTF.text = defaults.objectForKey("name") as? String

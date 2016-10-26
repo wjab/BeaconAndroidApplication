@@ -28,8 +28,10 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     var arrayLabel = [UILabel]()
     let shareContent:String = "Conoces acerca de QuickShop, descargalo aqui http://quickshop.com"
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        self.navigationItem.title = ""
         
         let faq = UITapGestureRecognizer(target: self, action:  #selector (self.openQuestions))
         self.faq.addGestureRecognizer(faq)
