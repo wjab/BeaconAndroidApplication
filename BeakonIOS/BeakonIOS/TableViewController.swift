@@ -11,14 +11,16 @@ import Alamofire
 import SwiftyJSON
 
 class TableViewController: UITableViewController , UIImagePickerControllerDelegate{
-   @IBOutlet weak var preferencesButton: UIButton!
-    @IBOutlet weak var profileButton: UIButton!
-    @IBOutlet weak var wishButton: UIButton!
-    @IBOutlet weak var notificationButton: UIButton!
-    @IBOutlet weak var questionButton: UIButton!
-    @IBOutlet weak var pointsButton: UIButton!
-    @IBOutlet weak var logoutButton: UIButton!
-    @IBOutlet weak var shareAppButton: UIButton!
+  
+    @IBOutlet weak var perfil: UIView!
+    @IBOutlet weak var session: UIView!
+    @IBOutlet weak var notification: UITableViewCell!
+    @IBOutlet weak var faq: UIView!
+    @IBOutlet weak var points: UIView!
+    @IBOutlet weak var invite: UIView!
+    @IBOutlet weak var wishList: UIView!
+    @IBOutlet weak var preferences: UIView!
+    
     var preference:String!
     var state:String!
     let imagePicker = UIImagePickerController()
@@ -28,15 +30,31 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        preferencesButton.addTarget(self, action: #selector(TableViewController.createAlertPreferences), forControlEvents: .TouchUpInside)
-        profileButton.addTarget(self, action: #selector(TableViewController.openProfile), forControlEvents: .TouchUpInside)
-        wishButton.addTarget(self, action: #selector(TableViewController.openWish), forControlEvents: .TouchUpInside)
-        notificationButton.addTarget(self, action: #selector(TableViewController.openNotification), forControlEvents: .TouchUpInside)
-        questionButton.addTarget(self, action: #selector(TableViewController.openQuestions), forControlEvents: .TouchUpInside)
-        pointsButton.addTarget(self, action: #selector(TableViewController.openPoints), forControlEvents: .TouchUpInside)
-         shareAppButton.addTarget(self, action: #selector(TableViewController.share), forControlEvents: .TouchUpInside)
-        logoutButton.addTarget(self, action: #selector(TableViewController.logout), forControlEvents: .TouchUpInside)
-    }
+        let faq = UITapGestureRecognizer(target: self, action:  #selector (self.openQuestions))
+        self.faq.addGestureRecognizer(faq)
+        
+        let invite = UITapGestureRecognizer(target: self, action:  #selector (self.share))
+        self.wishList.addGestureRecognizer(invite)
+        
+        let session = UITapGestureRecognizer(target: self, action:  #selector (self.logout))
+        self.session.addGestureRecognizer(session)
+        
+        let profile = UITapGestureRecognizer(target: self, action:  #selector (self.openProfile))
+        self.perfil.addGestureRecognizer(profile)
+        
+        let wish = UITapGestureRecognizer(target: self, action:  #selector (self.openWish))
+        self.wishList.addGestureRecognizer(wish)
+        
+        let preferences = UITapGestureRecognizer(target: self, action:  #selector (self.createAlertPreferences))
+        self.preferences.addGestureRecognizer(preferences)
+        
+        let notification = UITapGestureRecognizer(target: self, action:  #selector (self.openNotification))
+        self.notification.addGestureRecognizer(notification)
+        
+        let points = UITapGestureRecognizer(target: self, action:  #selector (self.openPoints))
+        self.points.addGestureRecognizer(points)
+        
+           }
     
     func openProfile(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
