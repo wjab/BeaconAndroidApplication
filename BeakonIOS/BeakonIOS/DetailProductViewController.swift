@@ -17,6 +17,7 @@ class DetailProductViewController: UIViewController {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var details: UILabel!
     @IBOutlet weak var productImage: UIImageView!
+     let btn1 = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,13 @@ class DetailProductViewController: UIViewController {
         name.text = product.productNamePropeties
         details.text = product.detailsPropeties
         price.text = String(product.pricePropeties)
-        let btn1 = UIButton()
+       
+        if(product.isAddedPropeties==true){
+              btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+        }
+        else{
         btn1.setImage(UIImage(named: "icon_add"), forState: .Normal)
+        }
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailProductViewController.addWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
@@ -68,6 +74,7 @@ class DetailProductViewController: UIViewController {
                         else{
                             print("Genial")
                             JLToast.makeText("Añadido correctamente").show()
+                            self.btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
                              NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
                              NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
                         }

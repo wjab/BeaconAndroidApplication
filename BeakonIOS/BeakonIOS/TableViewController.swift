@@ -30,6 +30,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let faq = UITapGestureRecognizer(target: self, action:  #selector (self.openQuestions))
         self.faq.addGestureRecognizer(faq)
         
@@ -198,7 +199,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         alertController.view.addSubview(createLabel(20.0,value2: 100.0, textLabel: "Correos", tag:1))
         alertController.view.addSubview(createSwitch(200.0, value2: 100.0, tag:101))
         // Dimensiones del alert view
-        let height:NSLayoutConstraint = NSLayoutConstraint(item: alertController.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.50)
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alertController.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.70)
         alertController.view.addConstraint(height)
         //Presentar el alert view
         self.presentViewController(alertController, animated: true, completion: nil)
