@@ -25,6 +25,10 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var collection: UICollectionView!
     var actualyArrayIndex = 0
     var utils = UtilsC()
+    var wishCount = 1
+     let btn1 = UIButton()
+     let defaults = NSUserDefaults.standardUserDefaults()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -48,10 +52,13 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         self.imageShop.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         imageShopDetail.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         validationImageToShow()
-        let defaults = NSUserDefaults.standardUserDefaults()
+       
+        wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
-        let btn1 = UIButton()
-        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+       
+        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.setTitle(String(wishCount), forState: .Normal)
+        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailShopViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
@@ -62,7 +69,13 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         button.addTarget(self, action: #selector(DetailShopViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-        
+              NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailShopViewController.refreshWishCount),name:"refreshWishCountDetailShop", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
     //Abre el historial de puntos

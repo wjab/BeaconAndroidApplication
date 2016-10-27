@@ -68,7 +68,9 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     func refreshWishCount(){
         //Refresca el contador de wish al eliminar un producto de la lista
         var wish = self.wishCount
+        if(wishCount>0){
         wish = wish - 1
+        }
         self.wishCount = wish
         defaults.setObject(self.wishCount, forKey: "wishCount")
         btn1.setTitle(String(wishCount), forState: .Normal)

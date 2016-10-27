@@ -15,19 +15,20 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var lastnameTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var dateTF: UITextField!
+     let btn1 = UIButton()
+     let defaults = NSUserDefaults.standardUserDefaults()
     var typerUser = ""
+    var wishCount = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
-       // addSlideMenuButton()
-        let defaults = NSUserDefaults.standardUserDefaults()
         nameTF.text = defaults.objectForKey("name") as? String
         lastnameTF.text = defaults.objectForKey("lastname") as? String
         emailTF.text = defaults.objectForKey("email") as? String
         self.typerUser = defaults.objectForKey("socialNetworkType") as! String
         self.validateStateUser()
-        let wishCount = defaults.objectForKey("wishCount")as!Int
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Button abre  menu
         var open = UIButton()
@@ -41,7 +42,6 @@ class ProfileViewController: UIViewController {
         open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        let btn1 = UIButton()
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -55,7 +55,13 @@ class ProfileViewController: UIViewController {
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(ProfileViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.refreshWishCount),name:"refreshWishCountProfile", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
     //Abre el menu

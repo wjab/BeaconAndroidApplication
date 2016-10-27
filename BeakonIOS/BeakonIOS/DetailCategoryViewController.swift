@@ -19,6 +19,9 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     private let reuseIdentifier = "cellProductCategory"
     @IBOutlet weak var collection: UICollectionView!
     @IBOutlet weak var imageCategory: UIImageView!
+    var wishCount = 1
+     let defaults = NSUserDefaults.standardUserDefaults()
+     let btn1 = UIButton()
     
     override func viewDidLoad()
     {
@@ -43,11 +46,12 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)
         //Carga los datos de user defaults
-        let defaults = NSUserDefaults.standardUserDefaults()
+        wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Boton para abir la lista de deseos
-        let btn1 = UIButton()
-        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.setTitle(String(wishCount), forState: .Normal)
+        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailCategoryViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
@@ -58,6 +62,13 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         button.addTarget(self, action: #selector(DetailCategoryViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.refreshWishCount),name:"refreshWishCountDetailCategory", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
     //Abre el historial de puntos

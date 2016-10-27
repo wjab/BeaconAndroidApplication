@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 class DetailPromoViewController: UIViewController {
-    
+    var wishCount = 1
     var toPass : Promo!
     var name : String! = "name"
     var image : String!
@@ -23,6 +23,8 @@ class DetailPromoViewController: UIViewController {
     @IBOutlet weak var descriptionPromo: UILabel!
     @IBOutlet weak var imageShop: UIImageView!
     @IBOutlet weak var sharePromo: UIButton!
+    let btn1 = UIButton()
+    let defaults = NSUserDefaults.standardUserDefaults()
     //var branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "")
     
     override func viewDidLoad()
@@ -46,14 +48,18 @@ class DetailPromoViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         self.service()
         //branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
-         sharePromo.addTarget(self, action: #selector(DetailPromoViewController.share), forControlEvents: .TouchUpInside)
-        let defaults = NSUserDefaults.standardUserDefaults()
+        sharePromo.addTarget(self, action: #selector(DetailPromoViewController.share), forControlEvents: .TouchUpInside)
+        wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Cambia el tamaño de los tabs
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        
-        let btn1 = UIButton()
+
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+
+        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.setTitle(String(wishCount), forState: .Normal)
+        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
+
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailPromoViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
@@ -64,7 +70,13 @@ class DetailPromoViewController: UIViewController {
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(DetailPromoViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
-        
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailPromoViewController.refreshWishCount),name:"refreshWishCountDetailPromo", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
     //Abre el historial de puntos

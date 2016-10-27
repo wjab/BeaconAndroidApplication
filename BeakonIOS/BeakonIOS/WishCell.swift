@@ -59,8 +59,15 @@ class WishCell: UITableViewCell {
                        JLToast.makeText("Eliminado correctamente").show()
                         NSNotificationCenter.defaultCenter().postNotificationName("wish", object: nil)
                         NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
-
-                        }
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHome", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountFaq", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailPromo", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountNotification", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailCategory", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailShop", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountProfile", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountPoints", object: nil)
+                    }
                     else
                     {
                         print("ERROR")

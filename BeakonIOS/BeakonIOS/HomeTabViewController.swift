@@ -29,14 +29,17 @@ class HomeTabViewController: UITabBarController {
      let button =  UIButton(type: .Custom)
     @IBOutlet weak var open: UIButton!
      static let konkat = KonkatViewController()
+      var wishCount = 1
+     let defaults = NSUserDefaults.standardUserDefaults()
+    let btn1 = UIButton()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.navigationItem.title = ""
        
         HomeTabViewController.konkat.viewDidLoad()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let wishCount = defaults.objectForKey("wishCount")as!Int
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         let image = defaults.objectForKey("image")as! String
         let typeUser = defaults.objectForKey("socialNetworkType")as! String
@@ -44,17 +47,11 @@ class HomeTabViewController: UITabBarController {
         open.layer.masksToBounds = false
         open.layer.cornerRadius = open.frame.height/2
         open.clipsToBounds = true
-        
-        
         open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-
-
         // Set verde cuando es seleccionadao
         let numberOfItems = CGFloat(tabBar.items!.count)
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(Constants.colors.getDarkGreen(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
-        
-        
         //Swipe
         let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
         recognizer.addTarget(self, action: #selector(HomeTabViewController.swipeRight(_:)))
@@ -72,7 +69,7 @@ class HomeTabViewController: UITabBarController {
     
         
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-       let btn1 = UIButton()
+       
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -87,6 +84,14 @@ class HomeTabViewController: UITabBarController {
         self.navigationItem.titleView = button
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshPoints(_:)),name:"refreshPointsHome", object: nil)
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshWishCount),name:"refreshWishCountHome", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador 
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
     func refreshPoints(notification: NSNotification){

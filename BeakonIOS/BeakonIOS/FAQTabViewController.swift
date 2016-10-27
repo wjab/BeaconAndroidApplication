@@ -12,13 +12,14 @@ import UIKit
 class FAQTabViewController: UITabBarController {
 
     @IBOutlet weak var tabBarFaq: UITabBar!
-
+    let btn1 = UIButton()
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var wishCount = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let wishCount = defaults.objectForKey("wishCount")as!Int
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Button abre  menu
         var open = UIButton()
@@ -44,7 +45,7 @@ class FAQTabViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        let btn1 = UIButton()
+  
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -57,7 +58,15 @@ class FAQTabViewController: UITabBarController {
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(FAQTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FAQTabViewController.refreshWishCount),name:"refreshWishCountFaq", object: nil)
     }
+    
+    //Refresca el contador
+    func refreshWishCount(){
+       self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
+    }
+    
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController

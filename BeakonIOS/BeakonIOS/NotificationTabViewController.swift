@@ -10,12 +10,13 @@ import UIKit
 
 class NotificationTabViewController: UITabBarController {
     @IBOutlet weak var tabBarNotification: UITabBar!
-
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let btn1 = UIButton()
+    var wishCount = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
         let wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Set verde en el tab seleccionado
@@ -44,7 +45,6 @@ class NotificationTabViewController: UITabBarController {
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        let btn1 = UIButton()
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -58,7 +58,16 @@ class NotificationTabViewController: UITabBarController {
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(NotificationTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationTabViewController.refreshWishCount),name:"refreshWishCountNotification", object: nil)
     }
+    
+    //Refresca el contador
+    func refreshWishCount(){
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
+    }
+    
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController

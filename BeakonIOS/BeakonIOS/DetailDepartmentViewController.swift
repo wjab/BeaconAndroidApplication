@@ -13,6 +13,7 @@ class DetailDepartmentViewController: UIViewController {
     private let reuseIdentifier = "productDepartmentCell"
     @IBOutlet weak var collection: UICollectionView!
     var actualyArrayIndex = 0
+    var wishCount = 1
     @IBOutlet weak var departmentImage: UIImageView!
     
     override func viewDidLoad()
@@ -33,9 +34,12 @@ class DetailDepartmentViewController: UIViewController {
         self.departmentImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         departmentImage.image =  NSURL(string: String(department.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         let defaults = NSUserDefaults.standardUserDefaults()
+        wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         let btn1 = UIButton()
-        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
+        btn1.setTitle(String(wishCount), forState: .Normal)
+        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailDepartmentViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);

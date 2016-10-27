@@ -14,6 +14,7 @@ import JLToast
 class UtilsC: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
+    var wishCount = 1
     
     func btnWishList(btn1:UIButton)->UIButton{
        
@@ -86,6 +87,18 @@ class UtilsC: UIViewController {
                         {
                             print("Genial")
                             JLToast.makeText("Añadido correctamente a su lista de deseos").show()
+                            self.wishCount = self.defaults.objectForKey("wishCount")as!Int
+                            let wish = self.wishCount + 1
+                            self.defaults.setObject(wish, forKey: "wishCount")
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHome", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountFaq", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailPromo", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountNotification", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailCategory", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailShop", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountProfile", object: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountPoints", object: nil)
                         }
 
                     }

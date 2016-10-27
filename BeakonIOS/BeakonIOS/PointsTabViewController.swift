@@ -11,13 +11,14 @@ import UIKit
 class PointsTabViewController: UITabBarController {
     @IBOutlet weak var tabBarPoints: UITabBar!
     let button =  UIButton(type: .Custom)
+    let btn1 = UIButton()
+     let defaults = NSUserDefaults.standardUserDefaults()
+    var wishCount = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let wishCount = defaults.objectForKey("wishCount")as!Int
+       self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Set verde en el tab seleccionado
         let numberOfItems = CGFloat(tabBar.items!.count)
@@ -32,7 +33,6 @@ class PointsTabViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        let btn1 = UIButton()
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -55,6 +55,13 @@ class PointsTabViewController: UITabBarController {
         
         open.addTarget(self, action: #selector(PointsTabViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshWishCount),name:"refreshWishCountPoints", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     func refreshPoints(notification: NSNotification){
         //load data here
