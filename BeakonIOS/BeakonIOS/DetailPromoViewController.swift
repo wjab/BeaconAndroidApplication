@@ -39,6 +39,7 @@ class DetailPromoViewController: UIViewController {
             UIColor.clearColor().CGColor,
             UIColor.grayColor().CGColor
         ]
+        
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.imagePromo.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
 
@@ -50,11 +51,13 @@ class DetailPromoViewController: UIViewController {
         let points = defaults.objectForKey("points") as! Int
         //Cambia el tamaño de los tabs
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        
         let btn1 = UIButton()
         btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailPromoViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        
         //Genera el boton del centro que contiene los puntos del usuario
         let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
