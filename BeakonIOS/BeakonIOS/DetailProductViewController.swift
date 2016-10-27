@@ -13,6 +13,7 @@ import JLToast
 
 class DetailProductViewController: UIViewController {
     var product:Product!
+    var wishCount = 1
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var details: UILabel!
@@ -22,16 +23,19 @@ class DetailProductViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+
         self.navigationItem.title = ""
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+
+        let defaults = NSUserDefaults.standardUserDefaults()
+        wishCount = defaults.objectForKey("wishCount")as!Int
+		navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         print(product.imageUrlListPropeties[0])
         
         let urlProductImage = NSURL(string: String(product.imageUrlListPropeties[0]))
         productImage.hnk_setImageFromURL(urlProductImage!)
         name.text = product.productNamePropeties
         details.text = product.detailsPropeties
-        price.text = String(product.pricePropeties)
+        price.text = "¢"+String(product.pricePropeties)
        
         if(product.isAddedPropeties==true)
         {
@@ -80,6 +84,9 @@ class DetailProductViewController: UIViewController {
                             print("Genial")
                             JLToast.makeText("Añadido correctamente").show()
                             self.btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
+                            
+                             let wish = self.wishCount+1
+                            defaults.setObject(wish, forKey: "wishCount")
                              NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
                              NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
                         }
