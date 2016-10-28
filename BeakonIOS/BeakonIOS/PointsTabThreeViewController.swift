@@ -49,11 +49,11 @@ class PointsTabThreeViewController: UIViewController {
                     }
                     else
                     {
-                        JLToast.makeText("Hubo un error refrescando los puntos").show()
+                        JLToast.makeText(Constants.error_messages.refreshing_points_error).show()
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
-                    JLToast.makeText("Hubo un error realizando la petición").show()
+                    JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                 }
         }
     }
@@ -84,21 +84,21 @@ class PointsTabThreeViewController: UIViewController {
                                 pointsObject = response.objectForKey("pointsData")! as! NSDictionary
                                 let points = (pointsObject)["points"] as! Int
                                 //self.expirationDate = (pointsObject)["expirationDate"] as Float
-                                JLToast.makeText("Puntos obtenidos "+String(points)).show()
+                                JLToast.makeText(Constants.messages.exchangedPointsMessage(String(points))).show()
                                 self.serviceUpdateUserDefault()
                                 self.codeL.text = ""
                         }
                         else if((response)["status"] as! Int == 400)
                         {
-                            JLToast.makeText("Codigo invalido").show()
+                            JLToast.makeText(Constants.error_messages.invalid_exchange_code).show()
                         }
                         else
                         {
-                            JLToast.makeText("Hubo un error solicitando canjear puntos").show()
+                            JLToast.makeText(Constants.error_messages.error_exchange_points).show()
                         }
                     case .Failure(let error):
                         print("Hubo un error realizando la peticion: \(error)")
-                        JLToast.makeText("Hubo un error realizando la petición").show()
+                        JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                     }
             }
         

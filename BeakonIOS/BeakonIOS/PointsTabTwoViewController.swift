@@ -71,7 +71,7 @@ class PointsTabTwoViewController: UIViewController {
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
-                    JLToast.makeText("Hubo un error realizando la petición").show()
+                    JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                 }
         }
     }
@@ -98,11 +98,11 @@ class PointsTabTwoViewController: UIViewController {
                     }
                     else
                     {
-                        JLToast.makeText("Hubo un error refrescando los puntos").show()
+                        JLToast.makeText(Constants.error_messages.refreshing_points_error).show()
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
-                    JLToast.makeText("Hubo un error realizando la petición").show()
+                    JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                 }
         }
     }
@@ -144,7 +144,7 @@ class PointsTabTwoViewController: UIViewController {
                             {
                                 print("wrong format")
                             }
-                            JLToast.makeText("Creado con exito").show()
+                            JLToast.makeText(Constants.messages.created_success_toast).show()
                             self.pointsL.text = ""
                             self.mesageToSend.text = ""
                             self.serviceUpdateUserDefault()
@@ -158,23 +158,23 @@ class PointsTabTwoViewController: UIViewController {
                         }
                         else if((response)["message"] as! String == "La cantidad de puntos no supera el minimo requerido")
                         {
-                             JLToast.makeText("La cantidad de puntos no supera el minimo requerido").show()
+                             JLToast.makeText(String((response)["message"])).show()
                             
                         }
                     }
                     else
                     {
-                        JLToast.makeText("Hubo un error solicitando regalar los puntos").show()
+                        JLToast.makeText(Constants.error_messages.error_request_give_points).show()
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
-                    JLToast.makeText("Hubo un error realizando la petición").show()
+                    JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                 }
              }
          }
         else
         {
-            JLToast.makeText("No tiene los suficientes puntos para regalar esa cantidad").show()
+            JLToast.makeText(Constants.error_messages.error_not_enough_points_to_give).show()
 
         }
         

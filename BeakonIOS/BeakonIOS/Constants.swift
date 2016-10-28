@@ -40,6 +40,12 @@ struct Constants
         static let call_to_ws = "Hubo un error realizando la peticion: %@"
         static let call_to_ws_toast = "Hubo un error realizando la petición"
         static let call_to_ws_min_points = "Hubo un error obteniendo los puntos minimos"
+        static let invalid_exchange_code = "Codigo invalido"
+        static let error_exchange_points = "Hubo un error solicitando canjear puntos"
+        static let refreshing_points_error = "Hubo un error refrescando los puntos"
+        static let error_getting_min_points = "Hubo un error obteniendo los puntos minimos"
+        static let error_request_give_points = "Hubo un error solicitando regalar los puntos"
+        static let error_not_enough_points_to_give = "No tiene los suficientes puntos para regalar esa cantidad"
     }
     struct colors
     {
@@ -95,6 +101,16 @@ struct Constants
             let availablePointsMessage = NSString(format: "Usted tiene un total de \(points)  pts disponibles para redimir, esta es la cantidad minima de puntos:  \(minimum)")
             
             return availablePointsMessage as String
-        }        
+        }
+        
+        static func exchangedPointsMessage(points: String) -> String
+        {
+            
+            let exchangedPointsMessage = NSString(format: "Puntos obtenidos \(points)")
+            
+            return exchangedPointsMessage as String
+        }
+        
+        static let created_success_toast = "Creado con exito"
     }
 }
