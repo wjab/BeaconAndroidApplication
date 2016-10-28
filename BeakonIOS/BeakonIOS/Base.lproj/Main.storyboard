@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -20,10 +20,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eR-b6-Q5S">
-                                <rect key="frame" x="171" y="231" width="71" height="64"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lRX-u7-QFj">
+                                <rect key="frame" x="100" y="127" width="120" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="YE9-p6-Njb"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eR-b6-Q5S">
+                                <rect key="frame" x="177" y="291" width="61" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="71" id="0hs-4S-J8M"/>
+                                    <constraint firstAttribute="height" constant="58" id="yXt-Lh-GTH"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon_register">
                                     <attributedString key="attributedTitle"/>
@@ -32,13 +39,11 @@
                                     <segue destination="Fwp-SM-75e" kind="show" id="zk1-ft-hAB"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lRX-u7-QFj">
-                                <rect key="frame" x="100" y="127" width="120" height="96"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G67-uN-MVW" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="65" y="231" width="78" height="64"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDr-Nx-mBM">
+                                <rect key="frame" x="67" y="291" width="61" height="58"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="8qe-yy-O2C"/>
+                                    <constraint firstAttribute="width" constant="71" id="a2S-s6-pkp"/>
+                                    <constraint firstAttribute="height" constant="58" id="geY-GO-cwO"/>
                                 </constraints>
                                 <state key="normal" image="facebook_circle_color-128"/>
                             </button>
@@ -46,20 +51,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lRX-u7-QFj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="107" id="3aK-m8-jOR"/>
-                            <constraint firstItem="0eR-b6-Q5S" firstAttribute="leading" secondItem="G67-uN-MVW" secondAttribute="trailing" constant="28" id="BWs-g0-bKM"/>
-                            <constraint firstItem="G67-uN-MVW" firstAttribute="top" secondItem="0eR-b6-Q5S" secondAttribute="top" id="DyR-rs-2UR"/>
-                            <constraint firstItem="G67-uN-MVW" firstAttribute="bottom" secondItem="0eR-b6-Q5S" secondAttribute="bottom" id="UeG-n0-bs0"/>
-                            <constraint firstItem="G67-uN-MVW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="49" id="VT1-j3-YIh"/>
                             <constraint firstItem="lRX-u7-QFj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="84" id="cuO-Sc-MO0"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="G67-uN-MVW" secondAttribute="bottom" constant="273" id="cvH-Fp-SBN"/>
-                            <constraint firstItem="G67-uN-MVW" firstAttribute="top" secondItem="lRX-u7-QFj" secondAttribute="bottom" constant="8" symbolic="YES" id="lzG-Do-P46"/>
                             <constraint firstItem="lRX-u7-QFj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tCB-Cc-OcZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0eR-b6-Q5S" secondAttribute="trailing" constant="62" id="xDo-ck-RrX"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="btnFacebook" destination="G67-uN-MVW" id="gh6-F8-uYN"/>
+                        <outlet property="btnFacebookCustom" destination="kDr-Nx-mBM" id="nas-2j-ItK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1477,15 +1476,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-manage-points" translatesAutoresizingMaskIntoConstraints="NO" id="1EQ-KH-IhX">
                                                     <rect key="frame" x="8" y="4" width="26" height="26"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zd-8z-izu">
-                                                    <rect key="frame" x="137" y="0.0" width="30" height="30"/>
-                                                    <state key="normal" title="hiiii">
-                                                        <color key="titleColor" red="0.077268205583095551" green="0.32832583785057068" blue="0.79990679025650024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="wf8-FF-S3K" kind="show" id="zfQ-57-DHi"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Puntos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XnU-PX-f4a">
                                                     <rect key="frame" x="51" y="4" width="54" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2503,9 +2493,9 @@
         <image name="shareiconembed" width="703" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pq9-56-e88"/>
         <segue reference="9df-5l-3Jm"/>
         <segue reference="gDc-7F-MCW"/>
+        <segue reference="zk1-ft-hAB"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

@@ -11,8 +11,8 @@ import KontaktSDK
 //import Branch
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
     var window: UIWindow?
     let defaults = NSUserDefaults.standardUserDefaults()
     var vc = ViewController()
@@ -76,7 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //FBSDKAppEvents.activateApp()
     }
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(application: UIApplication)
+    {
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
         loginManager.logOut()
     }
@@ -89,7 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification launchOptions: [NSObject: AnyObject]?) -> Void {
+    func application(application: UIApplication, didReceiveRemoteNotification launchOptions: [NSObject: AnyObject]) -> Void
+    {
      //   Branch.getInstance().handlePushNotification(launchOptions)
     }
 

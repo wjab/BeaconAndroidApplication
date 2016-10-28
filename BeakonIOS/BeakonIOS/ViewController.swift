@@ -12,17 +12,42 @@ import SwiftyJSON
 import JLToast
 import CryptoSwift
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+// Librerias para comunicacion con facebook
+import FBSDKCoreKit
+import FBSDKLoginKit
+
+class ViewController: UIViewController /*, FBSDKLoginButtonDelegate*/
+{
     let url = "http://buserdevel.cfapps.io/user"
-    @IBOutlet weak var btnFacebook: FBSDKLoginButton!
-     let defaults = NSUserDefaults.standardUserDefaults()
+    
+    @IBOutlet weak var btnFacebookCustom : UIButton?
+    
+    let defaults = NSUserDefaults.standardUserDefaults()
     let utils = UtilsC()
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        configureFacebook()
+        
+        btnFacebookCustom!.addTarget(self, action: #selector(ViewController.loginFacebookAction), forControlEvents: .TouchUpInside)        
+    }
+    
+    @IBAction func loginFacebookAction(sender : AnyObject)
+    {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        
+        fbLoginManager.logInWithReadPermissions(["public_profile", "email", "user_friends"], fromViewController: self){ (result, error) -> Void in
+            
+            if(error == nil)
+            {
+                self.getInfoFacebook()
+            }
+            else
+            {
+                JLToast.makeText(Constants.facebook.error_general).show()
+            }
+        }
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
@@ -59,7 +84,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
     }
     
-    func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String){
+    func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String)
+    {
         //Endpoint
         let url : String = "http://buserdevel.cfapps.io/user/username"
         //parametros a enviar por body en el request
@@ -132,7 +158,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             //Guarda los datos en UserDefaults
     }
 
-    func createUserSocial(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String){
+    func createUserSocial(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String)
+    {
         //Endpoint
         let url : String = "http://buserdevel.cfapps.io/user/"
         let preferenceList = Array<Preference>();
@@ -205,14 +232,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     {
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
         loginManager.logOut()
-    }
-
-    //    MARK: Other Methods
-
-    func configureFacebook()
-    {
-        btnFacebook.readPermissions = ["public_profile", "email", "user_friends"];
-        btnFacebook.delegate = self
     }
 
 }
