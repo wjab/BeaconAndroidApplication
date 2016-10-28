@@ -12,7 +12,7 @@ import JLToast
 import SwiftyJSON
 
 class DetailProductCell: UICollectionViewCell {
-    @IBOutlet weak var nameL: UILabel!
+   // @IBOutlet weak var nameL: UILabel!
     @IBOutlet weak var isAddedImage: UIButton!
     @IBOutlet weak var productImage: UIImageView!
     var product:Product = Product()
@@ -22,7 +22,7 @@ class DetailProductCell: UICollectionViewCell {
     
     internal func configure(name: String, urlImageProduct: String, product: Product)
     {
-        nameL.text = name
+        //nameL.text = name
         self.product = product
         let url = NSURL(string: urlImageProduct)
         productImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
