@@ -67,6 +67,7 @@ class PointsTabOneViewController: UIViewController {
         super.viewDidLoad()
         obtainMiniumPoints()
         butonAction.addTarget(self, action: #selector(PointsTabOneViewController.service), forControlEvents: .TouchUpInside)
+        messageL.font=UIFont.boldSystemFontOfSize(17.0)
         // Do any additional setup after loading the view.
     }
 
@@ -79,7 +80,7 @@ class PointsTabOneViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         self.userId = defaults.objectForKey("userId") as! String
         self.pointsUser = defaults.objectForKey("points") as! Int
-        messageL.text = Constants.messages.availablePointsMessage(String(self.pointsUser), minimum: String(self.pointsMinium));
+        messageL.text = Constants.messages.availablePointsMessage(String(self.pointsUser), minimum: String(self.pointsMinium), message: "redimir");
         
     }
     

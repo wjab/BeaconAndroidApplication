@@ -28,6 +28,7 @@ class PointsTabTwoViewController: UIViewController {
         super.viewDidLoad()
         obtainMiniumPoints()
         butonAction.addTarget(self, action: #selector(PointsTabTwoViewController.service), forControlEvents: .TouchUpInside)
+        messageL.font=UIFont.boldSystemFontOfSize(17.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +44,7 @@ class PointsTabTwoViewController: UIViewController {
         NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
         
-        messageL.text = Constants.messages.availablePointsMessage(String(self.pointsUser), minimum: String(self.pointsMinium))
+        messageL.text = Constants.messages.availablePointsMessage(String(self.pointsUser), minimum: String(self.pointsMinium), message: "regalar")
     }
     
     func obtainMiniumPoints(){
