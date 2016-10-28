@@ -30,7 +30,14 @@ class ShopCell: UITableViewCell {
         walkinL.text = walkin
         
         let url = NSURL(string: urlImageShop)
-        shopImage.hnk_setImageFromURL(url!)
+        
+        shopImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            self.shopImage.image = image
+            }, failure: { (error) -> Void in
+                self.shopImage.image = UIImage(named: "image_not_found")
+                
+        })
+        
         
         self.validationImageToShow()
     }

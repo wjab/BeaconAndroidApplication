@@ -31,30 +31,27 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
         let name = defaults.objectForKey("username") as! String
         userPointsText.text = String(points)
         usernameText.text = String(name)
-           imagePicker.delegate = self
+        imagePicker.delegate = self
         let singleTap = UITapGestureRecognizer(target: self, action:#selector(HeaderMenuViewController.tapDetected))
         singleTap.numberOfTapsRequired = 1
         
         profileImage.frame = CGRectMake(0, 0, 60, 53)
-         profileImage.layer.masksToBounds = false
+        profileImage.layer.masksToBounds = false
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
+        profileImage.userInteractionEnabled = true
+        profileImage.addGestureRecognizer(singleTap)
         
         let image = defaults.objectForKey("image")as! String
-        let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        let url = NSURL(string: image)
         
-        if (typeUser != "localuser"){
-        profileImage.image = NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
-        }
-        else{
-            profileImage.userInteractionEnabled = true
-            profileImage.addGestureRecognizer(singleTap)
-           // print("urlImage ---------> " + image)
-            let fileUrl = NSURL(string:  image)
-            
-            profileImage.hnk_setImageFromURL(fileUrl!)
-            //assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG
-        }
+        profileImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            self.profileImage.image = image
+            }, failure: { (error) -> Void in
+                self.profileImage.image = UIImage(named: "profiledefault")
+                
+        })
+        
        
         // Do any additional setup after loading the view.
     }

@@ -78,7 +78,7 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:PromoCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! PromoCell!
         let promoObject = self.promoArray[indexPath.row]
-        let name = promoObject.descriptionPromoPropeties
+        let name = promoObject.title
         let urlImage = promoObject.imagesPropeties
         let points = promoObject.giftPoints
         let pointsMsg = "\(String(points)) pts"

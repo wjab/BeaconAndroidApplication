@@ -38,6 +38,8 @@ struct Constants
     {
         static let get_beacon_info = "Problema al obtner datos del beacon"
         static let call_to_ws = "Hubo un error realizando la peticion: %@"
+        static let call_to_ws_toast = "Hubo un error realizando la petición"
+        static let call_to_ws_min_points = "Hubo un error obteniendo los puntos minimos"
     }
     struct colors
     {
@@ -78,7 +80,21 @@ struct Constants
             return UIColor(red:0.44, green:0.44, blue:0.44, alpha:1.0)
         }
     }
-    struct facebook {
+
+    struct facebook 
+    {
         static let error_general = "Error comunicación con facebook"
+    }
+
+    struct messages
+    {
+        
+        static func availablePointsMessage(points: String, minimum: String) -> String
+		{
+            
+            let availablePointsMessage = NSString(format: "Usted tiene un total de \(points)  pts disponibles para redimir, esta es la cantidad minima de puntos:  \(minimum)")
+            
+            return availablePointsMessage as String
+        }        
     }
 }

@@ -29,9 +29,17 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         }
         nameL.text = name
         self.product = product
-        
         let url = NSURL(string: urlImageProduct)
-        productImage.hnk_setImageFromURL(url!)
+        
+        productImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            self.productImage.image = image
+            }, failure: { (error) -> Void in
+                self.productImage.image = UIImage(named: "image_not_found")
+                
+        })
+
+        
+        
 
         //Gradient
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, productImage.bounds.width, productImage.bounds.height))

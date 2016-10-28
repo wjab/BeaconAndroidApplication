@@ -14,8 +14,14 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var nameL: UILabel!
     internal func configure(name: String, urlImageCategory: String)
     {
-        let url = NSURL(string: urlImageCategory)
-        categoryImage.hnk_setImageFromURL(url!)
+        let url = NSURL(string: urlImageCategory)        
+        categoryImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            self.categoryImage.image = image
+            }, failure: { (error) -> Void in
+                self.categoryImage.image = UIImage(named: "image_not_found")
+                
+        })
+        
         nameL.text = name
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, categoryImage.bounds.width, categoryImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

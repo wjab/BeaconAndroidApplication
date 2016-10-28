@@ -13,32 +13,21 @@ class Utils{
 
  static func loadMenuButton(button: UIButton, image: String, typeUser: String) -> UIButton{
         let open = button
-        var asset = ALAssetsLibrary()
-        if (typeUser != "localuser"){
-            open.setBackgroundImage(NSURL(string: String(image)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!, forState: UIControlState.Normal)
-        }
-        else
-        {
-            let fileUrl = NSURL(string:  image)
-            asset.assetForURL(fileUrl, resultBlock: { asset in
-                if let ast = asset {
-                    let assetRep = ast.defaultRepresentation()
-                    let iref = assetRep.fullResolutionImage().takeUnretainedValue()
-                    let image = UIImage(CGImage: iref)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        open.setBackgroundImage(image, forState: .Normal)
-                    })
-                }
-                }, failureBlock: { error in
-                    print("Error: \(error)")
-            })
-        }
+        let url = NSURL(string: image)
         open.frame = CGRectMake(0, 0, 40, 35)
         open.layer.masksToBounds = false
         open.layer.cornerRadius = open.frame.height/2
         open.clipsToBounds = true
-        
-        
+    
+        open.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            open.setBackgroundImage(image, forState: UIControlState.Normal)
+            }, failure: { (error) -> Void in
+            open.setBackgroundImage(UIImage(named: "profiledefault"), forState: UIControlState.Normal )
+            
+        })
+
+
+    
         return open
     }
 }

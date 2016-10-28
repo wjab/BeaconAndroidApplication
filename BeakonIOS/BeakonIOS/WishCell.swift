@@ -23,6 +23,13 @@ class WishCell: UITableViewCell {
         nameL.text = product.productNamePropeties
         wishProduct = product
         let url = NSURL(string: urlImage)
+        productImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            self.productImage.image = image
+            }, failure: { (error) -> Void in
+                self.productImage.image = UIImage(named: "image_not_found")
+                
+        })
+        
         productImage.hnk_setImageFromURL(url!)
         priceL.text = String(wishProduct.pricePropeties)
          deleteProduct.addTarget(self, action: #selector(deleteProductWish), forControlEvents: .TouchUpInside)

@@ -32,7 +32,15 @@ class DetailProductViewController: UIViewController {
         print(product.imageUrlListPropeties[0])
         
         let urlProductImage = NSURL(string: String(product.imageUrlListPropeties[0]))
-        productImage.hnk_setImageFromURL(urlProductImage!)
+        
+        
+        productImage.hnk_setImageFromURL(urlProductImage!, placeholder: nil, success: { (image) -> Void in
+                self.productImage.image = image
+            }, failure: { (error) -> Void in
+                self.productImage.image = UIImage(named: "image_not_found")
+                
+        })
+        
         name.text = product.productNamePropeties
         details.text = product.detailsPropeties
         price.text = "¢"+String(product.pricePropeties)

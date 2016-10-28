@@ -41,8 +41,13 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         self.imageCategory.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         
         let urlCategoryImage = NSURL(string: String(image))
-        imageCategory.hnk_setImageFromURL(urlCategoryImage!)
-        
+        imageCategory.hnk_setImageFromURL(urlCategoryImage!, placeholder: nil, success: { (image) -> Void in
+            self.imageCategory.image = image
+            }, failure: { (error) -> Void in
+                self.imageCategory.image = UIImage(named: "image_not_found")
+                
+        })
+
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)
         //Carga los datos de user defaults

@@ -142,9 +142,19 @@ class DetailPromoViewController: UIViewController {
         let urlImageShop = NSURL(string: String(urlShop))
         let urlImagePromo = NSURL(string: String(url))
         
-        imageShop.hnk_setImageFromURL(urlImageShop!)
-        imagePromo.hnk_setImageFromURL(urlImagePromo!)
+        imageShop.hnk_setImageFromURL(urlImageShop!, placeholder: nil, success: { (image) -> Void in
+            self.imageShop.image = image
+            }, failure: { (error) -> Void in
+                self.imageShop.image = UIImage(named: "image_not_found")
+                
+        })
         
+        imagePromo.hnk_setImageFromURL(urlImagePromo!, placeholder: nil, success: { (image) -> Void in
+            self.imagePromo.image = image
+            }, failure: { (error) -> Void in
+                self.imagePromo.image = UIImage(named: "image_not_found")
+                
+        })
     }
     
     override func viewWillAppear(animated: Bool) {

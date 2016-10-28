@@ -32,7 +32,15 @@ class DetailDepartmentViewController: UIViewController {
         ]
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.departmentImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
-        departmentImage.image =  NSURL(string: String(department.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        let urlDepartmentImage = NSURL(string: String(department.departmentUrlPropeties))
+        departmentImage.hnk_setImageFromURL(urlDepartmentImage!, placeholder: nil, success: { (image) -> Void in
+            self.departmentImage.image = image
+            }, failure: { (error) -> Void in
+                self.departmentImage.image = UIImage(named: "image_not_found")
+                
+        })
+
         let defaults = NSUserDefaults.standardUserDefaults()
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int

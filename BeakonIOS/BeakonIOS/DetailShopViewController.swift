@@ -112,7 +112,15 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         let imageView = UIImageView(frame: CGRectMake(0, 0, 160, 100))
         
         let urlImageDeparment = NSURL(string: departmentObject.departmentUrlPropeties)
-        imageView.hnk_setImageFromURL(urlImageDeparment!)
+
+        imageView.hnk_setImageFromURL(urlImageDeparment!, placeholder: nil, success: { (image) -> Void in
+                imageView.image = image
+            }, failure: { (error) -> Void in
+                imageView.image = UIImage(named: "image_not_found")
+                
+        })
+        
+        
 
         //imageView.image = NSURL(string: String(departmentObject.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         cell.backgroundView = UIView()

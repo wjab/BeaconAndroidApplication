@@ -21,7 +21,13 @@ class PromoCell: UITableViewCell {
         nameL.text = name
         
         let url = NSURL(string: urlImagePromo)
-        promoImage.hnk_setImageFromURL(url!)
+        promoImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
+            self.promoImage.image = image
+            }, failure: { (error) -> Void in
+                self.promoImage.image = UIImage(named: "image_not_found")
+                
+        })
+        
         pointsL.text = points
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, promoImage.bounds.width, promoImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()

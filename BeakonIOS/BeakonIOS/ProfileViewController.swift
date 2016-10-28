@@ -31,16 +31,16 @@ class ProfileViewController: UIViewController {
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Button abre  menu
-        var open = UIButton()
-        let image = defaults.objectForKey("image")as! String
-        let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-        open.frame = CGRectMake(0, 0, 40, 35)
-        open.layer.masksToBounds = false
-        open.layer.cornerRadius = open.frame.height/2
-        open.clipsToBounds = true
-        open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
-        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+        //var open = UIButton()
+        //let image = defaults.objectForKey("image")as! String
+        //let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        //open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
+        //open.frame = CGRectMake(0, 0, 40, 35)
+        //open.layer.masksToBounds = false
+        //open.layer.cornerRadius = open.frame.height/2
+        //open.clipsToBounds = true
+        //open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
+        //self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)

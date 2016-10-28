@@ -79,7 +79,8 @@ class PointsTabOneViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         self.userId = defaults.objectForKey("userId") as! String
         self.pointsUser = defaults.objectForKey("points") as! Int
-        messageL.text = "Usted tiene un total de " + String(self.pointsUser) + " pts disponibles para redimir, esta es la cantidad minima de puntos: " + String(self.pointsMinium)
+        messageL.text = Constants.messages.availablePointsMessage(String(self.pointsUser), minimum: String(self.pointsMinium));
+        
     }
     
     func obtainMiniumPoints(){
@@ -103,11 +104,11 @@ class PointsTabOneViewController: UIViewController {
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los puntos minimos")
+                        print(Constants.error_messages.call_to_ws_min_points)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
-                     JLToast.makeText("Hubo un error realizando la petición").show()
+                     JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                 }
         }
     }
