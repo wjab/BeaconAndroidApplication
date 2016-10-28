@@ -13,9 +13,11 @@ import SwiftyJSON
 class DetailProductDepartmentCell: UICollectionViewCell {
     
     @IBOutlet weak var allowScan: UIButton!
-    @IBOutlet weak var nameL: UILabel!
-   @IBOutlet weak var isAddedImage: UIButton!
+    @IBOutlet weak var isAddedImage: UIButton!
     @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var points: UILabel!
+    @IBOutlet weak var price: UILabel!
+    
     var product:Product = Product()
     let utilsC = UtilsC()
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -27,7 +29,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         {
             allowScan.hidden = true
         }
-        //nameL.text = name
+       
         self.product = product
         let url = NSURL(string: urlImageProduct)
         
@@ -38,16 +40,15 @@ class DetailProductDepartmentCell: UICollectionViewCell {
                 
         })
 
-        
-        
-
-        //Gradient
+    //Gradient
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, productImage.bounds.width, productImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = gradientLayerView.bounds
         gradient.colors = [UIColor.clearColor().CGColor,UIColor.clearColor().CGColor,UIColor.grayColor().CGColor]
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.productImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
+        self.price.text = "¢"+String(product.pricePropeties)
+        self.points.text = String(product.pointsByPricePropeties)
          //Accion del boton scanear
          allowScan.addTarget(self, action: #selector(scan), forControlEvents: .TouchUpInside)
         //Accion del boton añadir

@@ -112,6 +112,13 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         let imageView = UIImageView(frame: CGRectMake(0, 0, 160, 100))
         
         let urlImageDeparment = NSURL(string: departmentObject.departmentUrlPropeties)
+        
+        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imageView.bounds.width, imageView.bounds.height))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = gradientLayerView.bounds
+        gradient.colors = [UIColor.clearColor().CGColor,UIColor.clearColor().CGColor,UIColor.grayColor().CGColor]
+        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
+        imageView.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
 
         imageView.hnk_setImageFromURL(urlImageDeparment!, placeholder: nil, success: { (image) -> Void in
                 imageView.image = image
