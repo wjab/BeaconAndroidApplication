@@ -546,7 +546,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="121" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1L3-Me-mVR">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="121" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1L3-Me-mVR">
                                 <rect key="frame" x="17" y="5" width="286" height="550"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1245,9 +1245,6 @@
                                                     <color key="textColor" red="0.077268205583095551" green="0.32832583785057068" blue="0.79990679025650024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_points" translatesAutoresizingMaskIntoConstraints="NO" id="qlw-8m-dJD">
-                                                    <rect key="frame" x="270" y="0.0" width="24" height="20"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ce9-6s-Oxi">
                                                     <rect key="frame" x="8" y="23" width="286" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1626,7 +1623,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6cc-lI-RVc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6cc-lI-RVc">
                                 <rect key="frame" x="12" y="10" width="288" height="545"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2264,12 +2261,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9VD-Zy-poJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="131" height="112"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNs-g4-mvV">
-                                                    <rect key="frame" x="41" y="85" width="61" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jq-i1-Wkn">
                                                     <rect key="frame" x="101" y="85" width="30" height="21"/>
                                                     <state key="normal" image="icon_add"/>
@@ -2284,7 +2275,6 @@
                                         <connections>
                                             <outlet property="allowScan" destination="w3b-iz-CjV" id="QPg-nd-KHq"/>
                                             <outlet property="isAddedImage" destination="8Jq-i1-Wkn" id="W76-M3-3sG"/>
-                                            <outlet property="nameL" destination="XNs-g4-mvV" id="rJt-80-lKu"/>
                                             <outlet property="productImage" destination="9VD-Zy-poJ" id="2t7-tM-KqI"/>
                                         </connections>
                                     </collectionViewCell>
@@ -2342,12 +2332,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="woU-VG-PJ4">
                                                     <rect key="frame" x="0.0" y="0.0" width="137" height="110"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5n-Om-xhv">
-                                                    <rect key="frame" x="0.0" y="89" width="91" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRv-YF-ZS4">
                                                     <rect key="frame" x="107" y="89" width="30" height="21"/>
                                                     <state key="normal" image="icon_add"/>
@@ -2357,7 +2341,6 @@
                                         </view>
                                         <connections>
                                             <outlet property="isAddedImage" destination="zRv-YF-ZS4" id="Yke-T4-eC6"/>
-                                            <outlet property="nameL" destination="x5n-Om-xhv" id="S54-oI-DSa"/>
                                             <outlet property="productImage" destination="woU-VG-PJ4" id="pI9-Wi-CKT"/>
                                         </connections>
                                     </collectionViewCell>
@@ -2480,7 +2463,6 @@
         <image name="icon_faq" width="25" height="37"/>
         <image name="icon_home" width="37" height="34"/>
         <image name="icon_invite" width="41" height="34"/>
-        <image name="icon_points" width="25" height="20"/>
         <image name="icon_preferences" width="42" height="42"/>
         <image name="icon_profile" width="34" height="36"/>
         <image name="icon_register" width="65" height="65"/>
@@ -2493,7 +2475,7 @@
         <image name="shareiconembed" width="703" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9df-5l-3Jm"/>
+        <segue reference="QQN-b5-9Cz"/>
         <segue reference="gDc-7F-MCW"/>
         <segue reference="zk1-ft-hAB"/>
     </inferredMetricsTieBreakers>

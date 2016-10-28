@@ -103,9 +103,12 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         let typeUser = defaults.objectForKey("socialNetworkType")as! String
         let appDomain = NSBundle.mainBundle().bundleIdentifier!
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
-        if (typeUser == "facebook"){
-         FBSDKLoginManager().logOut()
+        
+        if (typeUser == "facebook")
+        {
+            FBSDKLoginManager().logOut()
         }
+        
         HomeTabViewController.konkat.endBackgroundTask()
         HomeTabViewController.konkat.devicesManager.stopDevicesDiscovery()
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
@@ -126,7 +129,8 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         return switchControl
     }
 
-    func createLabel(value1:CGFloat ,value2:CGFloat, textLabel:String , tag:Int) -> UILabel{
+    func createLabel(value1:CGFloat ,value2:CGFloat, textLabel:String , tag:Int) -> UILabel
+    {
         let label = UILabel(frame: CGRectMake(value1, value2, 400.0, 30.0))
         label.textAlignment = NSTextAlignment.Left
         label.tag = tag
@@ -136,7 +140,8 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         return label
     }
     
-    func switchValueDidChange(sender:UISwitch!){
+    func switchValueDidChange(sender:UISwitch!)
+    {
         //WebServiceUser/user/preference/editUser
         //Send userId, preference, state
         //POST
@@ -178,17 +183,14 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
                 }
-        }
-        
+        }        
 
         preference = sender.description
         print("Switch Value : \(sender.on)")
     }
     
-   
-
-    
-    func createAlertPreferences(){
+    func createAlertPreferences()
+    {
         //Crea el alert
         let alertController = UIAlertController(title: "Preferencias", message: "", preferredStyle: .Alert)
         //Accion para cerrar el alert

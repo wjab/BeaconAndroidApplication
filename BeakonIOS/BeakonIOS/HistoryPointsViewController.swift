@@ -47,12 +47,23 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         
         open.addTarget(self, action: #selector(HistoryPointsViewController.openMenu), forControlEvents: .TouchUpInside)
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)*/
+    
+        //Genera el boton del centro que contiene la imagen debajo del boton de los puntos
+        let btn_points_img =  UIButton(type: .Custom)
+        btn_points_img.setTitle(String(points), forState: UIControlState.Normal)
+        btn_points_img.frame = CGRectMake(0, 0, 0, 100) as CGRect
+        //btn_points_img.frame.size = CGSize(width: 10, height: 15)
+        btn_points_img.setImage(UIImage(named: "arrow"), forState: UIControlState.Normal)
+        
         //Genera el boton del centro que contiene los puntos del usuario
         let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
         button.setTitle(String(points), forState: UIControlState.Normal)
+        button.setImage(UIImage(named: "arrow_down-light-gray"), forState: UIControlState.Normal)
+        
+        
         button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+        self.navigationItem.titleView = btn_points_img
 
     }
     //Abre el menu

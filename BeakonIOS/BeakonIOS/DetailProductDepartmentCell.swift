@@ -27,7 +27,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         {
             allowScan.hidden = true
         }
-        nameL.text = name
+        //nameL.text = name
         self.product = product
         let url = NSURL(string: urlImageProduct)
         

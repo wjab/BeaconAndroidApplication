@@ -16,7 +16,7 @@ import CryptoSwift
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class ViewController: UIViewController /*, FBSDKLoginButtonDelegate*/
+class ViewController: UIViewController 
 {
     let url = "http://buserdevel.cfapps.io/user"
     
