@@ -87,9 +87,9 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
 
-    
     func loadList(notification: NSNotification){
         //load data here
+        print("LOAD LIST")
         self.collection.reloadData()
     }
     func service(){
@@ -109,7 +109,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
                     if((response)["status"] as! String != "404")
                     {
                         let productList = response.mutableArrayValueForKey("merchantProfile")
-                        for (index, element) in productList.enumerate() {
+                        for (_, element) in productList.enumerate() {
                             let productObject = Product()
                             productObject .detailsPropeties = element.objectForKey("details") as! String
                             

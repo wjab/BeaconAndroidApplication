@@ -12,6 +12,7 @@ import SwiftyJSON
 import JLToast
 
 class WishCell: UITableViewCell {
+    @IBOutlet weak var pointsByPrice: UILabel!
     @IBOutlet weak var priceL: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var nameL: UILabel!
@@ -30,7 +31,7 @@ class WishCell: UITableViewCell {
                 self.productImage.image = UIImage(named: "image_not_found")
                 
         })
-        
+        pointsByPrice.text = String(product.pointsByPricePropeties)
         productImage.hnk_setImageFromURL(url!)
         priceL.text = "¢"+String(wishProduct.pricePropeties)
          deleteProduct.addTarget(self, action: #selector(deleteProductWish), forControlEvents: .TouchUpInside)

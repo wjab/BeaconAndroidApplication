@@ -87,11 +87,7 @@ class DetailProductCell: UICollectionViewCell {
                                 //Si si es igual se actualiza la propiedad
                                 self.product.isAddedPropeties = true
                             }
-                            else
-                            {
-                                self.product.isAddedPropeties = false
-                            }
-                            self.wishArray.append(wishObject)
+                         self.wishArray.append(wishObject)
                         }
                         self.compare()
                     }

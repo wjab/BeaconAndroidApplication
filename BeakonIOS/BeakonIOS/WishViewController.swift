@@ -124,16 +124,14 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                         print((response)["status"])
                         user = response.objectForKey("user")! as! NSDictionary
                         let productList = user.mutableArrayValueForKey("productWishList")
-                        for (indexP, product) in productList.enumerate()
+                        for (_, product) in productList.enumerate()
                         {
-                            print(indexP, ":", product)
                             let wishObject = Wish()
                             wishObject.productIdPropeties = product.objectForKey("productId") as! String
                             wishObject.productNamePropeties = product.objectForKey("productName") as! String
                             wishObject.pricePropeties = product.objectForKey("price") as! Int
                             wishObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! String
-                            //PointsByPrice anadir
-                            //productObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
+                            wishObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
                             self.wishArray.append(wishObject)
                         }
                         self.table.reloadData()
