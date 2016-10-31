@@ -103,6 +103,10 @@ class DetailProductDepartmentCell: UICollectionViewCell {
                             if(idWish == idProduct){
                                 self.product.isAddedPropeties = true
                             }
+                            else
+                            {
+                                self.product.isAddedPropeties = false
+                            }
                             self.wishArray.append(wishObject)
                         }
                         self.compare()

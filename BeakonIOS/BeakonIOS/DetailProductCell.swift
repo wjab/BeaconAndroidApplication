@@ -86,9 +86,10 @@ class DetailProductCell: UICollectionViewCell {
                             if(idWish == idProduct){
                                 //Si si es igual se actualiza la propiedad
                                 self.product.isAddedPropeties = true
-                                print("id" + idProduct)
-                                print("addedPropetiesTrueee:  " + String(self.product.isAddedPropeties))
-                                print("------------------------------------------------------------------------")
+                            }
+                            else
+                            {
+                                self.product.isAddedPropeties = false
                             }
                             self.wishArray.append(wishObject)
                         }
