@@ -127,9 +127,6 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
                 
         })
         
-        
-
-        //imageView.image = NSURL(string: String(departmentObject.departmentUrlPropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
         cell.backgroundView = UIView()
         cell.backgroundView!.addSubview(imageView)
         return cell

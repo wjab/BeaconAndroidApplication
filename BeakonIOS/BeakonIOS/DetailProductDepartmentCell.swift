@@ -56,7 +56,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         //Obtener la lista de deseos
         self.obtainWishListUser()
     }
-
+    
     func scan()
     {
         NSNotificationCenter.defaultCenter().postNotificationName("scan", object: nil)
@@ -65,8 +65,8 @@ class DetailProductDepartmentCell: UICollectionViewCell {
     func send()
     {
         utilsC.addWishList(self.product)
+        self.product.isAddedPropeties = true
         compare()
-        NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
     }
     
     func obtainWishListUser()
@@ -101,11 +101,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
                             let idWish = wishObject.productIdPropeties
                             let idProduct = self.product.productIdPropeties
                             if(idWish == idProduct){
-                                //Si si es igual se actualiza la propiedad
                                 self.product.isAddedPropeties = true
-                                print("id" + idProduct)
-                                print("addedPropetiesTrueee:  " + String(self.product.isAddedPropeties))
-                                print("------------------------------------------------------------------------")
                             }
                             self.wishArray.append(wishObject)
                         }

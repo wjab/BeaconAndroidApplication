@@ -48,8 +48,9 @@ class DetailProductCell: UICollectionViewCell {
     
     func send(){
         utilsC.addWishList(self.product)
+        self.product.isAddedPropeties = true
         compare()
-        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+       //NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
     }
     
     func obtainWishListUser(){

@@ -53,9 +53,6 @@ class DetailPromoViewController: UIViewController {
         let points = defaults.objectForKey("points") as! Int
         //Cambia el tamaño de los tabs
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-
-        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
-
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)

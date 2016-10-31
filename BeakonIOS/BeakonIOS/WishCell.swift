@@ -17,6 +17,7 @@ class WishCell: UITableViewCell {
     @IBOutlet weak var nameL: UILabel!
     @IBOutlet weak var deleteProduct: UIButton!
     var wishProduct:Wish = Wish()
+    let utils = UtilsC()
     let defaults = NSUserDefaults.standardUserDefaults()
     
     internal func configure(name: String, urlImage: String,product: Wish) {
@@ -31,7 +32,7 @@ class WishCell: UITableViewCell {
         })
         
         productImage.hnk_setImageFromURL(url!)
-        priceL.text = String(wishProduct.pricePropeties)
+        priceL.text = "¢"+String(wishProduct.pricePropeties)
          deleteProduct.addTarget(self, action: #selector(deleteProductWish), forControlEvents: .TouchUpInside)
     }
     
@@ -63,17 +64,11 @@ class WishCell: UITableViewCell {
                     if((response)["status"] as! Int != 404)
                     {
                         print("Genial")
-                       JLToast.makeText("Eliminado correctamente").show()
+                        NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
                         NSNotificationCenter.defaultCenter().postNotificationName("wish", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHome", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountFaq", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailPromo", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountNotification", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailCategory", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailShop", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountProfile", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountPoints", object: nil)
+                       JLToast.makeText("Eliminado correctamente").show()
+                       self.utils.refreshDatas()
                     }
                     else
                     {

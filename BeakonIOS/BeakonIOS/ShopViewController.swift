@@ -80,9 +80,8 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                                 var productArray: [Product] = []
                                 let productList = department.mutableArrayValueForKey("products")
                                 
-                                for (indexP, product) in productList.enumerate()
+                                for (_, product) in productList.enumerate()
                                 {
-                                    print(indexP, ":", product)
                                     let productObject = Product()
                                     productObject.productIdPropeties = product.objectForKey("productId") as! String
                                     productObject.productNamePropeties = product.objectForKey("productName") as! String

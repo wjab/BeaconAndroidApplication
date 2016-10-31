@@ -27,6 +27,7 @@ class UtilsC: UIViewController {
         formatter.dateFormat = "dd/MM/yyyy HH:mm:ss.SSS"
         return formatter.stringFromDate(newDate)
     }
+    
     //Cargar las  imagenes desde la url
     func loadImageFromUrl(url: String, view: UIImageView){
         let url = NSURL(string: url)!
@@ -43,8 +44,6 @@ class UtilsC: UIViewController {
         task.resume()
     }
     
-
-        
     func isValidEmail(testStr:String) -> Bool {
         print("validate emilId: \(testStr)")
         let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
@@ -61,7 +60,7 @@ class UtilsC: UIViewController {
         let id = wishProduct.productIdPropeties
         let price = wishProduct.pricePropeties
         let urlImage = wishProduct.imageUrlListPropeties[0]
-             let newTodo = [
+        let newTodo = [
                         "userId": idUser,
                         "productName": name,
                        "productId": id,
@@ -85,22 +84,13 @@ class UtilsC: UIViewController {
                         }
                         else
                         {
-                            print("Genial")
+                            //NSNotificationCenter.defaultCenter().postNotificationName("refreshIconWish", object: nil)
                             JLToast.makeText("Añadido correctamente a su lista de deseos").show()
                             self.wishCount = self.defaults.objectForKey("wishCount")as!Int
                             let wish = self.wishCount + 1
                             self.defaults.setObject(wish, forKey: "wishCount")
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHome", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountFaq", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailPromo", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountNotification", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailCategory", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailShop", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountProfile", object: nil)
-                            NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountPoints", object: nil)
+                            self.refreshDatas()
                         }
-
                     }
                     else
                     {
@@ -110,9 +100,20 @@ class UtilsC: UIViewController {
                     print("Hubo un error realizando la peticion: \(error)")
                 }
         }
-        print(wishProduct.productNamePropeties)
     }
     
+    func refreshDatas(){
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHome", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountFaq", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailPromo", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountNotification", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailCategory", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailShop", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountProfile", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountPoints", object: nil)
+         NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDepartment", object: nil)
+    }
     //Abre el historial de puntos
     func clickOnButton(button: UIButton) {
         print("touch")

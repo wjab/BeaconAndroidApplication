@@ -19,7 +19,7 @@ class DetailProductViewController: UIViewController {
     @IBOutlet weak var details: UILabel!
     @IBOutlet weak var productImage: UIImageView!
      let btn1 = UIButton()
-    
+    let utils = UtilsC()
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -92,11 +92,11 @@ class DetailProductViewController: UIViewController {
                             print("Genial")
                             JLToast.makeText("Añadido correctamente").show()
                             self.btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
-                            
-                             let wish = self.wishCount+1
-                            defaults.setObject(wish, forKey: "wishCount")
                              NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
                              NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+                             let wish = self.wishCount+1
+                            defaults.setObject(wish, forKey: "wishCount")
+                             self.utils.refreshDatas()
                         }
                         
                     }

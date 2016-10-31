@@ -337,14 +337,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5X-6h-5Ce">
-                                                    <rect key="frame" x="0.0" y="4" width="95" height="86"/>
+                                                    <rect key="frame" x="0.0" y="4" width="92" height="86"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-S3-cH7">
-                                                    <rect key="frame" x="201" y="77" width="79" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oe8-3A-62b">
                                                     <rect key="frame" x="95" y="38" width="185" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -355,11 +349,23 @@
                                                     <rect key="frame" x="247" y="4" width="25" height="21"/>
                                                     <state key="normal" image="eliminarfavorito_azul"/>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdJ-15-ubv">
+                                                    <rect key="frame" x="95" y="33" width="185" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-S3-cH7">
+                                                    <rect key="frame" x="100" y="69" width="180" height="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" red="0.035294117647058823" green="0.18431372549019609" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="deleteProduct" destination="e9U-iS-aFz" id="QVK-lY-v2C"/>
-                                            <outlet property="nameL" destination="oe8-3A-62b" id="aWS-PP-eu0"/>
+                                            <outlet property="nameL" destination="tdJ-15-ubv" id="LhC-3a-xMe"/>
                                             <outlet property="priceL" destination="n0R-S3-cH7" id="Vpu-3u-eVH"/>
                                             <outlet property="productImage" destination="O5X-6h-5Ce" id="ojS-AH-y4I"/>
                                         </connections>

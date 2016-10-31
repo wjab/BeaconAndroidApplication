@@ -15,7 +15,8 @@ class DetailDepartmentViewController: UIViewController {
     var actualyArrayIndex = 0
     var wishCount = 1
     @IBOutlet weak var departmentImage: UIImageView!
-    
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let btn1 = UIButton()
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -41,10 +42,9 @@ class DetailDepartmentViewController: UIViewController {
                 
         })
 
-        let defaults = NSUserDefaults.standardUserDefaults()
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
-        let btn1 = UIButton()
+       
         btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
         btn1.setTitle(String(wishCount), forState: .Normal)
         btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -59,10 +59,16 @@ class DetailDepartmentViewController: UIViewController {
         self.navigationItem.titleView = button
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.loadList(_:)),name:"loadDepartment", object: nil)
-        
         //Observer para abrir scan
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.scan),name:"scan", object: nil)
-        
+        //Refreca la cantidad de items en la lista de deseos
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.refreshWishCount),name:"refreshWishCountDepartment", object: nil)
+    }
+    
+    func refreshWishCount(){
+        //Refresca el contador
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
     func loadList(notification: NSNotification){
@@ -75,6 +81,7 @@ class DetailDepartmentViewController: UIViewController {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
+    
     //Abre la lista de deseos
     func openWishList(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
@@ -97,9 +104,6 @@ class DetailDepartmentViewController: UIViewController {
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        //4
-        print(self.department.products.count)
         return self.department.products.count
     }
     
@@ -125,7 +129,6 @@ class DetailDepartmentViewController: UIViewController {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailProductViewController") as! DetailProductViewController
         secondViewController.product = self.department.productsPropeties[self.actualyArrayIndex]
         self.navigationController?.pushViewController(secondViewController, animated: true)
-        print("You selected cell #\(indexPath.item)!")
-    }
+        }
 
 }
