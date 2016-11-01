@@ -1746,7 +1746,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHw-eW-eJh">
                                 <rect key="frame" x="277" y="186" width="23" height="23"/>
-                                <state key="normal" image="Share-50"/>
+                                <state key="normal" backgroundImage="ic_share_white"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMp-Rv-caN">
                                 <rect key="frame" x="144" y="242" width="156" height="21"/>
@@ -2327,7 +2327,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3b-iz-CjV">
                                                     <rect key="frame" x="0.0" y="85" width="41" height="21"/>
-                                                    <state key="normal" backgroundImage="scan-gray"/>
+                                                    <state key="normal" backgroundImage="scan_white"/>
                                                 </button>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9MA-Nd-GVe">
                                                     <rect key="frame" x="0.0" y="0.0" width="131" height="15"/>
@@ -2530,7 +2530,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Share-50" width="50" height="50"/>
         <image name="arrow_down-light-gray" width="46" height="26"/>
         <image name="arrow_left_white" width="15" height="26"/>
         <image name="arrow_right_gray" width="14" height="26"/>
@@ -2538,6 +2537,7 @@
         <image name="facebook_circle_color-128" width="128" height="128"/>
         <image name="female1" width="122" height="263"/>
         <image name="ic_log_out" width="32" height="32"/>
+        <image name="ic_share_white" width="192" height="192"/>
         <image name="icon-manage-points" width="44" height="41"/>
         <image name="icon_add" width="45" height="34"/>
         <image name="icon_facebook" width="65" height="65"/>
@@ -2552,7 +2552,7 @@
         <image name="male1" width="100" height="263"/>
         <image name="notificaciones-on" width="47" height="48"/>
         <image name="profiledefault" width="240" height="300"/>
-        <image name="scan-gray" width="44" height="31"/>
+        <image name="scan_white" width="44" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QQN-b5-9Cz"/>
