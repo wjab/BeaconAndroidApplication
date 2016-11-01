@@ -60,8 +60,6 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.setImage(UIImage(named: "arrow_down-light-gray"), forState: UIControlState.Normal)
-        
-        
         button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = btn_points_img
 

@@ -25,7 +25,7 @@ class DetailPromoViewController: UIViewController {
     @IBOutlet weak var descriptionPromo: UILabel!
     @IBOutlet weak var imageShop: UIImageView!
     @IBOutlet weak var sharePromo: UIButton!
-    let btn1 = UIButton()
+    var btn1 = UIButton()
     let defaults = NSUserDefaults.standardUserDefaults()
     //var branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "")
     
@@ -56,11 +56,7 @@ class DetailPromoViewController: UIViewController {
         let points = defaults.objectForKey("points") as! Int
         //Cambia el tamaño de los tabs
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-        btn1.setTitle(String(wishCount), forState: .Normal)
-        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
-
-        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(DetailPromoViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         

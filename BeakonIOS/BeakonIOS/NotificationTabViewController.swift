@@ -11,7 +11,7 @@ import UIKit
 class NotificationTabViewController: UITabBarController {
     @IBOutlet weak var tabBarNotification: UITabBar!
     let defaults = NSUserDefaults.standardUserDefaults()
-    let btn1 = UIButton()
+    var btn1 = UIButton()
     var wishCount = 1
     
     override func viewDidLoad() {
@@ -45,10 +45,7 @@ class NotificationTabViewController: UITabBarController {
         self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-        btn1.setTitle(String(wishCount), forState: .Normal)
-        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(NotificationTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         

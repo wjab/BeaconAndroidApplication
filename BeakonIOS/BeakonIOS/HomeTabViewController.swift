@@ -31,7 +31,7 @@ class HomeTabViewController: UITabBarController {
      static let konkat = KonkatViewController()
       var wishCount = 1
      let defaults = NSUserDefaults.standardUserDefaults()
-    let btn1 = UIButton()
+    var btn1 = UIButton()
     
     override func viewDidLoad()
     {
@@ -61,14 +61,8 @@ class HomeTabViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getBlack()], forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
-    
-        
-        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-       
-        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-        btn1.setTitle(String(wishCount), forState: .Normal)
-        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        btn1.frame = CGRectMake(0, 0, 30, 25)
+    //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Genera el boton del centro que contiene los puntos del usuario

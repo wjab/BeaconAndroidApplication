@@ -15,7 +15,7 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     var wishArray: [Wish] = []
     var actualyArrayIndex = 0
     var wishCount = 1
-     let btn1 = UIButton()
+     var btn1 = UIButton()
     @IBOutlet weak var table: UITableView!
     let cellReuseIdentifier = "cellWish"
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -34,11 +34,7 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             let points = defaults.objectForKey("points") as! Int
              self.wishCount = defaults.objectForKey("wishCount")as!Int
             //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-           
-            btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-            btn1.setTitle(String(wishCount), forState: .Normal)
-            btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            btn1.frame = CGRectMake(0, 0, 30, 25)
+            btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
             btn1.addTarget(self, action: #selector(WishViewController.openWishList), forControlEvents: .TouchUpInside)
             self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
             

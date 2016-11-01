@@ -21,7 +21,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     @IBOutlet weak var imageCategory: UIImageView!
     var wishCount = 1
      let defaults = NSUserDefaults.standardUserDefaults()
-     let btn1 = UIButton()
+     var btn1 = UIButton()
     
     override func viewDidLoad()
     {
@@ -54,10 +54,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         //Boton para abir la lista de deseos
-        btn1.setBackgroundImage(UIImage(named: "icon_added"), forState: .Normal)
-        btn1.setTitle(String(wishCount), forState: .Normal)
-        btn1.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(DetailCategoryViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Genera el boton del centro que contiene los puntos del usuario
