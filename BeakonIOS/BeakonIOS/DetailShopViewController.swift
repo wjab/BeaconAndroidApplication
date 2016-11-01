@@ -117,6 +117,7 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         self.actualyArrayIndex = indexPath.row
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailDepartmentViewController") as! DetailDepartmentViewController
         secondViewController.department = self.shop.departmentsPropeties[self.actualyArrayIndex]
+        secondViewController.shopId = self.shop.idPropeties
         self.navigationController?.pushViewController(secondViewController, animated: true)
         print("You selected cell #\(indexPath.item)!")
     }

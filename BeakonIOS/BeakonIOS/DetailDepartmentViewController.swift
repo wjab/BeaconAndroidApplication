@@ -10,6 +10,7 @@ import UIKit
 
 class DetailDepartmentViewController: UIViewController {
     var department : Department!
+    var shopId = ""
     private let reuseIdentifier = "productDepartmentCell"
     @IBOutlet weak var collection: UICollectionView!
     var actualyArrayIndex = 0
@@ -109,6 +110,7 @@ class DetailDepartmentViewController: UIViewController {
     
     func scan(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ScanViewController") as! ScanViewController
+        secondViewController.shopId = self.shopId
         self.navigationController?.pushViewController(secondViewController, animated: true)
 
     }

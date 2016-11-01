@@ -127,7 +127,8 @@ class PointsTabOneViewController: UIViewController {
                     var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
-                    {   user = response.objectForKey("user")! as! NSDictionary
+                    {
+                        user = response.objectForKey("user")! as! NSDictionary
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
                         NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)

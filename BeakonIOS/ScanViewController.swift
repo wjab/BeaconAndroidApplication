@@ -8,13 +8,18 @@
 
 import UIKit
 import AVFoundation
+import Alamofire
+import SwiftyJSON
+import JLToast
 
 class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    
+    var shopId = ""
+    var code = ""
     let session = AVCaptureSession()
     var previewLayer : AVCaptureVideoPreviewLayer?
     var  identifiedBorder : DiscoveredBarCodeView?
     var timer : NSTimer?
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     /* Add the preview layer here */
     func addPreviewLayer() {
@@ -53,6 +58,48 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         //print(output.availableMetadataObjectTypes)
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         session.startRunning()
+    }
+    
+    //Envio del request para obtener puntos mediante escaneo
+    func requestScanCode(){
+        let url : String = "http://butilsdevel.cfapps.io/utils/savePointsByCode"
+        let idUser = (defaults.objectForKey("userId") as? String)!
+        let newTodo = [
+            "userId": idUser,
+            "merchantId": shopId,
+            "code": code
+        ]
+        print("userId "+idUser+" merchantId "+shopId+" code "+code)
+        Alamofire.request(.POST, url, parameters: newTodo, encoding: .JSON)
+            .responseJSON
+            {
+                response in switch response.result
+                {
+                //Si la respuesta es satisfactoria
+                case .Success(let JSON):
+                    let response = JSON as! NSDictionary
+                    var user = JSON as! NSDictionary
+                    //Si la respuesta no tiene status 404
+                    if((response)["status"] as! Int != 404 && (response)["status"] as! Int != 400)
+                    {
+                        JLToast.makeText("Puntos obtenidos").show()
+                        user = response.objectForKey("user")! as! NSDictionary
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
+                    }
+                    else if((response)["status"] as! Int == 400){
+                        JLToast.makeText((response)["message"] as! String).show()
+                    }
+                    else
+                    {
+                        print("ERROR")
+                    }
+                case .Failure(let error):
+                    print("Hubo un error realizando la peticion: \(error)")
+                }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -109,10 +156,9 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
              
                     let barcodeObject = self.previewLayer!.transformedMetadataObjectForMetadataObject(barcodeMetadata as! AVMetadataObject)
                     capturedBarcode = (barcodeObject as! AVMetadataMachineReadableCodeObject).stringValue
-                    
-                        print(capturedBarcode)
-                       self.session.stopRunning()
-     
+                    self.code = capturedBarcode
+                    self.requestScanCode()
+                    self.session.stopRunning()
                     return
                 }
             }
