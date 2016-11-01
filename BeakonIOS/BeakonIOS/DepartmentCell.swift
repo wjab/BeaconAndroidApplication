@@ -22,6 +22,7 @@ class DepartmentCell: UICollectionViewCell {
             }, failure: { (error) -> Void in
                 self.departmentImage.image = UIImage(named: "image_not_found")
             })
+        
         let urlShop = NSURL(string: urlShop)
         shopImage.hnk_setImageFromURL(urlShop!, placeholder: nil, success: { (image) -> Void in
             self.shopImage.image = image

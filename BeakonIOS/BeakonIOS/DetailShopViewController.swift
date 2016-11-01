@@ -28,6 +28,7 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     var wishCount = 1
      let btn1 = UIButton()
      let defaults = NSUserDefaults.standardUserDefaults()
+     let button =  UIButton(type: .Custom)
     
     override func viewDidLoad()
     {
@@ -63,13 +64,20 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         btn1.addTarget(self, action: #selector(DetailShopViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(DetailShopViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
               NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailShopViewController.refreshWishCount),name:"refreshWishCountDetailShop", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailShopViewController.refreshPoints(_:)),name:"refreshPointsShop", object: nil)
+    }
+    
+    func refreshPoints(notification: NSNotification){
+        //load data here
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        self.button.setTitle(String(points), forState: UIControlState.Normal)
     }
     
     func refreshWishCount(){

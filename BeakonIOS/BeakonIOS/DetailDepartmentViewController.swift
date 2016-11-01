@@ -18,11 +18,12 @@ class DetailDepartmentViewController: UIViewController {
     @IBOutlet weak var departmentImage: UIImageView!
     let defaults = NSUserDefaults.standardUserDefaults()
     let btn1 = UIButton()
+    let button =  UIButton(type: .Custom)
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, departmentImage.bounds.width, departmentImage.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()
@@ -53,7 +54,6 @@ class DetailDepartmentViewController: UIViewController {
         btn1.addTarget(self, action: #selector(DetailDepartmentViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
         button.frame = CGRectMake(0, 0, 100, 40) as CGRect
         button.setTitle(String(points), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(DetailDepartmentViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -64,6 +64,15 @@ class DetailDepartmentViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.scan),name:"scan", object: nil)
         //Refreca la cantidad de items en la lista de deseos
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.refreshWishCount),name:"refreshWishCountDepartment", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.refreshPoints(_:)),name:"refreshPointsDepartment", object: nil)
+    }
+    
+    func refreshPoints(notification: NSNotification){
+        //load data here
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
+        self.button.setTitle(String(points), forState: UIControlState.Normal)
     }
     
     func refreshWishCount(){

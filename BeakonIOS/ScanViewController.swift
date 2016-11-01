@@ -88,13 +88,15 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
                         NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
                         NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsDepartment", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsShop", object: nil)
                     }
                     else if((response)["status"] as! Int == 400){
                         JLToast.makeText((response)["message"] as! String).show()
                     }
                     else
                     {
-                        print("ERROR")
+                        JLToast.makeText("Problemas al momento de realizar el canjeo de puntos por escaneo").show()
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
