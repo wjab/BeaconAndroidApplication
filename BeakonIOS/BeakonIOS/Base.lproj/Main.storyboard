@@ -352,7 +352,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdJ-15-ubv">
                                                     <rect key="frame" x="95" y="33" width="185" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-S3-cH7">
@@ -1965,46 +1965,33 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="departmentCell" id="35Q-md-mGe">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="departmentCell" id="35Q-md-mGe" customClass="DepartmentCell" customModule="BeakonIOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="144" height="99"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="144" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miy-XH-ntz">
-                                                    <rect key="frame" x="88" y="78" width="0.0" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YTz-iS-siF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="144" height="99"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Izy-tN-TZd">
+                                                    <rect key="frame" x="40" y="78" width="104" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49X-9q-EHr">
+                                                    <rect key="frame" x="0.0" y="68" width="38" height="31"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <constraints>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="leading" secondItem="35Q-md-mGe" secondAttribute="leadingMargin" constant="38" id="2CN-B1-fup"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="leading" secondItem="35Q-md-mGe" secondAttribute="leadingMargin" constant="80" id="33L-dF-jva"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="bottom" secondItem="35Q-md-mGe" secondAttribute="bottomMargin" id="4Mo-Dm-2qI"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="leading" secondItem="35Q-md-mGe" secondAttribute="leadingMargin" constant="33" id="5fx-22-r56"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="bottom" secondItem="35Q-md-mGe" secondAttribute="bottomMargin" id="5zn-bw-qEC"/>
-                                            <constraint firstAttribute="bottom" secondItem="miy-XH-ntz" secondAttribute="bottom" id="hY1-uE-Z5d"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="leading" secondItem="35Q-md-mGe" secondAttribute="leadingMargin" constant="38" id="kWQ-Lw-QTF"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="leading" secondItem="35Q-md-mGe" secondAttribute="leadingMargin" constant="80" id="oYz-SX-flm"/>
-                                            <constraint firstAttribute="bottom" secondItem="miy-XH-ntz" secondAttribute="bottom" id="rgk-1W-Pc9"/>
-                                            <constraint firstItem="miy-XH-ntz" firstAttribute="top" secondItem="35Q-md-mGe" secondAttribute="topMargin" constant="70" id="thB-cc-H9f"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="2CN-B1-fup"/>
-                                                <exclude reference="4Mo-Dm-2qI"/>
-                                                <exclude reference="5fx-22-r56"/>
-                                                <exclude reference="5zn-bw-qEC"/>
-                                                <exclude reference="hY1-uE-Z5d"/>
-                                                <exclude reference="kWQ-Lw-QTF"/>
-                                                <exclude reference="oYz-SX-flm"/>
-                                                <exclude reference="rgk-1W-Pc9"/>
-                                            </mask>
-                                        </variation>
+                                        <connections>
+                                            <outlet property="departmentImage" destination="YTz-iS-siF" id="H83-4K-3S7"/>
+                                            <outlet property="nameL" destination="Izy-tN-TZd" id="COn-Cr-yiY"/>
+                                            <outlet property="shopImage" destination="49X-9q-EHr" id="77h-cY-uIX"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

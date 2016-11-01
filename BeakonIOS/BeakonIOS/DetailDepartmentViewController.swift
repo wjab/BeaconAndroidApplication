@@ -118,7 +118,7 @@ class DetailDepartmentViewController: UIViewController {
          let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DetailProductDepartmentCell
         
         let productObject = self.department.products[indexPath.row]
-
+        
        cell.configure(productObject.productNamePropeties, urlImageProduct: productObject.imageUrlListPropeties[0],product: productObject)
         return cell
     }

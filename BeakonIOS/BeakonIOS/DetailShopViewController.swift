@@ -107,28 +107,9 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
        func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell:UICollectionViewCell = self.collection.dequeueReusableCellWithReuseIdentifier(reuseIdentifier,forIndexPath: indexPath) as UICollectionViewCell!
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DepartmentCell
         let departmentObject = self.shop.departments[indexPath.row]
-        let imageView = UIImageView(frame: CGRectMake(0, 0, 160, 100))
-        
-        let urlImageDeparment = NSURL(string: departmentObject.departmentUrlPropeties)
-        
-        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imageView.bounds.width, imageView.bounds.height))
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.frame = gradientLayerView.bounds
-        gradient.colors = [UIColor.clearColor().CGColor,UIColor.clearColor().CGColor,UIColor.grayColor().CGColor]
-        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
-        imageView.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
-
-        imageView.hnk_setImageFromURL(urlImageDeparment!, placeholder: nil, success: { (image) -> Void in
-                imageView.image = image
-            }, failure: { (error) -> Void in
-                imageView.image = UIImage(named: "image_not_found")
-                
-        })
-        
-        cell.backgroundView = UIView()
-        cell.backgroundView!.addSubview(imageView)
+         cell.configure(departmentObject, urlShop: shop.imagePropeties)
         return cell
     }
    
