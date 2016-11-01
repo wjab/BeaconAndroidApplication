@@ -367,6 +367,10 @@
                                                     <color key="textColor" red="0.035294117649999998" green="0.1843137255" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dtu-ae-Uca">
+                                                    <rect key="frame" x="-8" y="93" width="297" height="1"/>
+                                                    <color key="backgroundColor" red="0.84000400639999995" green="0.84000400639999995" blue="0.84000400639999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
