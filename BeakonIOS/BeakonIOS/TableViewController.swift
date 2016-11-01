@@ -40,7 +40,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         self.home.addGestureRecognizer(home)
 
         let invite = UITapGestureRecognizer(target: self, action:  #selector (self.share))
-        self.wishList.addGestureRecognizer(invite)
+        self.invite.addGestureRecognizer(invite)
         
         let session = UITapGestureRecognizer(target: self, action:  #selector (self.logout))
         self.session.addGestureRecognizer(session)
