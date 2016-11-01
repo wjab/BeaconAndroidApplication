@@ -17,6 +17,7 @@
 		9D2CA0641D6CBD2F00F8997E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2CA0631D6CBD2F00F8997E /* Assets.xcassets */; };
 		9D2CA0671D6CBD2F00F8997E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D2CA0651D6CBD2F00F8997E /* LaunchScreen.storyboard */; };
 		9D2CA0AF1D6CC67F00F8997E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */; };
+		9D565F0F1DC7FFC200DB86E0 /* DepartmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D565F0E1DC7FFC200DB86E0 /* DepartmentCell.swift */; };
 		9D5C0DC31DAE95E600BC4A18 /* DiscoveredBarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */; };
 		9D7B07D21D6CFBB600BB5FF1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */; };
 		9D926E311D70CD8C0040FDF8 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E301D70CD8C0040FDF8 /* NavigationViewController.swift */; };
@@ -338,6 +339,7 @@
 		9D2CA0661D6CBD2F00F8997E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D2CA0681D6CBD2F00F8997E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9D565F0E1DC7FFC200DB86E0 /* DepartmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartmentCell.swift; sourceTree = "<group>"; };
 		9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredBarCodeView.swift; sourceTree = "<group>"; };
 		9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		9D926E301D70CD8C0040FDF8 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -816,6 +818,7 @@
 				9DDD88B81D8071A200EB6698 /* ProductCell.swift */,
 				9DCB52401D831E3100D36FE6 /* DetailProductCell.swift */,
 				9DE460E71D89E09500F7E058 /* DetailProductDepartmentCell.swift */,
+				9D565F0E1DC7FFC200DB86E0 /* DepartmentCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1146,6 +1149,7 @@
 				9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */,
 				9D1E46C61D6DFBAA00772202 /* User.swift in Sources */,
 				ABC71F351DB14A520063F636 /* Constants.swift in Sources */,
+				9D565F0F1DC7FFC200DB86E0 /* DepartmentCell.swift in Sources */,
 				9DA88CFE1D79D8B5000C53A3 /* DetailShopViewController.swift in Sources */,
 				9DB9FA701D6F551B00E24891 /* WishViewController.swift in Sources */,
 				9D1E47121D6E059A00772202 /* Wish.swift in Sources */,
