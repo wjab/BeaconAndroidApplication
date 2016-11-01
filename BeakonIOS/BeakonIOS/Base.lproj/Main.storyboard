@@ -1740,11 +1740,27 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHw-eW-eJh">
                                 <rect key="frame" x="277" y="186" width="23" height="23"/>
-                                <state key="normal" image="shareiconembed"/>
+                                <state key="normal" image="Share-50"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMp-Rv-caN">
                                 <rect key="frame" x="144" y="242" width="156" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8BM-kd-KJE">
+                                <rect key="frame" x="14" y="334" width="293" height="1"/>
+                                <color key="backgroundColor" red="0.84000400639999995" green="0.84000400639999995" blue="0.84000400639999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q5p-iT-Kcf">
+                                <rect key="frame" x="20" y="175" width="151" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njj-Mp-QXH">
+                                <rect key="frame" x="201" y="187" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1759,7 +1775,9 @@
                         <outlet property="imagePromo" destination="OVk-J5-OKz" id="kXn-zf-fRM"/>
                         <outlet property="imageShop" destination="0pq-iD-LZs" id="Pr8-se-hyM"/>
                         <outlet property="nameShop" destination="ZMp-Rv-caN" id="DZU-eV-bj1"/>
+                        <outlet property="points" destination="njj-Mp-QXH" id="hVZ-LA-v4y"/>
                         <outlet property="sharePromo" destination="nHw-eW-eJh" id="jMw-Dm-bTS"/>
+                        <outlet property="shop" destination="Q5p-iT-Kcf" id="ODF-6G-M4a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDv-f7-OxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2270,7 +2288,7 @@
                                                     <state key="normal" image="icon_add"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3b-iz-CjV">
-                                                    <rect key="frame" x="0.0" y="76" width="46" height="30"/>
+                                                    <rect key="frame" x="0.0" y="85" width="41" height="21"/>
                                                     <state key="normal" backgroundImage="scan-blue"/>
                                                 </button>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9MA-Nd-GVe">
@@ -2474,6 +2492,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Share-50" width="50" height="50"/>
         <image name="arrow_down-light-gray" width="46" height="26"/>
         <image name="arrow_left_white" width="15" height="26"/>
         <image name="arrow_right_gray" width="14" height="26"/>
@@ -2496,7 +2515,6 @@
         <image name="notificaciones-on" width="47" height="48"/>
         <image name="profiledefault" width="240" height="300"/>
         <image name="scan-blue" width="44" height="31"/>
-        <image name="shareiconembed" width="703" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QQN-b5-9Cz"/>

@@ -89,6 +89,7 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                                     productObject.pricePropeties = product.objectForKey("price") as! Int
                                     productObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
                                     productObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! Array<String>
+                                    productObject.allowScanPropeties = product.objectForKey("allowScan") as! Bool
                                     productArray.append(productObject)
                                 }
                                 departmentObject.productsPropeties = productArray

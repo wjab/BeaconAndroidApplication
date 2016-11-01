@@ -17,6 +17,8 @@ class DetailPromoViewController: UIViewController {
     var name : String! = "name"
     var image : String!
     var adress : String! = "adress"
+    @IBOutlet weak var points: UILabel!
+    @IBOutlet weak var shop: UILabel!
     @IBOutlet weak var imagePromo: UIImageView!
     @IBOutlet weak var nameShop: UILabel!
     @IBOutlet weak var adressShop: UILabel!
@@ -32,7 +34,8 @@ class DetailPromoViewController: UIViewController {
         //self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
+        self.points.text = String(toPass.giftPointsPropeties)+" pts"
+        self.shop.text = toPass.titlePropeties
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imagePromo.bounds.width, imagePromo.bounds.height))
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = gradientLayerView.bounds
