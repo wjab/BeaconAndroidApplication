@@ -28,7 +28,6 @@ class DetailPromoViewController: UIViewController {
     var btn1 = UIButton()
     let defaults = NSUserDefaults.standardUserDefaults()
     //var branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: "")
-    
     override func viewDidLoad()
     {
         //self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
