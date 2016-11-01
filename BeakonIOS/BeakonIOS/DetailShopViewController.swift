@@ -40,18 +40,19 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         purchaseTL.text = shop.totalGiftPointsPropeties.purchasePropeties
         walkinTL.text = shop.totalGiftPointsPropeties.walkinPropeties
         scanTL.text = shop.totalGiftPointsPropeties.scanPropeties
-        imageShop.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
-        let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imageShop.bounds.width, imageShop.bounds.height))
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.frame = gradientLayerView.bounds
-        gradient.colors = [
-            UIColor.clearColor().CGColor,
-            UIColor.clearColor().CGColor,
-            UIColor.grayColor().CGColor
-        ]
-        gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
-        self.imageShop.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
-        imageShopDetail.image = NSURL(string: String(shop.imagePropeties)).flatMap { NSData(contentsOfURL: $0) }.flatMap { UIImage(data: $0) }!
+        
+        let urlShop = NSURL(string: String(shop.imagePropeties))
+        imageShop.hnk_setImageFromURL(urlShop!, placeholder: nil, success: { (image) -> Void in
+            self.imageShop.image = image
+            }, failure: { (error) -> Void in
+                self.imageShop.image = UIImage(named: "image_not_found")
+        })
+
+        imageShopDetail.hnk_setImageFromURL(urlShop!, placeholder: nil, success: { (image) -> Void in
+            self.imageShopDetail.image = image
+            }, failure: { (error) -> Void in
+                self.imageShopDetail.image = UIImage(named: "image_not_found")
+        })
         validationImageToShow()
        
         wishCount = defaults.objectForKey("wishCount")as!Int

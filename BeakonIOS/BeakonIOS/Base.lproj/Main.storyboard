@@ -792,9 +792,6 @@
                                 <color key="value" red="0.63137254901960782" green="0.85098039215686272" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="vRR-gD-taE" appends="YES" id="el3-9L-D74"/>
-                        </connections>
                     </tabBar>
                     <connections>
                         <outlet property="open" destination="1S3-P2-Id9" id="Xjl-Z4-dnG"/>
@@ -807,7 +804,8 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9d7-uD-v2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="vRR-gD-taE">
                     <connections>
-                        <segue destination="Q78-y6-5Ri" kind="show" id="CcW-dd-V3g"/>
+                        <outlet property="delegate" destination="txI-r8-0Zg" id="27k-8E-79J"/>
+                        <segue destination="UvP-Jd-sQR" kind="show" id="kRr-hT-gnF"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -2068,6 +2066,12 @@
                                 <rect key="frame" x="-13" y="321" width="428" height="1"/>
                                 <color key="backgroundColor" red="0.84000400639999995" green="0.84000400639999995" blue="0.84000400639999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kS-Ow-3N8">
+                                <rect key="frame" x="265" y="182" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2556,7 +2560,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QQN-b5-9Cz"/>
-        <segue reference="gDc-7F-MCW"/>
+        <segue reference="kRr-hT-gnF"/>
         <segue reference="zk1-ft-hAB"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

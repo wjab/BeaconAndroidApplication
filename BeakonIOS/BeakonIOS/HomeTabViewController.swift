@@ -23,7 +23,7 @@ extension UIImage {
     
 }
 class HomeTabViewController: UITabBarController {
-
+   // @IBOutlet var swipe: UISwipeGestureRecognizer!
     @IBOutlet weak var openNavigation: UIBarButtonItem!
     @IBOutlet weak var tabBarHome: UITabBar!
      let button =  UIButton(type: .Custom)
@@ -37,7 +37,6 @@ class HomeTabViewController: UITabBarController {
     {
         super.viewDidLoad()
         self.navigationItem.title = ""
-       
         HomeTabViewController.konkat.viewDidLoad()
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
@@ -53,12 +52,8 @@ class HomeTabViewController: UITabBarController {
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(Constants.colors.getDarkGreen(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
         //Swipe
-        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
-        recognizer.addTarget(self, action: #selector(HomeTabViewController.swipeRight(_:)))
-        recognizer.direction = .Right
-        self.view .addGestureRecognizer(recognizer)
-    
-        //Coloca los tabs arriba
+       // swipe.addTarget(self, action: #selector(HomeTabViewController.swipeRight(_:)))
+      //Coloca los tabs arriba
        //let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
         //tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarHome.frame.size.height-15, tabBarHome.frame.size.width, tabBarHome.frame.size.height-15)
         
@@ -102,7 +97,7 @@ class HomeTabViewController: UITabBarController {
     }
     
     func swipeRight(recognizer : UISwipeGestureRecognizer) {
-        self.performSegueWithIdentifier("MenuTableViewController", sender: self)
+        self.performSegueWithIdentifier("MenuContainerViewController", sender: self)
     }
     
     //Abre el historial de puntos
