@@ -24,7 +24,8 @@ class ViewController: UIViewController
     
     let defaults = NSUserDefaults.standardUserDefaults()
     let utils = UtilsC()
-
+    var idFacebook = ""
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -62,7 +63,7 @@ class ViewController: UIViewController
             let strFirstName: String = (result.objectForKey("first_name") as? String)!
             let strLastName: String = (result.objectForKey("last_name") as? String)!
             let strName: String = (result.objectForKey("name") as? String)!
-            let strId: String = (result.objectForKey("id") as? String)!
+            self.idFacebook = (result.objectForKey("id") as? String)!
             let strGender: String = (result.objectForKey("gender") as? String)!
             let strEmail: String = (result.objectForKey("email") as? String)!
             let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
@@ -74,12 +75,12 @@ class ViewController: UIViewController
             userData.setValue(strFirstName, forKey: "first_name")
             userData.setValue(strLastName, forKey: "last_name")
             userData.setValue(strName, forKey: "name")
-            userData.setValue(strId, forKey: "id")
+            userData.setValue(self.idFacebook, forKey: "id")
             let jsonData = try! NSJSONSerialization.dataWithJSONObject(userData, options: NSJSONWritingOptions())
             let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as! String
             print(jsonString)
             
-            self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: strId, email: strEmail, image: strPictureURL)
+            self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: self.idFacebook, email: strEmail, image: strPictureURL)
             
             }
     }
@@ -122,6 +123,7 @@ class ViewController: UIViewController
                                     defaults.setObject((user)["email"] as! String, forKey: "email")
                                     defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                     defaults.setObject(image, forKey: "image")
+                                    defaults.setObject(self.idFacebook, forKey: "id")
                                     //HomeTabViewController.utils.loadNewNotification()
                                     HomeTabViewController.konkat.viewDidLoad()
                                     //HomeTabViewController.utils.initBackgrounNotification()

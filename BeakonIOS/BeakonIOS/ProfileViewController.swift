@@ -8,6 +8,17 @@
 
 import UIKit
 
+extension UIApplication {
+    class func tryURL(urls: [String]) {
+        let application = UIApplication.sharedApplication()
+        for url in urls {
+            if application.canOpenURL(NSURL(string: url)!) {
+                application.openURL(NSURL(string: url)!)
+                return
+            }
+        }
+    }
+}
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var numberTF: UITextField!
@@ -15,11 +26,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var lastnameTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var dateTF: UITextField!
+    @IBOutlet weak var facebookBtn: UIButton!
      var btn1 = UIButton()
      let defaults = NSUserDefaults.standardUserDefaults()
     var typerUser = ""
     var wishCount = 1
-    
+    var idFacebook = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
@@ -52,6 +64,23 @@ class ProfileViewController: UIViewController {
         button.addTarget(self, action: #selector(ProfileViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.refreshWishCount),name:"refreshWishCountProfile", object: nil)
+        if(defaults.objectForKey("socialNetworkType")as!String == "facebook"){
+            facebookBtn.setTitle("Ir a Perfil", forState: .Normal)
+            self.idFacebook = defaults.objectForKey("id")as!String
+            facebookBtn.addTarget(self, action: #selector(ProfileViewController.openFacebookProfile), forControlEvents: UIControlEvents.TouchUpInside)
+        }
+        else
+        {
+             facebookBtn.setTitle("Actualizar información", forState: .Normal)
+        }
+        
+    }
+    
+    func openFacebookProfile(){
+        UIApplication.tryURL([
+            "fb://profile/"+idFacebook,
+            "http://www.facebook.com/"+idFacebook
+            ])
     }
     
     func refreshWishCount(){

@@ -443,7 +443,7 @@
                                 <rect key="frame" x="214" y="197" width="35" height="56"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-A2-LAI">
-                                <rect key="frame" x="107" y="353" width="94" height="30"/>
+                                <rect key="frame" x="37" y="353" width="256" height="30"/>
                                 <color key="backgroundColor" red="0.20129023050699635" green="0.41338436269890466" blue="0.65944044502617793" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Ir al perfil"/>
                             </button>
@@ -458,6 +458,7 @@
                     <connections>
                         <outlet property="dateTF" destination="6Uu-f1-ueg" id="ujs-QY-Lw4"/>
                         <outlet property="emailTF" destination="BGd-Th-jpQ" id="BZR-JT-gsk"/>
+                        <outlet property="facebookBtn" destination="M1G-A2-LAI" id="Z5h-n0-OZ8"/>
                         <outlet property="lastnameTF" destination="DeY-bI-hFU" id="c4D-3F-L52"/>
                         <outlet property="nameTF" destination="L44-vM-H7Y" id="tGE-EL-ua1"/>
                         <outlet property="numberTF" destination="p8e-KV-Sqs" id="Dea-np-daq"/>
