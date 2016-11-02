@@ -40,12 +40,12 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
+                    self.notificationArray.removeAll()
+                    print("Count remove "+String(self.notificationArray.count))
                     if((response)["status"] as! String != "404")
                     {
-                        print(response.objectForKey("status"))
                         let notificationList = response.mutableArrayValueForKey("notificationResult")
-                        for (index, element) in notificationList.enumerate() {
-                            print(index)
+                        for (_, element) in notificationList.enumerate() {
                             let notificationObject = Notification()
                             notificationObject.idPropeties = element.objectForKey("id") as! String
                             notificationObject.messagePropeties = element.objectForKey("message") as! String
@@ -55,6 +55,7 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                             notificationObject.creationDatePropeties = element.objectForKey("creationDate") as! Float
                             self.notificationArray.append(notificationObject)
                         }
+                          print("Count "+String(self.notificationArray.count))
                         self.table.reloadData()
                     }
                     else
@@ -94,6 +95,7 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                     if((response)["status"] as! String != "404")
                     {
                         print("actualizo")
+                        self.service()
                     }
                     else
                     {
@@ -108,16 +110,13 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row
         let messageData = self.notificationArray[self.actualyArrayIndex].messagePropeties
-        let alertController = UIAlertController(title: "QuickShop", message:
-            messageData, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Cerrar", style: UIAlertActionStyle.Default,handler: nil))
-        
+        let alertController = UIAlertController(title: "QuickShop", message: messageData, preferredStyle: UIAlertControllerStyle.Alert)
+        let confirmAction = UIAlertAction(
+        title: "Ok", style: UIAlertActionStyle.Default) { (action) in
+            self.serviceUpdateNotification(self.notificationArray[self.actualyArrayIndex].idPropeties)
+        }
+        alertController.addAction(confirmAction)
         self.presentViewController(alertController, animated: true, completion: nil)
-        self.serviceUpdateNotification(self.notificationArray[self.actualyArrayIndex].idPropeties)
-        self.notificationArray = []
-        print("arrayVacio")
-        self.service()
-        
     }
     
     

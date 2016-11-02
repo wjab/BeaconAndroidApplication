@@ -14,6 +14,8 @@ import SwiftyJSON
 class DetailProductCell: UICollectionViewCell {
    // @IBOutlet weak var nameL: UILabel!
     @IBOutlet weak var isAddedImage: UIButton!
+    @IBOutlet weak var points: UILabel!
+    @IBOutlet weak var price: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     var product:Product = Product()
     let utilsC = UtilsC()
@@ -24,6 +26,8 @@ class DetailProductCell: UICollectionViewCell {
     {
         //nameL.text = name
         self.product = product
+        price.text = "¢"+String(product.pricePropeties)
+        points.text = String(product.pointsByPricePropeties)
         let url = NSURL(string: urlImageProduct)
         productImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (image) -> Void in
             self.productImage.image = image

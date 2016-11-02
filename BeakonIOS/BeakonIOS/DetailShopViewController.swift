@@ -11,7 +11,10 @@ import Alamofire
 import SwiftyJSON
 class DetailShopViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var shop : Shop!
+    @IBOutlet weak var scanText: UILabel!
+    @IBOutlet weak var walkText: UILabel!
     @IBOutlet weak var cityTL: UILabel!
+    @IBOutlet weak var shopText: UILabel!
     @IBOutlet weak var imageShopDetail: UIImageView!
     @IBOutlet weak var imageShop: UIImageView!
     @IBOutlet weak var addressTL: UILabel!
@@ -134,31 +137,37 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         let scan = shop.totalGiftPointsPropeties.scanPropeties
         if(purchase == "0")
         {
+            shopText.textColor = UIColor.grayColor()
             imagePurchase.image = UIImage(named:"purchase-gray")
             purchaseTL.textColor = UIColor.grayColor()
         }
         else
         {
+            shopText.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
             imagePurchase.image = UIImage(named:"purchase-blue")
             purchaseTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         if(walkin == "0")
         {
+            walkText.textColor = UIColor.grayColor()
             imageWalkin.image = UIImage(named:"walk-in-gray")
             walkinTL.textColor = UIColor.grayColor()
         }
         else
         {
+            walkText.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
             imageWalkin.image = UIImage(named:"walk-in-blue")
             walkinTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }
         if(scan == "0")
         {
+            scanText.textColor = UIColor.grayColor()
             imageScan.image = UIImage(named:"scan-gray")
             scanTL.textColor = UIColor.grayColor()
         }
         else
         {
+            scanText.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
             imageScan.image = UIImage(named:"scan-blue")
             scanTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
         }

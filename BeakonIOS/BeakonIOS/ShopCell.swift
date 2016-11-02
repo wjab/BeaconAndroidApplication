@@ -25,7 +25,7 @@ class ShopCell: UITableViewCell {
         self.scan = scan
         self.walkin = walkin
         
-        purchaseL.text = purchase
+        purchaseL.text = "C/"+purchase
         scanL.text = scan
         walkinL.text = walkin
         
