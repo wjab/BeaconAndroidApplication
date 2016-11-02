@@ -109,8 +109,6 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        print(self.shop.departments.count)
         return self.shop.departments.count
     }
     
@@ -143,9 +141,9 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         }
         else
         {
-            shopText.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            shopText.textColor = Constants.colors.getDarkBlue()
             imagePurchase.image = UIImage(named:"purchase-blue")
-            purchaseTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            purchaseTL.textColor = Constants.colors.getDarkBlue()
         }
         if(walkin == "0")
         {
@@ -155,9 +153,9 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         }
         else
         {
-            walkText.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            walkText.textColor = Constants.colors.getDarkBlue()
             imageWalkin.image = UIImage(named:"walk-in-blue")
-            walkinTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            walkinTL.textColor = Constants.colors.getDarkBlue()
         }
         if(scan == "0")
         {
@@ -167,9 +165,9 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         }
         else
         {
-            scanText.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            scanText.textColor = Constants.colors.getDarkBlue()
             imageScan.image = UIImage(named:"scan-blue")
-            scanTL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            scanTL.textColor = Constants.colors.getDarkBlue()
         }
 
     }

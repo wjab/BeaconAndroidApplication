@@ -52,7 +52,7 @@ class ShopCell: UITableViewCell {
         else
         {
             purchaseImage.image = UIImage(named:"purchase-blue")
-            purchaseL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            purchaseL.textColor = Constants.colors.getDarkBlue()
         }
         if(self.walkin == "0")
         {
@@ -62,7 +62,7 @@ class ShopCell: UITableViewCell {
         else
         {
             walkinImage.image = UIImage(named:"walk-in-blue")
-            walkinL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            walkinL.textColor = Constants.colors.getDarkBlue()
         }
         if(self.scan == "0")
         {
@@ -72,7 +72,7 @@ class ShopCell: UITableViewCell {
         else
         {
             scanImage.image = UIImage(named:"scan-blue")
-            scanL.textColor = UIColor(red: 14/255, green: 85/255, blue: 183/255, alpha: 1.0)
+            scanL.textColor = Constants.colors.getDarkBlue()
         }
         
     }
