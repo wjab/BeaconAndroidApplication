@@ -41,7 +41,6 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                     {
                         let promoList = response.mutableArrayValueForKey("listPromo")
                         for (_, element) in promoList.enumerate() {
-                            //print(index, ":", element)
                             let promoObject = Promo()
                             promoObject.idPropeties = element.objectForKey("id") as! String
                             promoObject.codePropeties = element.objectForKey("code") as! String
@@ -55,11 +54,8 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                             promoObject.typePropeties = element.objectForKey("type") as! String
                             promoObject.imagesPropeties = element.objectForKey("images") as! String
                             self.promoArray.append(promoObject)
-                            print(String(promoObject.descriptionPromo))
                         }
                              self.table.reloadData()
-
-                       
                     }
                     else
                     {

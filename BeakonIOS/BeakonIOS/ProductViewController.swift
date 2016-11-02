@@ -42,8 +42,7 @@ class ProductViewController: UIViewController , UITableViewDelegate, UITableView
                     if((response)["status"] as! String != "404")
                     {
                         let categoryList = response.mutableArrayValueForKey("merchantBusinessTypeResult")
-                        for (index, element) in categoryList.enumerate() {
-                            print(index)
+                        for (_, element) in categoryList.enumerate() {
                             let categoryObject = Category()
                             categoryObject.idPropeties = element.objectForKey("id") as! String
                             categoryObject.descriptionPropeties = element.objectForKey("description") as! String

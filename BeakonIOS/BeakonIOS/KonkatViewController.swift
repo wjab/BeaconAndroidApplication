@@ -88,13 +88,13 @@ class KonkatViewController: UIViewController
                 }
                 break
         case .Background:
-                NSLog("Scan is backgrounded.")
+                //NSLog("Scan is backgrounded.")
                 registerBackgroundTask()
                 devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
 
                 break
             default:
-                print("Scan default")
+                //print("Scan default")
                 registerBackgroundTask()
                 devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
                 break
@@ -104,7 +104,7 @@ class KonkatViewController: UIViewController
     
     func getDataForBeacon(beacon: CLBeacon)
     {
-        print("getDataForBeacon")
+        //print("getDataForBeacon")
         // Parameters
         let parameters = [
             "proximity": beacon.proximityUUID.UUIDString,
@@ -113,7 +113,7 @@ class KonkatViewController: UIViewController
         ]
         
         // Log
-        NSLog("Getting Data for Beacon with parameters: \(parameters)")
+        //NSLog("Getting Data for Beacon with parameters: \(parameters)")
         
         // Get Device
         KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters: parameters) { [weak self] response, error in
@@ -127,7 +127,7 @@ class KonkatViewController: UIViewController
     func getActionForDevice(proximity proximity:CLProximity, device: KTKDevice)
     {
         // Log
-        NSLog("Getting Action for Beacon with unique ID: \(device.uniqueID)")
+        //NSLog("Getting Action for Beacon with unique ID: \(device.uniqueID)")
         
         KTKCloudClient.sharedInstance().getObjects(KTKAction.self, parameters: ["uniqueId": device.uniqueID]) { [weak self] response, error in
             
@@ -156,7 +156,7 @@ extension KonkatViewController: KTKDevicesManagerDelegate
     
     func devicesManager(manager: KTKDevicesManager, didDiscoverDevices devices: [KTKNearbyDevice]?)
     {
-        NSLog("Devices Manager found \(devices!.count) kontakt devices")
+        //NSLog("Devices Manager found \(devices!.count) kontakt devices")
         
         //For para conocer las promos
         for (_, element) in devices!.enumerate() {

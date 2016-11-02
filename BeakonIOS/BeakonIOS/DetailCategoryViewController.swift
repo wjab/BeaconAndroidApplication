@@ -49,7 +49,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         })
 
         //Observer para actualizar la tabla
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList(_:)),name:"load", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList),name:"load", object: nil)
         //Carga los datos de user defaults
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
@@ -84,11 +84,10 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
 
-    func loadList(notification: NSNotification){
-        //load data here
-        print("LOAD LIST")
+    func loadList(){
         self.collection.reloadData()
     }
+    
     func service(){
         //Endpoint
         let url : String = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/allproducts/" + self.categoryName

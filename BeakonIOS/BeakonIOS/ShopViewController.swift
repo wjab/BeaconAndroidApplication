@@ -117,7 +117,6 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
          let cell:ShopCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! ShopCell!
-        print(shopArray.count, "indexx" , indexPath.row)
         let shopObject = self.shopArray[indexPath.row]
         let scan = shopObject.totalGiftPointsPropeties.scanPropeties
         let walkin = shopObject.totalGiftPointsPropeties.walkinPropeties

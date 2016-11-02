@@ -43,7 +43,6 @@ class DetailDepartmentViewController: UIViewController {
                 self.departmentImage.image = UIImage(named: "image_not_found")
                 
         })
-
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
@@ -55,7 +54,7 @@ class DetailDepartmentViewController: UIViewController {
         button.addTarget(self, action: #selector(DetailDepartmentViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         //Observer para actualizar la tabla
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.loadList(_:)),name:"loadDepartment", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.loadList),name:"loadDepartment", object: nil)
         //Observer para abrir scan
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailDepartmentViewController.scan),name:"scan", object: nil)
         //Refreca la cantidad de items en la lista de deseos
@@ -77,7 +76,7 @@ class DetailDepartmentViewController: UIViewController {
         btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
     
-    func loadList(notification: NSNotification){
+    func loadList(){
         //load data here
         self.collection.reloadData()
     }

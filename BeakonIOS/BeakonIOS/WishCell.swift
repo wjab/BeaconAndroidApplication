@@ -61,15 +61,36 @@ class WishCell: UITableViewCell {
                 //Si la respuesta es satisfactoria
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
+                    var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
-                        print("Genial")
+                        user = response.objectForKey("user")! as! NSDictionary
+                        let productList = user.mutableArrayValueForKey("productWishList")
+                        var wishListDefaults: [[NSObject : AnyObject]] = []
+                        for (_, product) in productList.enumerate()
+                        {
+                            let wishObject = Wish()
+                            wishObject.productIdPropeties = product.objectForKey("productId") as! String
+                            wishObject.productNamePropeties = product.objectForKey("productName") as! String
+                            wishObject.pricePropeties = product.objectForKey("price") as! Int
+                            wishObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! String
+                            wishObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
+                            wishListDefaults.append(
+                                [
+                                    "id": wishObject.productId ,
+                                    "name": wishObject.productName,
+                                    "price": wishObject.price,
+                                    "image": wishObject.imageUrlList,
+                                    "points": wishObject.pointsByPrice
+                                ])
+                        }
+                        self.defaults.setObject(wishListDefaults, forKey: "wishListUser")
+                        NSNotificationCenter.defaultCenter().postNotificationName("wish", object: nil)
                         NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
                         NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
-                        NSNotificationCenter.defaultCenter().postNotificationName("wish", object: nil)
-                       JLToast.makeText("Eliminado correctamente").show()
-                       self.utils.refreshDatas()
+                        self.utils.refreshDatas()
+                        JLToast.makeText("Eliminado correctamente").show()
                     }
                     else
                     {

@@ -75,6 +75,7 @@ class UtilsC: UIViewController {
                 //Si la respuesta es satisfactoria
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
+                    var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! Int != 404)
                     {
@@ -85,6 +86,28 @@ class UtilsC: UIViewController {
                         else
                         {
                             //NSNotificationCenter.defaultCenter().postNotificationName("refreshIconWish", object: nil)
+                            //Obtiene la lista de deseos
+                            user = response.objectForKey("user")! as! NSDictionary
+                            let productList = user.mutableArrayValueForKey("productWishList")
+                            var wishListDefaults: [[NSObject : AnyObject]] = []
+                            for (_, product) in productList.enumerate()
+                            {
+                                let wishObject = Wish()
+                                wishObject.productIdPropeties = product.objectForKey("productId") as! String
+                                wishObject.productNamePropeties = product.objectForKey("productName") as! String
+                                wishObject.pricePropeties = product.objectForKey("price") as! Int
+                                wishObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! String
+                                wishObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
+                                wishListDefaults.append(
+                                    [
+                                        "id": wishObject.productId ,
+                                        "name": wishObject.productName,
+                                        "price": wishObject.price,
+                                        "image": wishObject.imageUrlList,
+                                        "points": wishObject.pointsByPrice
+                                    ])
+                            }
+                            self.defaults.setObject(wishListDefaults, forKey: "wishListUser")
                             JLToast.makeText("Añadido correctamente a su lista de deseos").show()
                             self.wishCount = self.defaults.objectForKey("wishCount")as!Int
                             let wish = self.wishCount + 1
@@ -165,7 +188,7 @@ class UtilsC: UIViewController {
                          NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
                         }
                     else if((response)["status"]as! Int == 400){
-                        JLToast.makeText("El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido").show()
+                        print("El usuario ha superado el límite de escaneos y/o el intervalo de escaneo no se ha cumplido")
                     }
                     else
                     {

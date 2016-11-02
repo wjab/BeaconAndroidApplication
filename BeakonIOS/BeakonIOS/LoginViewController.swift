@@ -17,6 +17,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
     let utils = UtilsC()
+     var wishArray: [Wish] = []
     
     override func viewDidLoad()
     {
@@ -94,10 +95,28 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                                         defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                         defaults.setObject((user)["email"] as! String, forKey: "email")
                                         defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
-                                        let productList = user.mutableArrayValueForKey("productWishList")
+                                         let productList = user.mutableArrayValueForKey("productWishList")
                                         defaults.setObject(productList.count, forKey: "wishCount")
-                                        //defaults.setObject((user)["pathImage"] as! String, forKey: "image")
-                                        //defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                        //Obtiene la lista de deseos
+                                        var wishListDefaults: [[NSObject : AnyObject]] = []
+                                        for (_, product) in productList.enumerate()
+                                        {
+                                            let wishObject = Wish()
+                                            wishObject.productIdPropeties = product.objectForKey("productId") as! String
+                                            wishObject.productNamePropeties = product.objectForKey("productName") as! String
+                                            wishObject.pricePropeties = product.objectForKey("price") as! Int
+                                            wishObject.imageUrlListPropeties = product.objectForKey("imageUrlList") as! String
+                                            wishObject.pointsByPricePropeties = product.objectForKey("pointsByPrice") as! Int
+                                            wishListDefaults.append(
+                                                [
+                                                    "id": wishObject.productId ,
+                                                    "name": wishObject.productName,
+                                                    "price": wishObject.price,
+                                                    "image": wishObject.imageUrlList,
+                                                    "points": wishObject.pointsByPrice
+                                                ])
+                                        }
+                                        defaults.setObject(wishListDefaults, forKey: "wishListUser")
                                         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                         self.showDetailViewController(vc as! NavigationViewController, sender: self)
                                     }
@@ -136,7 +155,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                 JLToast.makeText("Favor ingrese todos los datos").show()
             }
         }
-    
+
         
     }
 

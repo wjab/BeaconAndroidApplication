@@ -18,15 +18,14 @@ class DetailProductViewController: UIViewController {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var details: UILabel!
     @IBOutlet weak var productImage: UIImageView!
+    let defaults = NSUserDefaults.standardUserDefaults()
      let btn1 = UIButton()
     let utils = UtilsC()
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
         self.navigationItem.title = ""
-
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let points = defaults.objectForKey("points") as! Int
         wishCount = defaults.objectForKey("wishCount")as!Int
 		navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         print(product.imageUrlListPropeties[0])
@@ -53,11 +52,25 @@ class DetailProductViewController: UIViewController {
         {
             btn1.setImage(UIImage(named: "icon_add"), forState: .Normal)
         }
+        //Genera el boton del centro que contiene los puntos del usuario
+        let button =  UIButton(type: .Custom)
+        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
+        button.setTitle(String(points), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(DetailProductViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.navigationItem.titleView = button
+
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailProductViewController.addWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
 
     }
+    
+    //Abre el historial de puntos
+    func clickOnButton(button: UIButton) {
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    
     func addWishList()
     {
         let defaults = NSUserDefaults.standardUserDefaults()

@@ -125,7 +125,6 @@ class ViewController: UIViewController
                                     
                                     let productList = user.mutableArrayValueForKey("productWishList")
                                     defaults.setObject(productList.count, forKey: "wishCount")
-                                    //defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                     let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                     self.showDetailViewController(vc as! NavigationViewController, sender: self)
                                 }
