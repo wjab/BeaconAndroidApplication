@@ -165,7 +165,7 @@ class DetailPromoViewController: UIViewController {
     func service()
     {
         //Endpoint
-        var url : String = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/"
+        var url : String = Constants.ws_services.merchant
         url += String(toPass.merchantIdPropeties)
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)

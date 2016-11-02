@@ -51,7 +51,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
             if (utils.isValidEmail(usernameText.text!))
             {
                 //Endpoint
-                let url : String = "http://buserdevel.cfapps.io/user/username"
+                let url : String = Constants.ws_services.user+"username"
                 //Obtiene el texto de los textView para realizar el request
                 let username : String = self.usernameText.text!
                 let passwordT : String = self.passwordText.text!
@@ -117,6 +117,9 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                                                 ])
                                         }
                                         defaults.setObject(wishListDefaults, forKey: "wishListUser")
+                                        //HomeTabViewController.utils.loadNewNotification()
+                                        HomeTabViewController.konkat.viewDidLoad()
+                                        //HomeTabViewController.utils.initBackgrounNotification()
                                         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                         self.showDetailViewController(vc as! NavigationViewController, sender: self)
                                     }

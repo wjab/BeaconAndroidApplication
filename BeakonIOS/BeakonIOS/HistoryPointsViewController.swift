@@ -88,7 +88,7 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
     
     func service(){
         //Endpoint
-        let url : String = "http://butilsdevel.cfapps.io/utils/user/getPointsData/"+self.idUser
+        let url : String = Constants.ws_services.utils+"user/getPointsData/"+self.idUser
         //Crea el request
         print(url)
         Alamofire.request(.GET, url, encoding: .JSON)

@@ -102,7 +102,7 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     func service(){
         //Endpoint
         self.wishArray = []
-        let url : String = "http://buserdevel.cfapps.io/user/id/"+self.idUser
+        let url : String = Constants.ws_services.user+"id/"+self.idUser
         //Crea el request
         print(url)
         Alamofire.request(.GET, url, encoding: .JSON)

@@ -30,7 +30,7 @@ class PointsTabThreeViewController: UIViewController {
 
     func serviceUpdateUserDefault()
     {
-        let url : String = "http://buserdevel.cfapps.io/user/id/"+self.userId
+        let url : String = Constants.ws_services.user+"id/"+self.userId
         Alamofire.request(.GET, url, encoding: .JSON).responseJSON
             {
                 response in switch response.result
@@ -60,7 +60,7 @@ class PointsTabThreeViewController: UIViewController {
     //D347E244 149
     func service()
     {
-        let url : String = "http://butilsdevel.cfapps.io/utils/redeemPoints"
+        let url : String = Constants.ws_services.utils+"redeemPoints"
         //Crea el request
         self.code = self.codeL.text!
         print(self.code)

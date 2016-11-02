@@ -21,7 +21,7 @@ class DetailGiftPointsViewController: UIViewController {
         super.viewDidLoad()
         self.codeL.text = self.code
         self.messageL.text = self.message
-        self.date.text = self.expiration
+        self.date.text = String(self.expiration)
         share.addTarget(self, action: #selector(DetailGiftPointsViewController.shareCode), forControlEvents: .TouchUpInside)
     }
     

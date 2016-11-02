@@ -26,7 +26,7 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
        
     func service(){
         //Endpoint
-       let url : String = "http://bpromodevel.cfapps.io/promo"
+       let url : String = Constants.ws_services.promo
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON

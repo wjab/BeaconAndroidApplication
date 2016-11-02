@@ -29,7 +29,7 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
     }
     func service(){
         //Endpoint
-        let url : String = "http://bmerchantprofiledevel.cfapps.io/merchantprofile"
+        let url : String = Constants.ws_services.merchant
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON

@@ -12,9 +12,13 @@ import SwiftyJSON
 import JLToast
 
 class UtilsC: UIViewController {
-    
+    var notificationArray: [Notification] = []
     let defaults = NSUserDefaults.standardUserDefaults()
     var wishCount = 1
+    
+    var backgroundNotificationTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+     var updateTimer : NSTimer?
+    var intervalTimeSeg : double_t = 60.0
     
     func btnWishList(btn1:UIButton)->UIButton{
        
@@ -42,6 +46,56 @@ class UtilsC: UIViewController {
             }
         }
         task.resume()
+    }
+    
+      func loadNewNotification(){
+        
+            let userId = defaults.objectForKey("userId") as? String
+            //Endpoint
+            let url : String = "http://butilsdevel.cfapps.io/notification/userId/"+userId!
+            //Crea el request
+            Alamofire.request(.GET, url, encoding: .JSON)
+                .responseJSON
+                {
+                    response in switch response.result
+                    {
+                    //Si la respuesta es satisfactoria
+                    case .Success(let JSON):
+                        let response = JSON as! NSDictionary
+                        //Si la respuesta no tiene status 404
+                        self.notificationArray.removeAll()
+                        if((response)["status"] as! String != "404")
+                        {
+                            let notificationList = response.mutableArrayValueForKey("notificationResult")
+                            for (_, element) in notificationList.enumerate() {
+                                let notificationObject = Notification()
+                                notificationObject.idPropeties = element.objectForKey("id") as! String
+                                notificationObject.messagePropeties = element.objectForKey("message") as! String
+                                notificationObject.userIdPropeties = element.objectForKey("userId") as! String
+                                notificationObject.typePropeties = element.objectForKey("type") as! String
+                                notificationObject.readPropeties = element.objectForKey("read") as! Bool
+                                notificationObject.creationDatePropeties = element.objectForKey("creationDate") as! Float
+                                self.notificationArray.append(notificationObject)
+                            }
+                            //Setear el estado de si hay notoficacines nuevas o no
+                            if(self.notificationArray.count>0){
+                                 self.defaults.setObject(true, forKey: "stateIconNotification")
+                                NSNotificationCenter.defaultCenter().postNotificationName("refreshIconNotification", object: nil)
+                            }
+                            else{
+                                self.defaults.setObject(false, forKey: "stateIconNotification")
+                                NSNotificationCenter.defaultCenter().postNotificationName("refreshIconNotification", object: nil)
+                            }
+                        }
+                        else
+                        {
+                            print("Hubo un error obteniendo los datos de notificaciones")
+                        }
+                    case .Failure(let error):
+                        print("Hubo un error realizando la peticion: \(error)")
+                    }
+        }
+
     }
     
     func isValidEmail(testStr:String) -> Bool {

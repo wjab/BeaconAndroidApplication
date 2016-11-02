@@ -105,8 +105,8 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                     print("Hubo un error realizando la peticion: \(error)")
                 }
         }
-
     }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row
         let messageData = self.notificationArray[self.actualyArrayIndex].messagePropeties

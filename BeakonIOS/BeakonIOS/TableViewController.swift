@@ -21,6 +21,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     @IBOutlet weak var wishList: UIView!
     @IBOutlet weak var preferences: UIView!
     @IBOutlet weak var home: UIView!
+    @IBOutlet weak var iconNotification: UIImageView!
     var preference:String!
     var state:String!
     let imagePicker = UIImagePickerController()
@@ -32,6 +33,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
     {
         super.viewDidLoad()
         self.navigationItem.title = ""
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableViewController.refreshIconNotification),name:"refreshIconNotification", object: nil)
         
         let faq = UITapGestureRecognizer(target: self, action:  #selector (self.openQuestions))
         self.faq.addGestureRecognizer(faq)
@@ -59,8 +61,17 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         
         let points = UITapGestureRecognizer(target: self, action:  #selector (self.openPoints))
         self.points.addGestureRecognizer(points)
-        
-           }
+        HomeTabViewController.utils.loadNewNotification()
+        }
+    
+    func refreshIconNotification(){
+        if(defaults.objectForKey("stateIconNotification")as!Bool == true){
+       iconNotification.image = UIImage(named: "notificaciones-on")
+        }
+        else{
+             iconNotification.image = UIImage(named: "notificaciones-off")
+        }
+    }
     
     func openProfile(){
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
@@ -110,6 +121,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         }
         
         HomeTabViewController.konkat.endBackgroundTask()
+        //HomeTabViewController.utils.endBackgroundTask()
         HomeTabViewController.konkat.devicesManager.stopDevicesDiscovery()
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")
         self.showDetailViewController(vc as! ViewController, sender: self)

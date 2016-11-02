@@ -29,6 +29,7 @@ class HomeTabViewController: UITabBarController {
      let button =  UIButton(type: .Custom)
     @IBOutlet weak var open: UIButton!
      static let konkat = KonkatViewController()
+     static let utils = UtilsC()
       var wishCount = 1
      let defaults = NSUserDefaults.standardUserDefaults()
     var btn1 = UIButton()
@@ -38,6 +39,7 @@ class HomeTabViewController: UITabBarController {
         super.viewDidLoad()
         self.navigationItem.title = ""
         HomeTabViewController.konkat.viewDidLoad()
+        //HomeTabViewController.utils.initBackgrounNotification()
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         let image = defaults.objectForKey("image")as! String

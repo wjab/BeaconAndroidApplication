@@ -36,7 +36,7 @@ class RegisterViewController: UIViewController
     func loginService()
     {
         //Endpoint
-        let url : String = "http://buserdevel.cfapps.io/user/"
+        let url : String = Constants.ws_services.user
         //Obtiene el texto de los textView para realizar el request
         let emailT : String = self.emailTF.text!
         print(emailT)

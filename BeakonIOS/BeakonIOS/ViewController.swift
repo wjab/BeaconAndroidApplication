@@ -87,7 +87,7 @@ class ViewController: UIViewController
     func getUserByUsername(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String)
     {
         //Endpoint
-        let url : String = "http://buserdevel.cfapps.io/user/username"
+        let url : String = Constants.ws_services.user+"username"
         //parametros a enviar por body en el request
         let newTodo = ["username": username]
         //Crea el request
@@ -122,7 +122,9 @@ class ViewController: UIViewController
                                     defaults.setObject((user)["email"] as! String, forKey: "email")
                                     defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                     defaults.setObject(image, forKey: "image")
-                                    
+                                    //HomeTabViewController.utils.loadNewNotification()
+                                    HomeTabViewController.konkat.viewDidLoad()
+                                    //HomeTabViewController.utils.initBackgrounNotification()
                                     let productList = user.mutableArrayValueForKey("productWishList")
                                     defaults.setObject(productList.count, forKey: "wishCount")
                                     let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
@@ -160,7 +162,7 @@ class ViewController: UIViewController
     func createUserSocial(json:NSData, username:String, firstname:String, lastname:String, gender:String, id:String, email:String, image:String)
     {
         //Endpoint
-        let url : String = "http://buserdevel.cfapps.io/user/"
+        let url : String = Constants.ws_services.user
         let preferenceList = Array<Preference>();
                 //parametros a enviar por body en el request
                 let newTodo = ["user": username,
@@ -211,6 +213,9 @@ class ViewController: UIViewController
                                 defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                 defaults.setObject(image, forKey: "image")
                                 //defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                //HomeTabViewController.utils.loadNewNotification()
+                                HomeTabViewController.konkat.viewDidLoad()
+                                //HomeTabViewController.utils.initBackgrounNotification()
                                 let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Navigation")
                                 self.showDetailViewController(vc as! NavigationViewController, sender: self)
                             }

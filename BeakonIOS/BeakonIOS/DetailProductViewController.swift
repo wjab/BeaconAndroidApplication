@@ -74,7 +74,7 @@ class DetailProductViewController: UIViewController {
     func addWishList()
     {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let url : String = "http://buserdevel.cfapps.io/user/wishlist/add"
+        let url : String = Constants.ws_services.user+"wishlist/add"
         let idUser = (defaults.objectForKey("userId") as? String)!
         let name = product.productNamePropeties
         let id = product.productIdPropeties

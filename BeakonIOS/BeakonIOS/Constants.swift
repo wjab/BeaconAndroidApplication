@@ -23,6 +23,13 @@ struct Constants
     {
         static let profile = ""
         static let device = "http://bdevicedevel.cfapps.io/device/UID/"
+        static let user = "http://buserdevel.cfapps.io/user/"
+        static let utils = "http://butilsdevel.cfapps.io/utils/"
+        static let merchant = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/"
+        static let productsAll = "http://bmerchantprofiledevel.cfapps.io/merchantbusinesstype/all"
+        static let productsCategory = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/allproducts/"
+        static let promo = "http://bpromodevel.cfapps.io/promo"
+        
     }
     struct general
     {

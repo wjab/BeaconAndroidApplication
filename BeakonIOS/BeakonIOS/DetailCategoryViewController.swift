@@ -90,7 +90,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     
     func service(){
         //Endpoint
-        let url : String = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/allproducts/" + self.categoryName
+        let url : String =  Constants.ws_services.productsCategory+self.categoryName
         
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)

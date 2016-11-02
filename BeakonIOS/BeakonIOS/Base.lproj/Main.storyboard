@@ -1215,8 +1215,8 @@
                                 <color key="backgroundColor" red="0.1058823529" green="0.31764705879999999" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Enviar código"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fechaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDJ-QP-OJS">
-                                <rect key="frame" x="125" y="123" width="56" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fechaa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDJ-QP-OJS">
+                                <rect key="frame" x="20" y="123" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1227,6 +1227,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="codeL" destination="QIP-5n-zk5" id="HVV-9s-ZJo"/>
+                        <outlet property="date" destination="ZDJ-QP-OJS" id="KN1-P2-9Mn"/>
                         <outlet property="messageL" destination="Fse-9i-UFv" id="1sZ-Di-wmd"/>
                         <outlet property="share" destination="bKH-eV-qEe" id="SuR-rT-7Tr"/>
                     </connections>
@@ -1539,7 +1540,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="31"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="notificaciones-on" translatesAutoresizingMaskIntoConstraints="NO" id="sYF-1b-6y1">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sYF-1b-6y1">
                                                     <rect key="frame" x="8" y="5" width="26" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notificaciones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bch-Ax-K4K">
@@ -1589,6 +1590,7 @@
                     <connections>
                         <outlet property="faq" destination="rNu-Ne-m0T" id="SYw-hx-pPn"/>
                         <outlet property="home" destination="J0j-W4-3p6" id="W2X-RQ-N3D"/>
+                        <outlet property="iconNotification" destination="sYF-1b-6y1" id="Gc9-uo-JXV"/>
                         <outlet property="invite" destination="2JP-4w-Xad" id="kPv-tk-k3r"/>
                         <outlet property="notification" destination="429-K0-rEk" id="pXo-wY-KEr"/>
                         <outlet property="perfil" destination="7yw-5z-51c" id="r3l-5Z-Lk2"/>
@@ -2601,12 +2603,11 @@
         <image name="icon_wish_list" width="35" height="29"/>
         <image name="logo" width="173" height="189"/>
         <image name="male1" width="100" height="263"/>
-        <image name="notificaciones-on" width="47" height="48"/>
         <image name="profiledefault" width="240" height="300"/>
         <image name="scan_white" width="44" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QQN-b5-9Cz"/>
+        <segue reference="9df-5l-3Jm"/>
         <segue reference="kRr-hT-gnF"/>
         <segue reference="zk1-ft-hAB"/>
     </inferredMetricsTieBreakers>

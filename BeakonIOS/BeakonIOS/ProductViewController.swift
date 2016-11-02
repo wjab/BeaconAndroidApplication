@@ -27,7 +27,7 @@ class ProductViewController: UIViewController , UITableViewDelegate, UITableView
     
     func service(){
         //Endpoint
-        let url : String = "http://bmerchantprofiledevel.cfapps.io/merchantbusinesstype/all"
+        let url : String = Constants.ws_services.productsAll
         
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)

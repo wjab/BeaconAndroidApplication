@@ -49,7 +49,7 @@ class PointsTabTwoViewController: UIViewController {
     
     func obtainMiniumPoints(){
         //Endpoint
-        let url : String = "http://butilsdevel.cfapps.io/utils/pointsMin"
+        let url : String = Constants.ws_services.utils+"pointsMin"
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON
@@ -79,7 +79,7 @@ class PointsTabTwoViewController: UIViewController {
     
     func serviceUpdateUserDefault()
     {
-        let url : String = "http://buserdevel.cfapps.io/user/id/"+self.userId
+        let url : String = Constants.ws_services.user+"id/"+self.userId
         self.message = self.mesageToSend.text!
         Alamofire.request(.GET, url, encoding: .JSON).responseJSON
             {
@@ -111,7 +111,7 @@ class PointsTabTwoViewController: UIViewController {
     func service()
     {
         let points:Int? = Int(self.pointsL.text!)
-        let url : String = "http://butilsdevel.cfapps.io/utils/exchangePoints"
+        let url : String = Constants.ws_services.utils+"exchangePoints"
         //Crea el request
         let newTodo : [String : AnyObject] =
             [
