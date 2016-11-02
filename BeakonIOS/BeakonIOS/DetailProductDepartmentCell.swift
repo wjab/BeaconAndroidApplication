@@ -17,7 +17,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var price: UILabel!
-    
+    @IBOutlet weak var pointsScan: UILabel!
     var product:Product = Product()
     let utilsC = UtilsC()
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -25,9 +25,11 @@ class DetailProductDepartmentCell: UICollectionViewCell {
     
     internal func configure(name: String, urlImageProduct: String, product: Product)
     {
+        pointsScan.text = String(product.pointsByScanPropeties)
         if(product.allowScanPropeties == false)
         {
             allowScan.hidden = true
+            pointsScan.hidden = true
         }
        
         self.product = product

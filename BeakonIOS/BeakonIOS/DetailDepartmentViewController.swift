@@ -19,7 +19,7 @@ class DetailDepartmentViewController: UIViewController {
     let defaults = NSUserDefaults.standardUserDefaults()
     var btn1 = UIButton()
     let button =  UIButton(type: .Custom)
-    
+    @IBOutlet weak var departmentName: UILabel!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class DetailDepartmentViewController: UIViewController {
         ]
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.departmentImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
-        
+        departmentName.text = self.department.namePropeties
         let urlDepartmentImage = NSURL(string: String(department.departmentUrlPropeties))
         departmentImage.hnk_setImageFromURL(urlDepartmentImage!, placeholder: nil, success: { (image) -> Void in
             self.departmentImage.image = image
