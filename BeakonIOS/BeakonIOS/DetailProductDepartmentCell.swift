@@ -25,7 +25,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
     
     internal func configure(name: String, urlImageProduct: String, product: Product)
     {
-        pointsScan.text = String(product.pointsByScanPropeties)
+        pointsScan.text = "¤"+String(product.pointsByScanPropeties)
         if(product.allowScanPropeties == false)
         {
             allowScan.hidden = true
@@ -50,7 +50,7 @@ class DetailProductDepartmentCell: UICollectionViewCell {
         gradientLayerView.layer.insertSublayer(gradient, atIndex: 0)
         self.productImage.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
         self.price.text = "¢"+String(product.pricePropeties)
-        self.points.text = String(product.pointsByPricePropeties)
+        self.points.text = "¤"+String(product.pointsByPricePropeties)
          //Accion del boton scanear
          allowScan.addTarget(self, action: #selector(scan), forControlEvents: .TouchUpInside)
         //Accion del boton añadir
