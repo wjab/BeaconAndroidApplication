@@ -50,30 +50,35 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         self.navigationItem.titleView = myView
     }
     //Abre el menu
-    func openMenu(){
+    func openMenu()
+    {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MenuContainerViewController") as! MenuContainerViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     //Abre el historial de puntos
-    func clickOnButton() {
+    func clickOnButton()
+    {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     //Abre la lista de deseos
-    func openWishList(){
+    func openWishList()
+    {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("WishViewController") as! WishViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func service(){
+    func service()
+    {
         //Endpoint
-        let url : String = Constants.ws_services.utils+"user/getPointsData/"+self.idUser
+        let url : String = Constants.ws_services.utils + "user/getPointsData/" + self.idUser
         //Crea el request
         print(url)
         Alamofire.request(.GET, url, encoding: .JSON)
@@ -81,59 +86,62 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
             {
                 response in switch response.result
                 {
-                //Si la respuesta es satisfactoria
-                case .Success(let JSON):
-                    let response = JSON as! NSDictionary
-                    _ = JSON as! NSDictionary
-                    //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
-                    {
-                        print((response)["status"])
-                        
-                        let productList = response.mutableArrayValueForKey("pointsData")
-                        for (_, history) in productList.enumerate()
+                    //Si la respuesta es satisfactoria
+                    case .Success(let JSON):
+                        let response = JSON as! NSDictionary
+                        _ = JSON as! NSDictionary
+                        //Si la respuesta no tiene status 404
+                        if((response)["status"] as! Int != 404)
                         {
-                            //Obtiene los datos de la tienda
-                            let shop = history.objectForKey("merchantProfile")
-                            //Obtiene los datos de la promocion
-                            let promo = history.objectForKey("promo")
-                            //Obtiene la direccion de la tienda
-                            let address = shop!.valueForKey("address")as! String
-                            //Obtiene el titulo de la promocion
-                            let title = promo!.valueForKey("title")as! String
-                            //Obtiene los punts obtenidos
-                            let points = history.valueForKey("points") as! Int
-                            //Obtiene el ultimo escaneo
-                            let scanDate = history.valueForKey("lastScanDate") as! Int
-                            //Crea el nuevo objeto Historial
-                            let historyObject = History()
-                           //Settea los datos al objeto Historial
-                            historyObject.addressShopPropeties = address
-                            historyObject.pointsPropeties = points
-                            historyObject.promoTitlePropeties = title
-                            historyObject.scanDate = scanDate
-                            self.historyArray.append(historyObject)
+                            print((response)["status"])
+                            
+                            let productList = response.mutableArrayValueForKey("pointsData")
+                            for (_, history) in productList.enumerate()
+                            {
+                                //Obtiene los datos de la tienda
+                                let shop = history.objectForKey("merchantProfile")
+                                //Obtiene los datos de la promocion
+                                let promo = history.objectForKey("promo")
+                                //Obtiene la direccion de la tienda
+                                let address = shop!.valueForKey("address")as! String
+                                //Obtiene el titulo de la promocion
+                                let title = promo!.valueForKey("title")as! String
+                                //Obtiene los punts obtenidos
+                                let points = history.valueForKey("points") as! Int
+                                //Obtiene el ultimo escaneo
+                                let scanDate = history.valueForKey("lastScanDate") as! Int
+                                //Crea el nuevo objeto Historial
+                                let historyObject = History()
+                                
+                                //Settea los datos al objeto Historial
+                                historyObject.addressShopPropeties = address
+                                historyObject.pointsPropeties = points
+                                historyObject.promoTitlePropeties = title
+                                historyObject.scanDate = scanDate
+                                self.historyArray.append(historyObject)
+                            }
+                            self.table.reloadData()
                         }
-                        self.table.reloadData()
-                    }
-                    else
-                    {
-                        print("Hubo un error obteniendo los datos de lista de deseos")
-                    }
-                case .Failure(let error):
-                    print("Hubo un error realizando la peticion: \(error)")
+                        else
+                        {
+                            print("Hubo un error obteniendo los datos de lista de deseos")
+                        }
+                    case .Failure(let error):
+                        print("Hubo un error realizando la peticion: \(error)")
                 }
-        }
+            }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return self.historyArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cell:HistoryPointsCell = self.table.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! HistoryPointsCell!
         let historyObject = self.historyArray[indexPath.row]
-        let name = historyObject.shopNamePropeties
+        let name = historyObject.promoTitlePropeties
         let addressShop = historyObject.addressShopPropeties
         let dateFloat = historyObject.scanDatePropeties
         let points = historyObject.pointsPropeties
@@ -141,7 +149,8 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         self.actualyArrayIndex = indexPath.row
     }
     

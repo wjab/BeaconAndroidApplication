@@ -20,14 +20,13 @@ class HistoryPointsCell: UITableViewCell {
         pointsL.text = String(points)
         shopNameL.text = name
         addressL.text = address
-        if let theDate = NSDate(jsonDate: "/Date("+String(date)+"-0800)/")
+        /*if let theDate = NSDate(jsonDate: "/Date("+String(date)+"-0800)/")
         {
             dateL.text = String(theDate)
         }
         else
         {
             print("wrong format")
-        }
-        
+        }*/
     }
 }
