@@ -33,9 +33,10 @@ class DetailPromoViewController: UIViewController {
         //self.branchUniversalObject = BranchUniversalObject(canonicalIdentifier: toPass.idPropeties)
         super.viewDidLoad()
         self.navigationItem.title = ""
-        self.points.text = String(toPass.giftPointsPropeties)+" pts"
+        self.points.text = String(toPass.giftPointsPropeties) + " pts"
         self.shop.text = toPass.titlePropeties
         let gradientLayerView: UIView = UIView(frame: CGRectMake(0, 0, imagePromo.bounds.width, imagePromo.bounds.height))
+        
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = gradientLayerView.bounds
         gradient.colors = [
@@ -49,23 +50,25 @@ class DetailPromoViewController: UIViewController {
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         self.service()
+        
         //branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
         sharePromo.addTarget(self, action: #selector(DetailPromoViewController.share), forControlEvents: .TouchUpInside)
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
-        //Cambia el tamaño de los tabs
+        
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(DetailPromoViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         
-        //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(DetailPromoViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailPromoViewController.refreshWishCount),name:"refreshWishCountDetailPromo", object: nil)
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(DetailPromoViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailPromoViewController.refreshWishCount),name:"refreshWishCountDetailPromo", object: nil)
     }
     
     func refreshWishCount(){
@@ -75,7 +78,7 @@ class DetailPromoViewController: UIViewController {
     }
     
     //Abre el historial de puntos
-    func clickOnButton(button: UIButton) {
+    func clickOnButton() {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }

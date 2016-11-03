@@ -53,16 +53,19 @@ class ProfileViewController: UIViewController {
         //open.clipsToBounds = true
         //open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
         //self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+        
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(ProfileViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
-        //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(ProfileViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+                
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(ProfileViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.refreshWishCount),name:"refreshWishCountProfile", object: nil)
         if(defaults.objectForKey("socialNetworkType")as!String == "facebook"){
             facebookBtn.setTitle("Ir a Perfil", forState: .Normal)
@@ -95,7 +98,7 @@ class ProfileViewController: UIViewController {
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     //Abre el historial de puntos
-    func clickOnButton(button: UIButton) {
+    func clickOnButton() {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }

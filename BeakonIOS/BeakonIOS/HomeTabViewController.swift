@@ -40,6 +40,7 @@ class HomeTabViewController: UITabBarController {
         self.navigationItem.title = ""
         HomeTabViewController.konkat.viewDidLoad()
         //HomeTabViewController.utils.initBackgrounNotification()
+        
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
         let image = defaults.objectForKey("image")as! String
@@ -49,10 +50,12 @@ class HomeTabViewController: UITabBarController {
         open.layer.cornerRadius = open.frame.height/2
         open.clipsToBounds = true
         open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
+        
         // Set verde cuando es seleccionadao
         let numberOfItems = CGFloat(tabBar.items!.count)
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(Constants.colors.getDarkGreen(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
+        
         //Swipe
        // swipe.addTarget(self, action: #selector(HomeTabViewController.swipeRight(_:)))
       //Coloca los tabs arriba
@@ -63,20 +66,23 @@ class HomeTabViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getBlack()], forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
-    //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        
+        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
-        //Genera el boton del centro que contiene los puntos del usuario
-       
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+        
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(HomeTabViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
+        
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshPoints(_:)),name:"refreshPointsHome", object: nil)
         
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshWishCount),name:"refreshWishCountHome", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTabViewController.refreshWishCount),name:"refreshWishCountHome", object: nil)
     }
     
     func refreshWishCount(){
@@ -97,7 +103,7 @@ class HomeTabViewController: UITabBarController {
     }
     
     //Abre el historial de puntos
-    func clickOnButton(button: UIButton) {
+    func clickOnButton() {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }

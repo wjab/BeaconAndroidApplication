@@ -52,12 +52,13 @@ class DetailProductViewController: UIViewController {
         {
             btn1.setImage(UIImage(named: "icon_add"), forState: .Normal)
         }
-        //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(DetailProductViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+        
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(DetailProductViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
 
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(DetailProductViewController.addWishList), forControlEvents: .TouchUpInside)
@@ -66,7 +67,7 @@ class DetailProductViewController: UIViewController {
     }
     
     //Abre el historial de puntos
-    func clickOnButton(button: UIButton) {
+    func clickOnButton() {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }

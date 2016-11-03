@@ -50,19 +50,22 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
 
         //Observer para actualizar la tabla
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.loadList),name:"load", object: nil)
+        
         //Carga los datos de user defaults
         wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
+        
         //Boton para abir la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(DetailCategoryViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
-        //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(DetailCategoryViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+        
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(DetailCategoryViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailCategoryViewController.refreshWishCount),name:"refreshWishCountDetailCategory", object: nil)
     }
@@ -74,7 +77,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
     }
     
     //Abre el historial de puntos
-    func clickOnButton(button: UIButton) {
+    func clickOnButton() {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }

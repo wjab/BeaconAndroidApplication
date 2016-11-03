@@ -20,6 +20,7 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
     let cellReuseIdentifier = "CellHistoryPoints"
     let defaults = NSUserDefaults.standardUserDefaults()
     var idUser = ""
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         table.delegate = self
         table.dataSource = self
         let points = defaults.objectForKey("points") as! Int
+        
         //Cambia el tamaño de los tabs
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         let btn1 = UIButton()
@@ -37,32 +39,15 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         btn1.frame = CGRectMake(0, 0, 30, 25)
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        
         //Button abre  menu
         _ = UIButton()
         _ = defaults.objectForKey("image")as! String
         _ = defaults.objectForKey("socialNetworkType")as! String
-
-        /*
-        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
         
-        open.addTarget(self, action: #selector(HistoryPointsViewController.openMenu), forControlEvents: .TouchUpInside)
-        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)*/
-    
-        //Genera el boton del centro que contiene la imagen debajo del boton de los puntos
-        let btn_points_img =  UIButton(type: .Custom)
-        btn_points_img.setTitle(String(points), forState: UIControlState.Normal)
-        btn_points_img.frame = CGRectMake(0, 0, 0, 100) as CGRect
-        //btn_points_img.frame.size = CGSize(width: 10, height: 15)
-        btn_points_img.setImage(UIImage(named: "arrow"), forState: UIControlState.Normal)
-        
-        //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.setImage(UIImage(named: "arrow_down-light-gray"), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(HomeTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = btn_points_img
-
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        self.navigationItem.titleView = myView
     }
     //Abre el menu
     func openMenu(){
@@ -71,7 +56,7 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
     }
     
     //Abre el historial de puntos
-    func clickOnButton(button: UIButton) {
+    func clickOnButton() {
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("HistoryPointsViewController") as! HistoryPointsViewController
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }

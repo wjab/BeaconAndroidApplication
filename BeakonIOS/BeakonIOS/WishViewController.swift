@@ -29,36 +29,38 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         service()
         table.delegate = self
         table.dataSource = self
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.refreshWishCount),name:"refreshWishCount", object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.loadList(_:)),name:"wish", object: nil)
-            let points = defaults.objectForKey("points") as! Int
-             self.wishCount = defaults.objectForKey("wishCount")as!Int
-            //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-            btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
-            btn1.addTarget(self, action: #selector(WishViewController.openWishList), forControlEvents: .TouchUpInside)
-            self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
             
-            //Button abre  menu
-            var open = UIButton()
-            let image = defaults.objectForKey("image")as! String
-            let typeUser = defaults.objectForKey("socialNetworkType")as! String
-            if(self.navigationStatus==0){
-                open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-                open.frame = CGRectMake(0, 0, 40, 35)
-                open.layer.masksToBounds = false
-                open.layer.cornerRadius = open.frame.height/2
-                open.clipsToBounds = true
-                open.addTarget(self, action: #selector(WishViewController.openMenu), forControlEvents: .TouchUpInside)
-                self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
-            }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.refreshWishCount),name:"refreshWishCount", object: nil)
             
-            //Genera el boton del centro que contiene los puntos del usuario
-            let button =  UIButton(type: .Custom)
-            button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-            button.setTitle(String(points), forState: UIControlState.Normal)
-            button.addTarget(self, action: #selector(WishViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            self.navigationItem.titleView = button
-            
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishViewController.loadList(_:)),name:"wish", object: nil)
+        let points = defaults.objectForKey("points") as! Int
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        
+        //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
+        btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
+        btn1.addTarget(self, action: #selector(WishViewController.openWishList), forControlEvents: .TouchUpInside)
+        self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
+        
+        //Button abre  menu
+        var open = UIButton()
+        let image = defaults.objectForKey("image")as! String
+        let typeUser = defaults.objectForKey("socialNetworkType")as! String
+        if(self.navigationStatus==0){
+            open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
+            open.frame = CGRectMake(0, 0, 40, 35)
+            open.layer.masksToBounds = false
+            open.layer.cornerRadius = open.frame.height/2
+            open.clipsToBounds = true
+            open.addTarget(self, action: #selector(WishViewController.openMenu), forControlEvents: .TouchUpInside)
+            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+        }
+        
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(WishViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
     }
     
     func refreshWishCount(){
