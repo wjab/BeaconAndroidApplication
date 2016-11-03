@@ -79,7 +79,6 @@
 		9DF696111D93043A00C22251 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696101D93043A00C22251 /* TableViewController.swift */; };
 		9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */; };
 		AB5A5D0A1DB96D0C000B55EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A5D091DB96D0C000B55EF /* Utils.swift */; };
-		AB5DFE1B1DCA677400D9819F /* PointsTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5DFE1A1DCA677400D9819F /* PointsTitleView.swift */; };
 		ABBF14AE1DC13A5A0063F632 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF14A71DC13A220063F632 /* Haneke.framework */; };
 		ABBF14AF1DC13A5A0063F632 /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF14A71DC13A220063F632 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABC71F351DB14A520063F636 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC71F341DB14A520063F636 /* Constants.swift */; };
@@ -401,7 +400,6 @@
 		9DF696101D93043A00C22251 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderMenuViewController.swift; sourceTree = "<group>"; };
 		AB5A5D091DB96D0C000B55EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		AB5DFE1A1DCA677400D9819F /* PointsTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointsTitleView.swift; sourceTree = "<group>"; };
 		ABBF149F1DC13A220063F632 /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = "<group>"; };
 		ABC71F341DB14A520063F636 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -705,7 +703,6 @@
 				9D134FDC1DA2B83200CBEC06 /* ScanViewController.swift */,
 				9D1350171DA2F91D00CBEC06 /* KonkatViewController.swift */,
 				9D5C0DC21DAE95E600BC4A18 /* DiscoveredBarCodeView.swift */,
-				AB5DFE1A1DCA677400D9819F /* PointsTitleView.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1185,7 +1182,6 @@
 				9D7B07D21D6CFBB600BB5FF1 /* RegisterViewController.swift in Sources */,
 				9DCB51AA1D74E0DD0056774C /* PromoViewController.swift in Sources */,
 				9D1350181DA2F91D00CBEC06 /* KonkatViewController.swift in Sources */,
-				AB5DFE1B1DCA677400D9819F /* PointsTitleView.swift in Sources */,
 				9DA88D1D1D79E9FC000C53A3 /* Category.swift in Sources */,
 				9DAADDE41D75EE1D00D9ADE1 /* Promo.swift in Sources */,
 				9DDD88B91D8071A200EB6698 /* ProductCell.swift in Sources */,
