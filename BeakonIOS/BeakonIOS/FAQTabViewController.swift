@@ -16,26 +16,19 @@ class FAQTabViewController: UITabBarController {
     let defaults = NSUserDefaults.standardUserDefaults()
     var wishCount = 1
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         self.navigationItem.title = ""
+        
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         let points = defaults.objectForKey("points") as! Int
-        //Button abre  menu
-        var open = UIButton()
-        let image = defaults.objectForKey("image")as! String
-        let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-        open.frame = CGRectMake(0, 0, 40, 35)
-        open.layer.masksToBounds = false
-        open.layer.cornerRadius = open.frame.height/2
-        open.clipsToBounds = true
-        open.addTarget(self, action: #selector(FAQTabViewController.openMenu), forControlEvents: .TouchUpInside)
-        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+        
         //Set verde en el tab seleccionado
         let numberOfItems = CGFloat(tabBar.items!.count)
         let tabBarItemSize = CGSize(width: tabBar.frame.width / numberOfItems, height: tabBar.frame.height)
         tabBar.selectionIndicatorImage = UIImage.imageWithColor(Constants.colors.getDarkGreen(), size: tabBarItemSize).resizableImageWithCapInsets(UIEdgeInsetsZero)
+        
         //Cambia el tamaño de los tabs
       //  let yStatusBar = UIApplication.sharedApplication().statusBarFrame.size.height
        // tabBar.frame = CGRectMake(0, 0 + yStatusBar + tabBarFaq.frame.size.height-15, tabBarFaq.frame.size.width, tabBarFaq.frame.size.height-15)
@@ -44,16 +37,19 @@ class FAQTabViewController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getBlack()], forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.colors.getWhite()], forState: UIControlState.Selected)
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -13)
+        
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(FAQTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
-        //Genera el boton del centro que contiene los puntos del usuario
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
-        button.setTitle(String(points), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(FAQTabViewController.clickOnButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+        
+        // Crea el view con el label de puntos y el arrow de imagen
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(FAQTabViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        
+        self.navigationItem.titleView = myView
+        
          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FAQTabViewController.refreshWishCount),name:"refreshWishCountFaq", object: nil)
     }
     

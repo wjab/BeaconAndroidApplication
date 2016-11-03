@@ -46,16 +46,7 @@ class PointsTabViewController: UITabBarController {
         self.navigationItem.titleView = myView
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshPoints(_:)),name:"refreshPoints", object: nil)
-        
-        //Button abre  menu
-        var open = UIButton()
-        let image = defaults.objectForKey("image")as! String
-        let typeUser = defaults.objectForKey("socialNetworkType")as! String
-
-        open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-        
-        open.addTarget(self, action: #selector(PointsTabViewController.openMenu), forControlEvents: .TouchUpInside)
-        self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
+                
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshWishCount),name:"refreshWishCountPoints", object: nil)
     }
     

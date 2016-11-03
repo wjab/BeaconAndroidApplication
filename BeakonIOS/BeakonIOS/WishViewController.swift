@@ -41,20 +41,6 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         btn1.addTarget(self, action: #selector(WishViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         
-        //Button abre  menu
-        var open = UIButton()
-        let image = defaults.objectForKey("image")as! String
-        let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        if(self.navigationStatus==0){
-            open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-            open.frame = CGRectMake(0, 0, 40, 35)
-            open.layer.masksToBounds = false
-            open.layer.cornerRadius = open.frame.height/2
-            open.clipsToBounds = true
-            open.addTarget(self, action: #selector(WishViewController.openMenu), forControlEvents: .TouchUpInside)
-            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
-        }
-        
         // Crea el view con el label de puntos y el arrow de imagen
         let myView = Utils.createPointsView(points, activateEvents: true)
         let gesture = UITapGestureRecognizer(target : self, action: #selector(WishViewController.clickOnButton))
