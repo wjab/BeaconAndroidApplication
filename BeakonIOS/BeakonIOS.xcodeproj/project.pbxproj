@@ -78,9 +78,7 @@
 		9DE4A1721D87171700C3AD6E /* WishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4A1711D87171700C3AD6E /* WishCell.swift */; };
 		9DF696111D93043A00C22251 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696101D93043A00C22251 /* TableViewController.swift */; };
 		9DF696131D933C3500C22251 /* HeaderMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */; };
-		AB5674381DCB95ED00A6F183 /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5674371DCB95ED00A6F183 /* LoadingScreenViewController.swift */; };
 		AB5A5D0A1DB96D0C000B55EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A5D091DB96D0C000B55EF /* Utils.swift */; };
-		AB5ED5441DCB98AB0018927C /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5ED5431DCB98AB0018927C /* iOSDevCenters+GIF.swift */; };
 		ABBF14AE1DC13A5A0063F632 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF14A71DC13A220063F632 /* Haneke.framework */; };
 		ABBF14AF1DC13A5A0063F632 /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF14A71DC13A220063F632 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABC71F351DB14A520063F636 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC71F341DB14A520063F636 /* Constants.swift */; };
@@ -401,9 +399,7 @@
 		9DE4A1711D87171700C3AD6E /* WishCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishCell.swift; sourceTree = "<group>"; };
 		9DF696101D93043A00C22251 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		9DF696121D933C3500C22251 /* HeaderMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderMenuViewController.swift; sourceTree = "<group>"; };
-		AB5674371DCB95ED00A6F183 /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		AB5A5D091DB96D0C000B55EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		AB5ED5431DCB98AB0018927C /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		ABBF149F1DC13A220063F632 /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = "<group>"; };
 		ABC71F341DB14A520063F636 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -470,7 +466,6 @@
 				9D2CA05C1D6CBD2F00F8997E /* AppDelegate.swift */,
 				9D2CA0631D6CBD2F00F8997E /* Assets.xcassets */,
 				9D2CA0681D6CBD2F00F8997E /* Info.plist */,
-				AB5ED5431DCB98AB0018927C /* iOSDevCenters+GIF.swift */,
 				ABC71F341DB14A520063F636 /* Constants.swift */,
 				AB5A5D091DB96D0C000B55EF /* Utils.swift */,
 			);
@@ -811,7 +806,6 @@
 				9D2CA05E1D6CBD2F00F8997E /* ViewController.swift */,
 				9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */,
 				9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */,
-				AB5674371DCB95ED00A6F183 /* LoadingScreenViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1140,7 +1134,6 @@
 				9D2CA0AF1D6CC67F00F8997E /* LoginViewController.swift in Sources */,
 				9DCB51A81D74AEDA0056774C /* UtilsC.swift in Sources */,
 				9D5C0DC31DAE95E600BC4A18 /* DiscoveredBarCodeView.swift in Sources */,
-				AB5674381DCB95ED00A6F183 /* LoadingScreenViewController.swift in Sources */,
 				9D134FDD1DA2B83200CBEC06 /* ScanViewController.swift in Sources */,
 				9DC5786E1D7739DB00DF4860 /* Department.swift in Sources */,
 				9DE460E81D89E09500F7E058 /* DetailProductDepartmentCell.swift in Sources */,
@@ -1157,7 +1150,6 @@
 				9D1E46C61D6DFBAA00772202 /* User.swift in Sources */,
 				ABC71F351DB14A520063F636 /* Constants.swift in Sources */,
 				9D565F0F1DC7FFC200DB86E0 /* DepartmentCell.swift in Sources */,
-				AB5ED5441DCB98AB0018927C /* iOSDevCenters+GIF.swift in Sources */,
 				9DA88CFE1D79D8B5000C53A3 /* DetailShopViewController.swift in Sources */,
 				9DB9FA701D6F551B00E24891 /* WishViewController.swift in Sources */,
 				9D1E47121D6E059A00772202 /* Wish.swift in Sources */,
