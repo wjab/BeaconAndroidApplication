@@ -82,6 +82,7 @@
 		ABBF14AE1DC13A5A0063F632 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF14A71DC13A220063F632 /* Haneke.framework */; };
 		ABBF14AF1DC13A5A0063F632 /* Haneke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF14A71DC13A220063F632 /* Haneke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABC71F351DB14A520063F636 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC71F341DB14A520063F636 /* Constants.swift */; };
+		ABDDE1951DCCF94100595E09 /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDE1941DCCF94100595E09 /* LoadingScreenViewController.swift */; };
 		ABE96C8C1DCCF70E0009CBF5 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE96C8B1DCCF70E0009CBF5 /* iOSDevCenters+GIF.swift */; };
 /* End PBXBuildFile section */
 
@@ -403,6 +404,7 @@
 		AB5A5D091DB96D0C000B55EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		ABBF149F1DC13A220063F632 /* Haneke.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Haneke.xcodeproj; path = HanekeSwift/Haneke.xcodeproj; sourceTree = "<group>"; };
 		ABC71F341DB14A520063F636 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ABDDE1941DCCF94100595E09 /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		ABE96C8B1DCCF70E0009CBF5 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -809,6 +811,7 @@
 				9D2CA05E1D6CBD2F00F8997E /* ViewController.swift */,
 				9D7B07D11D6CFBB600BB5FF1 /* RegisterViewController.swift */,
 				9D2CA0AE1D6CC67F00F8997E /* LoginViewController.swift */,
+				ABDDE1941DCCF94100595E09 /* LoadingScreenViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1178,6 +1181,7 @@
 				9DCD15C41D8C52C400E50856 /* HistoryPointsViewController.swift in Sources */,
 				9D926E4D1D70EFA30040FDF8 /* FAQTabTwoViewController.swift in Sources */,
 				9DC658AE1D7DDAB30029DC3F /* DetailGiftPointsViewController.swift in Sources */,
+				ABDDE1951DCCF94100595E09 /* LoadingScreenViewController.swift in Sources */,
 				9DC658B21D7DDAFE0029DC3F /* DetailChangePointsViewController.swift in Sources */,
 				9DB9FA641D6F48C600E24891 /* ProfileViewController.swift in Sources */,
 				9D926E431D70EF260040FDF8 /* NotificationTabOneViewController.swift in Sources */,
