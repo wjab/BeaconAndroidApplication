@@ -181,6 +181,7 @@ class UtilsC: UIViewController {
     
     func refreshDatas(){
         NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCount", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHistory", object: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountHome", object: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountFaq", object: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("refreshWishCountDetailPromo", object: nil)

@@ -58,7 +58,7 @@ class ViewController: UIViewController
     
     func getInfoFacebook()
     {
-        FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"email, name, gender, id, first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+        FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"email, name, gender, id, first_name, last_name, picture.type(large), birthday"]).startWithCompletionHandler { (connection, result, error) -> Void in
             //Obtiene los datos de facebook del usuario
             let strFirstName: String = (result.objectForKey("first_name") as? String)!
             let strLastName: String = (result.objectForKey("last_name") as? String)!

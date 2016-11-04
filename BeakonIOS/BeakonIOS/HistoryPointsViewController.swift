@@ -20,6 +20,8 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
     let cellReuseIdentifier = "CellHistoryPoints"
     let defaults = NSUserDefaults.standardUserDefaults()
     var idUser = ""
+    var btn1 = UIButton()
+    var wishCount = 1
     
     override func viewDidLoad()
     {
@@ -31,12 +33,10 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         table.delegate = self
         table.dataSource = self
         let points = defaults.objectForKey("points") as! Int
-        
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
         //Cambia el tamaño de los tabs
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
-        let btn1 = UIButton()
-        btn1.setImage(UIImage(named: "icon_added"), forState: .Normal)
-        btn1.frame = CGRectMake(0, 0, 30, 25)
+        btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(HomeTabViewController.openWishList), forControlEvents: .TouchUpInside)
         self.navigationItem.setRightBarButtonItem(UIBarButtonItem(customView: btn1), animated: true);
         
@@ -48,7 +48,15 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
         // Crea el view con el label de puntos y el arrow de imagen
         let myView = Utils.createPointsView(points, activateEvents: true)
         self.navigationItem.titleView = myView
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HistoryPointsViewController.refreshWishCount),name:"refreshWishCountHistory", object: nil)
     }
+    //Refresca el contador
+    func refreshWishCount(){
+        self.wishCount = defaults.objectForKey("wishCount")as!Int
+        btn1.setTitle(String(self.wishCount), forState: .Normal)
+    }
+    
     //Abre el menu
     func openMenu()
     {
