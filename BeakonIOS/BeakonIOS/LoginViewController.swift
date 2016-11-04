@@ -96,6 +96,8 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                                         defaults.setObject((user)["email"] as! String, forKey: "email")
                                         defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                          let productList = user.mutableArrayValueForKey("productWishList")
+                                        defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                        defaults.setObject((user)["phone"] as! String, forKey: "phone")
                                         defaults.setObject(productList.count, forKey: "wishCount")
                                         //Obtiene la lista de deseos
                                         var wishListDefaults: [[NSObject : AnyObject]] = []

@@ -17,16 +17,21 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
     var actualyArrayIndex = 0
     @IBOutlet weak var table: UITableView!
     let cellReuseIdentifier = "cellShop"
+    var refreshControl = UIRefreshControl()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.navigationItem.title = ""
-        
-        service()
+        refreshControl.tintColor = UIColor.blackColor()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(PromoViewController.service), forControlEvents: UIControlEvents.ValueChanged)
+        table.addSubview(refreshControl)
         table.delegate = self
         table.dataSource = self
-        
+        service()
     }
+    
     func service(){
         //Endpoint
         let url : String = Constants.ws_services.merchant
@@ -99,7 +104,15 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                             shopObject.departmentsPropeties = departmentArray
                             self.shopArray.append(shopObject)
                         }
-                        self.table.reloadData()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.table.reloadData()
+                            
+                            if self.refreshControl.refreshing
+                            {
+                                self.refreshControl.endRefreshing()
+                            }
+                            return
+                        })
                     }
                     else
                     {

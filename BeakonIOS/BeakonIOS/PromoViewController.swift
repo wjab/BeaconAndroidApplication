@@ -15,15 +15,21 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
     var actualyArrayIndex = 0
     @IBOutlet weak var table: UITableView!
     let cellReuseIdentifier = "cellPromo"
+     var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        service()
+        
+        refreshControl.tintColor = UIColor.blackColor()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(PromoViewController.service), forControlEvents: UIControlEvents.ValueChanged)
+        table.addSubview(refreshControl)
         table.delegate = self
         table.dataSource = self
+        service()
         
     }
-       
+
     func service(){
         //Endpoint
        let url : String = Constants.ws_services.promo
@@ -55,7 +61,15 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                             promoObject.imagesPropeties = element.objectForKey("images") as! String
                             self.promoArray.append(promoObject)
                         }
-                             self.table.reloadData()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.table.reloadData()
+                            
+                            if self.refreshControl.refreshing
+                            {
+                                self.refreshControl.endRefreshing()
+                            }
+                            return
+                        })
                     }
                     else
                     {

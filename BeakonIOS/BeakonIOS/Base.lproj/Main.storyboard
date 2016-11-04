@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -26,11 +26,10 @@
                                     <constraint firstAttribute="height" constant="130" id="YE9-p6-Njb"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eR-b6-Q5S">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eR-b6-Q5S">
                                 <rect key="frame" x="177" y="291" width="61" height="58"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="0hs-4S-J8M"/>
-                                    <constraint firstAttribute="height" constant="58" id="yXt-Lh-GTH"/>
+                                    <constraint firstAttribute="width" constant="61" id="gh4-S5-5lD"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon_register">
                                     <attributedString key="attributedTitle"/>
@@ -39,21 +38,23 @@
                                     <segue destination="Fwp-SM-75e" kind="show" id="zk1-ft-hAB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDr-Nx-mBM">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDr-Nx-mBM">
                                 <rect key="frame" x="67" y="291" width="61" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="a2S-s6-pkp"/>
-                                    <constraint firstAttribute="height" constant="58" id="geY-GO-cwO"/>
-                                </constraints>
                                 <state key="normal" image="facebook_circle_color-128"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="kDr-Nx-mBM" firstAttribute="bottom" secondItem="0eR-b6-Q5S" secondAttribute="bottom" id="0AY-qg-Tg6"/>
+                            <constraint firstItem="kDr-Nx-mBM" firstAttribute="top" secondItem="lRX-u7-QFj" secondAttribute="bottom" constant="34" id="3R5-T1-s37"/>
                             <constraint firstItem="lRX-u7-QFj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="107" id="3aK-m8-jOR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kDr-Nx-mBM" secondAttribute="bottom" constant="219" id="5HT-BX-YFI"/>
+                            <constraint firstItem="kDr-Nx-mBM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="Ggl-M0-nql"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0eR-b6-Q5S" secondAttribute="trailing" constant="66" id="M00-Fh-Opc"/>
+                            <constraint firstItem="0eR-b6-Q5S" firstAttribute="leading" secondItem="kDr-Nx-mBM" secondAttribute="trailing" constant="49" id="bj3-P5-gmr"/>
                             <constraint firstItem="lRX-u7-QFj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="84" id="cuO-Sc-MO0"/>
                             <constraint firstItem="lRX-u7-QFj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tCB-Cc-OcZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0eR-b6-Q5S" secondAttribute="trailing" constant="62" id="xDo-ck-RrX"/>
+                            <constraint firstItem="kDr-Nx-mBM" firstAttribute="top" secondItem="0eR-b6-Q5S" secondAttribute="top" id="zJw-1r-FZr"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -412,41 +413,51 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L44-vM-H7Y">
-                                <rect key="frame" x="37" y="80" width="256" height="30"/>
+                                <rect key="frame" x="37" y="79" width="256" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Apellido" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DeY-bI-hFU">
-                                <rect key="frame" x="37" y="121" width="256" height="30"/>
+                                <rect key="frame" x="37" y="117" width="256" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Correo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BGd-Th-jpQ">
-                                <rect key="frame" x="37" y="164" width="256" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Fecha" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Uu-f1-ueg">
-                                <rect key="frame" x="37" y="261" width="256" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8e-KV-Sqs">
-                                <rect key="frame" x="37" y="304" width="256" height="30"/>
+                                <rect key="frame" x="37" y="155" width="256" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="female1" translatesAutoresizingMaskIntoConstraints="NO" id="PX3-AE-UcO">
-                                <rect key="frame" x="84" y="197" width="39" height="56"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="male1" translatesAutoresizingMaskIntoConstraints="NO" id="7vh-Ta-A8W">
-                                <rect key="frame" x="214" y="197" width="35" height="56"/>
+                                <rect key="frame" x="93" y="193" width="32" height="47"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-A2-LAI">
-                                <rect key="frame" x="37" y="353" width="256" height="30"/>
+                                <rect key="frame" x="37" y="384" width="256" height="30"/>
                                 <color key="backgroundColor" red="0.20129023050699635" green="0.41338436269890466" blue="0.65944044502617793" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Ir al perfil"/>
                             </button>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="54T-2C-iGt">
+                                <rect key="frame" x="0.0" y="248" width="320" height="84"/>
+                                <date key="date" timeIntervalSinceReferenceDate="499911344.50556201">
+                                    <!--2016-11-04 00:15:44 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="es_419"/>
+                            </datePicker>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="male1" translatesAutoresizingMaskIntoConstraints="NO" id="7vh-Ta-A8W">
+                                <rect key="frame" x="211" y="194" width="32" height="46"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-hQ-oCL">
+                                <rect key="frame" x="182" y="206" width="28" height="22"/>
+                                <state key="normal" backgroundImage="radioButton"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4SG-oE-LFN">
+                                <rect key="frame" x="63" y="206" width="28" height="22"/>
+                                <state key="normal" backgroundImage="radioButtonSelected"/>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dI7-La-YBw">
+                                <rect key="frame" x="37" y="340" width="256" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -456,12 +467,14 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="dateTF" destination="6Uu-f1-ueg" id="ujs-QY-Lw4"/>
+                        <outlet property="datePicker" destination="54T-2C-iGt" id="BVU-T7-VV4"/>
                         <outlet property="emailTF" destination="BGd-Th-jpQ" id="BZR-JT-gsk"/>
                         <outlet property="facebookBtn" destination="M1G-A2-LAI" id="Z5h-n0-OZ8"/>
                         <outlet property="lastnameTF" destination="DeY-bI-hFU" id="c4D-3F-L52"/>
+                        <outlet property="menRadioButton" destination="bPy-hQ-oCL" id="lED-ja-3Bt"/>
                         <outlet property="nameTF" destination="L44-vM-H7Y" id="tGE-EL-ua1"/>
-                        <outlet property="numberTF" destination="p8e-KV-Sqs" id="Dea-np-daq"/>
+                        <outlet property="numberTF" destination="dI7-La-YBw" id="uLf-2j-XhO"/>
+                        <outlet property="womenRadioButton" destination="4SG-oE-LFN" id="IlV-kM-qpt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zOa-mK-KfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2605,6 +2618,8 @@
         <image name="logo" width="173" height="189"/>
         <image name="male1" width="100" height="263"/>
         <image name="profiledefault" width="240" height="300"/>
+        <image name="radioButton" width="128" height="128"/>
+        <image name="radioButtonSelected" width="128" height="128"/>
         <image name="scan_white" width="44" height="31"/>
     </resources>
     <inferredMetricsTieBreakers>

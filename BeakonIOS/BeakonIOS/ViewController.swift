@@ -67,8 +67,7 @@ class ViewController: UIViewController
             let strGender: String = (result.objectForKey("gender") as? String)!
             let strEmail: String = (result.objectForKey("email") as? String)!
             let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-            print("Welcome" + strPictureURL)
-        
+            
             //Crea el json a guardar en socialNetworkJson
             let userData:NSMutableDictionary = NSMutableDictionary()
             userData.setValue(strGender, forKey: "gender")
@@ -121,8 +120,10 @@ class ViewController: UIViewController
                                     defaults.setObject((user)["name"] as! String, forKey: "name")
                                     defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                     defaults.setObject((user)["email"] as! String, forKey: "email")
+                                    defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                     defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                     defaults.setObject(image, forKey: "image")
+                                    defaults.setObject((user)["phone"] as! String, forKey: "phone")
                                     defaults.setObject(self.idFacebook, forKey: "id")
                                     //HomeTabViewController.utils.loadNewNotification()
                                     HomeTabViewController.konkat.viewDidLoad()
@@ -213,6 +214,8 @@ class ViewController: UIViewController
                                 defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                 defaults.setObject((user)["email"] as! String, forKey: "email")
                                 defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
+                                defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                defaults.setObject((user)["phone"] as! String, forKey: "phone")
                                 defaults.setObject(image, forKey: "image")
                                 //defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                 //HomeTabViewController.utils.loadNewNotification()
