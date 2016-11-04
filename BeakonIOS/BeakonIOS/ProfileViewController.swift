@@ -73,6 +73,7 @@ class ProfileViewController: UIViewController {
             womenRadioButton.userInteractionEnabled = false
             menRadioButton.userInteractionEnabled = false
             facebookBtn.addTarget(self, action: #selector(ProfileViewController.openFacebookProfile), forControlEvents: UIControlEvents.TouchUpInside)
+            self.datePicker.userInteractionEnabled = false
         }
         else
         {
@@ -82,6 +83,7 @@ class ProfileViewController: UIViewController {
             womenRadioButton.addTarget(self, action: #selector(ProfileViewController.updateWoman), forControlEvents: .TouchUpInside)
             menRadioButton.addTarget(self, action: #selector(ProfileViewController.updateMen), forControlEvents: .TouchUpInside)
             datePicker.addTarget(self, action: #selector(ProfileViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
+             self.datePicker.userInteractionEnabled = false
         }
          self.validateGender()
     }
