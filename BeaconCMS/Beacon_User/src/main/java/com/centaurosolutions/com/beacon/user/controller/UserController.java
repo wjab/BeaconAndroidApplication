@@ -268,14 +268,14 @@ public class UserController {
 					user.setPreference((ArrayList<Preferences>)userMap.get("preference"));
 				}
 				
-				user.setUser(userMap.get("user").toString());
-				user.setEnable(Boolean.valueOf(userMap.get("enable").toString()));
-				user.setCategoryId(Integer.parseInt(userMap.get("categoryId").toString()));
-				user.setTotalGiftPoints(Integer.parseInt(userMap.get("totalGiftPoints").toString()));
+				//user.setUser(userMap.get("user").toString());
+				//user.setEnable(Boolean.valueOf(userMap.get("enable").toString()));
+				//user.setCategoryId(Integer.parseInt(userMap.get("categoryId").toString()));
+				//user.setTotalGiftPoints(Integer.parseInt(userMap.get("totalGiftPoints").toString()));
 				user.setModifiedDate(DateFormatter(userMap.get("modifiedDate").toString()));
 				user.setName(userMap.get("name").toString());
 				user.setLastName(userMap.get("lastName").toString());
-				user.setEmail(userMap.get("email").toString());
+				//user.setEmail(userMap.get("email").toString());
 				user.setPhone(userMap.get("phone").toString());
 				user.setGender(userMap.get("gender").toString());
 				user.setPathImage(userMap.get("pathImage").toString());
