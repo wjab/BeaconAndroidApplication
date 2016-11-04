@@ -32,6 +32,7 @@
 		9D926E4B1D70EF8F0040FDF8 /* FAQTabOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E4A1D70EF8F0040FDF8 /* FAQTabOneViewController.swift */; };
 		9D926E4D1D70EFA30040FDF8 /* FAQTabTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E4C1D70EFA30040FDF8 /* FAQTabTwoViewController.swift */; };
 		9D926E511D70FC780040FDF8 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D926E501D70FC780040FDF8 /* Preference.swift */; };
+		9D9DEEA71DCCF10700797621 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9DEEA61DCCF10700797621 /* iOSDevCenters+GIF.swift */; };
 		9DA88CFE1D79D8B5000C53A3 /* DetailShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA88CFD1D79D8B5000C53A3 /* DetailShopViewController.swift */; };
 		9DA88D1D1D79E9FC000C53A3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA88D1C1D79E9FC000C53A3 /* Category.swift */; };
 		9DA88D1F1D79F364000C53A3 /* FAQTabThreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA88D1E1D79F364000C53A3 /* FAQTabThreeViewController.swift */; };
@@ -355,6 +356,7 @@
 		9D926E4C1D70EFA30040FDF8 /* FAQTabTwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQTabTwoViewController.swift; sourceTree = "<group>"; };
 		9D926E501D70FC780040FDF8 /* Preference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
 		9D98D7711DA7FCD200687E8E /* Branch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Branch.framework; path = "ios-branch-deep-linking/Branch.framework"; sourceTree = "<group>"; };
+		9D9DEEA61DCCF10700797621 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "iOSDevCenters+GIF.swift"; path = "../../../../Downloads/iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		9DA88CFD1D79D8B5000C53A3 /* DetailShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailShopViewController.swift; sourceTree = "<group>"; };
 		9DA88D1C1D79E9FC000C53A3 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9DA88D1E1D79F364000C53A3 /* FAQTabThreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQTabThreeViewController.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 				9D2CA05C1D6CBD2F00F8997E /* AppDelegate.swift */,
 				9D2CA0631D6CBD2F00F8997E /* Assets.xcassets */,
 				9D2CA0681D6CBD2F00F8997E /* Info.plist */,
+				9D9DEEA61DCCF10700797621 /* iOSDevCenters+GIF.swift */,
 				ABC71F341DB14A520063F636 /* Constants.swift */,
 				AB5A5D091DB96D0C000B55EF /* Utils.swift */,
 			);
@@ -1134,6 +1137,7 @@
 				9D2CA0AF1D6CC67F00F8997E /* LoginViewController.swift in Sources */,
 				9DCB51A81D74AEDA0056774C /* UtilsC.swift in Sources */,
 				9D5C0DC31DAE95E600BC4A18 /* DiscoveredBarCodeView.swift in Sources */,
+				9D9DEEA71DCCF10700797621 /* iOSDevCenters+GIF.swift in Sources */,
 				9D134FDD1DA2B83200CBEC06 /* ScanViewController.swift in Sources */,
 				9DC5786E1D7739DB00DF4860 /* Department.swift in Sources */,
 				9DE460E81D89E09500F7E058 /* DetailProductDepartmentCell.swift in Sources */,
