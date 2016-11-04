@@ -452,36 +452,36 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="female1" translatesAutoresizingMaskIntoConstraints="NO" id="PX3-AE-UcO">
-                                <rect key="frame" x="93" y="193" width="32" height="47"/>
+                                <rect key="frame" x="93" y="193" width="26" height="35"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-A2-LAI">
-                                <rect key="frame" x="37" y="384" width="256" height="30"/>
-                                <color key="backgroundColor" red="0.20129023050699635" green="0.41338436269890466" blue="0.65944044502617793" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Ir al perfil"/>
-                            </button>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="54T-2C-iGt">
-                                <rect key="frame" x="0.0" y="248" width="320" height="84"/>
+                                <rect key="frame" x="0.0" y="236" width="320" height="61"/>
                                 <date key="date" timeIntervalSinceReferenceDate="499911344.50556201">
                                     <!--2016-11-04 00:15:44 +0000-->
                                 </date>
                                 <locale key="locale" localeIdentifier="es_419"/>
                             </datePicker>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="male1" translatesAutoresizingMaskIntoConstraints="NO" id="7vh-Ta-A8W">
-                                <rect key="frame" x="211" y="194" width="32" height="46"/>
+                                <rect key="frame" x="205" y="193" width="26" height="35"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPy-hQ-oCL">
-                                <rect key="frame" x="182" y="206" width="28" height="22"/>
+                                <rect key="frame" x="181" y="203" width="16" height="16"/>
                                 <state key="normal" backgroundImage="radioButton"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4SG-oE-LFN">
-                                <rect key="frame" x="63" y="206" width="28" height="22"/>
+                                <rect key="frame" x="69" y="203" width="16" height="16"/>
                                 <state key="normal" backgroundImage="radioButtonSelected"/>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dI7-La-YBw">
-                                <rect key="frame" x="37" y="340" width="256" height="30"/>
+                                <rect key="frame" x="37" y="305" width="256" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-A2-LAI">
+                                <rect key="frame" x="37" y="343" width="256" height="30"/>
+                                <color key="backgroundColor" red="0.20129023050699635" green="0.41338436269890466" blue="0.65944044502617793" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Ir al perfil"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

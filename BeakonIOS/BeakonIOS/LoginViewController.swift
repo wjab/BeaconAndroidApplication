@@ -70,7 +70,6 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                             //Si la respuesta no tiene status 404
                             if((response)["status"] as! Int != 404)
                             {
-                                print((response)["status"])
                                 //Obtiene solo el objeto user de la respuesta
                                 user = response.objectForKey("user")! as! NSDictionary
                                 //obtiene la contraseña
@@ -80,8 +79,6 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                                 {
                                     if((user)["enable"] as! Bool == true)
                                     {
-                                        print("Ingresando")
-                                                                              
                                         let appDomain = NSBundle.mainBundle().bundleIdentifier!
                                         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
                                         let defaults = NSUserDefaults.standardUserDefaults()

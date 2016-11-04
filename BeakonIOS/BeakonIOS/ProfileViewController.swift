@@ -39,6 +39,7 @@ class ProfileViewController: UIViewController {
     var idFacebook = ""
     var points = 0
     let utils = UtilsC()
+    var gender = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,19 +51,8 @@ class ProfileViewController: UIViewController {
         self.typerUser = defaults.objectForKey("socialNetworkType") as! String
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         self.points = defaults.objectForKey("points") as! Int
+        self.gender = defaults.objectForKey("gender") as! String
         self.validateStateUser()
-        self.validateGender()
-               //Button abre  menu
-        //var open = UIButton()
-        //let image = defaults.objectForKey("image")as! String
-        //let typeUser = defaults.objectForKey("socialNetworkType")as! String
-        //open = Utils.loadMenuButton(open, image: image, typeUser: typeUser)
-        //open.frame = CGRectMake(0, 0, 40, 35)
-        //open.layer.masksToBounds = false
-        //open.layer.cornerRadius = open.frame.height/2
-        //open.clipsToBounds = true
-        //open.addTarget(self, action: #selector(ProfileViewController.openMenu), forControlEvents: .TouchUpInside)
-        //self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: open), animated: true)
         
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
@@ -93,6 +83,7 @@ class ProfileViewController: UIViewController {
             menRadioButton.addTarget(self, action: #selector(ProfileViewController.updateMen), forControlEvents: .TouchUpInside)
             datePicker.addTarget(self, action: #selector(ProfileViewController.datePickerChanged(_:)), forControlEvents: .ValueChanged)
         }
+         self.validateGender()
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
@@ -105,7 +96,7 @@ class ProfileViewController: UIViewController {
     }
     
     func validateGender(){
-        if(defaults.objectForKey("gender") as! String == "female"){
+        if(self.gender == "female"){
             updateWoman()
         }
         else{
@@ -118,26 +109,23 @@ class ProfileViewController: UIViewController {
         let phone = numberTF.text
         let name = nameTF.text
         let lastname = lastnameTF.text
-        let email = emailTF.text
         let pathImage = defaults.objectForKey("image")
+        let id = defaults.objectForKey("userId") as! String
         //Request actualiza el perfil de usuario
-        let url : String = Constants.ws_services.user
-        let preferenceList = Array<Preference>();
+        let url : String = Constants.ws_services.user+id
         if(name != "" && phone != "" && lastname != "" && name != "")
         {
                 //parametros a enviar por body en el request
-                let newTodo: [String: AnyObject] = ["user": email!,
-                               "enable": true,
-                               "categoryId":"0",
-                               "totalGiftPoints":self.points,
+                let newTodo: [String: AnyObject] = [
                                "name": name!,
                                "lastName": lastname!,
                                "phone": phone!,
                                "modifiedDate": utils.convertLongToDate(),
-                               "email": email!,
-                                "gender":  defaults.objectForKey("gender") as! String,
+                               "gender": self.gender,
                                "pathImage": pathImage!,
-                               "preference": preferenceList]
+                                "preference": NSNull(),
+                                "productWishList": NSNull()
+                              ]
                 
                 //Crea el request
                 Alamofire.request(.PUT, url, parameters: newTodo as? [String : AnyObject], encoding: .JSON)
@@ -152,16 +140,18 @@ class ProfileViewController: UIViewController {
                             //Si la respuesta no tiene status 404
                             if((response)["status"] as! Int != 404)
                             {
-                                //Obtiene solo el objeto user de la respuesta
                                 user = response.objectForKey("user")! as! NSDictionary
-                                let vc = self.storyboard!.instantiateViewControllerWithIdentifier("Login")
-                                self.showDetailViewController(vc as! LoginViewController, sender: self)
-                                
+                                //Obtiene solo el objeto user de la respuesta
+                                self.defaults.setObject((user)["gender"] as! String, forKey: "gender")
+                                self.defaults.setObject((user)["phone"] as! String, forKey: "phone")
+                                self.defaults.setObject((user)["name"] as! String, forKey: "name")
+                                self.defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
+                                print(self.defaults.objectForKey("gender") as! String)
+                                 JLToast.makeText("El usuario se ha actualizado correctamente").show()
                             }
                             else
                             {
-                                print("El usuario no se ha registrado correctamente")
-                                JLToast.makeText("El usuario no se ha registrado correctamente").show()
+                                JLToast.makeText("El usuario no se ha actualizado correctamente").show()
                             }
                         case .Failure(let error):
                             print("Hubo un error realizando la peticion: \(error)")
@@ -173,20 +163,18 @@ class ProfileViewController: UIViewController {
         {
             JLToast.makeText("Favor ingresar todos los datos").show()
         }
-
-        
     }
     
     func updateMen(){
         womenRadioButton.setBackgroundImage(UIImage(named: "radioButton"), forState: .Normal)
         menRadioButton.setBackgroundImage(UIImage(named: "radioButtonSelected"), forState: .Normal)
-        defaults.setObject("men", forKey: "gender")
+        self.gender = "men"
     }
     
     func updateWoman(){
         menRadioButton.setBackgroundImage(UIImage(named: "radioButton"), forState: .Normal)
         womenRadioButton.setBackgroundImage(UIImage(named: "radioButtonSelected"), forState: .Normal)
-        defaults.setObject("women", forKey: "gender")
+        self.gender = "female"
     }
     
     func openFacebookProfile(){

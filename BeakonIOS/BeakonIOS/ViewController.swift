@@ -66,8 +66,10 @@ class ViewController: UIViewController
             self.idFacebook = (result.objectForKey("id") as? String)!
             let strGender: String = (result.objectForKey("gender") as? String)!
             let strEmail: String = (result.objectForKey("email") as? String)!
+           // let strBirthday: String = (result.objectForKey("user_birthday") as? String)!
+            //let strPhone: String = (result.objectForKey("phone") as? String)!
             let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-            
+            print(result)
             //Crea el json a guardar en socialNetworkJson
             let userData:NSMutableDictionary = NSMutableDictionary()
             userData.setValue(strGender, forKey: "gender")
@@ -123,6 +125,7 @@ class ViewController: UIViewController
                                     defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                     defaults.setObject((user)["socialNetworkType"] as! String, forKey: "socialNetworkType")
                                     defaults.setObject(image, forKey: "image")
+                                    defaults.setObject((user)["gender"] as! String, forKey: "gender")
                                     defaults.setObject((user)["phone"] as! String, forKey: "phone")
                                     defaults.setObject(self.idFacebook, forKey: "id")
                                     //HomeTabViewController.utils.loadNewNotification()
