@@ -43,7 +43,7 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {
                         let promoList = response.mutableArrayValueForKey("listPromo")
                         for (_, element) in promoList.enumerate() {

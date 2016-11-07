@@ -168,7 +168,7 @@ class PointsTabOneViewController: UIViewController {
                         let response = JSON as! NSDictionary
                         var pointsObject = JSON as! NSDictionary
                         //Si la respuesta no tiene status 404
-                        if((response)["status"] as! Int != 404)
+                        if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                         {
                             if((response)["message"] as! String == "Saldo flotante creado")
                             {

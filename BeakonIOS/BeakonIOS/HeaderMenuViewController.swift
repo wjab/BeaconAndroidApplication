@@ -51,9 +51,6 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
                 self.profileImage.image = UIImage(named: "profiledefault")
                 
         })
-        
-       
-        // Do any additional setup after loading the view.
     }
     
     func loadImageFromPath(url: NSURL) {
@@ -74,9 +71,9 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
     func tapDetected() {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .PhotoLibrary
-        
         presentViewController(imagePicker, animated: true, completion: nil)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -117,9 +114,8 @@ class HeaderMenuViewController: UIViewController , UIImagePickerControllerDelega
         defaults.setObject(pathImage, forKey: "image")
     
         let idUser = defaults.objectForKey("userId") as! String
-        let endpoint: String = "http://buserdevel.cfapps.io/user/editPathImage/"+idUser
+        let endpoint: String = Constants.ws_services.user+"editPathImage/"+idUser
         let newTodo = ["pathImage": pathImage]
-        //print(url)
         Alamofire.request(.PUT, endpoint, parameters: newTodo, encoding: .JSON)
             .responseJSON
             {

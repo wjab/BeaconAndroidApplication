@@ -128,7 +128,6 @@ class DetailShopViewController: UIViewController, UICollectionViewDataSource, UI
         secondViewController.department = self.shop.departmentsPropeties[self.actualyArrayIndex]
         secondViewController.shopId = self.shop.idPropeties
         self.navigationController?.pushViewController(secondViewController, animated: true)
-        print("You selected cell #\(indexPath.item)!")
     }
     
     func validationImageToShow()

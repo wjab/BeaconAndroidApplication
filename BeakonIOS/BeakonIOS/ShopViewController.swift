@@ -73,10 +73,8 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                             //Departamentos
                             var departmentArray: [Department] = []
                             let departmentList = shop.mutableArrayValueForKey("departments")
-                            print(departmentList)
-                            for (indexD, department) in departmentList.enumerate()
+                            for (_, department) in departmentList.enumerate()
                             {
-                                print(indexD)
                                 let departmentObject = Department()
                                 departmentObject.namePropeties = department.objectForKey("name") as! String
                                 departmentObject.idPropeties = department.objectForKey("id") as! String

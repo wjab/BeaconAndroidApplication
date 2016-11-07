@@ -162,7 +162,6 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
         let obtainState = sender.on
         let obtainPreferences = self.arrayLabel[tagLabel].text
         let stateToSend:String!
-        print(obtainPreferences, "----", obtainState)
         if(obtainState == true){
             stateToSend = "Activado"
         }
@@ -171,7 +170,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
             stateToSend = "Desactivado"
         }
         let idUser = (defaults.objectForKey("userId") as? String)!
-        let endpoint: String = "http://buserdevel.cfapps.io/user/preference/editState"
+        let endpoint: String = Constants.ws_services.user+"preference/editState"
         let newTodo = ["userId": idUser,
                                      "preference":obtainPreferences,
                                      "state": stateToSend]
@@ -196,9 +195,7 @@ class TableViewController: UITableViewController , UIImagePickerControllerDelega
                     print("Hubo un error realizando la peticion: \(error)")
                 }
         }        
-
         preference = sender.description
-        print("Switch Value : \(sender.on)")
     }
     
     func createAlertPreferences()

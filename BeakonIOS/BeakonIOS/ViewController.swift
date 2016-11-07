@@ -69,7 +69,6 @@ class ViewController: UIViewController
             self.birthday = (result.objectForKey("birthday") as? String)!
             //let strPhone: String = (result.objectForKey("phone") as? String)!
             let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-            print(result)
             //Crea el json a guardar en socialNetworkJson
             let userData:NSMutableDictionary = NSMutableDictionary()
             userData.setValue(strGender, forKey: "gender")
@@ -80,8 +79,7 @@ class ViewController: UIViewController
             userData.setValue(self.birthday, forKey: "birthday")
             let jsonData = try! NSJSONSerialization.dataWithJSONObject(userData, options: NSJSONWritingOptions())
             let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as! String
-            print(jsonString)
-            
+    
             self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: self.idFacebook, email: strEmail, image: strPictureURL)
             
             }
@@ -107,7 +105,6 @@ class ViewController: UIViewController
                     if((response)["status"] as! Int != 404)
                     {
                           user = response.objectForKey("user")! as! NSDictionary
-                        print((response)["status"])
                             if((user)["enable"] as! Bool == true)
                             {
                                 if((user)["socialNetworkType"] as! String != "localuser"){

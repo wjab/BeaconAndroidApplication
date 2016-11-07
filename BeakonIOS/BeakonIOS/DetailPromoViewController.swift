@@ -166,7 +166,6 @@ class DetailPromoViewController: UIViewController
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print(String(toPass.descriptionPromoPropeties))
     }
     
     override func didReceiveMemoryWarning() {
@@ -244,6 +243,7 @@ class DetailPromoViewController: UIViewController
                         }
                         else
                         {
+                            print((response)["message"]as!String)
                             print("Problema al obtner datos del producto")
                         }
                         self.charge()

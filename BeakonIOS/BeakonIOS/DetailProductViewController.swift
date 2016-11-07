@@ -28,11 +28,7 @@ class DetailProductViewController: UIViewController {
         let points = defaults.objectForKey("points") as! Int
         wishCount = defaults.objectForKey("wishCount")as!Int
 		navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-        print(product.imageUrlListPropeties[0])
-        
         let urlProductImage = NSURL(string: String(product.imageUrlListPropeties[0]))
-        
-        
         productImage.hnk_setImageFromURL(urlProductImage!, placeholder: nil, success: { (image) -> Void in
                 self.productImage.image = image
             }, failure: { (error) -> Void in
@@ -98,7 +94,7 @@ class DetailProductViewController: UIViewController {
                     let response = JSON as! NSDictionary
                     var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {
                         if((response)["message"] as! String=="Product already added to wishlist"){
                             JLToast.makeText("Este producto ya se encuentra en la lista de deseos").show()
