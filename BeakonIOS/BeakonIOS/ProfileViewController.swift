@@ -22,7 +22,6 @@ extension UIApplication {
         }
     }
 }
-
 class ProfileViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var numberTF: UITextField!
@@ -40,7 +39,7 @@ class ProfileViewController: UIViewController {
     var points = 0
     let utils = UtilsC()
     var gender = ""
-    
+    var birthday = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
@@ -53,7 +52,6 @@ class ProfileViewController: UIViewController {
         self.points = defaults.objectForKey("points") as! Int
         self.gender = defaults.objectForKey("gender") as! String
         self.validateStateUser()
-        
         //Genera el boton de la derecha que contiene el corazon que abre la lista de deseos
         btn1 = Utils.loadWishListButton(btn1, wishCount: wishCount)
         btn1.addTarget(self, action: #selector(ProfileViewController.openWishList), forControlEvents: .TouchUpInside)
@@ -72,6 +70,14 @@ class ProfileViewController: UIViewController {
             numberTF.userInteractionEnabled = false
             womenRadioButton.userInteractionEnabled = false
             menRadioButton.userInteractionEnabled = false
+            self.birthday = (defaults.objectForKey("birthday")as?String)!
+          
+            let df = NSDateFormatter()
+            df.dateFormat = "M/dd/yyyy"
+            let date = df.dateFromString(self.birthday)
+            if let unwrappedDate = date {
+                datePicker.setDate(unwrappedDate, animated: false)
+            }
             facebookBtn.addTarget(self, action: #selector(ProfileViewController.openFacebookProfile), forControlEvents: UIControlEvents.TouchUpInside)
             self.datePicker.userInteractionEnabled = false
         }
