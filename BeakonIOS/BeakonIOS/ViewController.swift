@@ -78,7 +78,7 @@ class ViewController: UIViewController
             userData.setValue(self.idFacebook, forKey: "id")
             userData.setValue(self.birthday, forKey: "birthday")
             let jsonData = try! NSJSONSerialization.dataWithJSONObject(userData, options: NSJSONWritingOptions())
-            let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as! String
+            _ = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as! String
     
             self.getUserByUsername(jsonData, username: strName, firstname: strFirstName, lastname: strLastName, gender:  strGender, id: self.idFacebook, email: strEmail, image: strPictureURL)
             
@@ -102,7 +102,7 @@ class ViewController: UIViewController
                     let response = JSON as! NSDictionary
                     var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {
                           user = response.objectForKey("user")! as! NSDictionary
                             if((user)["enable"] as! Bool == true)
@@ -199,7 +199,7 @@ class ViewController: UIViewController
                             let response = JSON as! NSDictionary
                             var user = JSON as! NSDictionary
                             //Si la respuesta no tiene status 404
-                            if((response)["status"] as! Int != 404)
+                            if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                             {
                                 //Obtiene solo el objeto user de la respuesta
                                 user = response.objectForKey("user")! as! NSDictionary

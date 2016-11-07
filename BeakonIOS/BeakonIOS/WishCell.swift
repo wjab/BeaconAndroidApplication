@@ -39,7 +39,7 @@ class WishCell: UITableViewCell {
     
     func deleteProductWish(){
         //user/wishlist/delete
-        let url : String = "http://buserdevel.cfapps.io/user/wishlist/delete"
+        let url : String = Constants.ws_services.user+"wishlist/delete"
         let idUser = (defaults.objectForKey("userId") as? String)!
         let name = wishProduct.productNamePropeties
         let id = wishProduct.productIdPropeties

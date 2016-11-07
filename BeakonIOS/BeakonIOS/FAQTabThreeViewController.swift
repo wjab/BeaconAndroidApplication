@@ -38,15 +38,13 @@ class FAQTabThreeViewController: UIViewController ,UITableViewDelegate, UITableV
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {
-                        print(response.objectForKey("status"))
                         let faqList = response.mutableArrayValueForKey("faq")
-                        for (index, element) in faqList.enumerate() {
+                        for (_, element) in faqList.enumerate() {
                             let faqObject = FAQ()
                             faqObject.questionPropeties = element.objectForKey("question") as! String
                             faqObject.answerPropeties = element.objectForKey("answer") as! String
-                            print(index)
                             self.array.append(faqObject)
                         }
                         self.table.reloadData()

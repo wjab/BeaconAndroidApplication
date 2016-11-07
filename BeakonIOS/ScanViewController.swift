@@ -36,10 +36,8 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         do {
             let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
             let input = try AVCaptureDeviceInput(device: captureDevice)
-            // Do the rest of your work...
             session.addInput(input)
         } catch let error as NSError {
-            // Handle any errors
             print(error)
         }
         
@@ -49,20 +47,16 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         identifiedBorder?.backgroundColor = UIColor.clearColor()
         identifiedBorder?.hidden = true;
         self.view.addSubview(identifiedBorder!)
-        
-        
-        /* Check for metadata */
         let output = AVCaptureMetadataOutput()
         session.addOutput(output)
         output.metadataObjectTypes = output.availableMetadataObjectTypes
-        //print(output.availableMetadataObjectTypes)
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         session.startRunning()
     }
     
     //Envio del request para obtener puntos mediante escaneo
     func requestScanCode(){
-        let url : String = "http://butilsdevel.cfapps.io/utils/savePointsByCode"
+        let url : String = Constants.ws_services.utils+"savePointsByCode"
         let idUser = (defaults.objectForKey("userId") as? String)!
         let newTodo = [
             "userId": idUser,
@@ -80,7 +74,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                     let response = JSON as! NSDictionary
                     var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404 && (response)["status"] as! Int != 400)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {
                         JLToast.makeText("Puntos obtenidos").show()
                         user = response.objectForKey("user")! as! NSDictionary
@@ -139,7 +133,6 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
     }
     
     func removeBorder() {
-        /* Remove the identified border */
         self.identifiedBorder?.hidden = true
     }
     

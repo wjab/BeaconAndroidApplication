@@ -94,7 +94,6 @@ class KonkatViewController: UIViewController
 
                 break
             default:
-                //print("Scan default")
                 registerBackgroundTask()
                 devicesManager.startDevicesDiscoveryWithInterval(intervalTimeSeg)
                 break
@@ -104,8 +103,6 @@ class KonkatViewController: UIViewController
     
     func getDataForBeacon(beacon: CLBeacon)
     {
-        //print("getDataForBeacon")
-        // Parameters
         let parameters = [
             "proximity": beacon.proximityUUID.UUIDString,
             "major": beacon.major,
@@ -134,7 +131,6 @@ class KonkatViewController: UIViewController
             if  let action = response?.objects?.first as? KTKAction where action.proximity == proximity,
                 let content = action.content where content.type == .Image
             {
-                // Download Image
                 content.downloadContentDataWithCompletion { data, error in
                     if let data = data, let image = UIImage(data: data)
                     {

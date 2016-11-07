@@ -103,9 +103,8 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                     let response = JSON as! NSDictionary
                      var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {
-                        print((response)["status"])
                         user = response.objectForKey("user")! as! NSDictionary
                         let productList = user.mutableArrayValueForKey("productWishList")
                         for (_, product) in productList.enumerate()

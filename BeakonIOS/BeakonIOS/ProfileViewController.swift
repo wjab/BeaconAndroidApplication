@@ -146,7 +146,7 @@ class ProfileViewController: UIViewController {
                             let response = JSON as! NSDictionary
                             var user = JSON as! NSDictionary
                             //Si la respuesta no tiene status 404
-                            if((response)["status"] as! Int != 404)
+                            if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                             {
                                 user = response.objectForKey("user")! as! NSDictionary
                                 //Obtiene solo el objeto user de la respuesta
