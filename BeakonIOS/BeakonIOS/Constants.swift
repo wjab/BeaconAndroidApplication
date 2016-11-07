@@ -120,4 +120,10 @@ struct Constants
         
         static let created_success_toast = "Creado con exito"
     }
+    
+    struct labels
+    {
+        static let priceColons = "₡%@"
+        static let pointsEquivalence = "¤%@"
+    }
 }

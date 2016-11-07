@@ -11,17 +11,20 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class DetailPromoViewController: UIViewController {
+class DetailPromoViewController: UIViewController
+{
     var wishCount = 1
     var toPass : Promo!
     var name : String! = "name"
     var image : String!
     var adress : String! = "adress"
+    var productPrice : String! = ""
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var shop: UILabel!
     @IBOutlet weak var imagePromo: UIImageView!
     @IBOutlet weak var nameShop: UILabel!
     @IBOutlet weak var adressShop: UILabel!
+    @IBOutlet weak var price : UILabel!
     @IBOutlet weak var descriptionPromo: UILabel!
     @IBOutlet weak var imageShop: UIImageView!
     @IBOutlet weak var sharePromo: UIButton!
@@ -49,7 +52,8 @@ class DetailPromoViewController: UIViewController {
         self.imagePromo.layer.insertSublayer(gradientLayerView.layer, atIndex: 0)
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-        self.service()
+        self.serviceMercantProfile()
+        self.serviceProductInfo()
         
         //branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
         sharePromo.addTarget(self, action: #selector(DetailPromoViewController.share), forControlEvents: .TouchUpInside)
@@ -89,7 +93,7 @@ class DetailPromoViewController: UIViewController {
     }
     
     func share(){
-        let activityViewController = UIActivityViewController(activityItems: [toPass.descriptionPromoPropeties+" en: "+name as NSString, imagePromo ], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [toPass.descriptionPromoPropeties+" en: " + name as NSString, imagePromo ], applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: {})
         
     }
@@ -137,6 +141,11 @@ class DetailPromoViewController: UIViewController {
         nameShop.text = name
         adressShop.text = adress
         
+        if(productPrice != nil && productPrice != "")
+        {
+            price.text = NSString(format : Constants.labels.priceColons , productPrice ) as String
+        }
+        
         let urlImageShop = NSURL(string: String(urlShop))
         let urlImagePromo = NSURL(string: String(url))
         
@@ -165,7 +174,7 @@ class DetailPromoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func service()
+    func serviceMercantProfile()
     {
         //Endpoint
         var url : String = Constants.ws_services.merchant
@@ -180,8 +189,9 @@ class DetailPromoViewController: UIViewController {
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
                     var shop = JSON as! NSDictionary
+                    
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! String != "404")
+                    if((response)["status"] as! String == Constants.ws_response_code.ok)
                     {
                         shop = response.objectForKey("merchantProfile")! as! NSDictionary
                         //obtiene la contraseña
@@ -199,6 +209,48 @@ class DetailPromoViewController: UIViewController {
                     print("Hubo un error realizando la peticion: \(error)")
                 }
         }
+    }
+    
+    func serviceProductInfo()
+    {
+        //Endpoint
+        let url : String = Constants.ws_services.utils + "product/getdata"
+        
+        let parameters = [
+            "merchantId" : "",
+            "productId" : "",
+            "promoId" : String(toPass.idPropeties)
+        ]
+        
+        //Crea el request
+        Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON)
+            .responseJSON
+            {
+                response in switch response.result
+                {
+                    //Si la respuesta es satisfactoria
+                    case .Success(let JSON):
+                        let response = JSON as! NSDictionary
+                        var product = JSON as! NSDictionary
+                        
+                        //Si la respuesta no tiene status 200
+                        if( String((response)["status"] as! Int) == Constants.ws_response_code.ok)
+                        {
+                            product = response.objectForKey("productData")! as! NSDictionary
+                            product = product.objectForKey("product")! as! NSDictionary
+                            
+                            //obtiene el precio
+                            self.productPrice = String((product)["price"] as! Int)
+                        }
+                        else
+                        {
+                            print("Problema al obtner datos del producto")
+                        }
+                        self.charge()
+                        case .Failure(let error):
+                            print("Hubo un error realizando la peticion: \(error)")
+                }
+            }
     }
 
 }
