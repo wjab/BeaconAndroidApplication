@@ -28,7 +28,7 @@ class FAQTabFourViewController: UIViewController ,UITableViewDelegate, UITableVi
     
     func service(){
         //Endpoint
-        let url : String = "http://bfaqdevel.cfapps.io/faq/section/Test/"
+        let url : String = Constants.ws_services.faq+"section/Test/"
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON

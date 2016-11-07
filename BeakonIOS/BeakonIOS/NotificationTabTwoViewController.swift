@@ -30,7 +30,7 @@ class NotificationTabTwoViewController: UIViewController , UITableViewDelegate, 
         let defaults = NSUserDefaults.standardUserDefaults()
         let userId = defaults.objectForKey("userId") as? String
         //Endpoint
-        let url : String = "http://butilsdevel.cfapps.io/notification/all/"+userId!
+        let url : String = Constants.ws_services.notification+userId!
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON

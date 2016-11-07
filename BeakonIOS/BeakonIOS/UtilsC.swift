@@ -52,7 +52,7 @@ class UtilsC: UIViewController {
         
             let userId = defaults.objectForKey("userId") as? String
             //Endpoint
-            let url : String = "http://butilsdevel.cfapps.io/notification/userId/"+userId!
+            let url : String = Constants.ws_services.notification+"userId/"+userId!
             //Crea el request
             Alamofire.request(.GET, url, encoding: .JSON)
                 .responseJSON
@@ -108,7 +108,7 @@ class UtilsC: UIViewController {
     
     func addWishList(wishProduct:Product)
     {
-        let url : String = "http://buserdevel.cfapps.io/user/wishlist/add"
+        let url : String = Constants.ws_services.user+"wishlist/add"
         let idUser = (defaults.objectForKey("userId") as? String)!
         let name = wishProduct.productNamePropeties
         let id = wishProduct.productIdPropeties
@@ -214,7 +214,7 @@ class UtilsC: UIViewController {
             "promoId": id
         ]
 
-        let url = "http://butilsdevel.cfapps.io/utils/savePoints"
+        let url = Constants.ws_services.utils+"savePoints"
         //Crea el request
         Alamofire.request(.POST, url, parameters: newTodo, encoding: .JSON)
             .responseJSON

@@ -27,7 +27,7 @@ class FAQTabTwoViewController: UIViewController ,UITableViewDelegate, UITableVie
     
     func service(){
         //Endpoint
-        let url : String = "http://bfaqdevel.cfapps.io/faq/section/sesion/"
+        let url : String = Constants.ws_services.faq+"section/sesion/"
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON

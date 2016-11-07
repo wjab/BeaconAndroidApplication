@@ -150,7 +150,7 @@ class PointsTabOneViewController: UIViewController {
     func service()
     {
         let points:Int? = Int(self.pointsL.text!)
-        let url : String = "http://butilsdevel.cfapps.io/utils/exchangePoints"
+        let url : String = Constants.ws_services.utils+"exchangePoints"
         //Crea el request
         let newTodo : [String : AnyObject] =
             [

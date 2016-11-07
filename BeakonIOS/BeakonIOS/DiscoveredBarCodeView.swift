@@ -2,14 +2,6 @@
 //  DiscoveredBarCodeView.swift
 //  BeakonIOS
 //
-//  Created by Christopher on 10/12/16.
-//  Copyright © 2016 CentauroSolutions. All rights reserved.
-//
-
-//
-//  DiscoveredBarCodeView.swift
-//  BeakonIOS
-//
 //  Created by Alejandra on 10/11/16.
 //  Copyright © 2016 CentauroSolutions. All rights reserved.
 //

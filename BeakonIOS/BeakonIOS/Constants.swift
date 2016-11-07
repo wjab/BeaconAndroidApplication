@@ -29,13 +29,15 @@ struct Constants
         static let productsAll = "http://bmerchantprofiledevel.cfapps.io/merchantbusinesstype/all"
         static let productsCategory = "http://bmerchantprofiledevel.cfapps.io/merchantprofile/allproducts/"
         static let promo = "http://bpromodevel.cfapps.io/promo"
-        
+        static let notification = "http://butilsdevel.cfapps.io/notification/"
+        static let faq = "http://bfaqdevel.cfapps.io/faq/"
     }
     struct general
     {
         static let kontakt_api_key = "ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc"
         static let content_type_json = "application/json"
         static let header_accept = "application/vnd.com.kontakt+json;version=8"
+        static let fieldsFacebook = "email, name, gender, id, first_name, last_name, picture.type(large), birthday"
     }
     struct info_messages
     {

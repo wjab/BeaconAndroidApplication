@@ -81,7 +81,7 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
     }
     func serviceUpdateNotification(let idUserNotification:String){
         //Endpoint
-        let url : String = "http://butilsdevel.cfapps.io/notification/"+idUserNotification
+        let url : String = Constants.ws_services.notification+idUserNotification
         //Crea el request
         Alamofire.request(.PUT, url, encoding: .JSON)
             .responseJSON
