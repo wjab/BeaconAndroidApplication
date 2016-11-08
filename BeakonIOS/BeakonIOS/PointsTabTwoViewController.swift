@@ -153,9 +153,7 @@ class PointsTabTwoViewController: UIViewController {
                             secondViewController.code = self.code
                             secondViewController.message = self.message
                             secondViewController.expiration = self.dateSend
-                           
-                            self.navigationController?.pushViewController(secondViewController, animated: true)
-
+                           self.navigationController?.pushViewController(secondViewController, animated: true)
                         }
                         else if((response)["message"] as! String == "La cantidad de puntos no supera el minimo requerido")
                         {

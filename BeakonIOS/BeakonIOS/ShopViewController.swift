@@ -114,7 +114,7 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de tiendas")
+                        print(Constants.error_messages.error_shop)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")

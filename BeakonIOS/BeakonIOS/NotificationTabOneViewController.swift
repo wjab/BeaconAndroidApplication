@@ -41,7 +41,6 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     self.notificationArray.removeAll()
-                    print("Count remove "+String(self.notificationArray.count))
                     if((response)["status"] as! String != "404")
                     {
                         let notificationList = response.mutableArrayValueForKey("notificationResult")
@@ -55,12 +54,11 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                             notificationObject.creationDatePropeties = element.objectForKey("creationDate") as! Float
                             self.notificationArray.append(notificationObject)
                         }
-                          print("Count "+String(self.notificationArray.count))
                         self.table.reloadData()
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de notificaciones")
+                        print(Constants.error_messages.error_notification)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
@@ -79,6 +77,7 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
         cell.textLabel!.font = UIFont.systemFontOfSize(10.0)
         return cell
     }
+    
     func serviceUpdateNotification(let idUserNotification:String){
         //Endpoint
         let url : String = Constants.ws_services.notification+idUserNotification

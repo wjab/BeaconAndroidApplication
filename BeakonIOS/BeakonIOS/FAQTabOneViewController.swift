@@ -51,7 +51,7 @@ class FAQTabOneViewController: UIViewController ,UITableViewDelegate, UITableVie
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de notificaciones")
+                        print(Constants.error_messages.error_faq)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")

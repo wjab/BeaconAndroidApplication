@@ -29,7 +29,6 @@ class WishCell: UITableViewCell {
             self.productImage.image = image
             }, failure: { (error) -> Void in
                 self.productImage.image = UIImage(named: "image_not_found")
-                
         })
         pointsByPrice.text = String(product.pointsByPricePropeties)
         productImage.hnk_setImageFromURL(url!)
@@ -90,7 +89,7 @@ class WishCell: UITableViewCell {
                         NSNotificationCenter.defaultCenter().postNotificationName("loadDepartment", object: nil)
                         NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
                         self.utils.refreshDatas()
-                        JLToast.makeText("Eliminado correctamente").show()
+                        JLToast.makeText(Constants.info_messages.delete_wish).show()
                     }
                     else
                     {

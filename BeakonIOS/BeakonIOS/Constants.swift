@@ -42,6 +42,8 @@ struct Constants
     struct info_messages
     {
         static let beacon_not_belongs_to_promo = "El Beacon no esta asociado a ninguna promocion"
+        static let user_update  = "El usuario se ha actualizado correctamente"
+        static let delete_wish = "Eliminado correctamente"
     }
     struct error_messages
     {
@@ -55,6 +57,14 @@ struct Constants
         static let error_getting_min_points = "Hubo un error obteniendo los puntos minimos"
         static let error_request_give_points = "Hubo un error solicitando regalar los puntos"
         static let error_not_enough_points_to_give = "No tiene los suficientes puntos para regalar esa cantidad"
+        static let error_faq = "Hubo un error obteniendo los datos de preguntas frecuentes"
+        static let error_notification = "Hubo un error obteniendo los datos de notificaciones"
+        static let error_promo = "Hubo un error obteniendo los datos de promociones"
+        static let error_category = "Hubo un error obteniendo los datos de categorias"
+        static let error_shop = "Hubo un error obteniendo los datos de tiendas"
+        static let error_wish_list = "Hubo un error obteniendo los datos de lista de deseos"
+        static let error_history = "Hubo un error obteniendo los datos del historial"
+        static let error_update_user = "El usuario no se ha actualizado correctamente"
     }
     struct colors
     {

@@ -73,7 +73,7 @@ class PromoViewController: UIViewController , UITableViewDelegate, UITableViewDa
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de promociones")
+                        print(Constants.error_messages.error_promo)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")

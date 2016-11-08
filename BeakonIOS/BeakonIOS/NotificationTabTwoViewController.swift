@@ -30,7 +30,7 @@ class NotificationTabTwoViewController: UIViewController , UITableViewDelegate, 
         let defaults = NSUserDefaults.standardUserDefaults()
         let userId = defaults.objectForKey("userId") as? String
         //Endpoint
-        let url : String = Constants.ws_services.notification+userId!
+        let url : String = "http://butilsdevel.cfapps.io/notification/all/"+userId!
         //Crea el request
         Alamofire.request(.GET, url, encoding: .JSON)
             .responseJSON
@@ -43,11 +43,9 @@ class NotificationTabTwoViewController: UIViewController , UITableViewDelegate, 
                     //Si la respuesta no tiene status 404
                     if((response)["status"] as! String != "404")
                     {
-                        print(response.objectForKey("status"))
                         let notificationList = response.mutableArrayValueForKey("notificationResult")
                         for (_, element) in notificationList.enumerate() {
                             let notificationObject = Notification()
-                            
                             notificationObject.idPropeties = element.objectForKey("id") as! String
                             notificationObject.messagePropeties = element.objectForKey("message") as! String
                             notificationObject.userIdPropeties = element.objectForKey("userId") as! String
@@ -60,7 +58,7 @@ class NotificationTabTwoViewController: UIViewController , UITableViewDelegate, 
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de notificaciones")
+                        print(Constants.error_messages.error_notification)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")

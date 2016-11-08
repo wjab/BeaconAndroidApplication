@@ -128,7 +128,7 @@ class DetailCategoryViewController: UIViewController, UICollectionViewDataSource
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de la categoria", self.categoryName)
+                        print(Constants.error_messages.error_category, self.categoryName)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")

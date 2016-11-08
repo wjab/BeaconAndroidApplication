@@ -7,8 +7,6 @@
 //
 
 import UIKit
-
-
 class FAQTabViewController: UITabBarController {
 
     @IBOutlet weak var tabBarFaq: UITabBar!
@@ -47,10 +45,8 @@ class FAQTabViewController: UITabBarController {
         let myView = Utils.createPointsView(points, activateEvents: true)
         let gesture = UITapGestureRecognizer(target : self, action: #selector(FAQTabViewController.clickOnButton))
         myView.addGestureRecognizer(gesture)
-        
         self.navigationItem.titleView = myView
-        
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FAQTabViewController.refreshWishCount),name:"refreshWishCountFaq", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FAQTabViewController.refreshWishCount),name:"refreshWishCountFaq", object: nil)
     }
     
     //Refresca el contador
@@ -78,16 +74,4 @@ class FAQTabViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

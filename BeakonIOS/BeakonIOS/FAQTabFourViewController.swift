@@ -52,7 +52,7 @@ class FAQTabFourViewController: UIViewController ,UITableViewDelegate, UITableVi
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de preguntas frecuentes")
+                        print(Constants.error_messages.error_faq)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")

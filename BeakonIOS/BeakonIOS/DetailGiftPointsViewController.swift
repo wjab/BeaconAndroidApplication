@@ -23,6 +23,8 @@ class DetailGiftPointsViewController: UIViewController {
         self.messageL.text = self.message
         self.date.text = String(self.expiration)
         share.addTarget(self, action: #selector(DetailGiftPointsViewController.shareCode), forControlEvents: .TouchUpInside)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshPoints", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshPointsHome", object: nil)
     }
     
   override func didReceiveMemoryWarning() {
@@ -36,14 +38,5 @@ class DetailGiftPointsViewController: UIViewController {
         presentViewController(activityViewController, animated: true, completion: {})
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

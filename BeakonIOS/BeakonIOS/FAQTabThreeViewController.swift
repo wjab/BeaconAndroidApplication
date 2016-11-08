@@ -51,7 +51,7 @@ class FAQTabThreeViewController: UIViewController ,UITableViewDelegate, UITableV
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de preguntas frecuentes")
+                        print(Constants.error_messages.error_faq)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
@@ -70,6 +70,7 @@ class FAQTabThreeViewController: UIViewController ,UITableViewDelegate, UITableV
         cell.textLabel!.font = UIFont.systemFontOfSize(10.0)
         return cell
     }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row
         let messageData = self.array[self.actualyArrayIndex].answerPropeties

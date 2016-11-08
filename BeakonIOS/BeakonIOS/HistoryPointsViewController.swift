@@ -132,7 +132,7 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
                         }
                         else
                         {
-                            print("Hubo un error obteniendo los datos de lista de deseos")
+                            print(Constants.error_messages.error_history)
                         }
                     case .Failure(let error):
                         print("Hubo un error realizando la peticion: \(error)")

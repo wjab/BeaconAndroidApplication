@@ -155,11 +155,11 @@ class ProfileViewController: UIViewController {
                                 self.defaults.setObject((user)["name"] as! String, forKey: "name")
                                 self.defaults.setObject((user)["lastName"] as! String, forKey: "lastname")
                                 print(self.defaults.objectForKey("gender") as! String)
-                                 JLToast.makeText("El usuario se ha actualizado correctamente").show()
+                                 JLToast.makeText(Constants.info_messages.user_update).show()
                             }
                             else
                             {
-                                JLToast.makeText("El usuario no se ha actualizado correctamente").show()
+                                JLToast.makeText(Constants.error_messages.error_update_user).show()
                             }
                         case .Failure(let error):
                             print("Hubo un error realizando la peticion: \(error)")

@@ -81,7 +81,6 @@ class PointsTabOneViewController: UIViewController {
         self.userId = defaults.objectForKey("userId") as! String
         self.pointsUser = defaults.objectForKey("points") as! Int
         messageL.text = Constants.messages.availablePointsMessage(String(self.pointsUser), minimum: String(self.pointsMinium), message: "redimir");
-        
     }
     
     func obtainMiniumPoints(){
@@ -101,7 +100,6 @@ class PointsTabOneViewController: UIViewController {
                     {
                         self.pointsMinium = response.objectForKey("minPoints") as! Int
                         self.chargeData()
-                        
                     }
                     else
                     {

@@ -40,9 +40,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         } catch let error as NSError {
             print(error)
         }
-        
         addPreviewLayer()
-        
         identifiedBorder = DiscoveredBarCodeView(frame: self.view.bounds)
         identifiedBorder?.backgroundColor = UIColor.clearColor()
         identifiedBorder?.hidden = true;
@@ -63,7 +61,6 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             "merchantId": shopId,
             "code": code
         ]
-        print("userId "+idUser+" merchantId "+shopId+" code "+code)
         Alamofire.request(.POST, url, parameters: newTodo, encoding: .JSON)
             .responseJSON
             {
@@ -122,7 +119,6 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         
         return translatedPoints
     }
-    
     
     func startTimer() {
         if timer?.valid != true {

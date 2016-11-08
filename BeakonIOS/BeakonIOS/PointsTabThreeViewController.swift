@@ -57,7 +57,7 @@ class PointsTabThreeViewController: UIViewController {
                 }
         }
     }
-    //D347E244 149
+ 
     func service()
     {
         let url : String = Constants.ws_services.utils+"redeemPoints"
@@ -80,8 +80,7 @@ class PointsTabThreeViewController: UIViewController {
                         //Si la respuesta no tiene status 404
                         if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                         {
-                        
-                                pointsObject = response.objectForKey("pointsData")! as! NSDictionary
+                            pointsObject = response.objectForKey("pointsData")! as! NSDictionary
                                 let points = (pointsObject)["points"] as! Int
                                 //self.expirationDate = (pointsObject)["expirationDate"] as Float
                                 JLToast.makeText(Constants.messages.exchangedPointsMessage(String(points))).show()

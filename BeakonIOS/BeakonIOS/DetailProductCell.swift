@@ -24,7 +24,6 @@ class DetailProductCell: UICollectionViewCell {
     
     internal func configure(name: String, urlImageProduct: String, product: Product)
     {
-        //nameL.text = name
         self.product = product
         price.text = "¢"+String(product.pricePropeties)
         points.text = "¤"+String(product.pointsByPricePropeties)

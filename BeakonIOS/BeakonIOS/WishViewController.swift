@@ -23,8 +23,6 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = ""
-            
-        //  addSlideMenuButton()
         self.idUser = (defaults.objectForKey("userId") as? String)!
         service()
         table.delegate = self
@@ -121,7 +119,7 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                     }
                     else
                     {
-                        print("Hubo un error obteniendo los datos de lista de deseos")
+                        print(Constants.error_messages.error_wish_list)
                     }
                 case .Failure(let error):
                     print("Hubo un error realizando la peticion: \(error)")
@@ -144,11 +142,6 @@ class WishViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.actualyArrayIndex = indexPath.row
-       // let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("DetailPromoViewController") as! DetailPromoViewController
-       // secondViewController.toPass = self.wishArray[self.actualyArrayIndex]
-       // self.navigationController?.pushViewController(secondViewController, animated: true)
-        
-        
     }
 
   

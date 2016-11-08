@@ -9,8 +9,6 @@
 import UIKit
 import Haneke
 
-
-
 class PromoCell: UITableViewCell {
     @IBOutlet weak var promoImage: UIImageView!
     @IBOutlet weak var nameL: UILabel!

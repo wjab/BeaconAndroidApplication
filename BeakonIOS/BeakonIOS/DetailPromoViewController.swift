@@ -244,7 +244,7 @@ class DetailPromoViewController: UIViewController
                         else
                         {
                             print((response)["message"]as!String)
-                            print("Problema al obtner datos del producto")
+                            print("Problema al obtener datos del producto")
                         }
                         self.charge()
                         case .Failure(let error):

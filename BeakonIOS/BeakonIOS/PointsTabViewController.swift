@@ -42,12 +42,9 @@ class PointsTabViewController: UITabBarController {
         let myView = Utils.createPointsView(points, activateEvents: true)
         let gesture = UITapGestureRecognizer(target : self, action: #selector(PointsTabViewController.clickOnButton))
         myView.addGestureRecognizer(gesture)
-        
         self.navigationItem.titleView = myView
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshPoints(_:)),name:"refreshPoints", object: nil)
-                
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshWishCount),name:"refreshWishCountPoints", object: nil)
+       NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PointsTabViewController.refreshWishCount),name:"refreshWishCountPoints", object: nil)
     }
     
     func refreshWishCount(){
@@ -81,16 +78,4 @@ class PointsTabViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
