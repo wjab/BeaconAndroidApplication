@@ -45,6 +45,13 @@ struct Constants
         static let beacon_not_belongs_to_promo = "El Beacon no esta asociado a ninguna promocion"
         static let user_update  = "El usuario se ha actualizado correctamente"
         static let delete_wish = "Eliminado correctamente"
+        static let email_invalid = "Correo invalido"
+        static let all_data = "Favor ingrese todos los datos"
+        static let register_user = "El usuario no se encuentra registrado"
+        static let problem_register_user = "El usuario no se ha registrado correctamente"
+        static let incorrect_password = "Contraseña incorrecta"
+        static let disable_user = "El usuario se encuentra desactivado"
+        static let disable_social_network = "El usuario no se encuentra asociado a una red social"
     }
     struct error_messages
     {

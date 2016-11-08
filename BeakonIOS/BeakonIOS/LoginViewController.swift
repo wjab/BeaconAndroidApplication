@@ -124,37 +124,33 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
                                     }
                                     else
                                     {
-                                        print("Usuario desactivado")
-                                        JLToast.makeText("El usuario se encuentra desactivado").show()
+                                        JLToast.makeText(Constants.info_messages.disable_user).show()
                                     }
                                     
                                 }
                                 else
                                 {
-                                    print("Contraseña incorrecta")
-                                    JLToast.makeText("Contraseña incorrecta").show()
+                                    JLToast.makeText(Constants.info_messages.incorrect_password).show()
                                 }
                             }
                                 //Si el status de la respuesta es 404 el usuario no esta registrado
                             else
                             {
-                                print("El usuario no se encuentra registrado")
-                                JLToast.makeText("El usuario no se encuentra registrado").show()
+                                JLToast.makeText(Constants.info_messages.register_user).show()
                             }
                         case .Failure(let error):
-                            print("Hubo un error realizando la peticion: \(error)")
-                            JLToast.makeText("Hubo un error realizando la petición").show()
+                            JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                         }
                     }
                 }
                 else
                 {
-                    JLToast.makeText("El correo es invalido").show()
+                    JLToast.makeText(Constants.info_messages.email_invalid).show()
                 }
             }
             else
             {
-                JLToast.makeText("Favor ingrese todos los datos").show()
+                JLToast.makeText(Constants.info_messages.all_data).show()
             }
         }
 

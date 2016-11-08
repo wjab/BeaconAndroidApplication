@@ -158,7 +158,6 @@ class PointsTabTwoViewController: UIViewController {
                         else if((response)["message"] as! String == "La cantidad de puntos no supera el minimo requerido")
                         {
                              JLToast.makeText(String((response)["message"])).show()
-                            
                         }
                     }
                     else

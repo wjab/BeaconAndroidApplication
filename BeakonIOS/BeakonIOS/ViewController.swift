@@ -137,14 +137,12 @@ class ViewController: UIViewController
                                 }
                                 else
                                 {
-                                    print("Usuario no asociado a una red social")
-                                    JLToast.makeText("El usuario no se encuentra asociado a una red social").show()
+                                    JLToast.makeText(Constants.info_messages.disable_social_network).show()
                                 }
                             }
                             else
                             {
-                                print("Usuario desactivado")
-                                JLToast.makeText("El usuario se encuentra desactivado").show()
+                                JLToast.makeText(Constants.info_messages.disable_user).show()
                             }
                             
                         }
@@ -155,8 +153,7 @@ class ViewController: UIViewController
                     }
     
                 case .Failure(let error):
-                    print("Hubo un error realizando la peticion: \(error)")
-                    JLToast.makeText("Hubo un error realizando la petición").show()
+                    JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                 }
         }
  
@@ -228,12 +225,10 @@ class ViewController: UIViewController
                             }
                             else
                             {
-                                print("El usuario no se ha registrado correctamente")
-                                JLToast.makeText("El usuario no se ha registrado correctamente").show()
+                                JLToast.makeText(Constants.info_messages.problem_register_user).show()
                             }
                         case .Failure(let error):
-                            print("Hubo un error realizando la peticion: \(error)")
-                            JLToast.makeText("Hubo un error realizando la petición").show()
+                            JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                         }
         }
 

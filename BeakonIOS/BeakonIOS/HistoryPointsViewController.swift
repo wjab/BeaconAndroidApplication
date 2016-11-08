@@ -101,8 +101,6 @@ class HistoryPointsViewController:  UIViewController, UITableViewDelegate, UITab
                         //Si la respuesta no tiene status 404
                         if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                         {
-                            print((response)["status"])
-                            
                             let productList = response.mutableArrayValueForKey("pointsData")
                             for (_, history) in productList.enumerate()
                             {

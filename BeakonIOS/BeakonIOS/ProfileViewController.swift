@@ -162,14 +162,13 @@ class ProfileViewController: UIViewController {
                                 JLToast.makeText(Constants.error_messages.error_update_user).show()
                             }
                         case .Failure(let error):
-                            print("Hubo un error realizando la peticion: \(error)")
-                            JLToast.makeText("Hubo un error realizando la petición").show()
+                            JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                         }
                 }
         }
         else
         {
-            JLToast.makeText("Favor ingresar todos los datos").show()
+            JLToast.makeText(Constants.info_messages.all_data).show()
         }
     }
     

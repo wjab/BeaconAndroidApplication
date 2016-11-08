@@ -90,24 +90,21 @@ class RegisterViewController: UIViewController
                         }
                         else
                         {
-                            print("El usuario no se ha registrado correctamente")
-                            JLToast.makeText("El usuario no se ha registrado correctamente").show()
+                            JLToast.makeText(Constants.info_messages.problem_register_user).show()
                         }
                     case .Failure(let error):
-                        print("Hubo un error realizando la peticion: \(error)")
-                        JLToast.makeText("Hubo un error realizando la petición").show()
+                        JLToast.makeText(Constants.error_messages.call_to_ws_toast).show()
                     }
             }
 
         }
        else{
-            print("Email invalido")
-            JLToast.makeText("Email invalido").show()
+            JLToast.makeText(Constants.info_messages.email_invalid).show()
         }
         }
         else
         {
-             JLToast.makeText("Favor ingresar todos los datos").show()
+             JLToast.makeText(Constants.info_messages.all_data).show()
         }
     }
 
