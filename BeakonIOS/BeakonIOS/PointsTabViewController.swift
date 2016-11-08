@@ -52,11 +52,15 @@ class PointsTabViewController: UITabBarController {
         self.wishCount = defaults.objectForKey("wishCount")as!Int
         btn1.setTitle(String(self.wishCount), forState: .Normal)
     }
+    
     func refreshPoints(notification: NSNotification){
         //load data here
         let defaults = NSUserDefaults.standardUserDefaults()
         let points = defaults.objectForKey("points") as! Int
-        self.button.setTitle(String(points), forState: UIControlState.Normal)
+        let myView = Utils.createPointsView(points, activateEvents: true)
+        let gesture = UITapGestureRecognizer(target : self, action: #selector(PointsTabViewController.clickOnButton))
+        myView.addGestureRecognizer(gesture)
+        self.navigationItem.titleView = myView
     }
     //Abre el menu
     func openMenu(){

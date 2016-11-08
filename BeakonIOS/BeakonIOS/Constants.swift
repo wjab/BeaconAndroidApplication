@@ -32,6 +32,7 @@ struct Constants
         static let notification = "http://butilsdevel.cfapps.io/notification/"
         static let faq = "http://bfaqdevel.cfapps.io/faq/"
     }
+    
     struct general
     {
         static let kontakt_api_key = "ZtLtzUwyFjUFGlwjSxHoKsDKmyqjXNLc"

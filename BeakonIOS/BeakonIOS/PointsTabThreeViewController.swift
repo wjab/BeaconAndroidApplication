@@ -15,9 +15,10 @@ class PointsTabThreeViewController: UIViewController {
     var code = ""
     @IBOutlet weak var codeL: UITextField!
     @IBOutlet weak var butonAction: UIButton!
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults = NSUserDefaults.standardUserDefaults()
         self.userId = defaults.objectForKey("userId") as! String
         butonAction.addTarget(self, action: #selector(PointsTabThreeViewController.service), forControlEvents: .TouchUpInside)
     }
@@ -40,7 +41,7 @@ class PointsTabThreeViewController: UIViewController {
                     let response = JSON as! NSDictionary
                     var user = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! Int != 404)
+                    if(String((response)["status"] as! Int) == Constants.ws_response_code.ok)
                     {   user = response.objectForKey("user")! as! NSDictionary
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject((user)["totalGiftPoints"] as! Int, forKey: "points")
