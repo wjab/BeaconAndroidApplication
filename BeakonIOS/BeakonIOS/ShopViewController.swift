@@ -45,7 +45,7 @@ class ShopViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! String != "404")
+                    if((response)["status"] as! String == Constants.ws_response_code.ok)
                     {
                         let shopList = response.mutableArrayValueForKey("merchantProfile")
                         for (_, shop) in shopList.enumerate()

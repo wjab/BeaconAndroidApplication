@@ -43,7 +43,7 @@ class ProductViewController: UIViewController , UITableViewDelegate, UITableView
                 case .Success(let JSON):
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
-                    if((response)["status"] as! String != "404")
+                    if((response)["status"] as! String == Constants.ws_response_code.ok)
                     {
                         let categoryList = response.mutableArrayValueForKey("merchantBusinessTypeResult")
                         for (_, element) in categoryList.enumerate() {

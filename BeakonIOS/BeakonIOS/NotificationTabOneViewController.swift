@@ -41,7 +41,7 @@ class NotificationTabOneViewController: UIViewController , UITableViewDelegate, 
                     let response = JSON as! NSDictionary
                     //Si la respuesta no tiene status 404
                     self.notificationArray.removeAll()
-                    if((response)["status"] as! String != "404")
+                    if((response)["status"] as! String == Constants.ws_response_code.ok)
                     {
                         let notificationList = response.mutableArrayValueForKey("notificationResult")
                         for (_, element) in notificationList.enumerate() {
