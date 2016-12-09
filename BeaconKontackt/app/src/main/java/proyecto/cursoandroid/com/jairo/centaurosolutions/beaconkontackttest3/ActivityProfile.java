@@ -31,6 +31,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +41,9 @@ import java.util.List;
 import java.util.Map;
 
 import controllers.ServiceController;
+import proyecto.cursoandroid.com.jairo.centaurosolutions.beaconkontackttest3.Entities.Preference;
 import utils.NonStaticUtils;
+import utils.Utils;
 
 
 public class ActivityProfile extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
@@ -70,8 +73,10 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         nonStaticUtils = new NonStaticUtils();
         preferences = nonStaticUtils.loadLoginInfo(this);
+
         mpoints = String.valueOf(preferences.getInt("points", 0));
         ServiceController imageRequest = new ServiceController();
         userAcumulatedPoints = String.format(getString(R.string.totalPointsLabel), mpoints);
@@ -125,6 +130,7 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                 showDialog(999);
             }
         });
+
         updateInfo.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
             @Override
@@ -132,7 +138,10 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                 if (isFacebook) {
                     getFacebookIntent();
                 }
-
+                else
+                {
+                    updateUserLocalData();
+                }
             }
         });
         pointsAction.setText(userAcumulatedPoints.toString());
@@ -313,7 +322,10 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
     }
 
     @Override
-    public void onResponse(JSONObject response) {
+    public void onResponse(JSONObject response)
+    {
+        boolean femaleGender = false;
+
         try {
             Log.d("Response", response.toString());
             response = response.getJSONObject("user");
@@ -334,6 +346,7 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                         editLastName.setText(response.getString("lastName"));
                         editEmail.setText(response.getString("email"));
                         editPhone.setText(response.getString("phone"));
+
                         try {
                             if (!response.getString("creationDate").isEmpty()) {
                                 Date date = new Date(Long.parseLong(response.getString("creationDate")));
@@ -344,6 +357,14 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
                                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                                 showDate(formatDate(year, month, day));
                             }
+                            if(!response.getString("gender").isEmpty())
+                            {
+                                femaleGender = response.getString("gender").equals("female") ? true : false;
+                            }
+
+                            female.setChecked(femaleGender);
+                            male.setChecked(!femaleGender);
+
                         } catch (Exception e) {
                             calendar = Calendar.getInstance();
                             year = calendar.get(Calendar.YEAR);
@@ -378,4 +399,22 @@ public class ActivityProfile extends AppCompatActivity implements Response.Liste
         super.onBackPressed();
     }
 
+    public void updateUserLocalData()
+    {
+        serviceController = new ServiceController();
+        String url = getString(R.string.WebService_User) + "user/" + idUser;
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("name", editName.getText().toString());
+        userMap.put("lastName", editLastName.getText().toString());
+        userMap.put("phone", editPhone.getText().toString());
+        userMap.put("creationDate", Utils.convertLongToDate(new Date().getTime()));
+        userMap.put("modifiedDate", Utils.convertLongToDate(new Date().getTime()));
+        userMap.put("gender", (male.isChecked() ? "male" : "female"));
+        userMap.put("pathImage", preferences.getString("pathImage", "") );
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+
+        serviceController.jsonObjectRequest(url, Request.Method.PUT, userMap, map, response, responseError);
+    }
 }
